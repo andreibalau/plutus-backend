@@ -1,5 +1,7 @@
 package com.finance.plutus.controller.user;
 
+import com.finance.plutus.model.user.dto.EmailExistenceCheckDto;
+import com.finance.plutus.model.user.dto.EmailExistenceDto;
 import com.finance.plutus.model.user.dto.LoggedUserDto;
 import com.finance.plutus.model.user.dto.RegistrationDto;
 import com.finance.plutus.service.user.UserService;
@@ -33,9 +35,14 @@ public class UserController {
 	}
 
 	@ResponseStatus(CREATED)
-	@PostMapping("/")
+	@PostMapping("/register")
 	public void register(@Valid @RequestBody RegistrationDto registrationDto) {
 		userService.register(registrationDto);
+	}
+
+	@PostMapping("/register/email")
+	public EmailExistenceDto existsEmail(@RequestBody EmailExistenceCheckDto emailExistenceCheckDto) {
+		return new EmailExistenceDto(userService.existsEmail(emailExistenceCheckDto.getEmail()));
 	}
 
 }
