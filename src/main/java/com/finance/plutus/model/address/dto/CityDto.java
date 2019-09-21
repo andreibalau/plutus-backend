@@ -1,7 +1,9 @@
 package com.finance.plutus.model.address.dto;
 
 import com.finance.plutus.model.address.City;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
@@ -13,6 +15,8 @@ import javax.validation.constraints.NotNull;
  */
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class CityDto {
 	@NotNull
 	private Long id;
@@ -25,5 +29,9 @@ public class CityDto {
 				.id(id)
 				.name(name)
 				.build();
+	}
+
+	public static CityDto from(City city) {
+		return new CityDto(city.getId(), city.getName());
 	}
 }

@@ -1,7 +1,9 @@
 package com.finance.plutus.model.address.dto;
 
 import com.finance.plutus.model.address.County;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
@@ -13,6 +15,8 @@ import javax.validation.constraints.NotNull;
  */
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class CountyDto {
 	@NotNull
 	private Long id;
@@ -28,5 +32,9 @@ public class CountyDto {
 				.name(name)
 				.abbrev(abbrev)
 				.build();
+	}
+
+	public static CountyDto from(County county) {
+		return new CountyDto(county.getId(), county.getName(), county.getAbbrev());
 	}
 }
