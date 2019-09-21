@@ -1,10 +1,14 @@
 package com.finance.plutus.service.partner.impl;
 
 import com.finance.plutus.model.partner.dto.CreatePartnerDto;
+import com.finance.plutus.model.partner.dto.PartnerDto;
 import com.finance.plutus.service.partner.CreatePartner;
+import com.finance.plutus.service.partner.FindPartner;
 import com.finance.plutus.service.partner.PartnerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * Plutus
@@ -15,9 +19,15 @@ import org.springframework.stereotype.Service;
 public class PartnerServiceImpl implements PartnerService {
 
 	private final CreatePartner createPartner;
+	private final FindPartner findPartner;
 
 	@Override
 	public void create(CreatePartnerDto createPartnerDto) {
 		createPartner.create(createPartnerDto);
+	}
+
+	@Override
+	public List<PartnerDto> find() {
+		return findPartner.find();
 	}
 }
