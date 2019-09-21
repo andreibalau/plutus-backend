@@ -1,6 +1,7 @@
 package com.finance.plutus.model.user;
 
 import com.finance.plutus.model.address.Address;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -20,12 +21,14 @@ import javax.persistence.Version;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.util.Collections;
 import java.util.Set;
 
 /**
  * Plutus
  * Created by catalin on 21.09.2019
  */
+@Builder
 @Getter
 @Setter
 @NoArgsConstructor
@@ -50,7 +53,8 @@ public class User {
 	@ElementCollection(targetClass = Role.class)
 	@CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
 	@Enumerated(EnumType.STRING)
-	private Set<Role> roles;
+	@Builder.Default
+	private Set<Role> roles = Collections.singleton(Role.ADMIN);
 	@NotBlank
 	@Column(nullable = false)
 	private String firstName;
@@ -61,7 +65,7 @@ public class User {
 	@JoinTable(name = "user_address",
 			joinColumns = {@JoinColumn(name = "user_id")},
 			inverseJoinColumns = {@JoinColumn(name = "address_id")})
-	private Set<Address> address;
+	private Set<Address> addresses;
 	@NotNull
 	@Column(nullable = false)
 	private Long createdOn;
