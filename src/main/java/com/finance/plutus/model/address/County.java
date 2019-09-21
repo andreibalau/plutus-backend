@@ -1,5 +1,6 @@
 package com.finance.plutus.model.address;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -18,6 +19,7 @@ import javax.validation.constraints.NotNull;
  * Plutus
  * Created by catalin on 21.09.2019
  */
+@Builder
 @Getter
 @Setter
 @NoArgsConstructor
@@ -29,12 +31,12 @@ public class County {
 	@Version
 	@Column(nullable = false)
 	private Long version;
-	@NotNull
-	@Column(nullable = false)
-	private Long createdOn;
 	@NotBlank
 	@Column(nullable = false)
 	private String name;
+	@NotBlank
+	@Column(nullable = false, unique = true)
+	private String abbrev;
 	@NotNull
 	@ManyToOne
 	@JoinColumn(nullable = false)

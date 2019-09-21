@@ -1,10 +1,12 @@
 package com.finance.plutus.model.partner;
 
 import com.finance.plutus.model.address.Address;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -23,6 +25,7 @@ import java.util.Set;
  * Plutus
  * Created by catalin on 21.09.2019
  */
+@Builder
 @Getter
 @Setter
 @NoArgsConstructor
@@ -41,7 +44,7 @@ public class Partner {
 	@Column(nullable = false)
 	private String lastName;
 	@NotBlank
-	@Column(nullable = false)
+	@Column(nullable = false, unique = true)
 	private String email;
 	@NotBlank
 	@Column(nullable = false)
@@ -49,7 +52,8 @@ public class Partner {
 	@NotNull
 	@Enumerated(EnumType.STRING)
 	@Column(nullable = false)
-	private Type type;
+	@Builder.Default
+	private Type type = Type.BUSINESS;
 	@Column
 	private String bank;
 	@Column
@@ -58,11 +62,11 @@ public class Partner {
 	private String cif;
 	@Column
 	private String regCom;
-	@ManyToMany
+	@ManyToMany(cascade = CascadeType.PERSIST)
 	@JoinTable(name = "partner_address",
 			joinColumns = {@JoinColumn(name = "partner_id")},
 			inverseJoinColumns = {@JoinColumn(name = "address_id")})
-	private Set<Address> address;
+	private Set<Address> addresses;
 	@NotNull
 	@Column(nullable = false)
 	private Long createdOn;
