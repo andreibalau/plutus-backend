@@ -1,6 +1,7 @@
 package com.finance.plutus.model.partner;
 
 import com.finance.plutus.model.address.Address;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -29,6 +30,7 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
 public class Partner {
 	@Id
