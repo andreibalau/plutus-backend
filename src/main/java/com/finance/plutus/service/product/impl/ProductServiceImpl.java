@@ -1,5 +1,6 @@
 package com.finance.plutus.service.product.impl;
 
+import com.finance.plutus.model.common.EntityCreatedDto;
 import com.finance.plutus.model.product.dto.CreateProductDto;
 import com.finance.plutus.model.product.dto.ProductDto;
 import com.finance.plutus.service.product.CreateProduct;
@@ -22,8 +23,8 @@ public class ProductServiceImpl implements ProductService {
 	private final FindProduct findProduct;
 
 	@Override
-	public void create(CreateProductDto createProductDto) {
-		createProduct.create(createProductDto);
+	public EntityCreatedDto create(CreateProductDto createProductDto) {
+		return createProduct.create(createProductDto);
 	}
 
 	@Override

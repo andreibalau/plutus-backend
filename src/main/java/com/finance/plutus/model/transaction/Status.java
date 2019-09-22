@@ -1,4 +1,4 @@
-package com.finance.plutus.model.invoice;
+package com.finance.plutus.model.transaction;
 
 /**
  * Plutus

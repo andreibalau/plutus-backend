@@ -1,5 +1,6 @@
 package com.finance.plutus.controller.partner;
 
+import com.finance.plutus.model.common.EntityCreatedDto;
 import com.finance.plutus.model.partner.dto.CreatePartnerDto;
 import com.finance.plutus.model.partner.dto.PartnerDto;
 import com.finance.plutus.service.partner.PartnerService;
@@ -29,8 +30,8 @@ public class PartnerController {
 
 	@ResponseStatus(CREATED)
 	@PostMapping("/create")
-	public void create(@Valid @RequestBody CreatePartnerDto createPartnerDto) {
-		partnerService.create(createPartnerDto);
+	public EntityCreatedDto create(@Valid @RequestBody CreatePartnerDto createPartnerDto) {
+		return partnerService.create(createPartnerDto);
 	}
 
 	@GetMapping("/")

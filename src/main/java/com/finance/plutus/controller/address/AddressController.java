@@ -2,6 +2,7 @@ package com.finance.plutus.controller.address;
 
 import com.finance.plutus.model.address.dto.AddressDto;
 import com.finance.plutus.model.address.dto.CreateAddressDto;
+import com.finance.plutus.model.common.EntityCreatedDto;
 import com.finance.plutus.service.address.AddressService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,8 +30,8 @@ public class AddressController {
 
 	@ResponseStatus(CREATED)
 	@PostMapping("/create")
-	public void create(@Valid @RequestBody CreateAddressDto createAddressDto) {
-		addressService.create(createAddressDto);
+	public EntityCreatedDto create(@Valid @RequestBody CreateAddressDto createAddressDto) {
+		return addressService.create(createAddressDto);
 	}
 
 	@GetMapping("/")

@@ -1,5 +1,6 @@
 package com.finance.plutus.service.partner.impl;
 
+import com.finance.plutus.model.common.EntityCreatedDto;
 import com.finance.plutus.model.partner.dto.CreatePartnerDto;
 import com.finance.plutus.model.partner.dto.PartnerDto;
 import com.finance.plutus.service.partner.CreatePartner;
@@ -22,8 +23,8 @@ public class PartnerServiceImpl implements PartnerService {
 	private final FindPartner findPartner;
 
 	@Override
-	public void create(CreatePartnerDto createPartnerDto) {
-		createPartner.create(createPartnerDto);
+	public EntityCreatedDto create(CreatePartnerDto createPartnerDto) {
+		return createPartner.create(createPartnerDto);
 	}
 
 	@Override

@@ -1,6 +1,6 @@
-package com.finance.plutus.controller.invoice;
+package com.finance.plutus.controller.transaction;
 
-import com.finance.plutus.model.invoice.dto.InvoiceDto;
+import com.finance.plutus.model.transaction.dto.InvoiceDto;
 import com.finance.plutus.service.invoice.InvoiceService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;

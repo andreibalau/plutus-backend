@@ -1,4 +1,4 @@
-package com.finance.plutus.model.invoice.dto;
+package com.finance.plutus.model.transaction.dto;
 
 import lombok.Builder;
 import lombok.Data;

@@ -3,6 +3,7 @@ package com.finance.plutus.service.address.impl;
 import com.finance.plutus.model.address.Address;
 import com.finance.plutus.model.address.dto.AddressDto;
 import com.finance.plutus.model.address.dto.CreateAddressDto;
+import com.finance.plutus.model.common.EntityCreatedDto;
 import com.finance.plutus.repository.address.AddressRepository;
 import com.finance.plutus.repository.address.CityRepository;
 import com.finance.plutus.repository.address.CountryRepository;
@@ -28,12 +29,12 @@ public class AddressServiceImpl implements AddressService {
 	private final CountyRepository countyRepository;
 
 	@Override
-	public void create(CreateAddressDto createAddressDto) {
+	public EntityCreatedDto create(CreateAddressDto createAddressDto) {
 		Address address = createAddressDto.toAddress();
 		address.setCity(cityRepository.getOne(createAddressDto.getCity()));
 		address.setCounty(countyRepository.getOne(createAddressDto.getCounty()));
 		address.setCountry(countryRepository.getOne(createAddressDto.getCountry()));
-		addressRepository.save(address);
+		return new EntityCreatedDto(addressRepository.save(address).getId());
 	}
 
 	@Override

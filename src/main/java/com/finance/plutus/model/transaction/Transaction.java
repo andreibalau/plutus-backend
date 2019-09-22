@@ -1,6 +1,7 @@
-package com.finance.plutus.model.invoice;
+package com.finance.plutus.model.transaction;
 
 import com.finance.plutus.model.partner.Partner;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,19 +18,20 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Version;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.Set;
 
 /**
  * Plutus
- * Created by catalin on 21.09.2019
+ * Created by catalin on 22.09.2019
  */
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @Setter
-@NoArgsConstructor
 @Entity
-public class Invoice {
+public class Transaction {
 	@Id
 	@GeneratedValue
 	private Long id;
@@ -40,6 +42,13 @@ public class Invoice {
 	@Column(nullable = false)
 	private Long createdOn;
 	@NotNull
+	@Column(nullable = false)
+	private Long date;
+	@NotNull
+	@Enumerated(EnumType.STRING)
+	@Column(nullable = false)
+	private Type type;
+	@NotNull
 	@ManyToOne
 	@JoinColumn(nullable = false)
 	private Partner vendor;
@@ -47,18 +56,6 @@ public class Invoice {
 	@ManyToOne
 	@JoinColumn(nullable = false)
 	private Partner client;
-	@NotNull
-	@ManyToOne
-	@JoinColumn(nullable = false)
-	private Serial serial;
-	@NotBlank
-	@Column(nullable = false, unique = true)
-	private String serialName;
-	@NotNull
-	@Column(nullable = false)
-	private Long date;
-	@OneToMany(mappedBy = "invoice", cascade = CascadeType.ALL)
-	private Set<InvoiceLine> lines;
 	@NotNull
 	@Column(nullable = false)
 	private Double subtotal;
@@ -69,9 +66,8 @@ public class Invoice {
 	@Column(nullable = false)
 	private Double total;
 	@NotNull
-	@Enumerated(EnumType.STRING)
-	@Column(nullable = false)
-	private Type type;
+	@OneToMany(mappedBy = "transaction", cascade = CascadeType.ALL)
+	private Set<TransactionLine> lines;
 	@Builder.Default
 	@NotNull
 	@Enumerated(EnumType.STRING)

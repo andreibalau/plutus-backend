@@ -1,8 +1,8 @@
-package com.finance.plutus.model.invoice.dto;
+package com.finance.plutus.model.transaction.dto;
 
-import com.finance.plutus.model.invoice.Invoice;
-import com.finance.plutus.model.invoice.Status;
-import com.finance.plutus.model.invoice.Type;
+import com.finance.plutus.model.transaction.invoice.Invoice;
+import com.finance.plutus.model.transaction.Status;
+import com.finance.plutus.model.transaction.Type;
 import com.finance.plutus.model.partner.dto.PartnerDto;
 import lombok.Builder;
 import lombok.Data;

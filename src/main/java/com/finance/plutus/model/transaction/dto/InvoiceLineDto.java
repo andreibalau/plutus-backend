@@ -1,6 +1,6 @@
-package com.finance.plutus.model.invoice.dto;
+package com.finance.plutus.model.transaction.dto;
 
-import com.finance.plutus.model.invoice.InvoiceLine;
+import com.finance.plutus.model.transaction.invoice.InvoiceLine;
 import com.finance.plutus.model.product.dto.ProductDto;
 import lombok.Builder;
 import lombok.Data;

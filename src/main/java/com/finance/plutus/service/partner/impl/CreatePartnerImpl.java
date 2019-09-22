@@ -1,6 +1,7 @@
 package com.finance.plutus.service.partner.impl;
 
 import com.finance.plutus.exception.ServiceException;
+import com.finance.plutus.model.common.EntityCreatedDto;
 import com.finance.plutus.model.partner.Partner;
 import com.finance.plutus.model.partner.dto.CreatePartnerDto;
 import com.finance.plutus.repository.partner.PartnerRepository;
@@ -19,13 +20,13 @@ public class CreatePartnerImpl implements CreatePartner {
 	private final PartnerRepository partnerRepository;
 
 	@Override
-	public void create(CreatePartnerDto createPartnerDto) {
+	public EntityCreatedDto create(CreatePartnerDto createPartnerDto) {
 		if (partnerRepository.findByEmail(createPartnerDto.getEmail()).isPresent()) {
 			throw ServiceException.emailAlreadyExists();
 		}
 		Partner partner = createPartnerDto.toPartner();
 		partner.setCreatedOn(System.currentTimeMillis());
 		partner.setUpdatedOn(System.currentTimeMillis());
-		partnerRepository.save(partner);
+		return new EntityCreatedDto(partnerRepository.save(partner).getId());
 	}
 }

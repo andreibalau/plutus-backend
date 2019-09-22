@@ -1,5 +1,6 @@
 package com.finance.plutus.service.product.impl;
 
+import com.finance.plutus.model.common.EntityCreatedDto;
 import com.finance.plutus.model.product.Product;
 import com.finance.plutus.model.product.dto.CreateProductDto;
 import com.finance.plutus.repository.product.ProductRepository;
@@ -18,9 +19,9 @@ public class CreateProductImpl implements CreateProduct {
 	private final ProductRepository productRepository;
 
 	@Override
-	public void create(CreateProductDto createProductDto) {
+	public EntityCreatedDto create(CreateProductDto createProductDto) {
 		Product product = createProductDto.toProduct();
 		product.setCreatedOn(System.currentTimeMillis());
-		productRepository.save(product);
+		return new EntityCreatedDto(productRepository.save(product).getId());
 	}
 }
