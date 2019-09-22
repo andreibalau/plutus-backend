@@ -1,5 +1,7 @@
 package com.finance.plutus.model.product;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -16,9 +18,11 @@ import javax.validation.constraints.NotNull;
  * Plutus
  * Created by catalin on 21.09.2019
  */
+@Builder
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
 public class Product {
 	@Id
