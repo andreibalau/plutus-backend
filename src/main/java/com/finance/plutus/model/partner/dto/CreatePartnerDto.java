@@ -1,6 +1,5 @@
 package com.finance.plutus.model.partner.dto;
 
-import com.finance.plutus.model.address.dto.AddressDto;
 import com.finance.plutus.model.partner.Partner;
 import com.finance.plutus.model.partner.Type;
 import lombok.Getter;
@@ -8,8 +7,7 @@ import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
 import java.util.Collections;
-import java.util.Set;
-import java.util.stream.Collectors;
+import java.util.List;
 
 import static com.finance.plutus.model.partner.Type.BUSINESS;
 
@@ -37,7 +35,7 @@ public class CreatePartnerDto {
 	@NotBlank
 	private String regCom;
 	private Type type;
-	private Set<AddressDto> addresses = Collections.emptySet();
+	private List<Long> addresses = Collections.emptyList();
 
 	public Partner toPartner() {
 		return Partner
@@ -51,10 +49,6 @@ public class CreatePartnerDto {
 				.cif(cif)
 				.regCom(regCom)
 				.type(type != null ? type : BUSINESS)
-				.addresses(addresses
-						.stream()
-						.map(AddressDto::toAddress)
-						.collect(Collectors.toSet()))
 				.build();
 	}
 }
