@@ -1,29 +1,37 @@
 package com.finance.plutus.model.invoice;
 
-import com.finance.plutus.model.product.Product;
+import com.finance.plutus.model.partner.Partner;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Version;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.util.Set;
 
 /**
  * Plutus
- * Created by catalin on 21.09.2019
+ * Created by catalin on 22.09.2019
  */
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @Setter
-@NoArgsConstructor
 @Entity
-public class Line {
+public class Transaction {
 	@Id
 	@GeneratedValue
 	private Long id;
@@ -34,22 +42,20 @@ public class Line {
 	@Column(nullable = false)
 	private Long createdOn;
 	@NotNull
-	@ManyToOne
-	@JoinColumn(nullable = false)
-	private Invoice invoice;
+	@Column(nullable = false)
+	private Long date;
+	@NotNull
+	@Enumerated(EnumType.STRING)
+	@Column(nullable = false)
+	private Type type;
 	@NotNull
 	@ManyToOne
 	@JoinColumn(nullable = false)
-	private Product product;
-	@NotBlank
-	@Column(nullable = false)
-	private String uom;
+	private Partner vendor;
 	@NotNull
-	@Column(nullable = false)
-	private Double quantity;
-	@NotNull
-	@Column(nullable = false)
-	private Double price;
+	@ManyToOne
+	@JoinColumn(nullable = false)
+	private Partner client;
 	@NotNull
 	@Column(nullable = false)
 	private Double subtotal;
@@ -59,4 +65,12 @@ public class Line {
 	@NotNull
 	@Column(nullable = false)
 	private Double total;
+	@NotNull
+	@OneToMany(mappedBy = "transaction", cascade = CascadeType.ALL)
+	private Set<TransactionLine> lines;
+	@Builder.Default
+	@NotNull
+	@Enumerated(EnumType.STRING)
+	@Column(nullable = false)
+	private Status status = Status.DRAFT;
 }

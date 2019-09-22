@@ -1,8 +1,6 @@
-package com.finance.plutus.model.transaction;
+package com.finance.plutus.model.invoice;
 
 import com.finance.plutus.model.product.Product;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -19,15 +17,13 @@ import javax.validation.constraints.NotNull;
 
 /**
  * Plutus
- * Created by catalin on 22.09.2019
+ * Created by catalin on 21.09.2019
  */
-@Builder
-@AllArgsConstructor
-@NoArgsConstructor
 @Getter
 @Setter
+@NoArgsConstructor
 @Entity
-public class Line {
+public class InvoiceLine {
 	@Id
 	@GeneratedValue
 	private Long id;
@@ -40,7 +36,7 @@ public class Line {
 	@NotNull
 	@ManyToOne
 	@JoinColumn(nullable = false)
-	private Transaction transaction;
+	private Invoice invoice;
 	@NotNull
 	@ManyToOne
 	@JoinColumn(nullable = false)

@@ -1,6 +1,8 @@
 package com.finance.plutus.model.invoice.dto;
 
 import com.finance.plutus.model.invoice.Invoice;
+import com.finance.plutus.model.invoice.Status;
+import com.finance.plutus.model.invoice.Type;
 import com.finance.plutus.model.partner.dto.PartnerDto;
 import lombok.Builder;
 import lombok.Data;
@@ -36,7 +38,11 @@ public class InvoiceDto {
 	@NotBlank
 	private String serialName;
 	@NotNull
-	private List<LineDto> lines;
+	private List<InvoiceLineDto> lines;
+	@NotNull
+	private Type type;
+	@NotNull
+	private Status status;
 
 	public static InvoiceDto from(Invoice invoice) {
 		return InvoiceDto
@@ -53,8 +59,10 @@ public class InvoiceDto {
 				.lines(invoice
 						.getLines()
 						.stream()
-						.map(LineDto::from)
+						.map(InvoiceLineDto::from)
 						.collect(Collectors.toList()))
+				.type(invoice.getType())
+				.status(invoice.getStatus())
 				.build();
 	}
 }

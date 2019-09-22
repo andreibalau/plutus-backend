@@ -1,7 +1,7 @@
 package com.finance.plutus.model.invoice;
 
 import com.finance.plutus.model.partner.Partner;
-import com.finance.plutus.model.transaction.Type;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -58,7 +58,7 @@ public class Invoice {
 	@Column(nullable = false)
 	private Long date;
 	@OneToMany(mappedBy = "invoice", cascade = CascadeType.ALL)
-	private Set<Line> lines;
+	private Set<InvoiceLine> lines;
 	@NotNull
 	@Column(nullable = false)
 	private Double subtotal;
@@ -72,4 +72,9 @@ public class Invoice {
 	@Enumerated(EnumType.STRING)
 	@Column(nullable = false)
 	private Type type;
+	@Builder.Default
+	@NotNull
+	@Enumerated(EnumType.STRING)
+	@Column(nullable = false)
+	private Status status = Status.DRAFT;
 }

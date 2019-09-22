@@ -1,6 +1,6 @@
 package com.finance.plutus.model.invoice.dto;
 
-import com.finance.plutus.model.invoice.Line;
+import com.finance.plutus.model.invoice.InvoiceLine;
 import com.finance.plutus.model.product.dto.ProductDto;
 import lombok.Builder;
 import lombok.Data;
@@ -14,7 +14,7 @@ import javax.validation.constraints.NotNull;
  */
 @Data
 @Builder
-public class LineDto {
+public class InvoiceLineDto {
 	@NotNull
 	private Long id;
 	@NotNull
@@ -34,18 +34,18 @@ public class LineDto {
 	@NotNull
 	private Double total;
 
-	public static LineDto from(Line line) {
-		return LineDto
+	public static InvoiceLineDto from(InvoiceLine invoiceLine) {
+		return InvoiceLineDto
 				.builder()
-				.id(line.getId())
-				.invoice(line.getInvoice().getId())
-				.product(ProductDto.from(line.getProduct()))
-				.uom(line.getUom())
-				.quantity(line.getQuantity())
-				.price(line.getPrice())
-				.subtotal(line.getSubtotal())
-				.taxes(line.getTaxes())
-				.total(line.getTotal())
+				.id(invoiceLine.getId())
+				.invoice(invoiceLine.getInvoice().getId())
+				.product(ProductDto.from(invoiceLine.getProduct()))
+				.uom(invoiceLine.getUom())
+				.quantity(invoiceLine.getQuantity())
+				.price(invoiceLine.getPrice())
+				.subtotal(invoiceLine.getSubtotal())
+				.taxes(invoiceLine.getTaxes())
+				.total(invoiceLine.getTotal())
 				.build();
 	}
 }
