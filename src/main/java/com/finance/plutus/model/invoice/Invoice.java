@@ -14,6 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Version;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.Set;
 
@@ -47,6 +48,9 @@ public class Invoice {
 	@ManyToOne
 	@JoinColumn(nullable = false)
 	private Serial serial;
+	@NotBlank
+	@Column(nullable = false, unique = true)
+	private String serialName;
 	@NotNull
 	@Column(nullable = false)
 	private Long date;
