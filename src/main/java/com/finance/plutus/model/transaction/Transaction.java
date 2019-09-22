@@ -42,6 +42,9 @@ public class Transaction {
 	@Column(nullable = false)
 	private Long createdOn;
 	@NotNull
+	@Column(nullable = false)
+	private Long date;
+	@NotNull
 	@Enumerated(EnumType.STRING)
 	@Column(nullable = false)
 	private Type type;

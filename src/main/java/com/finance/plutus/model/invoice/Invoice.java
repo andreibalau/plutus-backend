@@ -1,6 +1,7 @@
 package com.finance.plutus.model.invoice;
 
 import com.finance.plutus.model.partner.Partner;
+import com.finance.plutus.model.transaction.Type;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -8,6 +9,8 @@ import lombok.Setter;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -65,4 +68,8 @@ public class Invoice {
 	@NotNull
 	@Column(nullable = false)
 	private Double total;
+	@NotNull
+	@Enumerated(EnumType.STRING)
+	@Column(nullable = false)
+	private Type type;
 }
