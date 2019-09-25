@@ -9,6 +9,7 @@ import com.finance.plutus.repository.user.UserRepository;
 import com.finance.plutus.service.user.EmailChecker;
 import com.finance.plutus.service.user.Register;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
@@ -25,6 +26,7 @@ public class RegisterImpl implements Register {
 	private final UserRepository userRepository;
 	private final AddressRepository addressRepository;
 	private final EmailChecker emailChecker;
+	private final PasswordEncoder passwordEncoder;
 
 	@Override
 	public void register(RegistrationDto registrationDto) {
@@ -33,6 +35,7 @@ public class RegisterImpl implements Register {
 		}
 		List<Address> addresses = addressRepository.findAllById(registrationDto.getAddresses());
 		User user = registrationDto.toUser();
+		user.setPassword(passwordEncoder.encode(user.getPassword()));
 		user.setAddresses(new HashSet<>(addresses));
 		user.setCreatedOn(System.currentTimeMillis());
 		user.setUpdatedOn(System.currentTimeMillis());
