@@ -1,6 +1,6 @@
 package com.finance.plutus.service.exchange;
 
-import okhttp3.ResponseBody;
+import com.finance.plutus.model.exchange.dto.ExchangeRoot;
 import retrofit2.Call;
 import retrofit2.http.GET;
 
@@ -10,5 +10,5 @@ import retrofit2.http.GET;
  */
 public interface BnrService {
 	@GET("/nbrfxrates.xml")
-	Call<ResponseBody> getRates();
+	Call<ExchangeRoot> getRates();
 }

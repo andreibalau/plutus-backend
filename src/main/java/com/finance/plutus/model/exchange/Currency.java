@@ -10,6 +10,7 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum Currency {
+	RON("RON", ""),
 	AED("AED", ""),
 	AUD("AUD", ""),
 	BGN("BGN", ""),

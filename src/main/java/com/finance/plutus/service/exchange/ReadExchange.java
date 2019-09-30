@@ -1,7 +1,8 @@
 package com.finance.plutus.service.exchange;
 
+import com.finance.plutus.model.exchange.dto.ExchangeRoot;
+import com.finance.plutus.repository.exchange.ExchangeRepository;
 import lombok.RequiredArgsConstructor;
-import okhttp3.ResponseBody;
 import org.springframework.stereotype.Component;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -18,18 +19,21 @@ import javax.annotation.PostConstruct;
 public class ReadExchange {
 
 	private final HttpClient httpClient;
+	private final ExchangeRepository exchangeRepository;
 
 	@PostConstruct
 	public void read() {
 		BnrService bnrService = httpClient.getInstance().create(BnrService.class);
-		bnrService.getRates().enqueue(new Callback<ResponseBody>() {
+		bnrService.getRates().enqueue(new Callback<ExchangeRoot>() {
 			@Override
-			public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-				System.out.println(response);
+			public void onResponse(Call<ExchangeRoot> call, Response<ExchangeRoot> response) {
+				if (response.isSuccessful() && response.body() != null) {
+					exchangeRepository.saveAll(response.body().exchangeHistory());
+				}
 			}
 
 			@Override
-			public void onFailure(Call<ResponseBody> call, Throwable throwable) {
+			public void onFailure(Call<ExchangeRoot> call, Throwable throwable) {
 				throwable.printStackTrace();
 			}
 		});

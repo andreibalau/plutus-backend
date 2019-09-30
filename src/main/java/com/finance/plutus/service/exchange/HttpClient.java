@@ -2,6 +2,7 @@ package com.finance.plutus.service.exchange;
 
 import org.springframework.stereotype.Service;
 import retrofit2.Retrofit;
+import retrofit2.converter.simplexml.SimpleXmlConverterFactory;
 
 /**
  * Plutus
@@ -18,6 +19,7 @@ public class HttpClient {
 			retrofit = new Retrofit
 					.Builder()
 					.baseUrl(BNR_ROOT)
+					.addConverterFactory(SimpleXmlConverterFactory.create())
 					.build();
 		}
 		return retrofit;
