@@ -9,11 +9,10 @@ import lombok.Setter;
 @AllArgsConstructor
 public class ErrorDto {
 
-    private Integer code;
     private String message;
 
-    public static ErrorDto from(ServiceException serviceException) {
-        return new ErrorDto(serviceException.getCode(), serviceException.getMessage());
+    public static ErrorDto from(PlutusException plutusException) {
+        return new ErrorDto(plutusException.getMessage());
     }
 
 }

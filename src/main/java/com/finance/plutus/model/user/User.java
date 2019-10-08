@@ -76,6 +76,8 @@ public class User {
 	@NotNull
 	@Column(nullable = false)
 	private Long updatedOn;
+	@NotNull
 	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(nullable = false)
 	private Settings settings;
 }

@@ -1,6 +1,6 @@
 package com.finance.plutus.service.user.impl;
 
-import com.finance.plutus.exception.ServiceException;
+import com.finance.plutus.exception.PlutusException;
 import com.finance.plutus.model.user.dto.LoggedUserDto;
 import com.finance.plutus.repository.user.UserRepository;
 import com.finance.plutus.service.user.Login;
@@ -23,6 +23,6 @@ public class LoginImpl implements Login {
 		return userRepository
 				.findByEmail(userDetails.getUsername())
 				.map(LoggedUserDto::from)
-				.orElseThrow(ServiceException::notFound);
+				.orElseThrow(PlutusException::notFound);
 	}
 }

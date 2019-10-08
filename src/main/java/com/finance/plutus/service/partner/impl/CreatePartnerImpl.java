@@ -1,6 +1,6 @@
 package com.finance.plutus.service.partner.impl;
 
-import com.finance.plutus.exception.ServiceException;
+import com.finance.plutus.exception.PlutusException;
 import com.finance.plutus.model.address.Address;
 import com.finance.plutus.model.common.EntityCreatedDto;
 import com.finance.plutus.model.partner.Partner;
@@ -28,7 +28,7 @@ public class CreatePartnerImpl implements CreatePartner {
 	@Override
 	public EntityCreatedDto create(CreatePartnerDto createPartnerDto) {
 		if (partnerRepository.findByEmail(createPartnerDto.getEmail()).isPresent()) {
-			throw ServiceException.emailAlreadyExists();
+			throw PlutusException.emailAlreadyExists();
 		}
 		List<Address> addresses = addressRepository.findAllById(createPartnerDto.getAddresses());
 		Partner partner = createPartnerDto.toPartner();

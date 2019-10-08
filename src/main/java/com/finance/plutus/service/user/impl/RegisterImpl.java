@@ -1,13 +1,12 @@
 package com.finance.plutus.service.user.impl;
 
-import com.finance.plutus.exception.ServiceException;
+import com.finance.plutus.exception.PlutusException;
 import com.finance.plutus.model.address.Address;
+import com.finance.plutus.model.exchange.Currency;
 import com.finance.plutus.model.user.Settings;
 import com.finance.plutus.model.user.User;
 import com.finance.plutus.model.user.dto.RegistrationDto;
-import com.finance.plutus.model.user.dto.SettingsDto;
 import com.finance.plutus.repository.address.AddressRepository;
-import com.finance.plutus.repository.partner.PartnerRepository;
 import com.finance.plutus.repository.user.UserRepository;
 import com.finance.plutus.service.user.EmailChecker;
 import com.finance.plutus.service.user.Register;
@@ -30,12 +29,11 @@ public class RegisterImpl implements Register {
 	private final AddressRepository addressRepository;
 	private final EmailChecker emailChecker;
 	private final PasswordEncoder passwordEncoder;
-	private final PartnerRepository partnerRepository;
 
 	@Override
 	public void register(RegistrationDto registrationDto) {
 		if (emailChecker.exists(registrationDto.getEmail().toLowerCase())) {
-			throw ServiceException.emailAlreadyExists();
+			throw PlutusException.emailAlreadyExists();
 		}
 
 		List<Address> addresses = addressRepository.findAllById(registrationDto.getAddresses());
@@ -44,15 +42,16 @@ public class RegisterImpl implements Register {
 		user.setAddresses(new HashSet<>(addresses));
 		user.setCreatedOn(System.currentTimeMillis());
 		user.setUpdatedOn(System.currentTimeMillis());
-
-		SettingsDto settingsDto = registrationDto.getSettings();
-		if (settingsDto != null) {
-			Settings settings = settingsDto.toSettings();
-			settings.setMyPartner(partnerRepository.getOne(registrationDto.getSettings().getPartnerId()));
-			user.setSettings(settings);
-		}
+		user.setSettings(makeDefaultSettings());
 
 		userRepository.save(user);
+	}
+
+	private Settings makeDefaultSettings() {
+		Settings settings = new Settings();
+		settings.setUseAccounts(false);
+		settings.setCurrency(Currency.RON);
+		return settings;
 	}
 
 }

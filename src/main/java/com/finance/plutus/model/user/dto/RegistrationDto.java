@@ -27,7 +27,6 @@ public class RegistrationDto {
 	private String email;
 	@NotBlank
 	private String password;
-	private SettingsDto settings;
 	private List<Long> addresses = Collections.emptyList();
 
 	public User toUser() {

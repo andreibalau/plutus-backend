@@ -1,7 +1,5 @@
-package com.finance.plutus.model.user;
+package com.finance.plutus.model.history;
 
-import com.finance.plutus.model.exchange.Currency;
-import com.finance.plutus.model.partner.Partner;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -10,12 +8,10 @@ import lombok.Setter;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.Version;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -25,23 +21,25 @@ import javax.validation.constraints.NotNull;
 @Getter
 @Setter
 @Builder
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @Entity
-public class Settings {
+public class Operation {
+
     @Id
     @GeneratedValue
     private Long id;
     @Version
     @Column(nullable = false)
     private Long version;
-    @ManyToOne
-    private Partner myPartner;
+    @NotBlank
+    @Column(nullable = false)
+    private String name;
+    @NotBlank
+    @Column(nullable = false)
+    private String user;
     @NotNull
     @Column(nullable = false)
-    private Boolean useAccounts;
-    @NotNull
-    @Column(nullable = false)
-    @Enumerated(EnumType.STRING)
-    private Currency currency;
+    private Long datetime;
+
 }
