@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import java.util.Collections;
 import java.util.List;
 
@@ -28,7 +27,6 @@ public class RegistrationDto {
 	private String email;
 	@NotBlank
 	private String password;
-	@NotNull
 	private SettingsDto settings;
 	private List<Long> addresses = Collections.emptyList();
 

@@ -5,6 +5,7 @@ import com.finance.plutus.model.address.Address;
 import com.finance.plutus.model.user.Settings;
 import com.finance.plutus.model.user.User;
 import com.finance.plutus.model.user.dto.RegistrationDto;
+import com.finance.plutus.model.user.dto.SettingsDto;
 import com.finance.plutus.repository.address.AddressRepository;
 import com.finance.plutus.repository.partner.PartnerRepository;
 import com.finance.plutus.repository.user.UserRepository;
@@ -36,6 +37,7 @@ public class RegisterImpl implements Register {
 		if (emailChecker.exists(registrationDto.getEmail().toLowerCase())) {
 			throw ServiceException.emailAlreadyExists();
 		}
+
 		List<Address> addresses = addressRepository.findAllById(registrationDto.getAddresses());
 		User user = registrationDto.toUser();
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
@@ -43,9 +45,12 @@ public class RegisterImpl implements Register {
 		user.setCreatedOn(System.currentTimeMillis());
 		user.setUpdatedOn(System.currentTimeMillis());
 
-		Settings settings = registrationDto.getSettings().toSettings();
-		settings.setMyPartner(partnerRepository.getOne(registrationDto.getSettings().getPartnerId()));
-		user.setSettings(settings);
+		SettingsDto settingsDto = registrationDto.getSettings();
+		if (settingsDto != null) {
+			Settings settings = settingsDto.toSettings();
+			settings.setMyPartner(partnerRepository.getOne(registrationDto.getSettings().getPartnerId()));
+			user.setSettings(settings);
+		}
 
 		userRepository.save(user);
 	}
