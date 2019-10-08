@@ -15,8 +15,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-import static com.finance.plutus.exception.PlutusException.FORBIDDEN_OR_UNAUTHORIZED;
-
 public class FailedAuthorizationEntryPoint implements AccessDeniedHandler, AuthenticationEntryPoint {
 
     @Override
@@ -36,8 +34,7 @@ public class FailedAuthorizationEntryPoint implements AccessDeniedHandler, Authe
     private void doRespond(HttpServletResponse response) throws IOException {
         response
                 .getWriter()
-                .write(new ObjectMapper()
-                        .writeValueAsString(ErrorDto.from(PlutusException.factory(FORBIDDEN_OR_UNAUTHORIZED))));
+                .write(new ObjectMapper().writeValueAsString(ErrorDto.from(PlutusException.forbiddenOrUnauthorized())));
         response.addHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
         response.setStatus(HttpStatus.FORBIDDEN.value());
     }

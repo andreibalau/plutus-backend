@@ -13,8 +13,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-import static com.finance.plutus.exception.PlutusException.FORBIDDEN_OR_UNAUTHORIZED;
-
 public class JsonAuthenticationFailureHandler implements AuthenticationFailureHandler {
 
     public void onAuthenticationFailure(HttpServletRequest request,
@@ -22,8 +20,7 @@ public class JsonAuthenticationFailureHandler implements AuthenticationFailureHa
                                         AuthenticationException authException) throws IOException {
         response
                 .getWriter()
-                .write(new ObjectMapper()
-                        .writeValueAsString(ErrorDto.from(PlutusException.factory(FORBIDDEN_OR_UNAUTHORIZED))));
+                .write(new ObjectMapper().writeValueAsString(ErrorDto.from(PlutusException.forbiddenOrUnauthorized())));
         response.setStatus(HttpStatus.UNAUTHORIZED.value());
         response.addHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
     }

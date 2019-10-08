@@ -19,4 +19,17 @@ public class PlutusException extends RuntimeException {
     public static PlutusException factory(String message) {
         return new PlutusException(message);
     }
+
+    public static PlutusException notFound() {
+        return new PlutusException(NOT_FOUND);
+    }
+    public static PlutusException emailAlreadyExists() {
+        return new PlutusException(EMAIL_ALREADY_EXISTS);
+    }
+    public static PlutusException general() {
+        return new PlutusException(GENERAL);
+    }
+    public static PlutusException forbiddenOrUnauthorized() {
+        return new PlutusException(FORBIDDEN_OR_UNAUTHORIZED);
+    }
 }
