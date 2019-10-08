@@ -73,4 +73,8 @@ public class Transaction {
 	@Enumerated(EnumType.STRING)
 	@Column(nullable = false)
 	private Status status = Status.DRAFT;
+	@Builder.Default
+	@NotNull
+	@Column(nullable = false)
+	private Boolean canBeDeducted = false;
 }

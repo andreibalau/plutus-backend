@@ -34,6 +34,8 @@ public class CreateTransactionDto {
 	private List<CreateTransactionLineDto> lines;
 	@NotNull
 	private Status status;
+	@NotNull
+	private Boolean canBeDeducted;
 
 	public Transaction toTransaction() {
 		return Transaction
@@ -44,6 +46,7 @@ public class CreateTransactionDto {
 				.taxes(taxes)
 				.total(total)
 				.status(status)
+				.canBeDeducted(canBeDeducted)
 				.build();
 	}
 }
