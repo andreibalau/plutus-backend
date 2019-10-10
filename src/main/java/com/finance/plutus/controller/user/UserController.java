@@ -24,7 +24,7 @@ import static org.springframework.http.HttpStatus.CREATED;
  */
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/api/users")
+@RequestMapping("/api/v1/users")
 public class UserController {
 
 	private final UserService userService;

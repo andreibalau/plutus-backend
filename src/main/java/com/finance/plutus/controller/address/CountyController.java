@@ -14,13 +14,13 @@ import java.util.List;
  * Created by catalin on 22.09.2019
  */
 @RequiredArgsConstructor
-@RequestMapping("/api/counties")
+@RequestMapping("/api/v1/counties")
 @RestController
 public class CountyController {
 
-	private CountyService countyService;
+	private final CountyService countyService;
 
-	@GetMapping("/")
+	@GetMapping
 	public List<CountyDto> findAll() {
 		return countyService.findAll();
 	}

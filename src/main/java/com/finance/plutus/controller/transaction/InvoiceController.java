@@ -14,13 +14,13 @@ import java.util.List;
  * Created by catalin on 22.09.2019
  */
 @RequiredArgsConstructor
-@RequestMapping("/api/invoices")
+@RequestMapping("/api/v1/invoices")
 @RestController
 public class InvoiceController {
 
 	private final InvoiceService invoiceService;
 
-	@GetMapping("/")
+	@GetMapping
 	public List<InvoiceDto> findAll() {
 		return invoiceService.findAll();
 	}

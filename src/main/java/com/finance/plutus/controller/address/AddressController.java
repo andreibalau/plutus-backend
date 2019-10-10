@@ -22,7 +22,7 @@ import static org.springframework.http.HttpStatus.CREATED;
  * Created by catalin on 22.09.2019
  */
 @RequiredArgsConstructor
-@RequestMapping("/api/addresses")
+@RequestMapping("/api/v1/addresses")
 @RestController
 public class AddressController {
 
@@ -34,7 +34,7 @@ public class AddressController {
 		return addressService.create(createAddressDto);
 	}
 
-	@GetMapping("/")
+	@GetMapping
 	public List<AddressDto> findAll() {
 		return addressService.findAll();
 	}

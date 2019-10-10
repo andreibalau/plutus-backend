@@ -14,13 +14,13 @@ import java.util.List;
  * Created by catalin on 22.09.2019
  */
 @RequiredArgsConstructor
-@RequestMapping("/api/countries")
+@RequestMapping("/api/v1/countries")
 @RestController
 public class CountryController {
 
-	private CountryService countryService;
+	private final CountryService countryService;
 
-	@GetMapping("/")
+	@GetMapping
 	public List<CountryDto> findAll() {
 		return countryService.findAll();
 	}

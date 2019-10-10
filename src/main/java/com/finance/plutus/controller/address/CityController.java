@@ -14,13 +14,13 @@ import java.util.List;
  * Created by catalin on 22.09.2019
  */
 @RequiredArgsConstructor
-@RequestMapping("/api/cities")
+@RequestMapping("/api/v1/cities")
 @RestController
 public class CityController {
 
 	private final CityService cityService;
 
-	@GetMapping("/")
+	@GetMapping
 	public List<CityDto> findAll() {
 		return cityService.findAll();
 	}

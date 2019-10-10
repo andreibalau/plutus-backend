@@ -22,7 +22,7 @@ import static org.springframework.http.HttpStatus.CREATED;
  * Created by catalin on 22.09.2019
  */
 @RequiredArgsConstructor
-@RequestMapping("/api/products")
+@RequestMapping("/api/v1/products")
 @RestController
 public class ProductController {
 
@@ -34,7 +34,7 @@ public class ProductController {
 		return productService.create(createProductDto);
 	}
 
-	@GetMapping("/")
+	@GetMapping
 	public List<ProductDto> findAll() {
 		return productService.findAll();
 	}

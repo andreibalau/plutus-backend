@@ -19,7 +19,7 @@ import static org.springframework.http.HttpStatus.CREATED;
  * Created by catalin on 22.09.2019
  */
 @RequiredArgsConstructor
-@RequestMapping("/api/transactions")
+@RequestMapping("/api/v1/transactions")
 @RestController
 public class TransactionController {
 

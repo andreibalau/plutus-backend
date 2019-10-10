@@ -22,7 +22,7 @@ import static org.springframework.http.HttpStatus.CREATED;
  * Created by catalin on 22.09.2019
  */
 @RequiredArgsConstructor
-@RequestMapping("/api/partners")
+@RequestMapping("/api/v1/partners")
 @RestController
 public class PartnerController {
 
@@ -34,7 +34,7 @@ public class PartnerController {
 		return partnerService.create(createPartnerDto);
 	}
 
-	@GetMapping("/")
+	@GetMapping
 	public List<PartnerDto> find() {
 		return partnerService.find();
 	}
