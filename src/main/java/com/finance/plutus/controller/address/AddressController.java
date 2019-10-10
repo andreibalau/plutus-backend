@@ -29,7 +29,7 @@ public class AddressController {
 	private final AddressService addressService;
 
 	@ResponseStatus(CREATED)
-	@PostMapping("/create")
+	@PostMapping
 	public EntityCreatedDto create(@Valid @RequestBody CreateAddressDto createAddressDto) {
 		return addressService.create(createAddressDto);
 	}

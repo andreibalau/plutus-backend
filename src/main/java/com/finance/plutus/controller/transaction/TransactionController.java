@@ -26,7 +26,7 @@ public class TransactionController {
 	private final TransactionService transactionService;
 
 	@ResponseStatus(CREATED)
-	@PostMapping("/create")
+	@PostMapping
 	public EntityCreatedDto create(@Valid @RequestBody CreateTransactionDto createTransactionDto) {
 		return transactionService.create(createTransactionDto);
 	}
