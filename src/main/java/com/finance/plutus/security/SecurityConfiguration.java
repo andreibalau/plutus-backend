@@ -31,9 +31,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.cors()
                 .configurationSource(corsConfigurationSource()).and()
                 .csrf().disable().authorizeRequests()
-                .antMatchers("/api/users/login").permitAll()
-                .antMatchers("/api/users/register").permitAll()
-                .antMatchers("/api/users/register/email").permitAll()
+                .antMatchers("/api/v1/users/login").permitAll()
+                .antMatchers("/api/v1/users/register").permitAll()
+                .antMatchers("/api/v1/users/register/email").permitAll()
                 .anyRequest().authenticated().and()
                 .exceptionHandling().accessDeniedHandler(failedAuthorizationEntryPoint())
                 .authenticationEntryPoint(failedAuthorizationEntryPoint()).and()
@@ -75,7 +75,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Bean
     public JwtAuthenticationFilterConfig jwtFilterConfig() throws Exception {
-        return new JwtAuthenticationFilterConfig(new AntPathRequestMatcher("/api/users/login"),
+        return new JwtAuthenticationFilterConfig(new AntPathRequestMatcher("/api/v1/users/login"),
                 authenticationManager(), jwtTokenHelper(), authenticationFailureHandler());
     }
 

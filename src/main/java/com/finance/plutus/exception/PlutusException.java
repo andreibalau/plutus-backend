@@ -9,6 +9,7 @@ public class PlutusException extends RuntimeException {
 
     public static final String EMAIL_ALREADY_EXISTS = "Email already exists.";
     public static final String FORBIDDEN_OR_UNAUTHORIZED = "You are not allowed to access this resource.";
+    public static final String WRONG_CREDENTIALS = "Wrong credentials.";
     public static final String GENERAL = "Something went wrong.";
     public static final String NOT_FOUND = "Resource not found";
 
@@ -31,5 +32,8 @@ public class PlutusException extends RuntimeException {
     }
     public static PlutusException forbiddenOrUnauthorized() {
         return new PlutusException(FORBIDDEN_OR_UNAUTHORIZED);
+    }
+    public static PlutusException wrongCredentials() {
+        return new PlutusException(WRONG_CREDENTIALS);
     }
 }

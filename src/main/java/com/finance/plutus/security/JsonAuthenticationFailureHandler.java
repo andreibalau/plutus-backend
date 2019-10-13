@@ -20,7 +20,7 @@ public class JsonAuthenticationFailureHandler implements AuthenticationFailureHa
                                         AuthenticationException authException) throws IOException {
         response
                 .getWriter()
-                .write(new ObjectMapper().writeValueAsString(ErrorDto.from(PlutusException.forbiddenOrUnauthorized())));
+                .write(new ObjectMapper().writeValueAsString(ErrorDto.from(PlutusException.wrongCredentials())));
         response.setStatus(HttpStatus.UNAUTHORIZED.value());
         response.addHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
     }
