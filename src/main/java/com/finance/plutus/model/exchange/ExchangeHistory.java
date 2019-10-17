@@ -24,20 +24,20 @@ public class ExchangeHistory {
 	@GeneratedValue
 	private Long id;
 	@Version
-	@Column(nullable = false)
+	@Column(nullable = false, name = "version")
 	private Long version;
 	@NotNull
-	@Column(nullable = false)
+	@Column(nullable = false, name = "date")
 	private Long date;
 	@NotNull
-	@Column(nullable = false)
+	@Column(nullable = false, name = "currency")
 	@Enumerated(EnumType.STRING)
 	private Currency currency;
 	@NotNull
-	@Column(nullable = false)
+	@Column(nullable = false, name = "rate")
 	private Double rate;
 	@NotNull
-	@Column(nullable = false)
+	@Column(nullable = false, name = "multiplier")
 	@Builder.Default
 	private Integer multiplier = 1;
 

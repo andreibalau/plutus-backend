@@ -25,21 +25,21 @@ public class Serial {
 	@GeneratedValue
 	private Long id;
 	@Version
-	@Column(nullable = false)
+	@Column(nullable = false, name = "version")
 	private Long version;
 	@NotNull
-	@Column(nullable = false)
+	@Column(nullable = false, name = "created_on")
 	private Long createdOn;
 	@NotBlank
-	@Column(nullable = false)
+	@Column(nullable = false, name = "name")
 	private String name;
 	@NotNull
-	@Column(nullable = false)
+	@Column(nullable = false, name = "number")
 	private Long number;
 	@NotNull
-	@Column(nullable = false)
+	@Column(nullable = false, name = "max")
 	private Long max;
 	@NotNull
-	@Column(nullable = false)
+	@Column(nullable = false, name = "min")
 	private Long min;
 }

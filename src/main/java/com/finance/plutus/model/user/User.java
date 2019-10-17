@@ -42,17 +42,17 @@ public class User {
 	@GeneratedValue
 	private Long id;
 	@Version
-	@Column(nullable = false)
+	@Column(nullable = false, name = "version")
 	private Long version;
 	@Email
 	@NotBlank
-	@Column(nullable = false, unique = true)
+	@Column(nullable = false, unique = true, name = "email")
 	private String email;
 	@NotBlank
-	@Column(nullable = false)
+	@Column(nullable = false, name = "phone")
 	private String phone;
 	@NotBlank
-	@Column(nullable = false)
+	@Column(nullable = false, name = "password")
 	private String password;
 	@ElementCollection(targetClass = Role.class)
 	@CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
@@ -60,10 +60,10 @@ public class User {
 	@Builder.Default
 	private Set<Role> roles = Collections.singleton(Role.ADMIN);
 	@NotBlank
-	@Column(nullable = false)
+	@Column(nullable = false, name = "firstname")
 	private String firstName;
 	@NotBlank
-	@Column(nullable = false)
+	@Column(nullable = false, name = "lastname")
 	private String lastName;
 	@ManyToMany(cascade = CascadeType.PERSIST)
 	@JoinTable(name = "user_address",
@@ -71,10 +71,10 @@ public class User {
 			inverseJoinColumns = {@JoinColumn(name = "address_id")})
 	private Set<Address> addresses;
 	@NotNull
-	@Column(nullable = false)
+	@Column(nullable = false, name = "created_on")
 	private Long createdOn;
 	@NotNull
-	@Column(nullable = false)
+	@Column(nullable = false, name = "updated_on")
 	private Long updatedOn;
 	@NotNull
 	@ManyToOne(cascade = CascadeType.ALL)

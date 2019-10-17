@@ -40,10 +40,10 @@ public class Invoice {
 	@GeneratedValue
 	private Long id;
 	@Version
-	@Column(nullable = false)
+	@Column(nullable = false, name = "version")
 	private Long version;
 	@NotNull
-	@Column(nullable = false)
+	@Column(nullable = false, name = "created_on")
 	private Long createdOn;
 	@NotNull
 	@ManyToOne
@@ -58,29 +58,29 @@ public class Invoice {
 	@JoinColumn(nullable = false)
 	private Serial serial;
 	@NotBlank
-	@Column(nullable = false, unique = true)
+	@Column(nullable = false, unique = true, name = "serial_name")
 	private String serialName;
 	@NotNull
-	@Column(nullable = false)
+	@Column(nullable = false, name = "date")
 	private Long date;
 	@OneToMany(mappedBy = "invoice", cascade = CascadeType.ALL)
 	private Set<InvoiceLine> lines;
 	@NotNull
-	@Column(nullable = false)
+	@Column(nullable = false, name = "subtotal")
 	private Double subtotal;
 	@NotNull
-	@Column(nullable = false)
+	@Column(nullable = false, name = "taxes")
 	private Double taxes;
 	@NotNull
-	@Column(nullable = false)
+	@Column(nullable = false, name = "total")
 	private Double total;
 	@NotNull
 	@Enumerated(EnumType.STRING)
-	@Column(nullable = false)
+	@Column(nullable = false, name = "type")
 	private Type type;
 	@Builder.Default
 	@NotNull
 	@Enumerated(EnumType.STRING)
-	@Column(nullable = false)
+	@Column(nullable = false, name = "status")
 	private Status status = Status.DRAFT;
 }

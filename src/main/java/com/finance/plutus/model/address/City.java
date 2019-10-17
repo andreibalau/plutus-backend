@@ -31,10 +31,10 @@ public class City {
 	@GeneratedValue
 	private Long id;
 	@Version
-	@Column(nullable = false)
+	@Column(nullable = false, name = "version")
 	private Long version;
 	@NotBlank
-	@Column(nullable = false)
+	@Column(nullable = false, name = "name")
 	private String name;
 	@NotNull
 	@ManyToOne

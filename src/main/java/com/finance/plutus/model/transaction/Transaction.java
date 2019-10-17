@@ -36,17 +36,17 @@ public class Transaction {
 	@GeneratedValue
 	private Long id;
 	@Version
-	@Column(nullable = false)
+	@Column(nullable = false, name = "version")
 	private Long version;
 	@NotNull
-	@Column(nullable = false)
+	@Column(nullable = false, name = "created_on")
 	private Long createdOn;
 	@NotNull
-	@Column(nullable = false)
+	@Column(nullable = false, name = "date")
 	private Long date;
 	@NotNull
 	@Enumerated(EnumType.STRING)
-	@Column(nullable = false)
+	@Column(nullable = false, name = "type")
 	private Type type;
 	@NotNull
 	@ManyToOne
@@ -57,13 +57,13 @@ public class Transaction {
 	@JoinColumn(nullable = false)
 	private Partner client;
 	@NotNull
-	@Column(nullable = false)
+	@Column(nullable = false, name = "subtotal")
 	private Double subtotal;
 	@NotNull
-	@Column(nullable = false)
+	@Column(nullable = false, name = "taxes")
 	private Double taxes;
 	@NotNull
-	@Column(nullable = false)
+	@Column(nullable = false, name = "total")
 	private Double total;
 	@NotNull
 	@OneToMany(mappedBy = "transaction", cascade = CascadeType.ALL)
@@ -71,10 +71,10 @@ public class Transaction {
 	@Builder.Default
 	@NotNull
 	@Enumerated(EnumType.STRING)
-	@Column(nullable = false)
+	@Column(nullable = false, name = "status")
 	private Status status = Status.DRAFT;
 	@Builder.Default
 	@NotNull
-	@Column(nullable = false)
+	@Column(nullable = false, name = "can_be_deducted")
 	private Boolean canBeDeducted = false;
 }

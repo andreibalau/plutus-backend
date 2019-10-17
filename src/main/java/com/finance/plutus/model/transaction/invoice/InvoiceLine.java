@@ -28,10 +28,10 @@ public class InvoiceLine {
 	@GeneratedValue
 	private Long id;
 	@Version
-	@Column(nullable = false)
+	@Column(nullable = false, name = "version")
 	private Long version;
 	@NotNull
-	@Column(nullable = false)
+	@Column(nullable = false, name = "created_on")
 	private Long createdOn;
 	@NotNull
 	@ManyToOne
@@ -42,21 +42,21 @@ public class InvoiceLine {
 	@JoinColumn(nullable = false)
 	private Product product;
 	@NotBlank
-	@Column(nullable = false)
+	@Column(nullable = false, name = "uom")
 	private String uom;
 	@NotNull
-	@Column(nullable = false)
+	@Column(nullable = false, name = "quantity")
 	private Double quantity;
 	@NotNull
-	@Column(nullable = false)
+	@Column(nullable = false, name = "price")
 	private Double price;
 	@NotNull
-	@Column(nullable = false)
+	@Column(nullable = false, name = "subtotal")
 	private Double subtotal;
 	@NotNull
-	@Column(nullable = false)
+	@Column(nullable = false, name = "taxes")
 	private Double taxes;
 	@NotNull
-	@Column(nullable = false)
+	@Column(nullable = false, name = "total")
 	private Double total;
 }

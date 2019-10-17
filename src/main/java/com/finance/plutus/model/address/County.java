@@ -31,13 +31,13 @@ public class County {
 	@GeneratedValue
 	private Long id;
 	@Version
-	@Column(nullable = false)
+	@Column(nullable = false, name = "version")
 	private Long version;
 	@NotBlank
-	@Column(nullable = false)
+	@Column(nullable = false, name = "name")
 	private String name;
 	@NotBlank
-	@Column(nullable = false, unique = true)
+	@Column(nullable = false, unique = true, name = "abbrev")
 	private String abbrev;
 	@NotNull
 	@ManyToOne

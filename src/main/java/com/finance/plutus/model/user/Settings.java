@@ -33,15 +33,15 @@ public class Settings {
     @GeneratedValue
     private Long id;
     @Version
-    @Column(nullable = false)
+    @Column(nullable = false, name = "version")
     private Long version;
     @ManyToOne
     private Partner myPartner;
     @NotNull
-    @Column(nullable = false)
+    @Column(nullable = false, name = "use_accounts")
     private Boolean useAccounts;
     @NotNull
-    @Column(nullable = false)
+    @Column(nullable = false, name = "currency")
     @Enumerated(EnumType.STRING)
     private Currency currency;
 }

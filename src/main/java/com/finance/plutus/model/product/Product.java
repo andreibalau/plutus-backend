@@ -29,18 +29,18 @@ public class Product {
 	@GeneratedValue
 	private Long id;
 	@Version
-	@Column(nullable = false)
+	@Column(nullable = false, name = "version")
 	private Long version;
 	@NotNull
-	@Column(nullable = false)
+	@Column(nullable = false, name = "created_on")
 	private Long createdOn;
 	@NotBlank
-	@Column(nullable = false)
+	@Column(nullable = false, name = "name")
 	private String name;
 	@NotBlank
-	@Column(nullable = false)
+	@Column(nullable = false, name = "uom")
 	private String uom;
 	@NotNull
-	@Column(nullable = false)
+	@Column(nullable = false, name = "price")
 	private Double price;
 }

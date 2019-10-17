@@ -37,32 +37,32 @@ public class Partner {
 	@GeneratedValue
 	private Long id;
 	@Version
-	@Column(nullable = false)
+	@Column(nullable = false, name = "version")
 	private Long version;
 	@NotBlank
-	@Column(nullable = false)
+	@Column(nullable = false, name = "firstname")
 	private String firstName;
 	@NotBlank
-	@Column(nullable = false)
+	@Column(nullable = false, name = "lastname")
 	private String lastName;
 	@NotBlank
-	@Column(nullable = false, unique = true)
+	@Column(nullable = false, unique = true, name = "email")
 	private String email;
 	@NotBlank
-	@Column(nullable = false)
+	@Column(nullable = false, name = "phone")
 	private String phone;
 	@NotNull
 	@Enumerated(EnumType.STRING)
-	@Column(nullable = false)
+	@Column(nullable = false, name = "type")
 	@Builder.Default
 	private Type type = Type.BUSINESS;
-	@Column
+	@Column(name = "bank")
 	private String bank;
-	@Column
+	@Column(name = "bank_account")
 	private String bankAccount;
-	@Column
+	@Column(name = "cif")
 	private String cif;
-	@Column
+	@Column(name = "reg_com")
 	private String regCom;
 	@ManyToMany(cascade = CascadeType.PERSIST)
 	@JoinTable(name = "partner_address",
@@ -70,9 +70,9 @@ public class Partner {
 			inverseJoinColumns = {@JoinColumn(name = "address_id")})
 	private Set<Address> addresses;
 	@NotNull
-	@Column(nullable = false)
+	@Column(nullable = false, name = "created_on")
 	private Long createdOn;
 	@NotNull
-	@Column(nullable = false)
+	@Column(nullable = false, name = "updated_on")
 	private Long updatedOn;
 }

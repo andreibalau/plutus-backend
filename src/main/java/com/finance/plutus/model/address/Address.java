@@ -31,15 +31,15 @@ public class Address {
 	@GeneratedValue
 	private Long id;
 	@Version
-	@Column(nullable = false)
+	@Column(nullable = false, name = "version")
 	private Long version;
 	@NotBlank
-	@Column(nullable = false)
+	@Column(nullable = false, name = "street")
 	private String street;
 	@NotBlank
-	@Column(nullable = false)
+	@Column(nullable = false, name = "number")
 	private String number;
-	@Column
+	@Column(name = "additional")
 	private String additional;
 	@NotNull
 	@ManyToOne
