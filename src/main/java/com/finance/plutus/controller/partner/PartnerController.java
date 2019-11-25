@@ -1,5 +1,10 @@
 package com.finance.plutus.controller.partner;
 
+import static org.springframework.http.HttpStatus.CREATED;
+
+import javax.validation.Valid;
+import java.util.List;
+
 import com.finance.plutus.model.common.EntityCreatedDto;
 import com.finance.plutus.model.partner.dto.CreatePartnerDto;
 import com.finance.plutus.model.partner.dto.PartnerDto;
@@ -11,11 +16,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-
-import javax.validation.Valid;
-import java.util.List;
-
-import static org.springframework.http.HttpStatus.CREATED;
 
 /**
  * Plutus
@@ -29,7 +29,7 @@ public class PartnerController {
 	private final PartnerService partnerService;
 
 	@ResponseStatus(CREATED)
-	@PostMapping("/create")
+	@PostMapping
 	public EntityCreatedDto create(@Valid @RequestBody CreatePartnerDto createPartnerDto) {
 		return partnerService.create(createPartnerDto);
 	}
