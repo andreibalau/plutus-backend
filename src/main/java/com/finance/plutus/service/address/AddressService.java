@@ -1,10 +1,10 @@
 package com.finance.plutus.service.address;
 
+import java.util.List;
+
 import com.finance.plutus.model.address.dto.AddressDto;
 import com.finance.plutus.model.address.dto.CreateAddressDto;
 import com.finance.plutus.model.common.EntityCreatedDto;
-
-import java.util.List;
 
 /**
  * Plutus

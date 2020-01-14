@@ -1,15 +1,15 @@
 package com.finance.plutus.model.partner.dto;
 
-import com.finance.plutus.model.partner.Partner;
-import com.finance.plutus.model.partner.Type;
-import lombok.Getter;
-import lombok.Setter;
+import static com.finance.plutus.model.partner.Type.BUSINESS;
 
 import javax.validation.constraints.NotBlank;
 import java.util.Collections;
 import java.util.List;
 
-import static com.finance.plutus.model.partner.Type.BUSINESS;
+import com.finance.plutus.model.partner.Partner;
+import com.finance.plutus.model.partner.Type;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * Plutus

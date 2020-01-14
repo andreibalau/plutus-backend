@@ -1,16 +1,16 @@
 package com.finance.plutus.service.exchange;
 
-import com.finance.plutus.model.exchange.dto.ExchangeDto;
-import com.finance.plutus.repository.exchange.ExchangeRepository;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
+import static com.finance.plutus.util.DateTimeUtils.DATE_FORMAT;
+import static com.finance.plutus.util.DateTimeUtils.parse;
 
 import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.finance.plutus.util.DateTimeUtils.DATE_FORMAT;
-import static com.finance.plutus.util.DateTimeUtils.parse;
+import com.finance.plutus.model.exchange.dto.ExchangeDto;
+import com.finance.plutus.repository.exchange.ExchangeRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 
 /**
  * Plutus

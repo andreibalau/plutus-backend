@@ -15,4 +15,8 @@ public class ErrorDto {
         return new ErrorDto(plutusException.getMessage());
     }
 
+    public static ErrorDto from(String message) {
+        return new ErrorDto(message);
+    }
+
 }

@@ -8,7 +8,9 @@ import java.util.List;
 import com.finance.plutus.model.common.EntityCreatedDto;
 import com.finance.plutus.model.product.dto.CreateProductDto;
 import com.finance.plutus.model.product.dto.ProductDto;
-import com.finance.plutus.service.product.ProductService;
+import com.finance.plutus.service.product.CreateProductService;
+import com.finance.plutus.service.product.FindProductService;
+import com.finance.plutus.util.Api;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,21 +24,22 @@ import org.springframework.web.bind.annotation.RestController;
  * Created by catalin on 22.09.2019
  */
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/products")
+@RequestMapping(Api.PRODUCTS)
 @RestController
 public class ProductController {
 
-	private final ProductService productService;
+	private final CreateProductService createProductService;
+	private final FindProductService findProductService;
 
 	@ResponseStatus(CREATED)
 	@PostMapping
 	public EntityCreatedDto create(@Valid @RequestBody CreateProductDto createProductDto) {
-		return productService.create(createProductDto);
+		return createProductService.create(createProductDto);
 	}
 
 	@GetMapping
 	public List<ProductDto> findAll() {
-		return productService.findAll();
+		return findProductService.findAll();
 	}
 
 }

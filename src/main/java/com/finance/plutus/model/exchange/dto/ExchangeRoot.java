@@ -1,17 +1,16 @@
 package com.finance.plutus.model.exchange.dto;
 
+import static com.finance.plutus.util.DateTimeUtils.DATE_FORMAT;
+import static com.finance.plutus.util.DateTimeUtils.parse;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import com.finance.plutus.model.exchange.ExchangeHistory;
 import lombok.Data;
 import org.simpleframework.xml.Attribute;
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.Root;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
-
-import static com.finance.plutus.util.DateTimeUtils.DATE_FORMAT;
-import static com.finance.plutus.util.DateTimeUtils.parse;
 
 /**
  * Plutus

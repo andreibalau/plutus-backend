@@ -12,7 +12,7 @@ public class ExceptionHandlerConfig {
     @ExceptionHandler(value = Throwable.class)
     public ResponseEntity<ErrorDto> handleException(Throwable exception) {
         exception.printStackTrace();
-        return new ResponseEntity<>(ErrorDto.from(PlutusException.factory(exception.getMessage())), INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<>(ErrorDto.from(exception.getMessage()), INTERNAL_SERVER_ERROR);
     }
 
 }

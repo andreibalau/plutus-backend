@@ -1,6 +1,9 @@
 package com.finance.plutus.security;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import java.util.Arrays;
+import java.util.Collections;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -17,28 +20,40 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-import java.util.Arrays;
-import java.util.Collections;
-
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-    @Value("${jwt.secret}") private String jwtSecret;
-    @Autowired private UserDetailsService userDetailsService;
+    private final String jwtSecret;
+    private final UserDetailsService userDetailsService;
+
+    public SecurityConfiguration(
+            @Value("${jwt.secret}") String jwtSecret,
+            UserDetailsService userDetailsService
+    ) {
+       this.jwtSecret = jwtSecret;
+       this.userDetailsService = userDetailsService;
+    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.cors()
-                .configurationSource(corsConfigurationSource()).and()
+                .configurationSource(corsConfigurationSource())
+                .and()
                 .csrf().disable().authorizeRequests()
-                .antMatchers("/api/v1/users/login").permitAll()
-                .antMatchers("/api/v1/users/register").permitAll()
-                .antMatchers("/api/v1/users/register/email").permitAll()
-                .anyRequest().authenticated().and()
+                .antMatchers(
+                        "/api/v1/users/login",
+                        "/api/v1/users/register",
+                        "/api/v1/users/register/email"
+                ).permitAll()
+                .anyRequest().authenticated()
+                .and()
                 .exceptionHandling().accessDeniedHandler(failedAuthorizationEntryPoint())
-                .authenticationEntryPoint(failedAuthorizationEntryPoint()).and()
-                .apply(jwtFilterConfig()).and()
-                .apply(jwtAuthorizationFilterConfig()).and()
+                .authenticationEntryPoint(failedAuthorizationEntryPoint())
+                .and()
+                .apply(jwtFilterConfig())
+                .and()
+                .apply(jwtAuthorizationFilterConfig())
+                .and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     }
@@ -65,7 +80,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Bean
     public FailedAuthorizationEntryPoint failedAuthorizationEntryPoint() {
-        return new FailedAuthorizationEntryPoint();
+        return new FailedAuthorizationEntryPoint(objectMapper());
     }
 
     @Bean
@@ -75,8 +90,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Bean
     public JwtAuthenticationFilterConfig jwtFilterConfig() throws Exception {
-        return new JwtAuthenticationFilterConfig(new AntPathRequestMatcher("/api/v1/users/login"),
-                authenticationManager(), jwtTokenHelper(), authenticationFailureHandler());
+        return new JwtAuthenticationFilterConfig(
+                new AntPathRequestMatcher("/api/v1/users/login"),
+                authenticationManager(),
+                jwtTokenHelper(),
+                authenticationFailureHandler(),
+                objectMapper());
     }
 
     @Bean
@@ -86,12 +105,17 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Bean
     public AuthenticationFailureHandler authenticationFailureHandler() {
-        return new JsonAuthenticationFailureHandler();
+        return new JsonAuthenticationFailureHandler(objectMapper());
     }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public ObjectMapper objectMapper() {
+        return new ObjectMapper();
     }
 
 }

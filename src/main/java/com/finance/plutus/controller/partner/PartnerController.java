@@ -8,7 +8,9 @@ import java.util.List;
 import com.finance.plutus.model.common.EntityCreatedDto;
 import com.finance.plutus.model.partner.dto.CreatePartnerDto;
 import com.finance.plutus.model.partner.dto.PartnerDto;
-import com.finance.plutus.service.partner.PartnerService;
+import com.finance.plutus.service.partner.CreatePartnerService;
+import com.finance.plutus.service.partner.FindPartnerService;
+import com.finance.plutus.util.Api;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,21 +24,22 @@ import org.springframework.web.bind.annotation.RestController;
  * Created by catalin on 22.09.2019
  */
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/partners")
+@RequestMapping(Api.PARTNERS)
 @RestController
 public class PartnerController {
 
-	private final PartnerService partnerService;
+	private final CreatePartnerService createPartnerService;
+	private final FindPartnerService findPartnerService;
 
 	@ResponseStatus(CREATED)
 	@PostMapping
 	public EntityCreatedDto create(@Valid @RequestBody CreatePartnerDto createPartnerDto) {
-		return partnerService.create(createPartnerDto);
+		return createPartnerService.create(createPartnerDto);
 	}
 
 	@GetMapping
-	public List<PartnerDto> find() {
-		return partnerService.find();
+	public List<PartnerDto> findAll() {
+		return findPartnerService.findAll();
 	}
 
 }

@@ -1,13 +1,13 @@
 package com.finance.plutus.model.user.dto;
 
+import javax.validation.constraints.NotBlank;
+import java.util.Collections;
+import java.util.List;
+
 import com.finance.plutus.model.user.User;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import javax.validation.constraints.NotBlank;
-import java.util.Collections;
-import java.util.List;
 
 /**
  * Plutus

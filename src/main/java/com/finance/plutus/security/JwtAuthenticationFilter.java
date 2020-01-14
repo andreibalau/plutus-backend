@@ -1,14 +1,6 @@
 package com.finance.plutus.security;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.finance.plutus.model.user.dto.AuthenticationDto;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.web.authentication.AuthenticationFailureHandler;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.security.web.util.matcher.RequestMatcher;
+import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -20,20 +12,31 @@ import java.io.IOException;
 import java.io.StringReader;
 import java.util.stream.Collectors;
 
-import static org.springframework.http.HttpHeaders.AUTHORIZATION;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.finance.plutus.model.user.dto.AuthenticationDto;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.util.matcher.RequestMatcher;
 
 
 public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
     private static final String AUTHENTICATION_TOKEN = "Bearer %s";
-
     private final JwtTokenHelper jwtTokenHelper;
+    private final ObjectMapper objectMapper;
 
-    public JwtAuthenticationFilter(RequestMatcher requiresAuthenticationRequestMatcher,
-                                   AuthenticationManager authenticationManager,
-                                   JwtTokenHelper jwtTokenHelper,
-                                   AuthenticationFailureHandler customAuthenticationEntryPoint) {
+    public JwtAuthenticationFilter(
+            RequestMatcher requiresAuthenticationRequestMatcher,
+            AuthenticationManager authenticationManager,
+            JwtTokenHelper jwtTokenHelper,
+            AuthenticationFailureHandler customAuthenticationEntryPoint,
+            ObjectMapper objectMapper) {
         this.jwtTokenHelper = jwtTokenHelper;
+        this.objectMapper = objectMapper;
         setRequiresAuthenticationRequestMatcher(requiresAuthenticationRequestMatcher);
         setAuthenticationManager(authenticationManager);
         setAuthenticationFailureHandler(customAuthenticationEntryPoint);
@@ -66,7 +69,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
     private AuthenticationDto getAuthenticationDto(HttpServletRequest request) {
         try {
-            return new ObjectMapper()
+            return objectMapper
                     .readValue(request
                             .getReader()
                             .lines()

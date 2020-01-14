@@ -1,10 +1,10 @@
 package com.finance.plutus.model.product.dto;
 
-import com.finance.plutus.model.product.Product;
-import lombok.Data;
-
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+
+import com.finance.plutus.model.product.Product;
+import lombok.Data;
 
 /**
  * Plutus

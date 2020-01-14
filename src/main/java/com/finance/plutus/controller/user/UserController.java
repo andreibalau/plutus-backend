@@ -1,10 +1,17 @@
 package com.finance.plutus.controller.user;
 
+import static org.springframework.http.HttpStatus.CREATED;
+
+import javax.validation.Valid;
+
 import com.finance.plutus.model.user.dto.EmailExistenceCheckDto;
 import com.finance.plutus.model.user.dto.EmailExistenceDto;
 import com.finance.plutus.model.user.dto.LoggedUserDto;
 import com.finance.plutus.model.user.dto.RegistrationDto;
-import com.finance.plutus.service.user.UserService;
+import com.finance.plutus.service.user.EmailService;
+import com.finance.plutus.service.user.LoginService;
+import com.finance.plutus.service.user.RegisterService;
+import com.finance.plutus.util.Api;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -14,35 +21,33 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.validation.Valid;
-
-import static org.springframework.http.HttpStatus.CREATED;
-
 /**
  * Plutus
  * Created by catalin on 21.09.2019
  */
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/api/v1/users")
+@RequestMapping(Api.USERS)
 public class UserController {
 
-	private final UserService userService;
+	private final LoginService loginService;
+	private final RegisterService registerService;
+	private final EmailService emailService;
 
-	@PostMapping("/login")
+	@PostMapping(Api.LOGIN)
 	public LoggedUserDto login(@AuthenticationPrincipal UserDetails userDetails) {
-		return userService.login(userDetails);
+		return loginService.login(userDetails);
 	}
 
 	@ResponseStatus(CREATED)
-	@PostMapping("/register")
+	@PostMapping(Api.REGISTER)
 	public void register(@Valid @RequestBody RegistrationDto registrationDto) {
-		userService.register(registrationDto);
+		registerService.register(registrationDto);
 	}
 
-	@PostMapping("/register/email")
+	@PostMapping(Api.CHECK_EMAIL)
 	public EmailExistenceDto existsEmail(@RequestBody EmailExistenceCheckDto emailExistenceCheckDto) {
-		return new EmailExistenceDto(userService.existsEmail(emailExistenceCheckDto.getEmail()));
+		return new EmailExistenceDto(emailService.exists(emailExistenceCheckDto.getEmail()));
 	}
 
 }

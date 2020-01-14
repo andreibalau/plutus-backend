@@ -1,8 +1,8 @@
 package com.finance.plutus.service.address;
 
-import com.finance.plutus.model.address.dto.CityDto;
-
 import java.util.List;
+
+import com.finance.plutus.model.address.dto.CityDto;
 
 /**
  * Plutus

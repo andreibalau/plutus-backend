@@ -1,5 +1,6 @@
 package com.finance.plutus.security;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.SecurityConfigurerAdapter;
@@ -16,11 +17,12 @@ public class JwtAuthenticationFilterConfig extends SecurityConfigurerAdapter<Def
     private final AuthenticationManager authenticationManager;
     private final JwtTokenHelper jwtTokenHelper;
     private final AuthenticationFailureHandler authenticationFailureHandler;
+    private final ObjectMapper objectMapper;
 
     @Override
     public void configure(HttpSecurity http) {
         JwtAuthenticationFilter customFilter = new JwtAuthenticationFilter(antPathRequestMatcher,
-                authenticationManager, jwtTokenHelper, authenticationFailureHandler);
+                authenticationManager, jwtTokenHelper, authenticationFailureHandler, objectMapper);
         http.addFilterBefore(customFilter, UsernamePasswordAuthenticationFilter.class);
     }
 }

@@ -1,13 +1,5 @@
 package com.finance.plutus.model.user;
 
-import com.finance.plutus.model.exchange.Currency;
-import com.finance.plutus.model.partner.Partner;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -17,6 +9,14 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
+
+import com.finance.plutus.model.exchange.Currency;
+import com.finance.plutus.model.partner.Partner;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 /**
  * Plutus
@@ -37,9 +37,6 @@ public class Settings {
     private Long version;
     @ManyToOne
     private Partner myPartner;
-    @NotNull
-    @Column(nullable = false, name = "use_accounts")
-    private Boolean useAccounts;
     @NotNull
     @Column(nullable = false, name = "currency")
     @Enumerated(EnumType.STRING)
