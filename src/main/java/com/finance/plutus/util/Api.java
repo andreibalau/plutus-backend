@@ -20,8 +20,8 @@ public class Api {
 	public static final String COUNTRIES = API + "/countries";
 	public static final String COUNTIES = API + "/counties";
 	public static final String USERS = API + "/users";
-	public static final String LOGIN = USERS + "/login";
-	public static final String REGISTER = USERS + "/register";
-	public static final String CHECK_EMAIL = REGISTER + "/email";
+	public static final String LOGIN = "/login";
+	public static final String REGISTER = "/register";
+	public static final String CHECK_EMAIL = "/email";
 
 }

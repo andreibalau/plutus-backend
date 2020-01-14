@@ -1,8 +1,5 @@
 package com.finance.plutus.security;
 
-import java.util.Arrays;
-import java.util.Collections;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -19,6 +16,9 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+
+import java.util.Arrays;
+import java.util.Collections;
 
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
@@ -44,6 +44,14 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                         "/api/v1/users/login",
                         "/api/v1/users/register",
                         "/api/v1/users/register/email"
+                ).permitAll()
+                .antMatchers(
+                        "/v2/api-docs",
+                        "/configuration/ui",
+                        "/swagger-resources/**",
+                        "/configuration/security",
+                        "/swagger-ui.html",
+                        "/webjars/**"
                 ).permitAll()
                 .anyRequest().authenticated()
                 .and()
