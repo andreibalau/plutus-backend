@@ -19,7 +19,6 @@ public class SettingsDto {
     public Settings toSettings() {
         return Settings
                 .builder()
-                .useAccounts(useAccounts)
                 .build();
     }
 }
