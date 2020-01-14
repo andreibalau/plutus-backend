@@ -1,9 +1,5 @@
 package com.finance.plutus.controller.user;
 
-import static org.springframework.http.HttpStatus.CREATED;
-
-import javax.validation.Valid;
-
 import com.finance.plutus.model.user.dto.EmailExistenceCheckDto;
 import com.finance.plutus.model.user.dto.EmailExistenceDto;
 import com.finance.plutus.model.user.dto.LoggedUserDto;
@@ -20,6 +16,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.validation.Valid;
+
+import static org.springframework.http.HttpStatus.CREATED;
 
 /**
  * Plutus
