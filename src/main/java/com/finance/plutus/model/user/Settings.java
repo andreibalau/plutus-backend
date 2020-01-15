@@ -29,16 +29,24 @@ import lombok.Setter;
 @AllArgsConstructor
 @Entity
 public class Settings {
+
     @Id
     @GeneratedValue
     private Long id;
     @Version
     @Column(nullable = false, name = "version")
     private Long version;
+    @NotNull
+    @Column(nullable = false, name = "created_on")
+    private Long createdOn;
+    @NotNull
+    @Column(nullable = false, name = "updated_on")
+    private Long updatedOn;
     @ManyToOne
     private Partner myPartner;
     @NotNull
     @Column(nullable = false, name = "currency")
     @Enumerated(EnumType.STRING)
     private Currency currency;
+
 }

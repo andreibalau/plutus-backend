@@ -1,11 +1,11 @@
 package com.finance.plutus.service.user.impl;
 
 import com.finance.plutus.exception.UserException;
+import com.finance.plutus.model.user.dto.AuthenticationDto;
 import com.finance.plutus.model.user.dto.LoggedUserDto;
 import com.finance.plutus.repository.user.UserRepository;
 import com.finance.plutus.service.user.LoginService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 /**
@@ -19,9 +19,9 @@ public class LoginServiceImpl implements LoginService {
 	private final UserRepository userRepository;
 
 	@Override
-	public LoggedUserDto login(UserDetails userDetails) {
+	public LoggedUserDto login(AuthenticationDto authenticationDto) {
 		return userRepository
-				.findByEmail(userDetails.getUsername())
+				.findByEmail(authenticationDto.getUsername())
 				.map(LoggedUserDto::from)
 				.orElseThrow(UserException::userNotFound);
 	}

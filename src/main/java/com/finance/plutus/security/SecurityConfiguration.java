@@ -1,6 +1,10 @@
 package com.finance.plutus.security;
 
+import java.util.Arrays;
+import java.util.Collections;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.finance.plutus.util.Api;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -16,9 +20,6 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-
-import java.util.Arrays;
-import java.util.Collections;
 
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
@@ -41,9 +42,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .and()
                 .csrf().disable().authorizeRequests()
                 .antMatchers(
-                        "/api/v1/users/login",
-                        "/api/v1/users/register",
-                        "/api/v1/users/register/email"
+                        Api.USERS + Api.LOGIN,
+                        Api.USERS + Api.REGISTER,
+                        Api.USERS + Api.CHECK_EMAIL
                 ).permitAll()
                 .antMatchers(
                         "/v2/api-docs",

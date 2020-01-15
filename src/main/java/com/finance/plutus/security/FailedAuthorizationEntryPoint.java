@@ -5,7 +5,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.finance.plutus.exception.ErrorDto;
+import com.finance.plutus.exception.ErrorResponse;
 import com.finance.plutus.exception.UserException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
@@ -38,7 +38,7 @@ public class FailedAuthorizationEntryPoint implements AccessDeniedHandler, Authe
     private void doRespond(HttpServletResponse response) throws IOException {
         response
                 .getWriter()
-                .write(objectMapper.writeValueAsString(ErrorDto.from(UserException.userIsForbiddenOrUnauthorized())));
+                .write(objectMapper.writeValueAsString(ErrorResponse.from(UserException.userIsForbiddenOrUnauthorized())));
         response.addHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
         response.setStatus(HttpStatus.FORBIDDEN.value());
     }

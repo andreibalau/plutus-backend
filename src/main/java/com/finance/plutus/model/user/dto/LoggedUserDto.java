@@ -11,6 +11,7 @@ import lombok.Data;
 @Builder
 @Data
 public class LoggedUserDto {
+
 	private Long id;
 	private String firstName;
 	private String lastName;
@@ -25,4 +26,5 @@ public class LoggedUserDto {
 				.email(user.getEmail())
 				.build();
 	}
+
 }

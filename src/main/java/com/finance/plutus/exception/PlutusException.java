@@ -1,9 +1,16 @@
 package com.finance.plutus.exception;
 
+import lombok.Getter;
+import org.springframework.http.HttpStatus;
+
+@Getter
 public class PlutusException extends RuntimeException {
 
-    public PlutusException(String message) {
+    private final HttpStatus httpStatus;
+
+    public PlutusException(String message, HttpStatus httpStatus) {
         super(message);
+        this.httpStatus = httpStatus;
     }
 
 }

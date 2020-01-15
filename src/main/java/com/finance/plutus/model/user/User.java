@@ -10,8 +10,6 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Version;
 import javax.validation.constraints.Email;
@@ -20,7 +18,6 @@ import javax.validation.constraints.NotNull;
 import java.util.Collections;
 import java.util.Set;
 
-import com.finance.plutus.model.address.Address;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -38,12 +35,19 @@ import lombok.Setter;
 @AllArgsConstructor
 @Entity
 public class User {
+
 	@Id
 	@GeneratedValue
 	private Long id;
 	@Version
 	@Column(nullable = false, name = "version")
 	private Long version;
+	@NotNull
+	@Column(nullable = false, name = "created_on")
+	private Long createdOn;
+	@NotNull
+	@Column(nullable = false, name = "updated_on")
+	private Long updatedOn;
 	@Email
 	@NotBlank
 	@Column(nullable = false, unique = true, name = "email")
@@ -65,19 +69,12 @@ public class User {
 	@NotBlank
 	@Column(nullable = false, name = "lastname")
 	private String lastName;
-	@ManyToMany(cascade = CascadeType.PERSIST)
-	@JoinTable(name = "user_address",
-			joinColumns = {@JoinColumn(name = "user_id")},
-			inverseJoinColumns = {@JoinColumn(name = "address_id")})
-	private Set<Address> addresses;
-	@NotNull
-	@Column(nullable = false, name = "created_on")
-	private Long createdOn;
-	@NotNull
-	@Column(nullable = false, name = "updated_on")
-	private Long updatedOn;
+	@NotBlank
+	@Column(nullable =  false, name = "address")
+	private String address;
 	@NotNull
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(nullable = false)
 	private Settings settings;
+
 }
