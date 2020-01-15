@@ -12,5 +12,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 public class EmailExistenceDto {
+
 	private boolean exists;
+
 }

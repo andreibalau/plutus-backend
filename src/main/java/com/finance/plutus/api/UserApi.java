@@ -33,7 +33,7 @@ public interface UserApi {
 			nickname = "register",
 			tags = "user-controller")
 	@ApiResponses(value = {
-			@ApiResponse(code = 200, message = "User registration successfully"),
+			@ApiResponse(code = 201, message = "User registration successfully"),
 			@ApiResponse(code = 400, message = "Bad request"),
 			@ApiResponse(code = 405, message = "Method not allowed"),
 			@ApiResponse(code = 415, message = "Unsupported media type"),
@@ -42,7 +42,7 @@ public interface UserApi {
 	@ApiImplicitParams({
 			@ApiImplicitParam(name = "Content-Type",
 					value = "The content type of the request body",
-					paramType = "header", required = true)
+					paramType = "header", required = true, defaultValue = "application/json")
 	})
 	@ResponseStatus(CREATED)
 	@PostMapping(value = Api.REGISTER, consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
@@ -62,7 +62,7 @@ public interface UserApi {
 	@ApiImplicitParams({
 			@ApiImplicitParam(name = "Content-Type",
 					value = "The content type of the request body",
-					paramType = "header", required = true),
+					paramType = "header", required = true, defaultValue = "application/json"),
 	})
 	@PostMapping(value = Api.CHECK_EMAIL, consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
 	EmailExistenceDto checkEmail(
@@ -82,7 +82,7 @@ public interface UserApi {
 	@ApiImplicitParams({
 			@ApiImplicitParam(name = "Content-Type",
 					value = "The content type of the request body",
-					paramType = "header", required = true),
+					paramType = "header", required = true, defaultValue = "application/json"),
 	})
 	@PostMapping(value = Api.LOGIN, consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
 	LoggedUserDto login(

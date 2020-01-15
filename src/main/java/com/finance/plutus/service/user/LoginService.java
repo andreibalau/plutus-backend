@@ -2,7 +2,6 @@ package com.finance.plutus.service.user;
 
 import com.finance.plutus.model.user.dto.AuthenticationDto;
 import com.finance.plutus.model.user.dto.LoggedUserDto;
-import org.springframework.security.core.userdetails.UserDetails;
 
 /**
  * Plutus

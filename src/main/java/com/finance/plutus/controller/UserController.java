@@ -1,4 +1,4 @@
-package com.finance.plutus.controller.user;
+package com.finance.plutus.controller;
 
 import com.finance.plutus.api.UserApi;
 import com.finance.plutus.model.user.dto.AuthenticationDto;

@@ -7,6 +7,7 @@ import com.finance.plutus.model.product.dto.ProductDto;
 import com.finance.plutus.repository.product.ProductRepository;
 import com.finance.plutus.service.product.FindProductService;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 /**
@@ -18,13 +19,14 @@ import org.springframework.stereotype.Service;
 public class FindProductServiceImpl implements FindProductService {
 
 	private final ProductRepository productRepository;
+	private final ModelMapper modelMapper;
 
 	@Override
 	public List<ProductDto> findAll() {
 		return productRepository
 				.findAll()
 				.stream()
-				.map(ProductDto::from)
+				.map(product -> modelMapper.map(product, ProductDto.class))
 				.collect(Collectors.toList());
 	}
 }

@@ -6,6 +6,7 @@ import com.finance.plutus.model.product.dto.CreateProductDto;
 import com.finance.plutus.repository.product.ProductRepository;
 import com.finance.plutus.service.product.CreateProductService;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 /**
@@ -17,10 +18,11 @@ import org.springframework.stereotype.Service;
 public class CreateProductServiceImpl implements CreateProductService {
 
 	private final ProductRepository productRepository;
+	private final ModelMapper modelMapper;
 
 	@Override
 	public EntityCreatedDto create(CreateProductDto createProductDto) {
-		Product product = createProductDto.toProduct();
+		Product product = modelMapper.map(createProductDto, Product.class);
 		product.setCreatedOn(System.currentTimeMillis());
 		return new EntityCreatedDto(productRepository.save(product).getId());
 	}

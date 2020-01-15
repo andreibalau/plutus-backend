@@ -10,5 +10,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class EmailExistenceCheckDto {
+
 	private String email;
+
 }

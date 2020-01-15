@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 import com.finance.plutus.model.exchange.dto.ExchangeDto;
 import com.finance.plutus.repository.exchange.ExchangeRepository;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 /**
@@ -21,12 +22,13 @@ import org.springframework.stereotype.Service;
 public class ExchangeService {
 
     private final ExchangeRepository exchangeRepository;
+    private final ModelMapper modelMapper;
 
     public List<ExchangeDto> findAll() {
         return exchangeRepository
                 .findAll()
                 .stream()
-                .map(ExchangeDto::from)
+                .map(exchangeHistory -> modelMapper.map(exchangeHistory, ExchangeDto.class))
                 .collect(Collectors.toList());
     }
 
@@ -35,7 +37,7 @@ public class ExchangeService {
         return exchangeRepository
                 .findAllByDate(localDate.toEpochDay())
                 .stream()
-                .map(ExchangeDto::from)
+                .map(exchangeHistory -> modelMapper.map(exchangeHistory, ExchangeDto.class))
                 .collect(Collectors.toList());
     }
 

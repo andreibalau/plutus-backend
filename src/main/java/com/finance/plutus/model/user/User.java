@@ -1,6 +1,5 @@
 package com.finance.plutus.model.user;
 
-import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
@@ -10,7 +9,6 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Version;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -18,21 +16,16 @@ import javax.validation.constraints.NotNull;
 import java.util.Collections;
 import java.util.Set;
 
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
  * Plutus
  * Created by catalin on 21.09.2019
  */
-@Builder
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
 @Entity
 public class User {
 
@@ -72,9 +65,5 @@ public class User {
 	@NotBlank
 	@Column(nullable =  false, name = "address")
 	private String address;
-	@NotNull
-	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(nullable = false)
-	private Settings settings;
 
 }

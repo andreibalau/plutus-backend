@@ -3,37 +3,24 @@ package com.finance.plutus.security;
 import java.util.Arrays;
 import java.util.Collections;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.finance.plutus.util.Api;
-import org.springframework.beans.factory.annotation.Value;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
-import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.authentication.AuthenticationFailureHandler;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 @EnableWebSecurity
+@RequiredArgsConstructor
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-    private final String jwtSecret;
-    private final UserDetailsService userDetailsService;
-
-    public SecurityConfiguration(
-            @Value("${jwt.secret}") String jwtSecret,
-            UserDetailsService userDetailsService
-    ) {
-       this.jwtSecret = jwtSecret;
-       this.userDetailsService = userDetailsService;
-    }
+    private final PlutusAuthenticationEntryPoint authenticationEntryPoint;
+    private final TokenAuthorizationFilter tokenAuthorizationFilter;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -44,9 +31,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers(
                         Api.USERS + Api.LOGIN,
                         Api.USERS + Api.REGISTER,
-                        Api.USERS + Api.CHECK_EMAIL
-                ).permitAll()
-                .antMatchers(
+                        Api.USERS + Api.CHECK_EMAIL,
                         "/v2/api-docs",
                         "/configuration/ui",
                         "/swagger-resources/**",
@@ -56,23 +41,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 ).permitAll()
                 .anyRequest().authenticated()
                 .and()
-                .exceptionHandling().accessDeniedHandler(failedAuthorizationEntryPoint())
-                .authenticationEntryPoint(failedAuthorizationEntryPoint())
-                .and()
-                .apply(jwtFilterConfig())
-                .and()
-                .apply(jwtAuthorizationFilterConfig())
+                .exceptionHandling()
+                .accessDeniedHandler(authenticationEntryPoint)
+                .authenticationEntryPoint(authenticationEntryPoint)
                 .and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-    }
-
-    @Override
-    public void configure(AuthenticationManagerBuilder auth) {
-        DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
-        daoAuthenticationProvider.setUserDetailsService(userDetailsService);
-        daoAuthenticationProvider.setPasswordEncoder(passwordEncoder());
-        auth.authenticationProvider(daoAuthenticationProvider);
+        http.addFilterBefore(tokenAuthorizationFilter, UsernamePasswordAuthenticationFilter.class);
     }
 
     @Bean
@@ -85,46 +60,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         configuration.setAllowedMethods(Arrays.asList("HEAD", "GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"));
         source.registerCorsConfiguration("/**", configuration);
         return source;
-    }
-
-    @Bean
-    public FailedAuthorizationEntryPoint failedAuthorizationEntryPoint() {
-        return new FailedAuthorizationEntryPoint(objectMapper());
-    }
-
-    @Bean
-    public JwtTokenFilterConfig jwtAuthorizationFilterConfig() {
-        return new JwtTokenFilterConfig(jwtTokenHelper());
-    }
-
-    @Bean
-    public JwtAuthenticationFilterConfig jwtFilterConfig() throws Exception {
-        return new JwtAuthenticationFilterConfig(
-                new AntPathRequestMatcher("/api/v1/users/login"),
-                authenticationManager(),
-                jwtTokenHelper(),
-                authenticationFailureHandler(),
-                objectMapper());
-    }
-
-    @Bean
-    public JwtTokenHelper jwtTokenHelper() {
-        return new JwtTokenHelper(jwtSecret, userDetailsService);
-    }
-
-    @Bean
-    public AuthenticationFailureHandler authenticationFailureHandler() {
-        return new JsonAuthenticationFailureHandler(objectMapper());
-    }
-
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
-
-    @Bean
-    public ObjectMapper objectMapper() {
-        return new ObjectMapper();
     }
 
 }

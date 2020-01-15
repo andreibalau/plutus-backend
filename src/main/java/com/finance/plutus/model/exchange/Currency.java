@@ -10,6 +10,7 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum Currency {
+
 	RON("RON", "Leu romanesc"),
 	EUR("EUR", "Euro"),
 	GBP("GBP", "Lira sterlina"),
@@ -46,4 +47,5 @@ public enum Currency {
 
 	private String currency;
 	private String name;
+
 }

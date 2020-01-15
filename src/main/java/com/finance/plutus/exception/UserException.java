@@ -12,8 +12,16 @@ public class UserException extends PlutusException {
 		return new UserException("User not found!", HttpStatus.BAD_REQUEST);
 	}
 
-	public static UserException userIsForbiddenOrUnauthorized() {
+	public static UserException userIsForbidden() {
 		return new UserException("User is not allowed to access this resource!", HttpStatus.FORBIDDEN);
+	}
+
+	public static UserException userIsUnauthorized() {
+		return new UserException("User is unauthorized!", HttpStatus.UNAUTHORIZED);
+	}
+
+	public static UserException tokenIsExpired() {
+		return new UserException("Token has expired!", HttpStatus.UNAUTHORIZED);
 	}
 
 	public static UserException wrongCredentials() {

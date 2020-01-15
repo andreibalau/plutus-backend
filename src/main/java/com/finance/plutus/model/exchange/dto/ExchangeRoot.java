@@ -7,7 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.finance.plutus.model.exchange.ExchangeHistory;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.simpleframework.xml.Attribute;
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.Root;
@@ -16,9 +17,11 @@ import org.simpleframework.xml.Root;
  * Plutus
  * Created by catalin on 30.09.2019
  */
-@Data
+@Getter
+@Setter
 @Root(name = "DataSet", strict = false)
 public class ExchangeRoot {
+
     @Element(name = "Header")
     private ExchangeHeader exchangeHeader;
     @Element(name = "Body")
@@ -42,4 +45,5 @@ public class ExchangeRoot {
                 });
         return exchangeHistoryList;
     }
+
 }

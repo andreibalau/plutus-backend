@@ -3,7 +3,8 @@ package com.finance.plutus.model.exchange.dto;
 import java.util.List;
 
 import com.finance.plutus.model.exchange.Currency;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.simpleframework.xml.Attribute;
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.ElementList;
@@ -14,7 +15,8 @@ import org.simpleframework.xml.Root;
  * Plutus
  * Created by catalin on 30.09.2019
  */
-@Data
+@Getter
+@Setter
 @Root(name = "Body", strict = false)
 public class ExchangeBody {
     @Element(name = "Subject")

@@ -7,6 +7,7 @@ import com.finance.plutus.model.partner.dto.PartnerDto;
 import com.finance.plutus.repository.partner.PartnerRepository;
 import com.finance.plutus.service.partner.FindPartnerService;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 /**
@@ -18,13 +19,14 @@ import org.springframework.stereotype.Service;
 public class FindPartnerServiceImpl implements FindPartnerService {
 
 	private final PartnerRepository partnerRepository;
+	private ModelMapper modelMapper;
 
 	@Override
 	public List<PartnerDto> findAll() {
 		return partnerRepository
 				.findAll()
 				.stream()
-				.map(PartnerDto::from)
+				.map(partner -> modelMapper.map(partner, PartnerDto.class))
 				.collect(Collectors.toList());
 	}
 }

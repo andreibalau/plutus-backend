@@ -3,7 +3,6 @@ package com.finance.plutus.model.user.dto;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
-import com.finance.plutus.model.user.User;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -28,17 +27,5 @@ public class RegistrationDto {
 	private String password;
 	@NotBlank
 	private String address;
-
-	public User toUser() {
-		return User
-				.builder()
-				.firstName(firstName)
-				.lastName(lastName)
-				.phone(phone)
-				.email(email.toLowerCase())
-				.password(password)
-				.address(address)
-				.build();
-	}
 
 }

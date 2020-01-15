@@ -2,29 +2,27 @@ package com.finance.plutus.model.product;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Version;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
  * Plutus
  * Created by catalin on 21.09.2019
  */
-@Builder
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
 @Entity
 public class Product {
+
 	@Id
 	@GeneratedValue
 	private Long id;
@@ -43,4 +41,10 @@ public class Product {
 	@NotNull
 	@Column(nullable = false, name = "price")
 	private Double price;
+	@NotNull
+	@Enumerated(EnumType.STRING)
+	@Column(nullable = false, name = "type")
+	@Builder.Default
+	private Type type = Type.PRODUCT;
+
 }
