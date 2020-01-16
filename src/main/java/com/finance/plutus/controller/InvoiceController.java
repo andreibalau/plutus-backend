@@ -18,6 +18,7 @@ public class InvoiceController implements InvoiceApi {
 
 	private final FindInvoiceService findInvoiceService;
 
+	@Override
 	public List<InvoiceDto> findAll() {
 		return findInvoiceService.findAll();
 	}

@@ -21,12 +21,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping(Api.INVOICES)
 public interface InvoiceApi {
 
+	/**
+	 * Find all invoices
+	 */
 	@ApiOperation(value = "Find all invoices",
 			nickname = "findAll",
 			tags = "invoice-controller")
 	@ApiResponses(value = {
 			@ApiResponse(code = 200, message = "OK"),
-			@ApiResponse(code = 401, message = "Unauthenticated"),
+			@ApiResponse(code = 401, message = "Unauthorized"),
 			@ApiResponse(code = 400, message = "Bad request"),
 			@ApiResponse(code = 405, message = "Method not allowed"),
 			@ApiResponse(code = 415, message = "Unsupported media type"),

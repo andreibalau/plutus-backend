@@ -28,12 +28,15 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @RequestMapping(Api.PRODUCTS)
 public interface ProductApi {
 
+	/**
+	 * Product creation
+	 */
 	@ApiOperation(value = "Create a new product",
 			nickname = "create",
 			tags = "product-controller")
 	@ApiResponses(value = {
 			@ApiResponse(code = 201, message = "Product creation successfully"),
-			@ApiResponse(code = 401, message = "Unauthenticated"),
+			@ApiResponse(code = 401, message = "Unauthorized"),
 			@ApiResponse(code = 400, message = "Bad request"),
 			@ApiResponse(code = 405, message = "Method not allowed"),
 			@ApiResponse(code = 415, message = "Unsupported media type"),
@@ -51,12 +54,15 @@ public interface ProductApi {
 	@PostMapping(consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
 	EntityCreatedDto create(@RequestBody @Valid CreateProductDto createProductDto);
 
+	/**
+	 * Find all products
+	 */
 	@ApiOperation(value = "Find all products",
 			nickname = "findAll",
 			tags = "product-controller")
 	@ApiResponses(value = {
 			@ApiResponse(code = 200, message = "OK"),
-			@ApiResponse(code = 401, message = "Unauthenticated"),
+			@ApiResponse(code = 401, message = "Unauthorized"),
 			@ApiResponse(code = 400, message = "Bad request"),
 			@ApiResponse(code = 405, message = "Method not allowed"),
 			@ApiResponse(code = 415, message = "Unsupported media type"),

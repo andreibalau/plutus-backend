@@ -9,7 +9,7 @@ public class UserException extends PlutusException {
 	}
 
 	public static UserException userNotFound() {
-		return new UserException("User not found!", HttpStatus.BAD_REQUEST);
+		return new UserException("User not found!", HttpStatus.NOT_FOUND);
 	}
 
 	public static UserException userIsForbidden() {

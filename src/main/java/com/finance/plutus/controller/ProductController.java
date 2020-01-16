@@ -22,10 +22,12 @@ public class ProductController implements ProductApi {
 	private final CreateProductService createProductService;
 	private final FindProductService findProductService;
 
+	@Override
 	public EntityCreatedDto create(CreateProductDto createProductDto) {
 		return createProductService.create(createProductDto);
 	}
 
+	@Override
 	public List<ProductDto> findAll() {
 		return findProductService.findAll();
 	}

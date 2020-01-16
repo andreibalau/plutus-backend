@@ -22,10 +22,12 @@ public class PartnerController implements PartnerApi {
 	private final CreatePartnerService createPartnerService;
 	private final FindPartnerService findPartnerService;
 
+	@Override
 	public EntityCreatedDto create(CreatePartnerDto createPartnerDto) {
 		return createPartnerService.create(createPartnerDto);
 	}
 
+	@Override
 	public List<PartnerDto> findAll() {
 		return findPartnerService.findAll();
 	}
