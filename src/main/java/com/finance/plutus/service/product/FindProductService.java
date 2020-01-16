@@ -10,4 +10,5 @@ import com.finance.plutus.model.product.dto.ProductDto;
  */
 public interface FindProductService {
 	List<ProductDto> findAll();
+	ProductDto findById(Long productId);
 }

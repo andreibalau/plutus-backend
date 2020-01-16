@@ -13,7 +13,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class CreateProductDto {
+public class ModifyProductDto {
 
 	@NotBlank
 	private String name;

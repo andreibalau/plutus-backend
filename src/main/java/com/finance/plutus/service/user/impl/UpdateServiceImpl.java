@@ -35,6 +35,7 @@ public class UpdateServiceImpl implements UpdateService {
 		user.setFirstName(updateUserDto.getFirstName());
 		user.setLastName(updateUserDto.getLastName());
 		user.setPhone(updateUserDto.getPhone());
+		user.setUpdatedOn(System.currentTimeMillis());
 		userRepository.save(user);
 	}
 

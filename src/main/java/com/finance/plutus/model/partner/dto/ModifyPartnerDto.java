@@ -12,7 +12,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class CreatePartnerDto {
+public class ModifyPartnerDto {
 	@NotBlank
 	private String firstName;
 	@NotBlank

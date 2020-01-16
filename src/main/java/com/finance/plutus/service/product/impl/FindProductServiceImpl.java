@@ -3,6 +3,7 @@ package com.finance.plutus.service.product.impl;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.finance.plutus.exception.ProductException;
 import com.finance.plutus.model.product.dto.ProductDto;
 import com.finance.plutus.repository.product.ProductRepository;
 import com.finance.plutus.service.product.FindProductService;
@@ -28,5 +29,13 @@ public class FindProductServiceImpl implements FindProductService {
 				.stream()
 				.map(product -> modelMapper.map(product, ProductDto.class))
 				.collect(Collectors.toList());
+	}
+
+	@Override
+	public ProductDto findById(Long productId) {
+		return productRepository
+				.findById(productId)
+				.map(product -> modelMapper.map(product, ProductDto.class))
+				.orElseThrow(ProductException::productNotFound);
 	}
 }

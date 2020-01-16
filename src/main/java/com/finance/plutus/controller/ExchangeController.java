@@ -2,13 +2,10 @@ package com.finance.plutus.controller;
 
 import java.util.List;
 
+import com.finance.plutus.api.ExchangeApi;
 import com.finance.plutus.model.exchange.dto.ExchangeDto;
 import com.finance.plutus.service.exchange.ExchangeService;
-import com.finance.plutus.util.Api;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -17,18 +14,12 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(Api.EXCHANGES)
-public class ExchangeController {
+public class ExchangeController implements ExchangeApi {
 
     private final ExchangeService exchangeService;
 
-    @GetMapping
-    public List<ExchangeDto> findAll() {
-        return exchangeService.findAll();
-    }
-
-    @GetMapping("/{date}")
-    public List<ExchangeDto> findAllByDate(@PathVariable String date) {
+    @Override
+    public List<ExchangeDto> findAllByDate(String date) {
         return exchangeService.findAllByDate(date);
     }
 

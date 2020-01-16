@@ -10,4 +10,5 @@ import com.finance.plutus.model.partner.dto.PartnerDto;
  */
 public interface FindPartnerService {
 	List<PartnerDto> findAll();
+	PartnerDto findById(Long partnerId);
 }

@@ -32,6 +32,9 @@ public class Product {
 	@NotNull
 	@Column(nullable = false, name = "created_on")
 	private Long createdOn;
+	@NotNull
+	@Column(nullable = false, name = "updated_on")
+	private Long updatedOn;
 	@NotBlank
 	@Column(nullable = false, name = "name")
 	private String name;
