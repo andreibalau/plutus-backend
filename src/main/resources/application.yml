@@ -2,3 +2,14 @@ jwt:
   secret: v9y$B&E)H@McQfTjWnZr4u7w!z%C*F-JaNdRgUkXp2s5v8y/A?D(G+KbPeShVmYq
 server:
   port: 8888
+spring:
+  datasource:
+    url: postgres://rtujimvwhzuyrl:c51a382f971339188b8d68219a5762d4340cd4c6886d7b30e73c34efcb3c8366@ec2-54-246-105-238.eu-west-1.compute.amazonaws.com:5432/dd63ovf7k7mjdc
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        default_schema: plutus
