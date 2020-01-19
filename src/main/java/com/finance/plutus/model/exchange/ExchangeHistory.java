@@ -1,5 +1,11 @@
 package com.finance.plutus.model.exchange;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -11,12 +17,6 @@ import javax.persistence.UniqueConstraint;
 import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
 /**
  * Plutus
  * Created by catalin on 28.09.2019
@@ -27,7 +27,8 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(uniqueConstraints = {
+@Table(name = "exchange_history",
+		uniqueConstraints = {
 		@UniqueConstraint(columnNames = { "date", "currency" })
 })
 public class ExchangeHistory {

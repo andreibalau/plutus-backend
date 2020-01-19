@@ -4,12 +4,18 @@ server:
   port: 8888
 spring:
   datasource:
-    url: postgres://rtujimvwhzuyrl:c51a382f971339188b8d68219a5762d4340cd4c6886d7b30e73c34efcb3c8366@ec2-54-246-105-238.eu-west-1.compute.amazonaws.com:5432/dd63ovf7k7mjdc
+    url: jdbc:postgresql://ec2-54-246-105-238.eu-west-1.compute.amazonaws.com:5432/dd63ovf7k7mjdc
     driver-class-name: org.postgresql.Driver
+    username: rtujimvwhzuyrl
+    password: c51a382f971339188b8d68219a5762d4340cd4c6886d7b30e73c34efcb3c8366
   jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    generate-ddl: true
     hibernate:
-      ddl-auto: validate
+      ddl-auto: update
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
-        default_schema: plutus
+        jdbc:
+          lob:
+            non_contextual_creation: true

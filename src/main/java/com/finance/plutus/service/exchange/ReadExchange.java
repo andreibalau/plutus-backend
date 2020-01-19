@@ -23,20 +23,20 @@ public class ReadExchange {
 
 	@PostConstruct
 	public void read() {
-		BnrService bnrService = httpClient.getInstance().create(BnrService.class);
-		bnrService.getRates().enqueue(new Callback<ExchangeRoot>() {
-			@Override
-			public void onResponse(Call<ExchangeRoot> call, Response<ExchangeRoot> response) {
-				if (response.isSuccessful() && response.body() != null) {
-					exchangeRepository.saveAll(response.body().exchangeHistory());
-				}
-			}
-
-			@Override
-			public void onFailure(Call<ExchangeRoot> call, Throwable throwable) {
-				throwable.printStackTrace();
-			}
-		});
+//		BnrService bnrService = httpClient.getInstance().create(BnrService.class);
+//		bnrService.getRates().enqueue(new Callback<ExchangeRoot>() {
+//			@Override
+//			public void onResponse(Call<ExchangeRoot> call, Response<ExchangeRoot> response) {
+//				if (response.isSuccessful() && response.body() != null) {
+//					exchangeRepository.saveAll(response.body().exchangeHistory());
+//				}
+//			}
+//
+//			@Override
+//			public void onFailure(Call<ExchangeRoot> call, Throwable throwable) {
+//				throwable.printStackTrace();
+//			}
+//		});
 	}
 
 }
