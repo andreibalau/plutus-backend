@@ -2,13 +2,10 @@ package com.finance.plutus.service.exchange;
 
 import javax.annotation.PostConstruct;
 
-import com.finance.plutus.model.exchange.dto.ExchangeRoot;
 import com.finance.plutus.repository.exchange.ExchangeRepository;
+import com.finance.plutus.service.http.HttpClient;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 /**
  * Plutus
@@ -18,6 +15,7 @@ import retrofit2.Response;
 @RequiredArgsConstructor
 public class ReadExchange {
 
+	private static final String BNR_ROOT = "https://www.bnr.ro";
 	private final HttpClient httpClient;
 	private final ExchangeRepository exchangeRepository;
 
