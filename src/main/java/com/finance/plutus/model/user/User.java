@@ -10,7 +10,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Table;
-import javax.persistence.Version;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -34,9 +33,6 @@ public class User {
 	@Id
 	@GeneratedValue
 	private Long id;
-	@Version
-	@Column(nullable = false, name = "version")
-	private Long version;
 	@NotNull
 	@Column(nullable = false, name = "created_on")
 	private Long createdOn;

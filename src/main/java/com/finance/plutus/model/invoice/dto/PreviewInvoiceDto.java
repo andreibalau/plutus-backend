@@ -1,33 +1,33 @@
 package com.finance.plutus.model.invoice.dto;
 
-import java.util.HashSet;
-import java.util.Set;
+import javax.validation.constraints.NotNull;
 
 import com.finance.plutus.model.invoice.Status;
 import com.finance.plutus.model.invoice.Type;
-import com.finance.plutus.model.partner.dto.PartnerDto;
 import lombok.Getter;
 import lombok.Setter;
 
 /**
  * Plutus
- * Created by catalin on 22.09.2019
+ * Created by catalin on 1/20/2020
  */
 @Getter
 @Setter
-public class InvoiceDto {
+public class PreviewInvoiceDto {
 
+	@NotNull
 	private Long id;
+	@NotNull
 	private Double subtotal;
-	private Double taxes;
+	@NotNull
 	private Double total;
+	@NotNull
+	private Double taxes;
+	@NotNull
 	private Long date;
-	private PartnerDto vendor;
-	private PartnerDto client;
-	private Long serial;
-	private String serialName;
-	private Set<InvoiceLineDto> lines = new HashSet<>();
+	@NotNull
 	private Type type;
+	@NotNull
 	private Status status;
 
 }

@@ -1,25 +1,34 @@
 package com.finance.plutus.model.invoice.dto;
 
-import com.finance.plutus.model.product.dto.ProductDto;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
 import lombok.Getter;
 import lombok.Setter;
 
 /**
  * Plutus
- * Created by catalin on 22.09.2019
+ * Created by catalin on 1/20/2020
  */
 @Getter
 @Setter
-public class InvoiceLineDto {
+public class ModifyInvoiceLineDto {
 
-	private Long id;
+	@NotNull
 	private Long invoice;
-	private ProductDto product;
+	@NotNull
+	private Long productId;
+	@NotBlank
 	private String uom;
+	@NotNull
 	private Double quantity;
+	@NotNull
 	private Double price;
+	@NotNull
 	private Double subtotal;
+	@NotNull
 	private Double taxes;
+	@NotNull
 	private Double total;
 
 }

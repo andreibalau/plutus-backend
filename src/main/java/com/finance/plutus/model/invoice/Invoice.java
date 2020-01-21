@@ -1,10 +1,5 @@
 package com.finance.plutus.model.invoice;
 
-import com.finance.plutus.model.partner.Partner;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -19,7 +14,13 @@ import javax.persistence.Table;
 import javax.persistence.Version;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.util.HashSet;
 import java.util.Set;
+
+import com.finance.plutus.model.partner.Partner;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * Plutus
@@ -30,15 +31,16 @@ import java.util.Set;
 @Entity
 @Table(name = "invoices")
 public class Invoice {
+
 	@Id
 	@GeneratedValue
 	private Long id;
-	@Version
-	@Column(nullable = false, name = "version")
-	private Long version;
 	@NotNull
 	@Column(nullable = false, name = "created_on")
 	private Long createdOn;
+	@NotNull
+	@Column(nullable = false, name = "updated_on")
+	private Long updatedOn;
 	@NotNull
 	@ManyToOne
 	@JoinColumn(nullable = false)
@@ -58,7 +60,7 @@ public class Invoice {
 	@Column(nullable = false, name = "date")
 	private Long date;
 	@OneToMany(mappedBy = "invoice", cascade = CascadeType.ALL)
-	private Set<InvoiceLine> lines;
+	private Set<InvoiceLine> lines = new HashSet<>();
 	@NotNull
 	@Column(nullable = false, name = "subtotal")
 	private Double subtotal;
@@ -77,4 +79,5 @@ public class Invoice {
 	@Enumerated(EnumType.STRING)
 	@Column(nullable = false, name = "status")
 	private Status status = Status.DRAFT;
+
 }

@@ -1,16 +1,15 @@
 package com.finance.plutus.model.invoice;
 
-import lombok.Getter;
-import lombok.Setter;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.Version;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * Plutus
@@ -21,15 +20,16 @@ import javax.validation.constraints.NotNull;
 @Entity
 @Table(name = "serials")
 public class Serial {
+
 	@Id
 	@GeneratedValue
 	private Long id;
-	@Version
-	@Column(nullable = false, name = "version")
-	private Long version;
 	@NotNull
 	@Column(nullable = false, name = "created_on")
 	private Long createdOn;
+	@NotNull
+	@Column(nullable = false, name = "updated_on")
+	private Long updatedOn;
 	@NotBlank
 	@Column(nullable = false, name = "name")
 	private String name;
@@ -42,4 +42,5 @@ public class Serial {
 	@NotNull
 	@Column(nullable = false, name = "min")
 	private Long min;
+
 }
