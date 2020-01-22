@@ -1,16 +1,12 @@
 package com.finance.plutus.service.invoice.impl;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
 import com.finance.plutus.exception.InvoiceException;
 import com.finance.plutus.exception.PartnerException;
 import com.finance.plutus.exception.ProductException;
 import com.finance.plutus.model.common.EntityCreatedDto;
 import com.finance.plutus.model.invoice.Invoice;
 import com.finance.plutus.model.invoice.InvoiceLine;
-import com.finance.plutus.model.invoice.Serial;
+import com.finance.plutus.model.serial.Serial;
 import com.finance.plutus.model.invoice.dto.ModifyInvoiceDto;
 import com.finance.plutus.model.invoice.dto.ModifyInvoiceLineDto;
 import com.finance.plutus.model.partner.Partner;
@@ -23,6 +19,10 @@ import com.finance.plutus.service.invoice.CreateInvoiceService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  * Plutus
@@ -44,6 +44,8 @@ public class CreateInvoiceServiceImpl implements CreateInvoiceService {
 		makeLinesComputations(invoice, invoiceDto);
 		Partner vendor = findPartner(invoiceDto.getVendorId());
 		Partner client = findPartner(invoiceDto.getClientId());
+		Serial serial = findSerial(invoiceDto.getSerialDto().getId());
+		invoice.setSerial(serial);
 		invoice.setVendor(vendor);
 		invoice.setClient(client);
 		invoice.setCreatedOn(System.currentTimeMillis());
@@ -84,15 +86,10 @@ public class CreateInvoiceServiceImpl implements CreateInvoiceService {
 				.orElseThrow(ProductException::productNotFound);
 	}
 
-	private void createSerialNumber(Long serialId) {
-		Serial serial = serialRepository
+	private Serial findSerial(Long serialId) {
+		return serialRepository
 				.findById(serialId)
 				.orElseThrow(InvoiceException::serialNumberNotFound);
-		long current = serial.getNumber();
-		if (current == serial.getNumber()) {
-			throw InvoiceException.serialNumberOverflow();
-		}
-		serial.setNumber(++current);
 	}
 
 }

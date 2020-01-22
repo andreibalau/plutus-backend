@@ -1,6 +1,6 @@
 package com.finance.plutus.repository.invoice;
 
-import com.finance.plutus.model.invoice.Serial;
+import com.finance.plutus.model.serial.Serial;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**

@@ -1,4 +1,4 @@
-package com.finance.plutus.model.invoice;
+package com.finance.plutus.model.serial;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

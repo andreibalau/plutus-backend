@@ -1,4 +1,4 @@
-package com.finance.plutus.model.invoice.dto;
+package com.finance.plutus.model.serial.dto;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;

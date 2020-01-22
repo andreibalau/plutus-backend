@@ -1,18 +1,20 @@
 package com.finance.plutus.controller;
 
-import java.util.List;
-
 import com.finance.plutus.api.InvoiceApi;
 import com.finance.plutus.model.common.EntityCreatedDto;
+import com.finance.plutus.model.invoice.dto.ChangeStatusDto;
 import com.finance.plutus.model.invoice.dto.InvoiceDto;
 import com.finance.plutus.model.invoice.dto.ModifyInvoiceDto;
 import com.finance.plutus.model.invoice.dto.PreviewInvoiceDto;
+import com.finance.plutus.service.invoice.ChangeInvoiceStatusService;
 import com.finance.plutus.service.invoice.CreateInvoiceService;
 import com.finance.plutus.service.invoice.DeleteInvoiceService;
 import com.finance.plutus.service.invoice.FindInvoiceService;
 import com.finance.plutus.service.invoice.UpdateInvoiceService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 /**
  * Plutus
@@ -26,6 +28,7 @@ public class InvoiceController implements InvoiceApi {
 	private final CreateInvoiceService createInvoiceService;
 	private final UpdateInvoiceService updateInvoiceService;
 	private final DeleteInvoiceService deleteInvoiceService;
+	private final ChangeInvoiceStatusService changeInvoiceStatusService;
 
 	@Override
 	public List<PreviewInvoiceDto> findAll() {
@@ -50,6 +53,11 @@ public class InvoiceController implements InvoiceApi {
 	@Override
 	public void delete(Long invoiceId) {
 		deleteInvoiceService.delete(invoiceId);
+	}
+
+	@Override
+	public void changeStatus(Long invoiceId, ChangeStatusDto changeStatusDto) {
+		changeInvoiceStatusService.changeStatus(invoiceId, changeStatusDto);
 	}
 
 }

@@ -1,12 +1,14 @@
 package com.finance.plutus.api;
 
 import static org.springframework.http.HttpStatus.CREATED;
+import static org.springframework.http.HttpStatus.NO_CONTENT;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 import javax.validation.Valid;
 import java.util.List;
 
 import com.finance.plutus.model.common.EntityCreatedDto;
+import com.finance.plutus.model.invoice.dto.ChangeStatusDto;
 import com.finance.plutus.model.invoice.dto.InvoiceDto;
 import com.finance.plutus.model.invoice.dto.ModifyInvoiceDto;
 import com.finance.plutus.model.invoice.dto.PreviewInvoiceDto;
@@ -169,5 +171,35 @@ public interface InvoiceApi {
 	void delete(
 			@ApiParam(value = "The id of the invoice", required = true)
 			@PathVariable Long invoiceId);
+
+	/**
+	 * Invoice status change
+	 */
+	@ApiOperation(value = "Change invoice status",
+			nickname = "changeStatus",
+			tags = "invoice-controller")
+	@ApiResponses(value = {
+			@ApiResponse(code = 204, message = "Invoice status changed successfully"),
+			@ApiResponse(code = 401, message = "Unauthorized"),
+			@ApiResponse(code = 400, message = "Bad request"),
+			@ApiResponse(code = 405, message = "Method not allowed"),
+			@ApiResponse(code = 415, message = "Unsupported media type"),
+			@ApiResponse(code = 500, message = "Internal server error")
+	})
+	@ApiImplicitParams({
+			@ApiImplicitParam(name = "Content-Type",
+					value = "The content type of the request body",
+					paramType = "header", required = true, defaultValue = "application/json"),
+			@ApiImplicitParam(name = "Authorization",
+					value = "The authorization token header",
+					paramType = "header", required = true),
+	})
+	@ResponseStatus(NO_CONTENT)
+	@PostMapping(value = "/status/{invoiceId}", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
+	void changeStatus(
+			@ApiParam(value = "The id of the invoice", required = true)
+			@PathVariable Long invoiceId,
+			@ApiParam(value = "The request containing the invoice status", required = true)
+			@Valid @RequestBody ChangeStatusDto changeStatusDto);
 
 }

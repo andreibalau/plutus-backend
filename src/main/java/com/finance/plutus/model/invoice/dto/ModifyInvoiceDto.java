@@ -4,6 +4,7 @@ import javax.validation.constraints.NotNull;
 import java.util.List;
 
 import com.finance.plutus.model.invoice.Type;
+import com.finance.plutus.model.serial.dto.SerialDto;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -31,5 +32,6 @@ public class ModifyInvoiceDto {
 	private List<ModifyInvoiceLineDto> lines;
 	@NotNull
 	private Type type;
+	private SerialDto serialDto;
 
 }
