@@ -40,9 +40,6 @@ public interface AnafApi {
 			@ApiImplicitParam(name = "Content-Type",
 					value = "The content type of the request body",
 					paramType = "header", required = true, defaultValue = "application/json"),
-			@ApiImplicitParam(name = "Authorization",
-					value = "The authorization token header",
-					paramType = "header", required = true),
 	})
 	@PostMapping(consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
 	InfoResponseDto find(
