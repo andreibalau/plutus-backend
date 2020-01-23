@@ -21,5 +21,11 @@ public class UpdateUserDto {
 	private String phone;
 	@NotBlank
 	private String address;
+	@NotBlank
+	private String city;
+	@NotBlank
+	private String state;
+	@NotBlank
+	private String zip;
 
 }

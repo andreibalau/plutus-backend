@@ -32,6 +32,9 @@ public class UpdateServiceImpl implements UpdateService {
 
 	private void updateUser(User user, UpdateUserDto updateUserDto) {
 		user.setAddress(updateUserDto.getAddress());
+		user.setCity(updateUserDto.getCity());
+		user.setState(updateUserDto.getState());
+		user.setZip(updateUserDto.getZip());
 		user.setFirstName(updateUserDto.getFirstName());
 		user.setLastName(updateUserDto.getLastName());
 		user.setPhone(updateUserDto.getPhone());

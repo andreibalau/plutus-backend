@@ -27,5 +27,11 @@ public class RegistrationDto {
 	private String password;
 	@NotBlank
 	private String address;
+	@NotBlank
+	private String city;
+	@NotBlank
+	private String state;
+	@NotBlank
+	private String zip;
 
 }

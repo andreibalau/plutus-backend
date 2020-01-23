@@ -63,5 +63,14 @@ public class User {
 	@NotBlank
 	@Column(nullable =  false, name = "address")
 	private String address;
+	@NotBlank
+	@Column(nullable =  false, name = "city")
+	private String city;
+	@NotBlank
+	@Column(nullable =  false, name = "state")
+	private String state;
+	@NotBlank
+	@Column(nullable =  false, name = "zip")
+	private String zip;
 
 }
