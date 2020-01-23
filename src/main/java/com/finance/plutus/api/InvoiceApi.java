@@ -195,7 +195,7 @@ public interface InvoiceApi {
 					paramType = "header", required = true),
 	})
 	@ResponseStatus(NO_CONTENT)
-	@PostMapping(value = "/status/{invoiceId}", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
+	@PostMapping(value = "/{invoiceId}/status", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
 	void changeStatus(
 			@ApiParam(value = "The id of the invoice", required = true)
 			@PathVariable Long invoiceId,
