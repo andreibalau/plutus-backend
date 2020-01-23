@@ -1,8 +1,10 @@
 package com.finance.plutus.service.http;
 
+import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import org.springframework.stereotype.Service;
 import retrofit2.Retrofit;
-import retrofit2.converter.simplexml.SimpleXmlConverterFactory;
+import retrofit2.converter.jackson.JacksonConverterFactory;
 
 /**
  * Plutus
@@ -15,8 +17,16 @@ public class HttpClient {
 		return new Retrofit
 				.Builder()
 				.baseUrl(url)
-				.addConverterFactory(SimpleXmlConverterFactory.create())
+				.client(createClient())
+//				.addConverterFactory(SimpleXmlConverterFactory.create())
+				.addConverterFactory(JacksonConverterFactory.create())
 				.build();
+	}
+
+	private synchronized OkHttpClient createClient() {
+		HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+		interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+		return new OkHttpClient.Builder().addInterceptor(interceptor).build();
 	}
 
 }

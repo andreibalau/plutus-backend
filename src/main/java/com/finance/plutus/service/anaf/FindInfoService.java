@@ -1,6 +1,7 @@
 package com.finance.plutus.service.anaf;
 
 import java.io.IOException;
+import java.util.Collections;
 
 import com.finance.plutus.exception.AnafException;
 import com.finance.plutus.model.anaf.InfoRequestDto;
@@ -27,7 +28,7 @@ public class FindInfoService {
 				.getInstance(ANAF_URL)
 				.create(AnafService.class);
 		try {
-			Response<InfoResponseDto> response = service.findInfo(infoRequestDto).execute();
+			Response<InfoResponseDto> response = service.findInfo(Collections.singletonList(infoRequestDto)).execute();
 			if (response.isSuccessful()) {
 				return response.body();
 			} else {
