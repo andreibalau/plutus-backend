@@ -32,6 +32,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                         Api.USERS + Api.LOGIN,
                         Api.USERS + Api.REGISTER,
                         Api.USERS + Api.CHECK_EMAIL,
+                        Api.ANAF,
                         "/v2/api-docs",
                         "/configuration/ui",
                         "/swagger-resources/**",

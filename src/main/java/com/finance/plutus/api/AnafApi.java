@@ -32,7 +32,6 @@ public interface AnafApi {
 			tags = "anaf-controller")
 	@ApiResponses(value = {
 			@ApiResponse(code = 200, message = "OK"),
-			@ApiResponse(code = 401, message = "Unauthorized"),
 			@ApiResponse(code = 405, message = "Method not allowed"),
 			@ApiResponse(code = 415, message = "Unsupported media type"),
 			@ApiResponse(code = 500, message = "Internal server error")
