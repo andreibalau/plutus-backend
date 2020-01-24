@@ -19,7 +19,6 @@ public class UpdateUserDto {
 	private String firstName;
 	@NotBlank
 	private String lastName;
-	@NotBlank
 	private String phone;
 	@Valid
 	@NotNull

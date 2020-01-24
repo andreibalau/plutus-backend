@@ -1,8 +1,5 @@
 package com.finance.plutus.model.user;
 
-import lombok.Getter;
-import lombok.Setter;
-
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
@@ -12,6 +9,9 @@ import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * Plutus
@@ -36,8 +36,7 @@ public class User {
 	@NotBlank
 	@Column(nullable = false, unique = true, name = "email")
 	private String email;
-	@NotBlank
-	@Column(nullable = false, name = "phone")
+	@Column(name = "phone")
 	private String phone;
 	@NotBlank
 	@Column(nullable = false, name = "password")
