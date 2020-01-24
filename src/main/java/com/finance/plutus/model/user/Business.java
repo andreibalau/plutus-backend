@@ -31,5 +31,13 @@ public class Business {
     @NotBlank
     @Column(nullable =  false, name = "address")
     private String address;
+    @NotBlank
+    @Column(nullable =  false, name = "city")
+    private String city;
+    @NotBlank
+    @Column(nullable =  false, name = "state")
+    private String state;
+    @Column(name = "zip")
+    private String zip;
 
 }

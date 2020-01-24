@@ -23,5 +23,10 @@ public class BusinessDto {
     private String regCom;
     @NotBlank
     private String address;
+    @NotBlank
+    private String city;
+    @NotBlank
+    private String state;
+    private String zip;
 
 }
