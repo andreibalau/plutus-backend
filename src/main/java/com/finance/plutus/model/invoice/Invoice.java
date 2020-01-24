@@ -2,7 +2,6 @@ package com.finance.plutus.model.invoice;
 
 import com.finance.plutus.model.partner.Partner;
 import com.finance.plutus.model.serial.Serial;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -74,7 +73,6 @@ public class Invoice {
 	@Enumerated(EnumType.STRING)
 	@Column(nullable = false, name = "type")
 	private Type type;
-	@Builder.Default
 	@NotNull
 	@Enumerated(EnumType.STRING)
 	@Column(nullable = false, name = "status")

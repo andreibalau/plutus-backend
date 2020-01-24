@@ -1,5 +1,8 @@
 package com.finance.plutus.model.partner;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -9,10 +12,6 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
 
 /**
  * Plutus
@@ -48,7 +47,6 @@ public class Partner {
 	@NotNull
 	@Enumerated(EnumType.STRING)
 	@Column(nullable = false, name = "type")
-	@Builder.Default
 	private Type type = Type.BUSINESS;
 	@Column(name = "bank")
 	private String bank;
