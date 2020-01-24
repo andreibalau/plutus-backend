@@ -1,6 +1,8 @@
 package com.finance.plutus.model.user.dto;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -19,13 +21,8 @@ public class UpdateUserDto {
 	private String lastName;
 	@NotBlank
 	private String phone;
-	@NotBlank
-	private String address;
-	@NotBlank
-	private String city;
-	@NotBlank
-	private String state;
-	@NotBlank
-	private String zip;
+	@Valid
+	@NotNull
+	private BusinessDto business;
 
 }

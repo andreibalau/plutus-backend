@@ -1,9 +1,9 @@
 package com.finance.plutus.model.user.dto;
 
+import javax.validation.constraints.NotBlank;
+
 import lombok.Getter;
 import lombok.Setter;
-
-import javax.validation.constraints.NotBlank;
 
 /**
  * Plutus
@@ -23,10 +23,5 @@ public class BusinessDto {
     private String regCom;
     @NotBlank
     private String address;
-    @NotBlank
-    private String city;
-    @NotBlank
-    private String state;
-    private String zip;
 
 }

@@ -1,11 +1,11 @@
 package com.finance.plutus.model.user;
 
-import lombok.Getter;
-import lombok.Setter;
-
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.validation.constraints.NotBlank;
+
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * Plutus
@@ -31,13 +31,5 @@ public class Business {
     @NotBlank
     @Column(nullable =  false, name = "address")
     private String address;
-    @NotBlank
-    @Column(nullable =  false, name = "city")
-    private String city;
-    @NotBlank
-    @Column(nullable =  false, name = "state")
-    private String state;
-    @Column(name = "zip")
-    private String zip;
 
 }
