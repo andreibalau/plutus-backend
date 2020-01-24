@@ -1,10 +1,12 @@
 package com.finance.plutus.model.user.dto;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-
 import lombok.Getter;
 import lombok.Setter;
+
+import javax.validation.Valid;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 /**
  * Plutus
@@ -25,13 +27,8 @@ public class RegistrationDto {
 	private String email;
 	@NotBlank
 	private String password;
-	@NotBlank
-	private String address;
-	@NotBlank
-	private String city;
-	@NotBlank
-	private String state;
-	@NotBlank
-	private String zip;
+	@Valid
+	@NotNull
+	private BusinessDto business;
 
 }

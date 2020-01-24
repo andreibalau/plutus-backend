@@ -16,10 +16,6 @@ public class Api {
 	public static final String INVOICES = API + "/invoices";
 	public static final String EXCHANGES = API + "/exchanges";
 	public static final String ANAF = API + "/anaf";
-	public static final String ADDRESSES = API + "/addresses";
-	public static final String CITIES = API + "/cities";
-	public static final String COUNTRIES = API + "/countries";
-	public static final String COUNTIES = API + "/counties";
 	public static final String USERS = API + "/users";
 	public static final String LOGIN = "/login";
 	public static final String REGISTER = "/register";

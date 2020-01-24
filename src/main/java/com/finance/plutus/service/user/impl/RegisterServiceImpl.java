@@ -1,6 +1,7 @@
 package com.finance.plutus.service.user.impl;
 
 import com.finance.plutus.exception.UserException;
+import com.finance.plutus.model.user.Business;
 import com.finance.plutus.model.user.User;
 import com.finance.plutus.model.user.dto.RegistrationDto;
 import com.finance.plutus.repository.user.UserRepository;
@@ -28,6 +29,8 @@ public class RegisterServiceImpl implements RegisterService {
 			throw UserException.emailAlreadyExists();
 		}
 		User user = modelMapper.map(registrationDto, User.class);
+		Business business = modelMapper.map(registrationDto.getBusiness(), Business.class);
+		user.setBusiness(business);
 		user.setEmail(user.getEmail().toLowerCase());
 		user.setCreatedOn(System.currentTimeMillis());
 		user.setUpdatedOn(System.currentTimeMillis());
