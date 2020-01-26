@@ -32,7 +32,9 @@ public class UpdateProductServiceImpl implements UpdateProductService {
 
 	private void updateProduct(Product product, ModifyProductDto productDto) {
 		product.setName(productDto.getName());
-		product.setPrice(productDto.getPrice());
+		product.setUnitPrice(productDto.getUnitPrice());
+		product.setTotalPrice(productDto.getTotalPrice());
+		product.setTva(productDto.getTva());
 		product.setUom(productDto.getUom());
 		product.setType(productDto.getType());
 		product.setUpdatedOn(System.currentTimeMillis());

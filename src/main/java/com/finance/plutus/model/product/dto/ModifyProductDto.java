@@ -17,10 +17,14 @@ public class ModifyProductDto {
 
 	@NotBlank
 	private String name;
-	@NotBlank
-	private String uom;
 	@NotNull
-	private Double price;
+	private Double unitPrice;
+	@NotNull
+	private Double totalPrice;
+	@NotNull
 	private Type type;
+	@NotNull
+	private Double tva;
+	private String uom;
 
 }
