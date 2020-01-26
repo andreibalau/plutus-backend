@@ -32,12 +32,13 @@ public class UpdatePartnerServiceImpl implements UpdatePartnerService {
 
 	private void updatePartner(Partner partner, ModifyPartnerDto partnerDto) {
 		partner.setAddress(partnerDto.getAddress());
-		partner.setBank(partnerDto.getBank());
-		partner.setBankAccount(partnerDto.getBankAccount());
+		partner.setState(partnerDto.getState());
+		partner.setCity(partnerDto.getCity());
+		partner.setCountry(partnerDto.getCountry());
+		partner.setIban(partnerDto.getIban());
 		partner.setCif(partnerDto.getCif());
 		partner.setEmail(partnerDto.getEmail());
-		partner.setFirstName(partnerDto.getFirstName());
-		partner.setLastName(partnerDto.getLastName());
+		partner.setName(partnerDto.getName());
 		partner.setPhone(partnerDto.getPhone());
 		partner.setRegCom(partnerDto.getRegCom());
 		partner.setType(partnerDto.getType());

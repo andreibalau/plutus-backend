@@ -1,6 +1,7 @@
 package com.finance.plutus.model.partner.dto;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import com.finance.plutus.model.partner.Type;
 import lombok.Getter;
@@ -13,23 +14,20 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ModifyPartnerDto {
+
 	@NotBlank
-	private String firstName;
-	@NotBlank
-	private String lastName;
-	@NotBlank
+	private String name;
 	private String phone;
-	@NotBlank
 	private String email;
-	@NotBlank
-	private String bank;
-	@NotBlank
-	private String bankAccount;
-	@NotBlank
+	private String iban;
 	private String address;
 	@NotBlank
-	private String cif;
+	private String city;
+	private String state;
 	@NotBlank
+	private String country;
+	private String cif;
 	private String regCom;
+	@NotNull
 	private Type type;
 }

@@ -5,6 +5,6 @@ package com.finance.plutus.model.partner;
  * Created by catalin on 21.09.2019
  */
 public enum Type {
-	BUSINESS,
-	NORMAL
+	VENDOR,
+	CLIENT
 }

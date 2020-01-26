@@ -12,8 +12,7 @@ import lombok.Setter;
 public class PartnerDto {
 
 	private Long id;
-	private String firstName;
-	private String lastName;
+	private String name;
 	private String email;
 	private String phone;
 
