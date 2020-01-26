@@ -5,7 +5,7 @@ import java.util.Set;
 
 import com.finance.plutus.model.invoice.Status;
 import com.finance.plutus.model.invoice.Type;
-import com.finance.plutus.model.partner.dto.PartnerDto;
+import com.finance.plutus.model.partner.dto.PreviewPartnerDto;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -22,8 +22,8 @@ public class InvoiceDto {
 	private Double taxes;
 	private Double total;
 	private Long date;
-	private PartnerDto vendor;
-	private PartnerDto client;
+	private PreviewPartnerDto vendor;
+	private PreviewPartnerDto client;
 	private Long serial;
 	private String serialName;
 	private Set<InvoiceLineDto> lines = new HashSet<>();

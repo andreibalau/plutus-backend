@@ -6,6 +6,7 @@ import com.finance.plutus.api.PartnerApi;
 import com.finance.plutus.model.common.EntityCreatedDto;
 import com.finance.plutus.model.partner.dto.ModifyPartnerDto;
 import com.finance.plutus.model.partner.dto.PartnerDto;
+import com.finance.plutus.model.partner.dto.PreviewPartnerDto;
 import com.finance.plutus.service.partner.CreatePartnerService;
 import com.finance.plutus.service.partner.DeletePartnerService;
 import com.finance.plutus.service.partner.FindPartnerService;
@@ -32,7 +33,7 @@ public class PartnerController implements PartnerApi {
 	}
 
 	@Override
-	public List<PartnerDto> findAll() {
+	public List<PreviewPartnerDto> findAll() {
 		return findPartnerService.findAll();
 	}
 

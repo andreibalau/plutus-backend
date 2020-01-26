@@ -9,6 +9,7 @@ import java.util.List;
 import com.finance.plutus.model.common.EntityCreatedDto;
 import com.finance.plutus.model.partner.dto.ModifyPartnerDto;
 import com.finance.plutus.model.partner.dto.PartnerDto;
+import com.finance.plutus.model.partner.dto.PreviewPartnerDto;
 import com.finance.plutus.util.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -83,7 +84,7 @@ public interface PartnerApi {
 					paramType = "header", required = true),
 	})
 	@GetMapping(consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
-	List<PartnerDto> findAll();
+	List<PreviewPartnerDto> findAll();
 
 	/**
 	 * Find partner by id

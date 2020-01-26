@@ -8,7 +8,7 @@ import com.finance.plutus.model.invoice.Invoice;
 import com.finance.plutus.model.invoice.dto.InvoiceDto;
 import com.finance.plutus.model.invoice.dto.InvoiceLineDto;
 import com.finance.plutus.model.invoice.dto.PreviewInvoiceDto;
-import com.finance.plutus.model.partner.dto.PartnerDto;
+import com.finance.plutus.model.partner.dto.PreviewPartnerDto;
 import com.finance.plutus.model.product.dto.ProductDto;
 import com.finance.plutus.repository.invoice.InvoiceRepository;
 import com.finance.plutus.service.invoice.FindInvoiceService;
@@ -51,8 +51,8 @@ public class FindInvoiceServiceImpl implements FindInvoiceService {
 			invoiceLineDto.setProduct(modelMapper.map(invoiceLine.getProduct(), ProductDto.class));
 			invoiceDto.getLines().add(invoiceLineDto);
 		});
-		invoiceDto.setClient(modelMapper.map(invoice.getClient(), PartnerDto.class));
-		invoiceDto.setVendor(modelMapper.map(invoice.getVendor(), PartnerDto.class));
+		invoiceDto.setClient(modelMapper.map(invoice.getClient(), PreviewPartnerDto.class));
+		invoiceDto.setVendor(modelMapper.map(invoice.getVendor(), PreviewPartnerDto.class));
 		return invoiceDto;
 	}
 }

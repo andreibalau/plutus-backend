@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 
 import com.finance.plutus.exception.PartnerException;
 import com.finance.plutus.model.partner.dto.PartnerDto;
+import com.finance.plutus.model.partner.dto.PreviewPartnerDto;
 import com.finance.plutus.repository.partner.PartnerRepository;
 import com.finance.plutus.service.partner.FindPartnerService;
 import lombok.RequiredArgsConstructor;
@@ -23,11 +24,11 @@ public class FindPartnerServiceImpl implements FindPartnerService {
 	private final ModelMapper modelMapper;
 
 	@Override
-	public List<PartnerDto> findAll() {
+	public List<PreviewPartnerDto> findAll() {
 		return partnerRepository
 				.findAll()
 				.stream()
-				.map(partner -> modelMapper.map(partner, PartnerDto.class))
+				.map(partner -> modelMapper.map(partner, PreviewPartnerDto.class))
 				.collect(Collectors.toList());
 	}
 
