@@ -35,7 +35,7 @@ public class Partner {
 	@NotBlank
 	@Column(nullable = false, name = "name")
 	private String name;
-	@Column(unique = true, name = "email")
+	@Column(name = "email")
 	private String email;
 	@Column(name = "phone")
 	private String phone;
