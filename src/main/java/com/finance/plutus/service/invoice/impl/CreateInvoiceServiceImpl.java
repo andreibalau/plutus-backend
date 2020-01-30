@@ -40,7 +40,10 @@ public class CreateInvoiceServiceImpl implements CreateInvoiceService {
 
 	@Override
 	public EntityCreatedDto create(ModifyInvoiceDto invoiceDto) {
-		Invoice invoice = modelMapper.map(invoiceDto, Invoice.class);
+		Invoice invoice = new Invoice();
+		invoice.setType(invoiceDto.getType());
+		invoice.setCurrency(invoiceDto.getCurrency());
+		invoice.setDate(invoiceDto.getDate());
 		makeLinesComputations(invoice, invoiceDto);
 		Partner partner = findPartner(invoiceDto.getPartnerId());
 		Serial serial = findSerial(invoiceDto.getSerialId());
