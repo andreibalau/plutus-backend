@@ -25,6 +25,9 @@ public class CreateSerialServiceImpl implements CreateSerialService {
 	public EntityCreatedDto create(CreateSerialDto createSerialDto) {
 		checkIfSerialExists(createSerialDto.getName());
 		Serial serial = modelMapper.map(createSerialDto, Serial.class);
+		serial.setNumber(serial.getMin());
+		serial.setCreatedOn(System.currentTimeMillis());
+		serial.setUpdatedOn(System.currentTimeMillis());
 		return new EntityCreatedDto(serialRepository.save(serial).getId());
 	}
 
