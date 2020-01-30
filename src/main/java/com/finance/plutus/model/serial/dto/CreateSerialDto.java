@@ -17,8 +17,6 @@ public class CreateSerialDto {
 	@NotBlank
 	private String name;
 	@NotNull
-	private Long number;
-	@NotNull
 	private Long max;
 	@NotNull
 	private Long min;
