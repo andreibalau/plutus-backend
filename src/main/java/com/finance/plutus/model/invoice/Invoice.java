@@ -1,10 +1,5 @@
 package com.finance.plutus.model.invoice;
 
-import com.finance.plutus.model.partner.Partner;
-import com.finance.plutus.model.serial.Serial;
-import lombok.Getter;
-import lombok.Setter;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -20,6 +15,12 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.HashSet;
 import java.util.Set;
+
+import com.finance.plutus.model.exchange.Currency;
+import com.finance.plutus.model.partner.Partner;
+import com.finance.plutus.model.serial.Serial;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * Plutus
@@ -43,11 +44,7 @@ public class Invoice {
 	@NotNull
 	@ManyToOne
 	@JoinColumn(nullable = false)
-	private Partner vendor;
-	@NotNull
-	@ManyToOne
-	@JoinColumn(nullable = false)
-	private Partner client;
+	private Partner partner;
 	@NotNull
 	@ManyToOne
 	@JoinColumn(nullable = false)
@@ -77,5 +74,9 @@ public class Invoice {
 	@Enumerated(EnumType.STRING)
 	@Column(nullable = false, name = "status")
 	private Status status = Status.DRAFT;
+	@NotNull
+	@Enumerated(EnumType.STRING)
+	@Column(nullable = false, name = "currency")
+	private Currency currency = Currency.RON;
 
 }

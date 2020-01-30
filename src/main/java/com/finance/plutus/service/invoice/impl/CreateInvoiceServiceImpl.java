@@ -42,12 +42,10 @@ public class CreateInvoiceServiceImpl implements CreateInvoiceService {
 	public EntityCreatedDto create(ModifyInvoiceDto invoiceDto) {
 		Invoice invoice = modelMapper.map(invoiceDto, Invoice.class);
 		makeLinesComputations(invoice, invoiceDto);
-		Partner vendor = findPartner(invoiceDto.getVendorId());
-		Partner client = findPartner(invoiceDto.getClientId());
+		Partner partner = findPartner(invoiceDto.getPartnerId());
 		Serial serial = findSerial(invoiceDto.getSerialId());
 		invoice.setSerial(serial);
-		invoice.setVendor(vendor);
-		invoice.setClient(client);
+		invoice.setPartner(partner);
 		invoice.setCreatedOn(System.currentTimeMillis());
 		invoice.setUpdatedOn(System.currentTimeMillis());
 		return new EntityCreatedDto(invoiceRepository.save(invoice).getId());

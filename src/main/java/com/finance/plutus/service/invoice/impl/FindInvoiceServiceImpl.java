@@ -51,8 +51,7 @@ public class FindInvoiceServiceImpl implements FindInvoiceService {
 			invoiceLineDto.setProduct(modelMapper.map(invoiceLine.getProduct(), ProductDto.class));
 			invoiceDto.getLines().add(invoiceLineDto);
 		});
-		invoiceDto.setClient(modelMapper.map(invoice.getClient(), PreviewPartnerDto.class));
-		invoiceDto.setVendor(modelMapper.map(invoice.getVendor(), PreviewPartnerDto.class));
+		invoiceDto.setPartner(modelMapper.map(invoice.getPartner(), PreviewPartnerDto.class));
 		return invoiceDto;
 	}
 }

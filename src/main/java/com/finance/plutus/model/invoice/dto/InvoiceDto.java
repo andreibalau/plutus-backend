@@ -3,6 +3,7 @@ package com.finance.plutus.model.invoice.dto;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.finance.plutus.model.exchange.Currency;
 import com.finance.plutus.model.invoice.Status;
 import com.finance.plutus.model.invoice.Type;
 import com.finance.plutus.model.partner.dto.PreviewPartnerDto;
@@ -22,12 +23,12 @@ public class InvoiceDto {
 	private Double taxes;
 	private Double total;
 	private Long date;
-	private PreviewPartnerDto vendor;
-	private PreviewPartnerDto client;
+	private PreviewPartnerDto partner;
 	private Long serial;
 	private String serialName;
 	private Set<InvoiceLineDto> lines = new HashSet<>();
 	private Type type;
 	private Status status;
+	private Currency currency;
 
 }

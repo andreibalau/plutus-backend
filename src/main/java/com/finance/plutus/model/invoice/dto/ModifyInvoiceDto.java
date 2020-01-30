@@ -3,6 +3,7 @@ package com.finance.plutus.model.invoice.dto;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
+import com.finance.plutus.model.exchange.Currency;
 import com.finance.plutus.model.invoice.Type;
 import lombok.Getter;
 import lombok.Setter;
@@ -24,13 +25,12 @@ public class ModifyInvoiceDto {
 	@NotNull
 	private Long date;
 	@NotNull
-	private Long vendorId;
-	@NotNull
-	private Long clientId;
+	private Long partnerId;
 	@NotNull
 	private List<ModifyInvoiceLineDto> lines;
 	@NotNull
 	private Type type;
 	private Long serialId;
+	private Currency currency;
 
 }

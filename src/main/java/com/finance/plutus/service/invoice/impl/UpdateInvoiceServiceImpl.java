@@ -75,11 +75,9 @@ public class UpdateInvoiceServiceImpl implements UpdateInvoiceService {
 
 	private void updateInvoice(Invoice invoice, ModifyInvoiceDto invoiceDto) {
 		makeLinesComputations(invoice, invoiceDto);
-		Partner vendor = findPartner(invoiceDto.getVendorId());
-		Partner client = findPartner(invoiceDto.getClientId());
+		Partner partner = findPartner(invoiceDto.getPartnerId());
 		Serial serial = findSerial(invoiceDto.getSerialId());
-		invoice.setVendor(vendor);
-		invoice.setClient(client);
+		invoice.setPartner(partner);
 		invoice.setSerial(serial);
 		invoice.setUpdatedOn(System.currentTimeMillis());
 		invoiceRepository.save(invoice);
