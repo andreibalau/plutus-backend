@@ -8,14 +8,12 @@ import lombok.Setter;
 
 /**
  * Plutus
- * Created by catalin on 22.09.2019
+ * Created by catalin on 1/30/2020
  */
 @Getter
 @Setter
-public class SerialDto {
+public class CreateSerialDto {
 
-	@NotNull
-	private Long id;
 	@NotBlank
 	private String name;
 	@NotNull

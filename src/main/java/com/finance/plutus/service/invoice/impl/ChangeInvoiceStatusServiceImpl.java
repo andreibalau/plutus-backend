@@ -4,7 +4,6 @@ import com.finance.plutus.exception.InvoiceException;
 import com.finance.plutus.model.invoice.Invoice;
 import com.finance.plutus.model.invoice.Status;
 import com.finance.plutus.model.invoice.dto.ChangeStatusDto;
-import com.finance.plutus.model.serial.Serial;
 import com.finance.plutus.repository.invoice.InvoiceRepository;
 import com.finance.plutus.service.invoice.ChangeInvoiceStatusService;
 import com.finance.plutus.service.serial.UpdateSerialService;
@@ -31,21 +30,11 @@ public class ChangeInvoiceStatusServiceImpl implements ChangeInvoiceStatusServic
             throw InvoiceException.invoiceCannotBeUpdated();
         }
         if (changeStatusDto.getStatus() == Status.ACTIVE) {
-            createAndSetSerialNumber(invoice);
+            String serialName = updateSerialService.createSerialNumber(invoice.getSerial());
+            invoice.setSerialName(serialName);
         }
         invoice.setStatus(changeStatusDto.getStatus());
         invoiceRepository.save(invoice);
-    }
-
-    private void createAndSetSerialNumber(Invoice invoice) {
-        Serial serial = invoice.getSerial();
-        long current = serial.getNumber();
-        if (current == serial.getNumber()) {
-            throw InvoiceException.serialNumberOverflow();
-        }
-        invoice.setSerialName(serial.getName() + current);
-        serial.setNumber(++current);
-        updateSerialService.update(serial);
     }
 
 }

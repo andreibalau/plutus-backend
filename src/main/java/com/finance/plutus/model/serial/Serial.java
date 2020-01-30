@@ -31,7 +31,7 @@ public class Serial {
 	@Column(nullable = false, name = "updated_on")
 	private Long updatedOn;
 	@NotBlank
-	@Column(nullable = false, name = "name")
+	@Column(unique = true, nullable = false, name = "name")
 	private String name;
 	@NotNull
 	@Column(nullable = false, name = "number")

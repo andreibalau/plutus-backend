@@ -1,5 +1,7 @@
 package com.finance.plutus.controller;
 
+import java.util.List;
+
 import com.finance.plutus.api.InvoiceApi;
 import com.finance.plutus.model.common.EntityCreatedDto;
 import com.finance.plutus.model.invoice.dto.ChangeStatusDto;
@@ -13,8 +15,6 @@ import com.finance.plutus.service.invoice.FindInvoiceService;
 import com.finance.plutus.service.invoice.UpdateInvoiceService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
 
 /**
  * Plutus

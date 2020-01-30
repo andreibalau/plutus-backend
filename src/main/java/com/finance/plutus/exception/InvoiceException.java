@@ -20,12 +20,4 @@ public class InvoiceException extends PlutusException {
 		return new InvoiceException("Invoice cannot be updated!", HttpStatus.BAD_REQUEST);
 	}
 
-	public static InvoiceException serialNumberNotFound() {
-		return new InvoiceException("Serial number cannot be found!", HttpStatus.NOT_FOUND);
-	}
-
-	public static InvoiceException serialNumberOverflow() {
-		return new InvoiceException("Serial number has reached the maximum limit!", HttpStatus.SERVICE_UNAVAILABLE);
-	}
-
 }

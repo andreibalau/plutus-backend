@@ -7,6 +7,7 @@ import java.util.Set;
 import com.finance.plutus.exception.InvoiceException;
 import com.finance.plutus.exception.PartnerException;
 import com.finance.plutus.exception.ProductException;
+import com.finance.plutus.exception.SerialException;
 import com.finance.plutus.model.invoice.Invoice;
 import com.finance.plutus.model.invoice.InvoiceLine;
 import com.finance.plutus.model.invoice.Status;
@@ -14,9 +15,11 @@ import com.finance.plutus.model.invoice.dto.ModifyInvoiceDto;
 import com.finance.plutus.model.invoice.dto.ModifyInvoiceLineDto;
 import com.finance.plutus.model.partner.Partner;
 import com.finance.plutus.model.product.Product;
+import com.finance.plutus.model.serial.Serial;
 import com.finance.plutus.repository.invoice.InvoiceRepository;
 import com.finance.plutus.repository.partner.PartnerRepository;
 import com.finance.plutus.repository.product.ProductRepository;
+import com.finance.plutus.repository.serial.SerialRepository;
 import com.finance.plutus.service.invoice.UpdateInvoiceService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -33,6 +36,7 @@ public class UpdateInvoiceServiceImpl implements UpdateInvoiceService {
 	private final InvoiceRepository invoiceRepository;
 	private final ProductRepository productRepository;
 	private final PartnerRepository partnerRepository;
+	private final SerialRepository serialRepository;
 	private final ModelMapper modelMapper;
 
 	@Override
@@ -69,6 +73,18 @@ public class UpdateInvoiceServiceImpl implements UpdateInvoiceService {
 		invoice.setLines(invoiceLineSet);
 	}
 
+	private void updateInvoice(Invoice invoice, ModifyInvoiceDto invoiceDto) {
+		makeLinesComputations(invoice, invoiceDto);
+		Partner vendor = findPartner(invoiceDto.getVendorId());
+		Partner client = findPartner(invoiceDto.getClientId());
+		Serial serial = findSerial(invoiceDto.getSerialId());
+		invoice.setVendor(vendor);
+		invoice.setClient(client);
+		invoice.setSerial(serial);
+		invoice.setUpdatedOn(System.currentTimeMillis());
+		invoiceRepository.save(invoice);
+	}
+
 	private Partner findPartner(Long partnerId) {
 		return partnerRepository
 				.findById(partnerId)
@@ -87,14 +103,10 @@ public class UpdateInvoiceServiceImpl implements UpdateInvoiceService {
 				.orElseThrow(InvoiceException::invoiceNotFound);
 	}
 
-	private void updateInvoice(Invoice invoice, ModifyInvoiceDto invoiceDto) {
-		makeLinesComputations(invoice, invoiceDto);
-		Partner vendor = findPartner(invoiceDto.getVendorId());
-		Partner client = findPartner(invoiceDto.getClientId());
-		invoice.setVendor(vendor);
-		invoice.setClient(client);
-		invoice.setUpdatedOn(System.currentTimeMillis());
-		invoiceRepository.save(invoice);
+	private Serial findSerial(Long serialId) {
+		return serialRepository
+				.findById(serialId)
+				.orElseThrow(SerialException::serialNotFound);
 	}
 
 }
