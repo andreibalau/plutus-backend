@@ -1,8 +1,9 @@
 package com.finance.plutus.model.invoice.dto;
 
-import javax.validation.constraints.NotBlank;
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
+import com.finance.plutus.model.product.dto.ProductDto;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,9 +15,9 @@ import lombok.Setter;
 @Setter
 public class ModifyInvoiceLineDto {
 
+	@Valid
 	@NotNull
-	private Long productId;
-	@NotBlank
+	private ProductDto product;
 	private String uom;
 	@NotNull
 	private Double quantity;

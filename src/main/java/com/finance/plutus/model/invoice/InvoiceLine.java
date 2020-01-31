@@ -7,7 +7,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 import com.finance.plutus.model.product.Product;
@@ -41,8 +40,7 @@ public class InvoiceLine {
 	@ManyToOne
 	@JoinColumn(nullable = false)
 	private Product product;
-	@NotBlank
-	@Column(nullable = false, name = "uom")
+	@Column(name = "uom")
 	private String uom;
 	@NotNull
 	@Column(nullable = false, name = "quantity")

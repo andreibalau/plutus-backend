@@ -64,7 +64,7 @@ public class UpdateInvoiceServiceImpl implements UpdateInvoiceService {
 			InvoiceLine line = modelMapper.map(invoiceLineDto, InvoiceLine.class);
 			line.setTotal(total);
 			line.setSubtotal(subtotal);
-			line.setProduct(findProduct(invoiceLineDto.getProductId()));
+			line.setProduct(findProduct(invoiceLineDto.getProduct().getId()));
 			invoiceLineSet.add(line);
 			invoice.setSubtotal(invoice.getSubtotal() + subtotal);
 			invoice.setTotal(invoice.getTotal() + total);
