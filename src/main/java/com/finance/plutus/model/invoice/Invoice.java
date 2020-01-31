@@ -59,13 +59,13 @@ public class Invoice {
 	private Set<InvoiceLine> lines = new HashSet<>();
 	@NotNull
 	@Column(nullable = false, name = "subtotal")
-	private Double subtotal;
+	private Double subtotal = 0D;
 	@NotNull
 	@Column(nullable = false, name = "taxes")
-	private Double taxes;
+	private Double taxes = 0D;
 	@NotNull
 	@Column(nullable = false, name = "total")
-	private Double total;
+	private Double total = 0D;
 	@NotNull
 	@Enumerated(EnumType.STRING)
 	@Column(nullable = false, name = "type")

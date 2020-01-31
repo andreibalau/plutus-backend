@@ -44,18 +44,18 @@ public class InvoiceLine {
 	private String uom;
 	@NotNull
 	@Column(nullable = false, name = "quantity")
-	private Double quantity;
+	private Double quantity = 0D;
 	@NotNull
 	@Column(nullable = false, name = "price")
-	private Double price;
+	private Double price = 0D;
 	@NotNull
 	@Column(nullable = false, name = "subtotal")
-	private Double subtotal;
+	private Double subtotal = 0D;
 	@NotNull
 	@Column(nullable = false, name = "taxes")
-	private Double taxes;
+	private Double taxes = 0D;
 	@NotNull
 	@Column(nullable = false, name = "total")
-	private Double total;
+	private Double total = 0D;
 
 }
