@@ -15,8 +15,6 @@ import lombok.Setter;
 public class ModifyInvoiceLineDto {
 
 	@NotNull
-	private Long invoice;
-	@NotNull
 	private Long productId;
 	@NotBlank
 	private String uom;

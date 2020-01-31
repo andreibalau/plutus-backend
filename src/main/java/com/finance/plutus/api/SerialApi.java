@@ -36,7 +36,7 @@ public interface SerialApi {
 	 */
 	@ApiOperation(value = "Find all serials",
 			nickname = "findAll",
-			tags = "invoice-controller")
+			tags = "serial-controller")
 	@ApiResponses(value = {
 			@ApiResponse(code = 200, message = "OK"),
 			@ApiResponse(code = 401, message = "Unauthorized"),
@@ -60,7 +60,7 @@ public interface SerialApi {
 	 */
 	@ApiOperation(value = "Create a new serial",
 			nickname = "create",
-			tags = "invoice-controller")
+			tags = "serial-controller")
 	@ApiResponses(value = {
 			@ApiResponse(code = 201, message = "Serial creation successfully"),
 			@ApiResponse(code = 401, message = "Unauthorized"),
@@ -88,7 +88,7 @@ public interface SerialApi {
 	 */
 	@ApiOperation(value = "Delete a serial",
 			nickname = "delete",
-			tags = "invoice-controller")
+			tags = "serial-controller")
 	@ApiResponses(value = {
 			@ApiResponse(code = 200, message = "OK"),
 			@ApiResponse(code = 401, message = "Unauthorized"),
