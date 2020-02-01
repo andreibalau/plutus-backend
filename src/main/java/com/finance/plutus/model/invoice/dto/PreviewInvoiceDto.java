@@ -3,6 +3,7 @@ package com.finance.plutus.model.invoice.dto;
 import com.finance.plutus.model.exchange.Currency;
 import com.finance.plutus.model.invoice.Status;
 import com.finance.plutus.model.invoice.Type;
+import com.finance.plutus.model.partner.dto.PreviewPartnerDto;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -22,5 +23,6 @@ public class PreviewInvoiceDto {
 	private Type type;
 	private Status status;
 	private Currency currency;
+	private PreviewPartnerDto partner;
 
 }

@@ -51,7 +51,7 @@ public class Invoice {
 	private Serial serial;
 	@NotBlank
 	@Column(nullable = false, unique = true, name = "serial_name")
-	private String serialName;
+	private String name;
 	@NotNull
 	@Column(nullable = false, name = "date")
 	private Long date;

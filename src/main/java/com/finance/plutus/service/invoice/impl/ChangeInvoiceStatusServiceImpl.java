@@ -31,7 +31,7 @@ public class ChangeInvoiceStatusServiceImpl implements ChangeInvoiceStatusServic
         }
         if (changeStatusDto.getStatus() == Status.ACTIVE) {
             String serialName = updateSerialService.createSerialNumber(invoice.getSerial());
-            invoice.setSerialName(serialName);
+            invoice.setName(serialName);
         }
         invoice.setStatus(changeStatusDto.getStatus());
         invoiceRepository.save(invoice);

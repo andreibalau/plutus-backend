@@ -1,8 +1,7 @@
 package com.finance.plutus.service.invoice.impl;
 
-import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import com.finance.plutus.exception.InvoiceException;
 import com.finance.plutus.exception.PartnerException;
@@ -11,8 +10,8 @@ import com.finance.plutus.exception.SerialException;
 import com.finance.plutus.model.invoice.Invoice;
 import com.finance.plutus.model.invoice.InvoiceLine;
 import com.finance.plutus.model.invoice.Status;
+import com.finance.plutus.model.invoice.dto.InvoiceLineDto;
 import com.finance.plutus.model.invoice.dto.ModifyInvoiceDto;
-import com.finance.plutus.model.invoice.dto.ModifyInvoiceLineDto;
 import com.finance.plutus.model.partner.Partner;
 import com.finance.plutus.model.product.Product;
 import com.finance.plutus.model.serial.Serial;
@@ -52,35 +51,48 @@ public class UpdateInvoiceServiceImpl implements UpdateInvoiceService {
 		}
 	}
 
-	private void makeLinesComputations(Invoice invoice, ModifyInvoiceDto invoiceDto) {
-		List<ModifyInvoiceLineDto> invoiceLineDtos = invoiceDto.getLines();
-		Set<InvoiceLine> invoiceLineSet = new HashSet<>();
-		invoiceLineDtos.forEach(invoiceLineDto -> {
-			double quantity = invoiceLineDto.getQuantity();
-			double price = invoiceLineDto.getPrice();
-			double taxes = invoiceLineDto.getTaxes();
-			double subtotal = quantity * price;
-			double total = subtotal + taxes;
-			InvoiceLine line = modelMapper.map(invoiceLineDto, InvoiceLine.class);
-			line.setTotal(total);
-			line.setSubtotal(subtotal);
-			line.setProduct(findProduct(invoiceLineDto.getProduct().getId()));
-			invoiceLineSet.add(line);
-			invoice.setSubtotal(invoice.getSubtotal() + subtotal);
-			invoice.setTotal(invoice.getTotal() + total);
-			invoice.setTaxes(invoice.getTaxes() + taxes);
-		});
-		invoice.setLines(invoiceLineSet);
-	}
-
 	private void updateInvoice(Invoice invoice, ModifyInvoiceDto invoiceDto) {
-		makeLinesComputations(invoice, invoiceDto);
+		computeInvoiceLines(invoice, invoiceDto);
 		Partner partner = findPartner(invoiceDto.getPartnerId());
 		Serial serial = findSerial(invoiceDto.getSerialId());
 		invoice.setPartner(partner);
 		invoice.setSerial(serial);
+		invoice.setTotal(invoiceDto.getTotal());
+		invoice.setSubtotal(invoiceDto.getSubtotal());
+		invoice.setTaxes(invoiceDto.getTaxes());
+		invoice.setDate(invoiceDto.getDate());
 		invoice.setUpdatedOn(System.currentTimeMillis());
 		invoiceRepository.save(invoice);
+	}
+
+	private void computeInvoiceLines(Invoice invoice, ModifyInvoiceDto invoiceDto) {
+		Set<InvoiceLine> lines = invoiceDto.getLines()
+				.stream()
+				.map(invoiceLineDto -> mapInvoiceLineDto(invoiceLineDto, invoice))
+				.collect(Collectors.toSet());
+		invoice.setLines(lines);
+	}
+
+	private InvoiceLine mapInvoiceLineDto(InvoiceLineDto invoiceLineDto, Invoice invoice) {
+		InvoiceLine line = modelMapper.map(invoiceLineDto, InvoiceLine.class);
+		if (invoiceLineDto.getId() == null) {
+			line.setCreatedOn(System.currentTimeMillis());
+		} else {
+			InvoiceLine existingLine = findInvoiceLine(invoiceLineDto.getId(), invoice);
+			line.setCreatedOn(existingLine.getCreatedOn());
+		}
+		line.setInvoice(invoice);
+		line.setProduct(findProduct(invoiceLineDto.getProduct().getId()));
+		line.setUpdatedOn(System.currentTimeMillis());
+		return line;
+	}
+
+	private InvoiceLine findInvoiceLine(Long invoiceLineId, Invoice invoice) {
+		return invoice.getLines()
+				.stream()
+				.filter(invoiceLine -> invoiceLine.getId().equals(invoiceLineId))
+				.findFirst()
+				.orElse(new InvoiceLine());
 	}
 
 	private Partner findPartner(Long partnerId) {

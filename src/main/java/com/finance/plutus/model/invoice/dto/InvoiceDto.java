@@ -7,6 +7,7 @@ import com.finance.plutus.model.exchange.Currency;
 import com.finance.plutus.model.invoice.Status;
 import com.finance.plutus.model.invoice.Type;
 import com.finance.plutus.model.partner.dto.PreviewPartnerDto;
+import com.finance.plutus.model.serial.dto.SerialDto;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -24,8 +25,7 @@ public class InvoiceDto {
 	private Double total;
 	private Long date;
 	private PreviewPartnerDto partner;
-	private Long serial;
-	private String serialName;
+	private SerialDto serial;
 	private Set<InvoiceLineDto> lines = new HashSet<>();
 	private Type type;
 	private Status status;

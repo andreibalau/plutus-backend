@@ -27,7 +27,7 @@ public class ModifyInvoiceDto {
 	@NotNull
 	private Long partnerId;
 	@NotNull
-	private List<ModifyInvoiceLineDto> lines;
+	private List<InvoiceLineDto> lines;
 	@NotNull
 	private Type type;
 	private Long serialId;

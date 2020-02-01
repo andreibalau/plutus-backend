@@ -4,12 +4,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import com.finance.plutus.exception.InvoiceException;
-import com.finance.plutus.model.invoice.Invoice;
 import com.finance.plutus.model.invoice.dto.InvoiceDto;
-import com.finance.plutus.model.invoice.dto.InvoiceLineDto;
 import com.finance.plutus.model.invoice.dto.PreviewInvoiceDto;
-import com.finance.plutus.model.partner.dto.PreviewPartnerDto;
-import com.finance.plutus.model.product.dto.ProductDto;
 import com.finance.plutus.repository.invoice.InvoiceRepository;
 import com.finance.plutus.service.invoice.FindInvoiceService;
 import lombok.RequiredArgsConstructor;
@@ -40,18 +36,8 @@ public class FindInvoiceServiceImpl implements FindInvoiceService {
 	public InvoiceDto findById(Long invoiceId) {
 		return invoiceRepository
 				.findById(invoiceId)
-				.map(this::mapInvoice)
+				.map(invoice -> modelMapper.map(invoice, InvoiceDto.class))
 				.orElseThrow(InvoiceException::invoiceNotFound);
 	}
-
-	private InvoiceDto mapInvoice(Invoice invoice) {
-		InvoiceDto invoiceDto = modelMapper.map(invoice, InvoiceDto.class);
-		invoice.getLines().forEach(invoiceLine -> {
-			InvoiceLineDto invoiceLineDto = modelMapper.map(invoiceLine, InvoiceLineDto.class);
-			invoiceLineDto.setProduct(modelMapper.map(invoiceLine.getProduct(), ProductDto.class));
-			invoiceDto.getLines().add(invoiceLineDto);
-		});
-		invoiceDto.setPartner(modelMapper.map(invoice.getPartner(), PreviewPartnerDto.class));
-		return invoiceDto;
-	}
+	
 }

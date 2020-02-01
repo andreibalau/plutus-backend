@@ -1,8 +1,7 @@
 package com.finance.plutus.service.invoice.impl;
 
-import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import com.finance.plutus.exception.PartnerException;
 import com.finance.plutus.exception.ProductException;
@@ -10,8 +9,8 @@ import com.finance.plutus.exception.SerialException;
 import com.finance.plutus.model.common.EntityCreatedDto;
 import com.finance.plutus.model.invoice.Invoice;
 import com.finance.plutus.model.invoice.InvoiceLine;
+import com.finance.plutus.model.invoice.dto.InvoiceLineDto;
 import com.finance.plutus.model.invoice.dto.ModifyInvoiceDto;
-import com.finance.plutus.model.invoice.dto.ModifyInvoiceLineDto;
 import com.finance.plutus.model.partner.Partner;
 import com.finance.plutus.model.product.Product;
 import com.finance.plutus.model.serial.Serial;
@@ -44,7 +43,8 @@ public class CreateInvoiceServiceImpl implements CreateInvoiceService {
 		invoice.setType(invoiceDto.getType());
 		invoice.setCurrency(invoiceDto.getCurrency());
 		invoice.setDate(invoiceDto.getDate());
-		makeLinesComputations(invoice, invoiceDto);
+		invoice.setName("draft " + System.currentTimeMillis());
+		computeInvoiceLines(invoice, invoiceDto);
 		Partner partner = findPartner(invoiceDto.getPartnerId());
 		Serial serial = findSerial(invoiceDto.getSerialId());
 		invoice.setSerial(serial);
@@ -54,25 +54,21 @@ public class CreateInvoiceServiceImpl implements CreateInvoiceService {
 		return new EntityCreatedDto(invoiceRepository.save(invoice).getId());
 	}
 
-	private void makeLinesComputations(Invoice invoice, ModifyInvoiceDto invoiceDto) {
-		List<ModifyInvoiceLineDto> invoiceLineDtos = invoiceDto.getLines();
-		Set<InvoiceLine> invoiceLineSet = new HashSet<>();
-		invoiceLineDtos.forEach(invoiceLineDto -> {
-			double quantity = invoiceLineDto.getQuantity();
-			double price = invoiceLineDto.getPrice();
-			double taxes = invoiceLineDto.getTaxes();
-			double subtotal = quantity * price;
-			double total = subtotal + taxes;
-			InvoiceLine line = modelMapper.map(invoiceLineDto, InvoiceLine.class);
-			line.setTotal(total);
-			line.setSubtotal(subtotal);
-			line.setProduct(findProduct(invoiceLineDto.getProduct().getId()));
-			invoiceLineSet.add(line);
-			invoice.setSubtotal(invoice.getSubtotal() + subtotal);
-			invoice.setTotal(invoice.getTotal() + total);
-			invoice.setTaxes(invoice.getTaxes() + taxes);
-		});
-		invoice.setLines(invoiceLineSet);
+	private void computeInvoiceLines(Invoice invoice, ModifyInvoiceDto invoiceDto) {
+		Set<InvoiceLine> invoiceLines = invoiceDto.getLines()
+				.stream()
+				.map(invoiceLineDto -> mapInvoiceLine(invoiceLineDto, invoice))
+				.collect(Collectors.toSet());
+		invoice.setLines(invoiceLines);
+	}
+
+	private InvoiceLine mapInvoiceLine(InvoiceLineDto invoiceLineDto, Invoice invoice) {
+		InvoiceLine line = modelMapper.map(invoiceLineDto, InvoiceLine.class);
+		line.setInvoice(invoice);
+		line.setProduct(findProduct(invoiceLineDto.getProduct().getId()));
+		line.setCreatedOn(System.currentTimeMillis());
+		line.setUpdatedOn(System.currentTimeMillis());
+		return line;
 	}
 
 	private Partner findPartner(Long partnerId) {
