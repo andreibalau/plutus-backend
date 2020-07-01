@@ -1,58 +1,38 @@
 package com.finance.plutus.controller;
 
-import com.finance.plutus.api.UserApi;
-import com.finance.plutus.model.user.dto.AuthenticationDto;
-import com.finance.plutus.model.user.dto.EmailExistenceCheckDto;
-import com.finance.plutus.model.user.dto.EmailExistenceDto;
-import com.finance.plutus.model.user.dto.LoggedUserDto;
-import com.finance.plutus.model.user.dto.ProfileUserDto;
-import com.finance.plutus.model.user.dto.RegistrationDto;
-import com.finance.plutus.model.user.dto.UpdateUserDto;
-import com.finance.plutus.service.user.EmailService;
-import com.finance.plutus.service.user.LoginService;
-import com.finance.plutus.service.user.ProfileService;
-import com.finance.plutus.service.user.RegisterService;
-import com.finance.plutus.service.user.UpdateService;
+import com.finance.plutus.controller.api.UserApi;
+import com.finance.plutus.controller.payload.CheckEmailRequest;
+import com.finance.plutus.controller.payload.CheckEmailResponse;
+import com.finance.plutus.controller.payload.LoginRequest;
+import com.finance.plutus.controller.payload.LoginResponse;
+import com.finance.plutus.controller.payload.RegisterRequest;
+import com.finance.plutus.model.dto.LoggedUserDto;
+import com.finance.plutus.service.CheckEmailService;
+import com.finance.plutus.service.LoginService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.RestController;
 
-/**
- * Plutus
- * Created by catalin on 21.09.2019
- */
+/** Plutus Created by catalin on 7/1/2020 */
 @RestController
 @RequiredArgsConstructor
-public class UserController implements UserApi {
+public class UserController extends UserApi {
 
-	private final LoginService loginService;
-	private final RegisterService registerService;
-	private final EmailService emailService;
-	private final UpdateService updateService;
-	private final ProfileService profileService;
+  private final CheckEmailService checkEmailService;
+  private final LoginService loginService;
 
-	@Override
-	public void register(RegistrationDto registrationDto) {
-		registerService.register(registrationDto);
-	}
+  @Override
+  public void register(RegisterRequest request) {}
 
-	@Override
-	public LoggedUserDto login(AuthenticationDto authenticationDto) {
-		return loginService.login(authenticationDto);
-	}
+  @Override
+  public CheckEmailResponse checkEmail(CheckEmailRequest request) {
+    String email = request.getEmail();
+    boolean exists = checkEmailService.exists(email);
+    return new CheckEmailResponse(email, exists);
+  }
 
-	@Override
-	public void update(Long userId, UpdateUserDto updateUserDto) {
-		updateService.update(userId, updateUserDto);
-	}
-
-	@Override
-	public ProfileUserDto getProfile(Long userId) {
-		return profileService.findProfile(userId);
-	}
-
-	@Override
-	public EmailExistenceDto checkEmail(EmailExistenceCheckDto emailExistenceCheckDto) {
-		return new EmailExistenceDto(emailService.exists(emailExistenceCheckDto.getEmail()));
-	}
-
+  @Override
+  public LoginResponse login(LoginRequest request) {
+    LoggedUserDto user = loginService.login(request.getUsername(), request.getPassword());
+    return new LoginResponse(user);
+  }
 }

@@ -1,16 +1,21 @@
 package com.finance.plutus.exception;
 
-import lombok.Getter;
-import org.springframework.http.HttpStatus;
-
-@Getter
+/** Plutus Created by catalin on 7/1/2020 */
 public class PlutusException extends RuntimeException {
+  public PlutusException(String message) {
+    super(message);
+  }
 
-    private final HttpStatus httpStatus;
+  public PlutusException(String message, Throwable cause) {
+    super(message, cause);
+  }
 
-    public PlutusException(String message, HttpStatus httpStatus) {
-        super(message);
-        this.httpStatus = httpStatus;
-    }
+  public PlutusException(Throwable cause) {
+    super(cause);
+  }
 
+  public PlutusException(
+      String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
+    super(message, cause, enableSuppression, writableStackTrace);
+  }
 }
