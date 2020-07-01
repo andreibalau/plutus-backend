@@ -1,5 +1,8 @@
 package com.finance.plutus.model.entity;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,9 +12,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
-
-import lombok.Getter;
-import lombok.Setter;
 
 /** Plutus Created by catalin on 21.09.2019 */
 @Getter
@@ -32,12 +32,12 @@ public class InvoiceLine {
 
   @NotNull
   @ManyToOne
-  @JoinColumn(nullable = false)
+  @JoinColumn(nullable = false, name = "invoice_id")
   private Invoice invoice;
 
   @NotNull
   @ManyToOne
-  @JoinColumn(nullable = false)
+  @JoinColumn(nullable = false, name = "item_id")
   private Item item;
 
   @Column(name = "uom")

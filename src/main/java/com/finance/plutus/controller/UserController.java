@@ -9,6 +9,7 @@ import com.finance.plutus.controller.payload.RegisterRequest;
 import com.finance.plutus.model.dto.LoggedUserDto;
 import com.finance.plutus.service.CheckEmailService;
 import com.finance.plutus.service.LoginService;
+import com.finance.plutus.service.RegisterUserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -19,9 +20,12 @@ public class UserController extends UserApi {
 
   private final CheckEmailService checkEmailService;
   private final LoginService loginService;
+  private final RegisterUserService registerUserService;
 
   @Override
-  public void register(RegisterRequest request) {}
+  public void register(RegisterRequest request) {
+    registerUserService.register(request.getUser(), request.getBusiness());
+  }
 
   @Override
   public CheckEmailResponse checkEmail(CheckEmailRequest request) {

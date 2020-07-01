@@ -1,5 +1,8 @@
 package com.finance.plutus.model.entity;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,9 +20,6 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
-
-import lombok.Getter;
-import lombok.Setter;
 
 /** Plutus Created by catalin on 7/1/2020 */
 @Getter
@@ -51,8 +51,9 @@ public class Invoice {
   @Column(nullable = false, name = "date")
   private LocalDate date;
 
-  @OneToMany(mappedBy = "invoice", cascade = CascadeType.ALL)
-  private Set<InvoiceLine> lines = new HashSet<>();
+  @NotNull
+  @Column(nullable = false, name = "due_date")
+  private LocalDate dueDate;
 
   @NotNull
   @Column(nullable = false, name = "subtotal")
@@ -80,4 +81,7 @@ public class Invoice {
   @Enumerated(EnumType.STRING)
   @Column(nullable = false, name = "currency")
   private Currency currency = Currency.RON;
+
+  @OneToMany(mappedBy = "invoice", cascade = CascadeType.ALL, orphanRemoval = true)
+  private Set<InvoiceLine> lines = new HashSet<>();
 }

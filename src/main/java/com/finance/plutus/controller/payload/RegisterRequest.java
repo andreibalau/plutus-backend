@@ -1,19 +1,17 @@
 package com.finance.plutus.controller.payload;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-
+import com.finance.plutus.model.dto.CreateBusinessDto;
+import com.finance.plutus.model.dto.CreateUserDto;
 import lombok.Getter;
 import lombok.Setter;
+
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 
 /** Plutus Created by catalin on 7/1/2020 */
 @Getter
 @Setter
 public class RegisterRequest {
-
-  @NotBlank private String firstName;
-  @NotBlank private String lastName;
-  @Email @NotBlank private String email;
-  @NotBlank private String password;
-  private String phone;
+  @Valid @NotNull private CreateUserDto user;
+  @Valid @NotNull private CreateBusinessDto business;
 }

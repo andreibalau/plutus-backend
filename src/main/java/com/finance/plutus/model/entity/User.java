@@ -1,5 +1,9 @@
 package com.finance.plutus.model.entity;
 
+import lombok.Getter;
+import lombok.Setter;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -13,9 +17,6 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
-
-import lombok.Getter;
-import lombok.Setter;
 
 /** Plutus Created by catalin on 7/1/2020 */
 @Getter
@@ -47,15 +48,15 @@ public class User {
   private String phone;
 
   @NotBlank
-  @Column(nullable = false, name = "firstname")
+  @Column(nullable = false, name = "first_name")
   private String firstName;
 
   @NotBlank
-  @Column(nullable = false, name = "lastname")
+  @Column(nullable = false, name = "last_name")
   private String lastName;
 
   @NotNull
-  @OneToOne
+  @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
   @JoinColumn(nullable = false, name = "business_id")
   private Business business;
 

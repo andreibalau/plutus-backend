@@ -1,5 +1,6 @@
 package com.finance.plutus.service.impl;
 
+import com.finance.plutus.repository.UserRepository;
 import com.finance.plutus.service.CheckEmailService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -8,8 +9,11 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class CheckEmailServiceImpl implements CheckEmailService {
+
+  private final UserRepository userRepository;
+
   @Override
   public boolean exists(String email) {
-    return false;
+    return userRepository.existsByEmail(email);
   }
 }
