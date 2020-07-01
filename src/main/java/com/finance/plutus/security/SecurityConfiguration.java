@@ -37,7 +37,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             "/swagger-resources/**",
             "/webjars/**")
         .permitAll()
-        .antMatchers("/v1/**")
+        .antMatchers("/api/v1/**")
         .hasRole(ROLE_USER);
 
     http.addFilterBefore(tokenAuthorizationFilter, UsernamePasswordAuthenticationFilter.class)

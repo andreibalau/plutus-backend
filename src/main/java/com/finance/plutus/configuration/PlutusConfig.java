@@ -8,7 +8,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 /** Plutus Created by catalin on 7/1/2020 */
 @Configuration
-public class PlutusConfiguration {
+public class PlutusConfig {
 
   @Bean
   public ObjectMapper objectMapper() {
