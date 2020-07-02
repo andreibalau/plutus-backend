@@ -36,7 +36,7 @@ public class SecurityService {
     String username = getUsername(token);
     checkValidity(token, username);
     return findUserService
-        .findUserByEmail(username)
+        .findByEmail(username)
         .map(
             u ->
                 new User(

@@ -1,8 +1,5 @@
 package com.finance.plutus.model.entity;
 
-import lombok.Getter;
-import lombok.Setter;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -16,6 +13,9 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
+
+import lombok.Getter;
+import lombok.Setter;
 
 /** Plutus Created by catalin on 7/1/2020 */
 @Getter
@@ -59,4 +59,8 @@ public class Partner {
   @OneToOne
   @JoinColumn(nullable = false, name = "business_id")
   private Business business;
+
+  public String getName() {
+    return firstName + " " + lastName;
+  }
 }

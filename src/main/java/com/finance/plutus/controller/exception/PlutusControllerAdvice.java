@@ -1,5 +1,10 @@
 package com.finance.plutus.controller.exception;
 
+import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
 import com.finance.plutus.controller.payload.ErrorResponse;
 import com.finance.plutus.exception.PlutusException;
 import org.springframework.http.HttpStatus;
@@ -12,11 +17,6 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
-import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
-
 /** Plutus Created by catalin on 7/1/2020 */
 @RestControllerAdvice
 public class PlutusControllerAdvice {
@@ -28,12 +28,12 @@ public class PlutusControllerAdvice {
 
   @ExceptionHandler(value = BindException.class)
   public ResponseEntity<ErrorResponse> handleException(BindException exception) {
-    return buildResponse(HttpStatus.BAD_REQUEST, collectErrors(exception));
+    return buildResponse(collectErrors(exception));
   }
 
   @ExceptionHandler(value = MethodArgumentNotValidException.class)
   public ResponseEntity<ErrorResponse> handleException(MethodArgumentNotValidException exception) {
-    return buildResponse(HttpStatus.BAD_REQUEST, collectErrors(exception));
+    return buildResponse(collectErrors(exception));
   }
 
   @ExceptionHandler(value = HttpMessageNotReadableException.class)
@@ -70,10 +70,9 @@ public class PlutusControllerAdvice {
         .collect(Collectors.toList());
   }
 
-  private ResponseEntity<ErrorResponse> buildResponse(
-      HttpStatus httpStatus, List<String> errorMessages) {
+  private ResponseEntity<ErrorResponse> buildResponse(List<String> errorMessages) {
     String errorMessage = String.join(", ", errorMessages.toArray(new String[0]));
-    return buildResponse(httpStatus, errorMessage);
+    return buildResponse(HttpStatus.BAD_REQUEST, errorMessage);
   }
 
   private ResponseEntity<ErrorResponse> buildResponse(HttpStatus httpStatus, String errorMessage) {

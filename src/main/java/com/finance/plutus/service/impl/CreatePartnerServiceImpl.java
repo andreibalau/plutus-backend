@@ -2,58 +2,46 @@ package com.finance.plutus.service.impl;
 
 import java.time.LocalDateTime;
 
-import com.finance.plutus.exception.EmailAlreadyExistsException;
 import com.finance.plutus.model.dto.CreateAddressDto;
 import com.finance.plutus.model.dto.CreateBusinessDto;
-import com.finance.plutus.model.dto.CreateUserDto;
+import com.finance.plutus.model.dto.CreatePartnerDto;
 import com.finance.plutus.model.entity.Address;
 import com.finance.plutus.model.entity.Business;
 import com.finance.plutus.model.entity.County;
-import com.finance.plutus.model.entity.User;
+import com.finance.plutus.model.entity.Partner;
 import com.finance.plutus.repository.CountyRepository;
-import com.finance.plutus.repository.UserRepository;
-import com.finance.plutus.service.CheckEmailService;
-import com.finance.plutus.service.RegisterUserService;
+import com.finance.plutus.repository.PartnerRepository;
+import com.finance.plutus.service.CreatePartnerService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-/** Plutus Created by Catalin on 7/1/2020 */
+/** Plutus Created by catalin on 7/2/2020 */
 @Service
 @RequiredArgsConstructor
-public class RegisterUserServiceImpl implements RegisterUserService {
+public class CreatePartnerServiceImpl implements CreatePartnerService {
 
-  private final UserRepository userRepository;
-  private final CheckEmailService checkEmailService;
+  private final PartnerRepository partnerRepository;
   private final CountyRepository countyRepository;
-  private final PasswordEncoder passwordEncoder;
 
   @Override
-  public void register(CreateUserDto createUserDto, CreateBusinessDto createBusinessDto) {
-    checkEmail(createUserDto.getEmail());
+  public Long create(CreatePartnerDto createPartnerDto, CreateBusinessDto createBusinessDto) {
     Business business = createBusiness(createBusinessDto);
-    User user = createUser(createUserDto, business);
-    userRepository.save(user);
+    Partner partner = createPartner(createPartnerDto, business);
+    partnerRepository.save(partner);
+    return partner.getId();
   }
 
-  private void checkEmail(String email) {
-    boolean exists = checkEmailService.exists(email);
-    if (exists) {
-      throw new EmailAlreadyExistsException();
-    }
-  }
-
-  private User createUser(CreateUserDto createUserDto, Business business) {
-    User user = new User();
-    user.setCreatedOn(LocalDateTime.now());
-    user.setUpdatedOn(LocalDateTime.now());
-    user.setFirstName(createUserDto.getFirstName());
-    user.setLastName(createUserDto.getLastName());
-    user.setEmail(createUserDto.getEmail());
-    user.setPhone(createUserDto.getPhone());
-    user.setPassword(passwordEncoder.encode(createUserDto.getPassword()));
-    user.setBusiness(business);
-    return user;
+  private Partner createPartner(CreatePartnerDto createPartnerDto, Business business) {
+    Partner partner = new Partner();
+    partner.setBusiness(business);
+    partner.setCreatedOn(LocalDateTime.now());
+    partner.setUpdatedOn(LocalDateTime.now());
+    partner.setEmail(createPartnerDto.getEmail());
+    partner.setFirstName(createPartnerDto.getFirstName());
+    partner.setLastName(createPartnerDto.getLastName());
+    partner.setPhone(createPartnerDto.getPhone());
+    partner.setType(createPartnerDto.getType());
+    return partner;
   }
 
   private Business createBusiness(CreateBusinessDto createBusinessDto) {

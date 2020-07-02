@@ -4,14 +4,14 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 import com.finance.plutus.model.dto.CreateBusinessDto;
-import com.finance.plutus.model.dto.CreateUserDto;
+import com.finance.plutus.model.dto.CreatePartnerDto;
 import lombok.Getter;
 import lombok.Setter;
 
-/** Plutus Created by catalin on 7/1/2020 */
+/** Plutus Created by catalin on 7/2/2020 */
 @Getter
 @Setter
-public class RegisterRequest {
-  @Valid @NotNull private CreateUserDto user;
+public class CreatePartnerRequest {
+  @Valid @NotNull private CreatePartnerDto partner;
   @Valid @NotNull private CreateBusinessDto business;
 }

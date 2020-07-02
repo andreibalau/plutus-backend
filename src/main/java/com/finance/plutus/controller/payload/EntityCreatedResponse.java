@@ -1,4 +1,4 @@
-package com.finance.plutus.model.dto;
+package com.finance.plutus.controller.payload;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -8,6 +8,6 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public class EntityCreatedDto {
+public class EntityCreatedResponse {
   private Long id;
 }

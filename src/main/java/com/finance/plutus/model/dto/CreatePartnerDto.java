@@ -2,17 +2,19 @@ package com.finance.plutus.model.dto;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
+import com.finance.plutus.model.entity.PartnerType;
 import lombok.Getter;
 import lombok.Setter;
 
-/** Plutus Created by Catalin on 7/1/2020 */
+/** Plutus Created by catalin on 7/2/2020 */
 @Getter
 @Setter
-public class CreateUserDto {
+public class CreatePartnerDto {
   @NotBlank private String firstName;
   @NotBlank private String lastName;
   @Email @NotBlank private String email;
-  @NotBlank private String password;
+  @NotNull private PartnerType type;
   private String phone;
 }

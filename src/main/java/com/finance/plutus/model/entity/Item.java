@@ -43,8 +43,8 @@ public class Item {
   private Double unitPrice;
 
   @NotNull
-  @Column(nullable = false, name = "tva")
-  private Double tva;
+  @Column(nullable = false, name = "vat")
+  private Double vat;
 
   @NotNull
   @Column(nullable = false, name = "total_price")
