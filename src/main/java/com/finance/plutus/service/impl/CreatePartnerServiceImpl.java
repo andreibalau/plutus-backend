@@ -11,6 +11,7 @@ import com.finance.plutus.model.entity.County;
 import com.finance.plutus.model.entity.Partner;
 import com.finance.plutus.repository.CountyRepository;
 import com.finance.plutus.repository.PartnerRepository;
+import com.finance.plutus.service.CheckEmailService;
 import com.finance.plutus.service.CreatePartnerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -22,9 +23,11 @@ public class CreatePartnerServiceImpl implements CreatePartnerService {
 
   private final PartnerRepository partnerRepository;
   private final CountyRepository countyRepository;
+  private final CheckEmailService checkEmailService;
 
   @Override
   public Long create(CreatePartnerDto createPartnerDto, CreateBusinessDto createBusinessDto) {
+    checkEmailService.checkPartnerEmailExistence(createPartnerDto.getEmail());
     Business business = createBusiness(createBusinessDto);
     Partner partner = createPartner(createPartnerDto, business);
     partnerRepository.save(partner);

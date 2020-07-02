@@ -51,7 +51,6 @@ public class TokenAuthorizationFilter extends OncePerRequestFilter {
     AntPathMatcher matcher = new AntPathMatcher();
     return matcher.match("/api/v1/users", request.getRequestURI())
         || matcher.match("/api/v1/users/new", request.getRequestURI())
-        || matcher.match("/api/v1/users/email", request.getRequestURI())
         || matcher.match("/v2/api-docs", request.getRequestURI())
         || matcher.match("/swagger-ui.html/**", request.getRequestURI())
         || matcher.match("/swagger-resources/**", request.getRequestURI())

@@ -2,7 +2,6 @@ package com.finance.plutus.service.impl;
 
 import java.time.LocalDateTime;
 
-import com.finance.plutus.exception.EmailAlreadyExistsException;
 import com.finance.plutus.model.dto.CreateAddressDto;
 import com.finance.plutus.model.dto.CreateBusinessDto;
 import com.finance.plutus.model.dto.CreateUserDto;
@@ -30,17 +29,10 @@ public class RegisterUserServiceImpl implements RegisterUserService {
 
   @Override
   public void register(CreateUserDto createUserDto, CreateBusinessDto createBusinessDto) {
-    checkEmail(createUserDto.getEmail());
+    checkEmailService.checkUserEmailExistence(createUserDto.getEmail());
     Business business = createBusiness(createBusinessDto);
     User user = createUser(createUserDto, business);
     userRepository.save(user);
-  }
-
-  private void checkEmail(String email) {
-    boolean exists = checkEmailService.exists(email);
-    if (exists) {
-      throw new EmailAlreadyExistsException();
-    }
   }
 
   private User createUser(CreateUserDto createUserDto, Business business) {
