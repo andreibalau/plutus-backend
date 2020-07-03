@@ -69,13 +69,13 @@ public class Invoice {
 
   @NotNull
   @Enumerated(EnumType.STRING)
-  @Column(nullable = false, name = "type")
-  private InvoiceType invoiceType;
+  @Column(nullable = false, name = "invoice_type")
+  private InvoiceType type;
 
   @NotNull
   @Enumerated(EnumType.STRING)
   @Column(nullable = false, name = "status")
-  private InvoiceStatus invoiceStatus = InvoiceStatus.DRAFT;
+  private InvoiceStatus status = InvoiceStatus.DRAFT;
 
   @NotNull
   @Enumerated(EnumType.STRING)

@@ -45,7 +45,7 @@ public class InvoiceLine {
 
   @NotNull
   @Column(nullable = false, name = "quantity")
-  private Double quantity;
+  private Integer quantity;
 
   @NotNull
   @Column(nullable = false, name = "price")
@@ -56,8 +56,8 @@ public class InvoiceLine {
   private Double subtotal;
 
   @NotNull
-  @Column(nullable = false, name = "taxes")
-  private Double taxes;
+  @Column(nullable = false, name = "vat")
+  private Double vat;
 
   @NotNull
   @Column(nullable = false, name = "total")

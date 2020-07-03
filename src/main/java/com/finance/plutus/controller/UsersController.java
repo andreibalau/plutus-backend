@@ -11,7 +11,6 @@ import com.finance.plutus.controller.payload.ProfileUserResponse;
 import com.finance.plutus.controller.payload.RegisterRequest;
 import com.finance.plutus.model.dto.LoggedUserDto;
 import com.finance.plutus.model.dto.UserProfileDto;
-import com.finance.plutus.service.CheckEmailService;
 import com.finance.plutus.service.FindUserService;
 import com.finance.plutus.service.LoginService;
 import com.finance.plutus.service.RegisterUserService;
@@ -29,7 +28,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/v1/users")
 public class UsersController {
 
-  private final CheckEmailService checkEmailService;
   private final LoginService loginService;
   private final RegisterUserService registerUserService;
   private final FindUserService findUserService;
