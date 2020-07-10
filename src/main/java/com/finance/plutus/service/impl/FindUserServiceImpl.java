@@ -1,7 +1,5 @@
 package com.finance.plutus.service.impl;
 
-import java.util.Optional;
-
 import com.finance.plutus.exception.EntityNotFoundException;
 import com.finance.plutus.exception.WrongCredentialsException;
 import com.finance.plutus.model.dto.UserProfileDto;
@@ -11,6 +9,8 @@ import com.finance.plutus.service.FindUserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 /** Plutus Created by catalin on 7/1/2020 */
 @Service

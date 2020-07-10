@@ -4,10 +4,10 @@ server:
   port: 8888
 spring:
   datasource:
-    url: jdbc:postgresql://ec2-54-246-105-238.eu-west-1.compute.amazonaws.com:5432/dd63ovf7k7mjdc
     driver-class-name: org.postgresql.Driver
-    username: rtujimvwhzuyrl
-    password: c51a382f971339188b8d68219a5762d4340cd4c6886d7b30e73c34efcb3c8366
+    url: jdbc:postgresql://ec2-54-217-213-79.eu-west-1.compute.amazonaws.com:5432/d4q1h2qhtuuntc
+    username: ncmsxreelegfei
+    password: a9d84e2fd64da059a6335d238dba4241b7f30de0d4bc55de37280cde2025291b
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     generate-ddl: true

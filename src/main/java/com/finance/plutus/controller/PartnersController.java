@@ -1,12 +1,5 @@
 package com.finance.plutus.controller;
 
-import static com.finance.plutus.configuration.Api.APPLICATION_VND_PLUTUS_FINANCE_JSON;
-import static org.springframework.http.HttpStatus.CREATED;
-import static org.springframework.http.HttpStatus.NO_CONTENT;
-
-import javax.validation.Valid;
-import java.util.List;
-
 import com.finance.plutus.controller.payload.CreatePartnerRequest;
 import com.finance.plutus.controller.payload.EntityCreatedResponse;
 import com.finance.plutus.controller.payload.FindPartnerResponse;
@@ -26,6 +19,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.validation.Valid;
+import java.util.List;
+
+import static com.finance.plutus.configuration.Api.APPLICATION_VND_PLUTUS_FINANCE_JSON;
+import static org.springframework.http.HttpStatus.CREATED;
+import static org.springframework.http.HttpStatus.NO_CONTENT;
 
 /** Plutus Created by catalin on 7/2/2020 */
 @RestController

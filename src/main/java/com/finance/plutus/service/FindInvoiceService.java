@@ -1,10 +1,10 @@
 package com.finance.plutus.service;
 
-import java.util.List;
-
 import com.finance.plutus.model.dto.InvoiceDto;
 import com.finance.plutus.model.dto.PreviewInvoiceDto;
 import com.finance.plutus.model.entity.Invoice;
+
+import java.util.List;
 
 /** Plutus Created by catalin on 7/3/2020 */
 public interface FindInvoiceService {

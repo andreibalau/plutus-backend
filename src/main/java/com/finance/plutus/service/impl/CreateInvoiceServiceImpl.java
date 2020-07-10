@@ -1,9 +1,5 @@
 package com.finance.plutus.service.impl;
 
-import java.time.LocalDateTime;
-import java.util.Set;
-import java.util.stream.Collectors;
-
 import com.finance.plutus.model.dto.CreateInvoiceDto;
 import com.finance.plutus.model.dto.CreateInvoiceLineDto;
 import com.finance.plutus.model.entity.Invoice;
@@ -17,6 +13,11 @@ import com.finance.plutus.service.FindItemService;
 import com.finance.plutus.service.FindPartnerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 /** Plutus Created by catalin on 7/3/2020 */
 @Service
@@ -42,8 +43,8 @@ public class CreateInvoiceServiceImpl implements CreateInvoiceService {
   private Invoice createInvoice(CreateInvoiceDto createInvoiceDto) {
     Partner partner = findPartnerService.findById(createInvoiceDto.getPartner());
     Invoice invoice = new Invoice();
-    invoice.setCreatedOn(LocalDateTime.now());
-    invoice.setUpdatedOn(LocalDateTime.now());
+    invoice.setCreatedOn(LocalDateTime.now(ZoneOffset.UTC));
+    invoice.setUpdatedOn(LocalDateTime.now(ZoneOffset.UTC));
     invoice.setCurrency(createInvoiceDto.getCurrency());
     invoice.setDate(createInvoiceDto.getDate());
     invoice.setDueDate(createInvoiceDto.getDueDate());
@@ -67,8 +68,8 @@ public class CreateInvoiceServiceImpl implements CreateInvoiceService {
     double subtotal = unitPrice * quantity;
     double total = vat * subtotal + subtotal;
     InvoiceLine invoiceLine = new InvoiceLine();
-    invoiceLine.setCreatedOn(LocalDateTime.now());
-    invoiceLine.setUpdatedOn(LocalDateTime.now());
+    invoiceLine.setCreatedOn(LocalDateTime.now(ZoneOffset.UTC));
+    invoiceLine.setUpdatedOn(LocalDateTime.now(ZoneOffset.UTC));
     invoiceLine.setInvoice(invoice);
     invoiceLine.setItem(item);
     invoiceLine.setPrice(unitPrice);

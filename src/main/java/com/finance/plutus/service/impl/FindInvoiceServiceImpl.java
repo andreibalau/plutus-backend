@@ -1,8 +1,5 @@
 package com.finance.plutus.service.impl;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 import com.finance.plutus.exception.EntityNotFoundException;
 import com.finance.plutus.model.dto.InvoiceDto;
 import com.finance.plutus.model.dto.InvoiceLineDto;
@@ -18,6 +15,9 @@ import com.finance.plutus.service.FindInvoiceService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 /** Plutus Created by catalin on 7/3/2020 */
 @Service

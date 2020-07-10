@@ -1,9 +1,9 @@
 package com.finance.plutus.model.dto;
 
-import java.time.LocalDateTime;
-
 import lombok.Getter;
 import lombok.Setter;
+
+import java.time.LocalDateTime;
 
 /** Plutus Created by catalin on 7/3/2020 */
 @Getter

@@ -1,5 +1,8 @@
 package com.finance.plutus.model.entity;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,9 +20,6 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
-
-import lombok.Getter;
-import lombok.Setter;
 
 /** Plutus Created by catalin on 7/1/2020 */
 @Getter

@@ -1,7 +1,5 @@
 package com.finance.plutus.service.impl;
 
-import java.time.LocalDateTime;
-
 import com.finance.plutus.model.dto.CreateAddressDto;
 import com.finance.plutus.model.dto.CreateBusinessDto;
 import com.finance.plutus.model.dto.CreatePartnerDto;
@@ -15,6 +13,9 @@ import com.finance.plutus.service.CheckEmailService;
 import com.finance.plutus.service.CreatePartnerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 
 /** Plutus Created by catalin on 7/2/2020 */
 @Service
@@ -37,8 +38,8 @@ public class CreatePartnerServiceImpl implements CreatePartnerService {
   private Partner createPartner(CreatePartnerDto createPartnerDto, Business business) {
     Partner partner = new Partner();
     partner.setBusiness(business);
-    partner.setCreatedOn(LocalDateTime.now());
-    partner.setUpdatedOn(LocalDateTime.now());
+    partner.setCreatedOn(LocalDateTime.now(ZoneOffset.UTC));
+    partner.setUpdatedOn(LocalDateTime.now(ZoneOffset.UTC));
     partner.setEmail(createPartnerDto.getEmail());
     partner.setFirstName(createPartnerDto.getFirstName());
     partner.setLastName(createPartnerDto.getLastName());
@@ -48,10 +49,10 @@ public class CreatePartnerServiceImpl implements CreatePartnerService {
   }
 
   private Business createBusiness(CreateBusinessDto createBusinessDto) {
-    Address address = createAddress(createBusinessDto.getCreateAddressDto());
+    Address address = createAddress(createBusinessDto.getAddress());
     Business business = new Business();
-    business.setCreatedOn(LocalDateTime.now());
-    business.setUpdatedOn(LocalDateTime.now());
+    business.setCreatedOn(LocalDateTime.now(ZoneOffset.UTC));
+    business.setUpdatedOn(LocalDateTime.now(ZoneOffset.UTC));
     business.setCui(createBusinessDto.getCui());
     business.setType(createBusinessDto.getType());
     business.setIban(createBusinessDto.getIban());
