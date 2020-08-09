@@ -4,16 +4,19 @@ import com.finance.plutus.controller.payload.CreateItemRequest;
 import com.finance.plutus.controller.payload.EntityCreatedResponse;
 import com.finance.plutus.controller.payload.FindItemResponse;
 import com.finance.plutus.controller.payload.FindItemsResponse;
+import com.finance.plutus.controller.payload.UpdateItemRequest;
 import com.finance.plutus.model.dto.ItemDto;
 import com.finance.plutus.model.dto.PreviewItemDto;
-import com.finance.plutus.service.CreateItemService;
-import com.finance.plutus.service.DeleteItemService;
-import com.finance.plutus.service.FindItemService;
+import com.finance.plutus.service.item.CreateItemService;
+import com.finance.plutus.service.item.DeleteItemService;
+import com.finance.plutus.service.item.FindItemService;
+import com.finance.plutus.service.item.UpdateItemService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -36,6 +39,7 @@ public class ItemsController {
   private final CreateItemService createItemService;
   private final FindItemService findItemService;
   private final DeleteItemService deleteItemService;
+  private final UpdateItemService updateItemService;
 
   @ResponseStatus(CREATED)
   @PostMapping(
@@ -44,6 +48,14 @@ public class ItemsController {
   public EntityCreatedResponse create(@Valid @RequestBody CreateItemRequest request) {
     Long id = createItemService.create(request.getItem());
     return new EntityCreatedResponse(id);
+  }
+
+  @PutMapping(
+      value = "/{id}",
+      consumes = APPLICATION_VND_PLUTUS_FINANCE_JSON,
+      produces = APPLICATION_VND_PLUTUS_FINANCE_JSON)
+  public void update(@Valid @RequestBody UpdateItemRequest request, @PathVariable Long id) {
+    updateItemService.update(id, request.getItem());
   }
 
   @GetMapping(
@@ -60,7 +72,7 @@ public class ItemsController {
       produces = APPLICATION_VND_PLUTUS_FINANCE_JSON)
   public FindItemsResponse findAllByPage(@RequestParam Integer page, @RequestParam Integer size) {
     List<PreviewItemDto> items = findItemService.findAllByPage(page, size);
-    return new FindItemsResponse(items, page, items.size());
+    return new FindItemsResponse(items, page, findItemService.countAll());
   }
 
   @ResponseStatus(NO_CONTENT)

@@ -4,16 +4,19 @@ import com.finance.plutus.controller.payload.CreatePartnerRequest;
 import com.finance.plutus.controller.payload.EntityCreatedResponse;
 import com.finance.plutus.controller.payload.FindPartnerResponse;
 import com.finance.plutus.controller.payload.FindPartnersResponse;
+import com.finance.plutus.controller.payload.UpdatePartnerRequest;
 import com.finance.plutus.model.dto.PartnerDto;
 import com.finance.plutus.model.dto.PreviewPartnerDto;
-import com.finance.plutus.service.CreatePartnerService;
-import com.finance.plutus.service.DeletePartnerService;
-import com.finance.plutus.service.FindPartnerService;
+import com.finance.plutus.service.partner.CreatePartnerService;
+import com.finance.plutus.service.partner.DeletePartnerService;
+import com.finance.plutus.service.partner.FindPartnerService;
+import com.finance.plutus.service.partner.UpdatePartnerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -36,6 +39,7 @@ public class PartnersController {
   private final CreatePartnerService createPartnerService;
   private final FindPartnerService findPartnerService;
   private final DeletePartnerService deletePartnerService;
+  private final UpdatePartnerService updatePartnerService;
 
   @ResponseStatus(CREATED)
   @PostMapping(
@@ -44,6 +48,14 @@ public class PartnersController {
   public EntityCreatedResponse create(@Valid @RequestBody CreatePartnerRequest request) {
     Long id = createPartnerService.create(request.getPartner(), request.getBusiness());
     return new EntityCreatedResponse(id);
+  }
+
+  @PutMapping(
+      value = "/{id}",
+      consumes = APPLICATION_VND_PLUTUS_FINANCE_JSON,
+      produces = APPLICATION_VND_PLUTUS_FINANCE_JSON)
+  public void update(@Valid @RequestBody UpdatePartnerRequest request, @PathVariable Long id) {
+    updatePartnerService.update(id, request.getPartner(), request.getBusiness());
   }
 
   @GetMapping(

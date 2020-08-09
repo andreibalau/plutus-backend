@@ -1,7 +1,7 @@
 package com.finance.plutus.security;
 
 import com.finance.plutus.exception.TokenInvalidException;
-import com.finance.plutus.service.FindUserService;
+import com.finance.plutus.service.user.FindUserService;
 import io.jsonwebtoken.ExpiredJwtException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

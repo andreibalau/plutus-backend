@@ -7,10 +7,10 @@ import lombok.Setter;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
-/** Plutus Created by catalin on 7/2/2020 */
+/** Plutus Created by Catalin on 8/7/2020 */
 @Getter
 @Setter
-public class CreateItemDto {
+public class UpdateItemDto {
   @NotBlank private String name;
   @NotNull private Double unitPrice;
   @NotNull private Double vat;

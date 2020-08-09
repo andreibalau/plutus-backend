@@ -3,6 +3,7 @@ package com.finance.plutus.model.entity;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -35,8 +36,12 @@ public class County {
   @Column(nullable = false, name = "name")
   private String name;
 
+  @NotBlank
+  @Column(nullable = false, name = "abbreviation")
+  private String abbreviation;
+
   @NotNull
-  @ManyToOne
+  @ManyToOne(cascade = CascadeType.ALL)
   @JoinColumn(nullable = false, name = "country_id")
   private Country country;
 }

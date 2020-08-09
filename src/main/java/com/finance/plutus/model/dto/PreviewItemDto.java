@@ -11,4 +11,5 @@ import lombok.Setter;
 public class PreviewItemDto {
   private Long id;
   private String name;
+  private Double unitPrice;
 }

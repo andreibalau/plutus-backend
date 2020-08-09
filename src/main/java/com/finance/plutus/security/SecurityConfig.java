@@ -32,6 +32,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     http.authorizeRequests()
         .antMatchers(
             "/api/v1/users/new",
+            "/api/v1/counties",
             "/v2/api-docs",
             "/swagger-ui.html/**",
             "/swagger-resources/**",
@@ -40,9 +41,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .antMatchers(HttpMethod.POST, "/api/v1/users")
         .permitAll()
         .antMatchers(HttpMethod.GET, "/api/v1/users")
-        .hasRole(ROLE_USER)
+        .hasAuthority(ROLE_USER)
         .antMatchers("/api/v1/items/**", "/api/v1/partners/**", "/api/v1/invoices/**")
-        .hasRole(ROLE_USER);
+        .hasAuthority(ROLE_USER)
+        .anyRequest()
+        .denyAll();
 
     http.addFilterBefore(tokenAuthorizationFilter, UsernamePasswordAuthenticationFilter.class)
         .exceptionHandling()

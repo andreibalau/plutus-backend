@@ -11,10 +11,12 @@ import java.time.LocalDateTime;
 @Setter
 public class PartnerDto {
   private Long id;
-  private String name;
+  private String firstName;
+  private String lastName;
   private String email;
   private PartnerType type;
   private String phone;
   private LocalDateTime createdOn;
   private LocalDateTime updatedOn;
+  private BusinessDto business;
 }

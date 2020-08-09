@@ -38,7 +38,7 @@ public class PlutusControllerAdvice {
 
   @ExceptionHandler(value = HttpMessageNotReadableException.class)
   public ResponseEntity<ErrorResponse> handleException(HttpMessageNotReadableException exception) {
-    return buildResponse(HttpStatus.BAD_REQUEST, "Required request body is missing!");
+    return buildResponse(HttpStatus.BAD_REQUEST, "Request body is invalid!");
   }
 
   @ExceptionHandler(value = HttpRequestMethodNotSupportedException.class)

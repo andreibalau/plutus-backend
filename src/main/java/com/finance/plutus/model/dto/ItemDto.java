@@ -15,7 +15,7 @@ public class ItemDto {
   private Double unitPrice;
   private Double vat;
   private Double totalPrice;
-  private ItemType itemType;
+  private ItemType type;
   private String uom;
   private LocalDateTime createdOn;
   private LocalDateTime updatedOn;

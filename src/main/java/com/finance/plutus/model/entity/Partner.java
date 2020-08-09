@@ -3,6 +3,7 @@ package com.finance.plutus.model.entity;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -56,7 +57,7 @@ public class Partner {
   private PartnerType type;
 
   @NotNull
-  @OneToOne
+  @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
   @JoinColumn(nullable = false, name = "business_id")
   private Business business;
 
