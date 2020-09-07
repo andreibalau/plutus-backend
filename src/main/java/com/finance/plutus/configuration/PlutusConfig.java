@@ -1,11 +1,11 @@
 package com.finance.plutus.configuration;
 
+import java.util.Base64;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.password.PasswordEncoder;
-
-import java.util.Base64;
 
 /** Plutus Created by catalin on 7/1/2020 */
 @Configuration

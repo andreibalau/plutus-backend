@@ -17,7 +17,9 @@
     <properties>
         <java.version>11</java.version>
         <jwt.version>0.10.5</jwt.version>
+        <flying-saucer.version>9.1.20</flying-saucer.version>
         <swagger-springfox.version>2.9.2</swagger-springfox.version>
+        <thymeleaf.version>3.0.11.RELEASE</thymeleaf.version>
     </properties>
 
     <dependencies>
@@ -57,6 +59,16 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.thymeleaf</groupId>
+            <artifactId>thymeleaf</artifactId>
+            <version>${thymeleaf.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.xhtmlrenderer</groupId>
+            <artifactId>flying-saucer-pdf</artifactId>
+            <version>${flying-saucer.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>

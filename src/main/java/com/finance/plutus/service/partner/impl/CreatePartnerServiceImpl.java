@@ -1,5 +1,8 @@
 package com.finance.plutus.service.partner.impl;
 
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
+
 import com.finance.plutus.model.dto.CreateAddressDto;
 import com.finance.plutus.model.dto.CreateBusinessDto;
 import com.finance.plutus.model.dto.CreatePartnerDto;
@@ -9,13 +12,11 @@ import com.finance.plutus.model.entity.County;
 import com.finance.plutus.model.entity.Partner;
 import com.finance.plutus.repository.CountyRepository;
 import com.finance.plutus.repository.PartnerRepository;
-import com.finance.plutus.service.user.CheckEmailService;
 import com.finance.plutus.service.partner.CreatePartnerService;
+import com.finance.plutus.service.user.CheckEmailService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
-import java.time.LocalDateTime;
-import java.time.ZoneOffset;
+import org.springframework.transaction.annotation.Transactional;
 
 /** Plutus Created by catalin on 7/2/2020 */
 @Service
@@ -27,6 +28,7 @@ public class CreatePartnerServiceImpl implements CreatePartnerService {
   private final CheckEmailService checkEmailService;
 
   @Override
+  @Transactional
   public Long create(CreatePartnerDto createPartnerDto, CreateBusinessDto createBusinessDto) {
     checkEmailService.checkPartnerEmailExistence(createPartnerDto.getEmail());
     Business business = createBusiness(createBusinessDto);

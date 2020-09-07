@@ -1,5 +1,8 @@
 package com.finance.plutus.controller.payload;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+
 import com.finance.plutus.model.dto.CreateInvoiceDto;
 import lombok.Getter;
 import lombok.Setter;
@@ -8,5 +11,5 @@ import lombok.Setter;
 @Getter
 @Setter
 public class CreateInvoiceRequest {
-  private CreateInvoiceDto invoice;
+  @Valid @NotNull private CreateInvoiceDto invoice;
 }

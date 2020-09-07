@@ -1,10 +1,10 @@
 package com.finance.plutus.model.dto;
 
-import lombok.Getter;
-import lombok.Setter;
-
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+
+import lombok.Getter;
+import lombok.Setter;
 
 /** Plutus Created by Catalin on 8/8/2020 */
 @Getter

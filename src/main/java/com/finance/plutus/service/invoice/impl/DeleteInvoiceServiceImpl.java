@@ -6,6 +6,7 @@ import com.finance.plutus.service.invoice.DeleteInvoiceService;
 import com.finance.plutus.service.invoice.FindInvoiceService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /** Plutus Created by catalin on 7/3/2020 */
 @Service
@@ -16,6 +17,7 @@ public class DeleteInvoiceServiceImpl implements DeleteInvoiceService {
   private final FindInvoiceService findInvoiceService;
 
   @Override
+  @Transactional
   public void delete(Long id) {
     Invoice invoice = findInvoiceService.findById(id);
     invoiceRepository.delete(invoice);

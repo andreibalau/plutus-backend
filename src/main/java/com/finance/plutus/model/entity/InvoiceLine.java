@@ -1,8 +1,5 @@
 package com.finance.plutus.model.entity;
 
-import lombok.Getter;
-import lombok.Setter;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,6 +9,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
+
+import lombok.Getter;
+import lombok.Setter;
 
 /** Plutus Created by catalin on 21.09.2019 */
 @Getter

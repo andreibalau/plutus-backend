@@ -1,14 +1,14 @@
 package com.finance.plutus.model.dto;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.List;
+
 import com.finance.plutus.model.entity.Currency;
 import com.finance.plutus.model.entity.InvoiceStatus;
 import com.finance.plutus.model.entity.InvoiceType;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.List;
 
 /** Plutus Created by catalin on 7/3/2020 */
 @Getter

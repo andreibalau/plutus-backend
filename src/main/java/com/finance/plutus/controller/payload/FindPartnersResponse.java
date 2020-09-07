@@ -1,11 +1,11 @@
 package com.finance.plutus.controller.payload;
 
+import java.util.List;
+
 import com.finance.plutus.model.dto.PreviewPartnerDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.util.List;
 
 /** Plutus Created by catalin on 7/2/2020 */
 @Getter

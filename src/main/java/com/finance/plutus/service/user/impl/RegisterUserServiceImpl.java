@@ -1,5 +1,8 @@
 package com.finance.plutus.service.user.impl;
 
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
+
 import com.finance.plutus.model.dto.CreateAddressDto;
 import com.finance.plutus.model.dto.CreateBusinessDto;
 import com.finance.plutus.model.dto.CreateUserDto;
@@ -14,9 +17,7 @@ import com.finance.plutus.service.user.RegisterUserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import java.time.LocalDateTime;
-import java.time.ZoneOffset;
+import org.springframework.transaction.annotation.Transactional;
 
 /** Plutus Created by Catalin on 7/1/2020 */
 @Service
@@ -29,6 +30,7 @@ public class RegisterUserServiceImpl implements RegisterUserService {
   private final PasswordEncoder passwordEncoder;
 
   @Override
+  @Transactional
   public void register(CreateUserDto createUserDto, CreateBusinessDto createBusinessDto) {
     checkEmailService.checkUserEmailExistence(createUserDto.getEmail());
     Business business = createBusiness(createBusinessDto);

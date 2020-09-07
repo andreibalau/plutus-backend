@@ -1,5 +1,8 @@
 package com.finance.plutus.service.partner.impl;
 
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
+
 import com.finance.plutus.model.dto.UpdateAddressDto;
 import com.finance.plutus.model.dto.UpdateBusinessDto;
 import com.finance.plutus.model.dto.UpdatePartnerDto;
@@ -14,9 +17,7 @@ import com.finance.plutus.service.partner.UpdatePartnerService;
 import com.finance.plutus.service.user.CheckEmailService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
-import java.time.LocalDateTime;
-import java.time.ZoneOffset;
+import org.springframework.transaction.annotation.Transactional;
 
 /** Plutus Created by Catalin on 8/8/2020 */
 @Service
@@ -29,6 +30,7 @@ public class UpdatePartnerServiceImpl implements UpdatePartnerService {
   private final CountyRepository countyRepository;
 
   @Override
+  @Transactional
   public void update(
       Long id, UpdatePartnerDto updatePartnerDto, UpdateBusinessDto updateBusinessDto) {
     Partner partner = findPartnerService.findById(id);

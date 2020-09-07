@@ -1,14 +1,15 @@
 package com.finance.plutus.service.item.impl;
 
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
+
 import com.finance.plutus.model.dto.CreateItemDto;
 import com.finance.plutus.model.entity.Item;
 import com.finance.plutus.repository.ItemRepository;
 import com.finance.plutus.service.item.CreateItemService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
-import java.time.LocalDateTime;
-import java.time.ZoneOffset;
+import org.springframework.transaction.annotation.Transactional;
 
 /** Plutus Created by catalin on 7/2/2020 */
 @Service
@@ -18,6 +19,7 @@ public class CreateItemServiceImpl implements CreateItemService {
   private final ItemRepository itemRepository;
 
   @Override
+  @Transactional
   public Long create(CreateItemDto createItemDto) {
     Item item = createItem(createItemDto);
     itemRepository.save(item);

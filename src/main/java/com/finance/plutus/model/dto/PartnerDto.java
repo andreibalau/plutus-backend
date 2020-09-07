@@ -1,10 +1,10 @@
 package com.finance.plutus.model.dto;
 
+import java.time.LocalDateTime;
+
 import com.finance.plutus.model.entity.PartnerType;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.time.LocalDateTime;
 
 /** Plutus Created by catalin on 7/2/2020 */
 @Getter

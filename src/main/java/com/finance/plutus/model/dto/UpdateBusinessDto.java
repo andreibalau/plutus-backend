@@ -1,12 +1,12 @@
 package com.finance.plutus.model.dto;
 
-import com.finance.plutus.model.entity.BusinessType;
-import lombok.Getter;
-import lombok.Setter;
-
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+
+import com.finance.plutus.model.entity.BusinessType;
+import lombok.Getter;
+import lombok.Setter;
 
 /** Plutus Created by Catalin on 8/8/2020 */
 @Getter

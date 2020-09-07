@@ -6,6 +6,7 @@ import com.finance.plutus.service.partner.DeletePartnerService;
 import com.finance.plutus.service.partner.FindPartnerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /** Plutus Created by catalin on 7/2/2020 */
 @Service
@@ -16,6 +17,7 @@ public class DeletePartnerServiceImpl implements DeletePartnerService {
   private final PartnerRepository partnerRepository;
 
   @Override
+  @Transactional
   public void delete(Long id) {
     Partner partner = findPartnerService.findById(id);
     partnerRepository.delete(partner);

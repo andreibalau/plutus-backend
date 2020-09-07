@@ -1,5 +1,10 @@
 package com.finance.plutus.service.invoice.impl;
 
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 import com.finance.plutus.model.dto.CreateInvoiceDto;
 import com.finance.plutus.model.dto.CreateInvoiceLineDto;
 import com.finance.plutus.model.entity.Invoice;
@@ -7,17 +12,15 @@ import com.finance.plutus.model.entity.InvoiceLine;
 import com.finance.plutus.model.entity.InvoiceStatus;
 import com.finance.plutus.model.entity.Item;
 import com.finance.plutus.model.entity.Partner;
+import com.finance.plutus.model.entity.Serial;
 import com.finance.plutus.repository.InvoiceRepository;
 import com.finance.plutus.service.invoice.CreateInvoiceService;
 import com.finance.plutus.service.item.FindItemService;
 import com.finance.plutus.service.partner.FindPartnerService;
+import com.finance.plutus.service.serial.FindSerialService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
-import java.time.LocalDateTime;
-import java.time.ZoneOffset;
-import java.util.Set;
-import java.util.stream.Collectors;
+import org.springframework.transaction.annotation.Transactional;
 
 /** Plutus Created by catalin on 7/3/2020 */
 @Service
@@ -27,8 +30,10 @@ public class CreateInvoiceServiceImpl implements CreateInvoiceService {
   private final InvoiceRepository invoiceRepository;
   private final FindPartnerService findPartnerService;
   private final FindItemService findItemService;
+  private final FindSerialService findSerialService;
 
   @Override
+  @Transactional
   public Long create(CreateInvoiceDto createInvoiceDto) {
     Invoice invoice = createInvoice(createInvoiceDto);
     invoiceRepository.save(invoice);
@@ -37,12 +42,15 @@ public class CreateInvoiceServiceImpl implements CreateInvoiceService {
             .map(line -> createLine(line, invoice))
             .collect(Collectors.toSet());
     computeLines(lines, invoice);
+    invoiceRepository.save(invoice);
     return invoice.getId();
   }
 
   private Invoice createInvoice(CreateInvoiceDto createInvoiceDto) {
     Partner partner = findPartnerService.findById(createInvoiceDto.getPartner());
+    Serial serial = findSerialService.findById(createInvoiceDto.getSerial());
     Invoice invoice = new Invoice();
+    invoice.setName("DRAFT");
     invoice.setCreatedOn(LocalDateTime.now(ZoneOffset.UTC));
     invoice.setUpdatedOn(LocalDateTime.now(ZoneOffset.UTC));
     invoice.setCurrency(createInvoiceDto.getCurrency());
@@ -51,6 +59,7 @@ public class CreateInvoiceServiceImpl implements CreateInvoiceService {
     invoice.setStatus(InvoiceStatus.DRAFT);
     invoice.setType(createInvoiceDto.getType());
     invoice.setPartner(partner);
+    invoice.setSerial(serial);
     invoice.setSubtotal(0D);
     invoice.setTaxes(0D);
     invoice.setTotal(0D);
@@ -86,6 +95,5 @@ public class CreateInvoiceServiceImpl implements CreateInvoiceService {
     invoice.setTaxes(taxes);
     invoice.setTotal(total);
     invoice.setLines(lines);
-    invoiceRepository.save(invoice);
   }
 }

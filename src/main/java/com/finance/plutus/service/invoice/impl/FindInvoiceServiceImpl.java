@@ -1,5 +1,8 @@
 package com.finance.plutus.service.invoice.impl;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import com.finance.plutus.exception.EntityNotFoundException;
 import com.finance.plutus.model.dto.InvoiceDto;
 import com.finance.plutus.model.dto.InvoiceLineDto;
@@ -15,9 +18,6 @@ import com.finance.plutus.service.invoice.FindInvoiceService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 /** Plutus Created by catalin on 7/3/2020 */
 @Service
@@ -35,6 +35,11 @@ public class FindInvoiceServiceImpl implements FindInvoiceService {
   @Override
   public Invoice findById(Long id) {
     return invoiceRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("invoice"));
+  }
+
+  @Override
+  public List<Invoice> findAllByIds(Iterable<Long> ids) {
+    return invoiceRepository.findAllById(ids);
   }
 
   @Override

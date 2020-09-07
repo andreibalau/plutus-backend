@@ -1,14 +1,23 @@
 package com.finance.plutus.controller;
 
+import static com.finance.plutus.configuration.Api.APPLICATION_VND_PLUTUS_FINANCE_JSON;
+import static org.springframework.http.HttpStatus.CREATED;
+import static org.springframework.http.HttpStatus.NO_CONTENT;
+
+import javax.validation.Valid;
+import java.util.List;
+
 import com.finance.plutus.controller.payload.CreateInvoiceRequest;
 import com.finance.plutus.controller.payload.EntityCreatedResponse;
 import com.finance.plutus.controller.payload.FindInvoiceResponse;
 import com.finance.plutus.controller.payload.FindInvoicesResponse;
+import com.finance.plutus.model.dto.InvoiceCommand;
 import com.finance.plutus.model.dto.InvoiceDto;
 import com.finance.plutus.model.dto.PreviewInvoiceDto;
 import com.finance.plutus.service.invoice.CreateInvoiceService;
 import com.finance.plutus.service.invoice.DeleteInvoiceService;
 import com.finance.plutus.service.invoice.FindInvoiceService;
+import com.finance.plutus.service.invoice.InvoiceCommandInvoker;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,13 +29,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.validation.Valid;
-import java.util.List;
-
-import static com.finance.plutus.configuration.Api.APPLICATION_VND_PLUTUS_FINANCE_JSON;
-import static org.springframework.http.HttpStatus.CREATED;
-import static org.springframework.http.HttpStatus.NO_CONTENT;
-
 /** Plutus Created by catalin on 7/2/2020 */
 @RestController
 @RequiredArgsConstructor
@@ -36,6 +38,7 @@ public class InvoicesController {
   private final DeleteInvoiceService deleteInvoiceService;
   private final FindInvoiceService findInvoiceService;
   private final CreateInvoiceService createInvoiceService;
+  private final InvoiceCommandInvoker invoiceCommandInvoker;
 
   @ResponseStatus(CREATED)
   @PostMapping(
@@ -62,6 +65,14 @@ public class InvoicesController {
       @RequestParam Integer page, @RequestParam Integer size) {
     List<PreviewInvoiceDto> invoices = findInvoiceService.findAllByPage(page, size);
     return new FindInvoicesResponse(invoices, page, findInvoiceService.countAll());
+  }
+
+  @PostMapping(
+      value = "/{id}/command/{command}",
+      consumes = APPLICATION_VND_PLUTUS_FINANCE_JSON,
+      produces = APPLICATION_VND_PLUTUS_FINANCE_JSON)
+  public void execute(@PathVariable Long id, @PathVariable InvoiceCommand command) {
+    invoiceCommandInvoker.invoke(id, command);
   }
 
   @ResponseStatus(NO_CONTENT)
