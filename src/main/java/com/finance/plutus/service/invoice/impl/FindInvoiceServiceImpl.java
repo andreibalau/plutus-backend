@@ -44,6 +44,11 @@ public class FindInvoiceServiceImpl implements FindInvoiceService {
         .collect(Collectors.toList());
   }
 
+  @Override
+  public int countAll() {
+    return (int) invoiceRepository.count();
+  }
+
   private InvoiceDto map(Invoice invoice) {
     Partner partner = invoice.getPartner();
     InvoiceDto invoiceDto = new InvoiceDto();

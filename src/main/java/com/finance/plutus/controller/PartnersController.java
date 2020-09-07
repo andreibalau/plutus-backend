@@ -69,11 +69,20 @@ public class PartnersController {
 
   @GetMapping(
       consumes = APPLICATION_VND_PLUTUS_FINANCE_JSON,
-      produces = APPLICATION_VND_PLUTUS_FINANCE_JSON)
+      produces = APPLICATION_VND_PLUTUS_FINANCE_JSON,
+      params = {"page", "size"})
   public FindPartnersResponse findAllByPage(
       @RequestParam Integer page, @RequestParam Integer size) {
     List<PreviewPartnerDto> partners = findPartnerService.findAllByPage(page, size);
-    return new FindPartnersResponse(partners, page, partners.size());
+    return new FindPartnersResponse(partners, page, findPartnerService.countAll());
+  }
+
+  @GetMapping(
+      consumes = APPLICATION_VND_PLUTUS_FINANCE_JSON,
+      produces = APPLICATION_VND_PLUTUS_FINANCE_JSON)
+  public FindPartnersResponse findAll() {
+    List<PreviewPartnerDto> partners = findPartnerService.findAll();
+    return new FindPartnersResponse(partners, 0, partners.size());
   }
 
   @ResponseStatus(NO_CONTENT)

@@ -14,5 +14,7 @@ public interface FindItemService {
 
   List<PreviewItemDto> findAllByPage(int page, int size);
 
+  List<PreviewItemDto> findAll();
+
   int countAll();
 }

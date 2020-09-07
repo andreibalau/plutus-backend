@@ -39,6 +39,13 @@ public class FindItemServiceImpl implements FindItemService {
   }
 
   @Override
+  public List<PreviewItemDto> findAll() {
+    return itemRepository.findAll().stream()
+        .map(i -> new PreviewItemDto(i.getId(), i.getName(), i.getUnitPrice()))
+        .collect(Collectors.toList());
+  }
+
+  @Override
   public int countAll() {
     return (int) itemRepository.count();
   }

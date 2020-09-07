@@ -69,10 +69,19 @@ public class ItemsController {
 
   @GetMapping(
       consumes = APPLICATION_VND_PLUTUS_FINANCE_JSON,
-      produces = APPLICATION_VND_PLUTUS_FINANCE_JSON)
+      produces = APPLICATION_VND_PLUTUS_FINANCE_JSON,
+      params = {"page", "size"})
   public FindItemsResponse findAllByPage(@RequestParam Integer page, @RequestParam Integer size) {
     List<PreviewItemDto> items = findItemService.findAllByPage(page, size);
     return new FindItemsResponse(items, page, findItemService.countAll());
+  }
+
+  @GetMapping(
+      consumes = APPLICATION_VND_PLUTUS_FINANCE_JSON,
+      produces = APPLICATION_VND_PLUTUS_FINANCE_JSON)
+  public FindItemsResponse findAll() {
+    List<PreviewItemDto> items = findItemService.findAll();
+    return new FindItemsResponse(items, 0, items.size());
   }
 
   @ResponseStatus(NO_CONTENT)

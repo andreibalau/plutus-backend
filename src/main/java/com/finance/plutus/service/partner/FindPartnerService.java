@@ -13,4 +13,8 @@ public interface FindPartnerService {
   Partner findById(Long id);
 
   List<PreviewPartnerDto> findAllByPage(int page, int size);
+
+  List<PreviewPartnerDto> findAll();
+
+  int countAll();
 }

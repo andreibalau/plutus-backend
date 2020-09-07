@@ -8,7 +8,6 @@ import com.finance.plutus.model.dto.PartnerDto;
 import com.finance.plutus.model.dto.PreviewPartnerDto;
 import com.finance.plutus.model.entity.Address;
 import com.finance.plutus.model.entity.Business;
-import com.finance.plutus.model.entity.County;
 import com.finance.plutus.model.entity.Partner;
 import com.finance.plutus.repository.PartnerRepository;
 import com.finance.plutus.service.partner.FindPartnerService;
@@ -34,8 +33,7 @@ public class FindPartnerServiceImpl implements FindPartnerService {
 
   @Override
   public Partner findById(Long id) {
-    return partnerRepository.findById(id).orElseThrow(() ->
-            new EntityNotFoundException("partner"));
+    return partnerRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("partner"));
   }
 
   @Override
@@ -43,6 +41,18 @@ public class FindPartnerServiceImpl implements FindPartnerService {
     return partnerRepository.findAll(PageRequest.of(page, size)).stream()
         .map(p -> new PreviewPartnerDto(p.getId(), p.getName(), p.getEmail()))
         .collect(Collectors.toList());
+  }
+
+  @Override
+  public List<PreviewPartnerDto> findAll() {
+    return partnerRepository.findAll().stream()
+        .map(p -> new PreviewPartnerDto(p.getId(), p.getName(), p.getEmail()))
+        .collect(Collectors.toList());
+  }
+
+  @Override
+  public int countAll() {
+    return (int) partnerRepository.count();
   }
 
   private PartnerDto map(Partner partner) {

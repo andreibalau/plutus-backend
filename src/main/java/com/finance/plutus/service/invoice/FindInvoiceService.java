@@ -13,4 +13,6 @@ public interface FindInvoiceService {
   Invoice findById(Long id);
 
   List<PreviewInvoiceDto> findAllByPage(int page, int size);
+
+  int countAll();
 }

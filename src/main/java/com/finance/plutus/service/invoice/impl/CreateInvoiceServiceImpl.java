@@ -51,12 +51,9 @@ public class CreateInvoiceServiceImpl implements CreateInvoiceService {
     invoice.setStatus(InvoiceStatus.DRAFT);
     invoice.setType(createInvoiceDto.getType());
     invoice.setPartner(partner);
-    double subtotal = 0;
-    double taxes = 0;
-    double total = 0;
-    invoice.setSubtotal(subtotal);
-    invoice.setTaxes(taxes);
-    invoice.setTotal(total);
+    invoice.setSubtotal(0D);
+    invoice.setTaxes(0D);
+    invoice.setTotal(0D);
     return invoice;
   }
 

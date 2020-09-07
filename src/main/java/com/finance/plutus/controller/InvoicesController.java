@@ -61,7 +61,7 @@ public class InvoicesController {
   public FindInvoicesResponse findAllByPage(
       @RequestParam Integer page, @RequestParam Integer size) {
     List<PreviewInvoiceDto> invoices = findInvoiceService.findAllByPage(page, size);
-    return new FindInvoicesResponse(invoices, page, invoices.size());
+    return new FindInvoicesResponse(invoices, page, findInvoiceService.countAll());
   }
 
   @ResponseStatus(NO_CONTENT)
