@@ -8,6 +8,9 @@ import javax.validation.Valid;
 import java.util.List;
 
 import com.finance.plutus.controller.payload.CreateInvoiceRequest;
+import com.finance.plutus.controller.payload.DownloadInvoiceRequest;
+import com.finance.plutus.controller.payload.DownloadInvoiceResponse;
+import com.finance.plutus.controller.payload.DownloadInvoicesRequest;
 import com.finance.plutus.controller.payload.EntityCreatedResponse;
 import com.finance.plutus.controller.payload.FindInvoiceResponse;
 import com.finance.plutus.controller.payload.FindInvoicesResponse;
@@ -16,6 +19,7 @@ import com.finance.plutus.model.dto.InvoiceDto;
 import com.finance.plutus.model.dto.PreviewInvoiceDto;
 import com.finance.plutus.service.invoice.CreateInvoiceService;
 import com.finance.plutus.service.invoice.DeleteInvoiceService;
+import com.finance.plutus.service.invoice.DownloadInvoiceService;
 import com.finance.plutus.service.invoice.FindInvoiceService;
 import com.finance.plutus.service.invoice.InvoiceCommandInvoker;
 import lombok.RequiredArgsConstructor;
@@ -39,6 +43,7 @@ public class InvoicesController {
   private final FindInvoiceService findInvoiceService;
   private final CreateInvoiceService createInvoiceService;
   private final InvoiceCommandInvoker invoiceCommandInvoker;
+  private final DownloadInvoiceService downloadInvoiceService;
 
   @ResponseStatus(CREATED)
   @PostMapping(
@@ -73,6 +78,26 @@ public class InvoicesController {
       produces = APPLICATION_VND_PLUTUS_FINANCE_JSON)
   public void execute(@PathVariable Long id, @PathVariable InvoiceCommand command) {
     invoiceCommandInvoker.invoke(id, command);
+  }
+
+  @PostMapping(
+      value = "/pdf/single",
+      consumes = APPLICATION_VND_PLUTUS_FINANCE_JSON,
+      produces = APPLICATION_VND_PLUTUS_FINANCE_JSON)
+  public DownloadInvoiceResponse downloadSingle(
+      @Valid @RequestBody DownloadInvoiceRequest request) {
+    byte[] pdf = downloadInvoiceService.download(request.getInvoiceId());
+    return new DownloadInvoiceResponse(pdf);
+  }
+
+  @PostMapping(
+      value = "/pdf/multiple",
+      consumes = APPLICATION_VND_PLUTUS_FINANCE_JSON,
+      produces = APPLICATION_VND_PLUTUS_FINANCE_JSON)
+  public DownloadInvoiceResponse downloadMultiple(
+      @Valid @RequestBody DownloadInvoicesRequest request) {
+    byte[] zip = downloadInvoiceService.downloadAll(request.getInvoicesIds());
+    return new DownloadInvoiceResponse(zip);
   }
 
   @ResponseStatus(NO_CONTENT)

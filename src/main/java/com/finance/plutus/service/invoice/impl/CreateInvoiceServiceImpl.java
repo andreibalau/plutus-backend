@@ -72,7 +72,7 @@ public class CreateInvoiceServiceImpl implements CreateInvoiceService {
     double vat = line.getVat();
     int quantity = line.getQuantity();
     double subtotal = unitPrice * quantity;
-    double total = vat * subtotal + subtotal;
+    double total = vat / 100 * subtotal + subtotal;
     InvoiceLine invoiceLine = new InvoiceLine();
     invoiceLine.setCreatedOn(LocalDateTime.now(ZoneOffset.UTC));
     invoiceLine.setUpdatedOn(LocalDateTime.now(ZoneOffset.UTC));
