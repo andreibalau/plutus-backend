@@ -1,11 +1,14 @@
 package com.finance.plutus.service.partner.impl;
 
 import com.finance.plutus.model.dto.CreatePartnerDto;
+import com.finance.plutus.model.entity.Bank;
+import com.finance.plutus.model.entity.Country;
 import com.finance.plutus.model.entity.Partner;
 import com.finance.plutus.repository.PartnerRepository;
+import com.finance.plutus.service.bank.FindBankService;
 import com.finance.plutus.service.country.FindCountryService;
+import com.finance.plutus.service.partner.PartnerEmailService;
 import com.finance.plutus.service.partner.CreatePartnerService;
-import com.finance.plutus.service.user.CheckEmailService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,19 +22,22 @@ import java.time.ZoneOffset;
 public class CreatePartnerServiceImpl implements CreatePartnerService {
 
   private final PartnerRepository partnerRepository;
-  private final CheckEmailService checkEmailService;
+  private final PartnerEmailService partnerEmailService;
   private final FindCountryService findCountryService;
+  private final FindBankService findBankService;
 
   @Override
   @Transactional
   public String create(CreatePartnerDto createPartnerDto) {
-    checkEmailService.checkPartnerEmailExistence(createPartnerDto.getEmail());
+    partnerEmailService.checkEmailExistence(createPartnerDto.getEmail());
     Partner partner = createPartner(createPartnerDto);
     partnerRepository.save(partner);
     return partner.getId();
   }
 
   private Partner createPartner(CreatePartnerDto createPartnerDto) {
+    Bank bank = findBankService.findEntityById(createPartnerDto.getBankId()).orElse(null);
+    Country country = findCountryService.findEntityByCode(createPartnerDto.getCountryCode());
     Partner partner = new Partner();
     partner.setCreatedOn(LocalDateTime.now(ZoneOffset.UTC));
     partner.setUpdatedOn(LocalDateTime.now(ZoneOffset.UTC));
@@ -40,13 +46,13 @@ public class CreatePartnerServiceImpl implements CreatePartnerService {
     partner.setType(createPartnerDto.getType());
     partner.setAddress(createPartnerDto.getAddress());
     partner.setVat(createPartnerDto.getVat());
-    partner.setBank(null);
     partner.setBankAccount(createPartnerDto.getBankAccount());
     partner.setBusinessType(createPartnerDto.getBusinessType());
     partner.setCommercialRegistry(createPartnerDto.getCommercialRegistry());
     partner.setTermInDays(createPartnerDto.getTermInDays());
-    partner.setCountry(findCountryService.findEntityByCode(createPartnerDto.getCountryCode()));
     partner.setName(createPartnerDto.getName());
+    partner.setBank(bank);
+    partner.setCountry(country);
     return partner;
   }
 }

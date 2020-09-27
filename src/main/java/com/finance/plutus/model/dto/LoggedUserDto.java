@@ -1,10 +1,6 @@
 package com.finance.plutus.model.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 /** Plutus Created by catalin on 7/1/2020 */
 @Getter
@@ -13,9 +9,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class LoggedUserDto {
-  private Long id;
-  private String firstName;
-  private String lastName;
+  private String id;
   private String email;
   private String token;
 }

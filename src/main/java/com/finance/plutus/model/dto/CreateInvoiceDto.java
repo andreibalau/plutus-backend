@@ -5,7 +5,6 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import com.finance.plutus.model.entity.Currency;
-import com.finance.plutus.model.entity.InvoiceType;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -17,7 +16,7 @@ import java.util.List;
 @Getter
 @Setter
 public class CreateInvoiceDto {
-  @NotNull private Long partner;
+  @NotNull private String partnerId;
 
   @NotNull
   @JsonDeserialize(using = LocalDateDeserializer.class)
@@ -29,8 +28,7 @@ public class CreateInvoiceDto {
   @JsonSerialize(using = LocalDateSerializer.class)
   private LocalDate dueDate;
 
-  @NotNull private InvoiceType type;
   @NotNull private Currency currency;
-  @NotNull private Long serial;
+  @NotNull private String serialId;
   private List<CreateInvoiceLineDto> lines;
 }

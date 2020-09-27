@@ -44,7 +44,7 @@ public class InvoiceController {
       value = "/{id}",
       consumes = APPLICATION_VND_PLUTUS_FINANCE_JSON,
       produces = APPLICATION_VND_PLUTUS_FINANCE_JSON)
-  public FindInvoiceResponse findById(@PathVariable Long id) {
+  public FindInvoiceResponse findById(@PathVariable String id) {
     InvoiceDto invoiceDto = findInvoiceService.findDtoById(id);
     return new FindInvoiceResponse(invoiceDto);
   }
@@ -52,17 +52,16 @@ public class InvoiceController {
   @GetMapping(
       consumes = APPLICATION_VND_PLUTUS_FINANCE_JSON,
       produces = APPLICATION_VND_PLUTUS_FINANCE_JSON)
-  public FindInvoicesResponse findAllByPage(
-      @RequestParam Integer page, @RequestParam Integer size) {
-    List<InvoiceDto> invoices = findInvoiceService.findAllByPage(page, size);
-    return new FindInvoicesResponse(invoices, page, findInvoiceService.countAll());
+  public FindInvoicesResponse findAll(@RequestParam Integer page, @RequestParam Integer size) {
+    List<InvoiceDto> invoices = findInvoiceService.findAllDtoByPage(page, size);
+    return new FindInvoicesResponse(invoices, page, size, findInvoiceService.countAll());
   }
 
   @PostMapping(
       value = "/{id}/command/{command}",
       consumes = APPLICATION_VND_PLUTUS_FINANCE_JSON,
       produces = APPLICATION_VND_PLUTUS_FINANCE_JSON)
-  public void execute(@PathVariable Long id, @PathVariable InvoiceCommand command) {
+  public void execute(@PathVariable String id, @PathVariable InvoiceCommand command) {
     invoiceCommandInvoker.invoke(id, command);
   }
 
@@ -111,7 +110,7 @@ public class InvoiceController {
       value = "/{id}",
       consumes = APPLICATION_VND_PLUTUS_FINANCE_JSON,
       produces = APPLICATION_VND_PLUTUS_FINANCE_JSON)
-  public void delete(@PathVariable Long id) {
+  public void delete(@PathVariable String id) {
     deleteInvoiceService.delete(id);
   }
 }

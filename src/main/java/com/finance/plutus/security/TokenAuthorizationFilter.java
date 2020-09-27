@@ -1,15 +1,5 @@
 package com.finance.plutus.security;
 
-import static org.springframework.http.HttpHeaders.CONTENT_TYPE;
-import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
-
-import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.validation.constraints.NotNull;
-import java.io.IOException;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.finance.plutus.controller.payload.ErrorResponse;
 import com.finance.plutus.exception.TokenInvalidException;
@@ -18,6 +8,16 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.util.AntPathMatcher;
 import org.springframework.web.filter.OncePerRequestFilter;
+
+import javax.servlet.FilterChain;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.validation.constraints.NotNull;
+import java.io.IOException;
+
+import static org.springframework.http.HttpHeaders.CONTENT_TYPE;
+import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 /** Plutus Created by catalin on 7/1/2020 */
 @Component
@@ -51,7 +51,6 @@ public class TokenAuthorizationFilter extends OncePerRequestFilter {
     AntPathMatcher matcher = new AntPathMatcher();
     return matcher.match("/api/v1/users", request.getRequestURI())
         || matcher.match("/api/v1/users/new", request.getRequestURI())
-        || matcher.match("/api/v1/counties", request.getRequestURI())
         || matcher.match("/v2/api-docs", request.getRequestURI())
         || matcher.match("/swagger-ui.html/**", request.getRequestURI())
         || matcher.match("/swagger-resources/**", request.getRequestURI())

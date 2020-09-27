@@ -1,8 +1,5 @@
 package com.finance.plutus.security;
 
-import javax.servlet.http.HttpServletRequest;
-import java.util.List;
-
 import com.finance.plutus.exception.TokenInvalidException;
 import com.finance.plutus.service.user.FindUserService;
 import io.jsonwebtoken.ExpiredJwtException;
@@ -14,6 +11,9 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Service;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /** Plutus Created by catalin on 7/1/2020 */
 @Service

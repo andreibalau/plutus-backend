@@ -7,13 +7,13 @@ import java.util.List;
 
 /** Plutus Created by catalin on 7/3/2020 */
 public interface FindInvoiceService {
-  InvoiceDto findDtoById(Long id);
+  InvoiceDto findDtoById(String id);
 
-  Invoice findById(Long id);
+  Invoice findEntityById(String id);
 
-  List<Invoice> findAllByIds(Iterable<Long> ids);
+  List<Invoice> findAllEntitiesByIds(Iterable<String> ids);
 
-  List<InvoiceDto> findAllByPage(int page, int size);
+  List<InvoiceDto> findAllDtoByPage(int page, int size);
 
-  int countAll();
+  long countAll();
 }

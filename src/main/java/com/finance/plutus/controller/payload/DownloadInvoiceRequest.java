@@ -7,5 +7,5 @@ import lombok.Setter;
 @Getter
 @Setter
 public class DownloadInvoiceRequest {
-  private Long invoiceId;
+  private String invoiceId;
 }

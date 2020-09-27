@@ -20,30 +20,30 @@ public class FindInvoiceServiceImpl implements FindInvoiceService {
   private final InvoiceRepository invoiceRepository;
 
   @Override
-  public InvoiceDto findDtoById(Long id) {
-    Invoice invoice = findById(id);
+  public InvoiceDto findDtoById(String id) {
+    Invoice invoice = findEntityById(id);
     return InvoiceDto.mapFromEntity(invoice);
   }
 
   @Override
-  public Invoice findById(Long id) {
+  public Invoice findEntityById(String id) {
     return invoiceRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("invoice"));
   }
 
   @Override
-  public List<Invoice> findAllByIds(Iterable<Long> ids) {
+  public List<Invoice> findAllEntitiesByIds(Iterable<String> ids) {
     return invoiceRepository.findAllById(ids);
   }
 
   @Override
-  public List<InvoiceDto> findAllByPage(int page, int size) {
+  public List<InvoiceDto> findAllDtoByPage(int page, int size) {
     return invoiceRepository.findAll(PageRequest.of(page, size)).stream()
         .map(InvoiceDto::mapFromEntity)
         .collect(Collectors.toList());
   }
 
   @Override
-  public int countAll() {
-    return (int) invoiceRepository.count();
+  public long countAll() {
+    return invoiceRepository.count();
   }
 }

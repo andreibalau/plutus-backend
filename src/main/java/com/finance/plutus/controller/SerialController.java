@@ -19,7 +19,7 @@ import static org.springframework.http.HttpStatus.CREATED;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/serials")
-public class SerialsController {
+public class SerialController {
 
   private final CreateSerialService createSerialService;
   private final FindSerialService findSerialService;
@@ -29,7 +29,7 @@ public class SerialsController {
       consumes = APPLICATION_VND_PLUTUS_FINANCE_JSON,
       produces = APPLICATION_VND_PLUTUS_FINANCE_JSON)
   public EntityCreatedResponse create(@Valid @RequestBody CreateSerialRequest request) {
-    Long id = createSerialService.create(request.getSerial());
+    String id = createSerialService.create(request.getSerial());
     return new EntityCreatedResponse(id);
   }
 
@@ -37,7 +37,7 @@ public class SerialsController {
       consumes = APPLICATION_VND_PLUTUS_FINANCE_JSON,
       produces = APPLICATION_VND_PLUTUS_FINANCE_JSON)
   public FindSerialsResponse findAll() {
-    List<SerialDto> serials = findSerialService.findAll();
-    return new FindSerialsResponse(serials, 0, serials.size());
+    List<SerialDto> serials = findSerialService.findAllDto();
+    return new FindSerialsResponse(serials);
   }
 }

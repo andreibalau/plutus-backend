@@ -11,13 +11,13 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 public class InvoiceLineDto {
-  private Long id;
+  private String id;
   private LocalDateTime createdOn;
   private LocalDateTime updatedOn;
   private ItemDto item;
   private String uom;
   private Integer quantity;
-  private Double price;
+  private Double unitPrice;
   private Double subtotal;
   private Double vat;
   private Double total;
@@ -29,10 +29,10 @@ public class InvoiceLineDto {
     invoiceLineDto.setUpdatedOn(invoiceLine.getUpdatedOn());
     invoiceLineDto.setId(invoiceLine.getId());
     invoiceLineDto.setItem(ItemDto.mapFromEntity(item));
-    invoiceLineDto.setPrice(invoiceLine.getPrice());
+    invoiceLineDto.setUnitPrice(invoiceLine.getUnitPrice());
     invoiceLineDto.setQuantity(invoiceLine.getQuantity());
     invoiceLineDto.setSubtotal(invoiceLine.getSubtotal());
-    invoiceLineDto.setVat(invoiceLine.getVat());
+    invoiceLineDto.setVat(invoiceLine.getVat().getAmountPercent());
     invoiceLineDto.setTotal(invoiceLine.getTotal());
     invoiceLineDto.setUom(invoiceLine.getUom());
     return invoiceLineDto;

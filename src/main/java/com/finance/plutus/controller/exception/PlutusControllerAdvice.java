@@ -1,10 +1,5 @@
 package com.finance.plutus.controller.exception;
 
-import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
-
-import java.util.List;
-import java.util.stream.Collectors;
-
 import com.finance.plutus.controller.payload.ErrorResponse;
 import com.finance.plutus.exception.PlutusException;
 import org.springframework.http.HttpStatus;
@@ -16,6 +11,11 @@ import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
 
 /** Plutus Created by catalin on 7/1/2020 */
 @RestControllerAdvice

@@ -24,12 +24,12 @@ public class FindSerialServiceImpl implements FindSerialService {
   }
 
   @Override
-  public Serial findById(Long id) {
+  public Serial findEntityById(String id) {
     return serialRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("serial"));
   }
 
   @Override
-  public List<SerialDto> findAll() {
+  public List<SerialDto> findAllDto() {
     return serialRepository.findAll().stream()
         .map(SerialDto::fromEntity)
         .collect(Collectors.toList());

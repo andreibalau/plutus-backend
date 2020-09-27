@@ -9,7 +9,7 @@ import java.util.List;
 public interface FindSerialService {
   boolean existsByName(String name);
 
-  Serial findById(Long id);
+  Serial findEntityById(String id);
 
-  List<SerialDto> findAll();
+  List<SerialDto> findAllDto();
 }

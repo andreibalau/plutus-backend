@@ -15,4 +15,5 @@ public class FindInvoicesResponse {
   private List<InvoiceDto> invoices;
   private int page;
   private int size;
+  private long total;
 }

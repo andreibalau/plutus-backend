@@ -13,6 +13,4 @@ import java.util.List;
 @AllArgsConstructor
 public class FindSerialsResponse {
   private List<SerialDto> serials;
-  private int page;
-  private int size;
 }

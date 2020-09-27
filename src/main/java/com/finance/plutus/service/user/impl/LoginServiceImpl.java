@@ -20,12 +20,6 @@ public class LoginServiceImpl implements LoginService {
   public LoggedUserDto login(String username, String password) {
     User user = findUserService.findByEmailAndPassword(username, password);
     String token = jwtTokenUtil.generate(user.getEmail());
-    return LoggedUserDto.builder()
-        .id(user.getId())
-        .email(user.getEmail())
-        .firstName(user.getFirstName())
-        .lastName(user.getLastName())
-        .token(token)
-        .build();
+    return LoggedUserDto.builder().id(user.getId()).email(user.getEmail()).token(token).build();
   }
 }

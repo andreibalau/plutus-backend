@@ -1,12 +1,11 @@
 package com.finance.plutus.model.entity;
 
-import lombok.Getter;
+import com.finance.plutus.exception.WrongVatAmountException;
 import lombok.RequiredArgsConstructor;
 
 import java.util.Arrays;
 
 /** Plutus Created by Catalin on 9/27/2020 */
-@Getter
 @RequiredArgsConstructor
 public enum ItemVat {
   ZERO(0.00),
@@ -16,10 +15,18 @@ public enum ItemVat {
 
   private final Double amount;
 
+  public Double getAmount() {
+    return amount / 100;
+  }
+
+  public Double getAmountPercent() {
+    return amount;
+  }
+
   public static ItemVat fromAmount(Double amount) {
     return Arrays.stream(ItemVat.values())
         .filter(itemVat -> itemVat.amount.equals(amount))
         .findAny()
-        .orElseThrow();
+        .orElseThrow(WrongVatAmountException::new);
   }
 }

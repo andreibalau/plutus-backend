@@ -1,6 +1,9 @@
 package com.finance.plutus.model.dto;
 
-import com.finance.plutus.model.entity.*;
+import com.finance.plutus.model.entity.Currency;
+import com.finance.plutus.model.entity.Invoice;
+import com.finance.plutus.model.entity.InvoiceStatus;
+import com.finance.plutus.model.entity.Partner;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,7 +16,7 @@ import java.util.stream.Collectors;
 @Getter
 @Setter
 public class InvoiceDto {
-  private Long id;
+  private String id;
   private String name;
   private PartnerDto partner;
   private LocalDateTime createdOn;
@@ -23,13 +26,12 @@ public class InvoiceDto {
   private Double subtotal;
   private Double taxes;
   private Double total;
-  private InvoiceType type;
   private InvoiceStatus status;
   private Currency currency;
   private List<InvoiceLineDto> lines;
 
   public static InvoiceDto mapFromEntity(Invoice invoice) {
-    Partner partner = invoice.getPartner();
+    Partner partner = invoice.getClient();
     InvoiceDto invoiceDto = new InvoiceDto();
     invoiceDto.setId(invoice.getId());
     invoiceDto.setCreatedOn(invoice.getCreatedOn());
@@ -43,7 +45,6 @@ public class InvoiceDto {
     invoiceDto.setSubtotal(invoice.getSubtotal());
     invoiceDto.setTaxes(invoice.getTaxes());
     invoiceDto.setTotal(invoice.getTotal());
-    invoiceDto.setType(invoice.getType());
     invoiceDto.setLines(
         invoice.getLines().stream()
             .map(InvoiceLineDto::mapFromEntity)

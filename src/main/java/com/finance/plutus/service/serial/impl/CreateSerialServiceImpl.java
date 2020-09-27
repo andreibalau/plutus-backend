@@ -1,8 +1,5 @@
 package com.finance.plutus.service.serial.impl;
 
-import java.time.LocalDateTime;
-import java.time.ZoneOffset;
-
 import com.finance.plutus.exception.SerialNameAlreadyExistsException;
 import com.finance.plutus.model.dto.CreateSerialDto;
 import com.finance.plutus.model.entity.Serial;
@@ -12,6 +9,9 @@ import com.finance.plutus.service.serial.FindSerialService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 
 /** Plutus Created by catalin on 9/7/2020 */
 @Service
@@ -23,7 +23,7 @@ public class CreateSerialServiceImpl implements CreateSerialService {
 
   @Override
   @Transactional
-  public Long create(CreateSerialDto createSerialDto) {
+  public String create(CreateSerialDto createSerialDto) {
     boolean exists = findSerialService.existsByName(createSerialDto.getName());
     if (exists) {
       throw new SerialNameAlreadyExistsException();

@@ -18,8 +18,8 @@ public class DeleteInvoiceServiceImpl implements DeleteInvoiceService {
 
   @Override
   @Transactional
-  public void delete(Long id) {
-    Invoice invoice = findInvoiceService.findById(id);
+  public void delete(String id) {
+    Invoice invoice = findInvoiceService.findEntityById(id);
     invoiceRepository.delete(invoice);
   }
 }

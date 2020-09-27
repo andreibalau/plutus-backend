@@ -1,14 +1,5 @@
 package com.finance.plutus.service.pdf.impl;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipOutputStream;
-
 import com.finance.plutus.model.pdf.Params;
 import com.finance.plutus.model.pdf.Template;
 import com.finance.plutus.service.pdf.PdfGenerator;
@@ -20,6 +11,15 @@ import org.thymeleaf.context.Context;
 import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
 import org.xhtmlrenderer.pdf.ITextRenderer;
+
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
 
 /** Plutus Created by catalin on 9/7/2020 */
 @Service

@@ -11,8 +11,9 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 public class ItemDto {
-  private Long id;
+  private String id;
   private String name;
+  private String code;
   private String description;
   private Double unitPrice;
   private Double vat;
@@ -33,7 +34,8 @@ public class ItemDto {
     itemDto.setTotalPrice(item.getTotalPrice());
     itemDto.setUnitPrice(item.getUnitPrice());
     itemDto.setUom(item.getUom());
-    itemDto.setVat(item.getVat());
+    itemDto.setVat(item.getVat().getAmountPercent());
+    itemDto.setCode(item.getCode());
     return itemDto;
   }
 }

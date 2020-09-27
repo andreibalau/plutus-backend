@@ -11,7 +11,7 @@ public class CountryDto {
   private String code;
   private String name;
 
-  public static CountryDto fromEntity(Country country) {
+  public static CountryDto mapFromEntity(Country country) {
     CountryDto countryDto = new CountryDto();
     countryDto.setCode(country.getCode());
     countryDto.setName(country.getName());

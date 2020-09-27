@@ -1,14 +1,14 @@
 package com.finance.plutus.service.invoice;
 
-import java.util.EnumMap;
-import java.util.Map;
-
 import com.finance.plutus.model.dto.InvoiceCommand;
 import com.finance.plutus.service.invoice.impl.ActivateInvoiceService;
 import com.finance.plutus.service.invoice.impl.CancelInvoiceService;
 import com.finance.plutus.service.invoice.impl.CompleteInvoiceService;
 import com.finance.plutus.service.invoice.impl.EnableInvoiceService;
 import org.springframework.stereotype.Service;
+
+import java.util.EnumMap;
+import java.util.Map;
 
 /** Plutus Created by catalin on 9/7/2020 */
 @Service
@@ -28,7 +28,7 @@ public class InvoiceCommandInvoker {
     commands.put(InvoiceCommand.ENABLE, enableInvoiceService);
   }
 
-  public void invoke(Long id, InvoiceCommand command) {
+  public void invoke(String id, InvoiceCommand command) {
     InvoiceExecutableCommand invoiceExecutableCommand = getExecutableCommand(command);
     invoiceExecutableCommand.execute(id);
   }

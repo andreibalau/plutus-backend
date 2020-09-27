@@ -1,11 +1,11 @@
 package com.finance.plutus.model.pdf;
 
-import java.util.Map;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import java.util.Map;
 
 /** Plutus Created by catalin on 9/7/2020 */
 @Getter

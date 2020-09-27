@@ -8,8 +8,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class SerialDto {
-
-  private Long id;
+  private String id;
   private String name;
   private Integer startNumber;
   private Integer currentNumber;
