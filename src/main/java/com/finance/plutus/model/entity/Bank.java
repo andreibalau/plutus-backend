@@ -10,30 +10,18 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import java.time.LocalDateTime;
 
-/** Plutus Created by catalin on 9/7/2020 */
+/** Plutus Created by Catalin on 9/27/2020 */
 @Getter
 @Setter
 @Entity
-@Table(name = "serials")
-public class Serial {
+@Table(name = "banks")
+public class Bank {
 
   @Id @NonNull private String id;
 
   @NonNull
-  @Column(name = "name", nullable = false, unique = true)
+  @Column(name = "name", nullable = false)
   private String name;
-
-  @NonNull
-  @Column(name = "start_number", nullable = false)
-  private Integer startNumber;
-
-  @NonNull
-  @Column(name = "current_number", nullable = false)
-  private Integer currentNumber;
-
-  @NonNull
-  @Column(name = "next_number", nullable = false)
-  private Integer nextNumber;
 
   @NonNull
   @Column(name = "created_on", nullable = false)

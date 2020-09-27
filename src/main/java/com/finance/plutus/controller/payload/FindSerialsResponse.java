@@ -1,19 +1,18 @@
 package com.finance.plutus.controller.payload;
 
-import com.finance.plutus.model.dto.ItemDto;
+import com.finance.plutus.model.dto.SerialDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.util.List;
 
-/** Plutus Created by catalin on 7/2/2020 */
+/** Plutus Created by Catalin on 9/26/2020 */
 @Getter
 @Setter
 @AllArgsConstructor
-public class FindItemsResponse {
-  private List<ItemDto> items;
+public class FindSerialsResponse {
+  private List<SerialDto> serials;
   private int page;
   private int size;
-  private long total;
 }

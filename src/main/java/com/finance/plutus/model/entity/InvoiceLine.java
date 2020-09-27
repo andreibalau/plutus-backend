@@ -1,17 +1,12 @@
 package com.finance.plutus.model.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
-import java.time.LocalDateTime;
-
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.lang.NonNull;
+import org.springframework.lang.Nullable;
+
+import javax.persistence.*;
+import java.time.LocalDateTime;
 
 /** Plutus Created by catalin on 21.09.2019 */
 @Getter
@@ -20,46 +15,47 @@ import lombok.Setter;
 @Table(name = "invoice_lines")
 public class InvoiceLine {
 
-  @Id @GeneratedValue private Long id;
+  @Id @NonNull private String id;
 
-  @NotNull
-  @Column(nullable = false, name = "created_on")
-  private LocalDateTime createdOn;
-
-  @NotNull
-  @Column(nullable = false, name = "updated_on")
-  private LocalDateTime updatedOn;
-
-  @NotNull
+  @NonNull
   @ManyToOne
-  @JoinColumn(nullable = false, name = "invoice_id")
+  @JoinColumn(name = "invoice_id", nullable = false)
   private Invoice invoice;
 
-  @NotNull
+  @NonNull
   @ManyToOne
-  @JoinColumn(nullable = false, name = "item_id")
+  @JoinColumn(name = "item_id", nullable = false)
   private Item item;
 
+  @Nullable
   @Column(name = "uom")
   private String uom;
 
-  @NotNull
-  @Column(nullable = false, name = "quantity")
+  @NonNull
+  @Column(name = "quantity", nullable = false)
   private Integer quantity;
 
-  @NotNull
-  @Column(nullable = false, name = "price")
-  private Double price;
+  @NonNull
+  @Column(name = "unit_price", nullable = false)
+  private Double unitPrice;
 
-  @NotNull
-  @Column(nullable = false, name = "subtotal")
+  @NonNull
+  @Column(name = "subtotal", nullable = false)
   private Double subtotal;
 
-  @NotNull
-  @Column(nullable = false, name = "vat")
-  private Double vat;
+  @NonNull
+  @Column(name = "vat", nullable = false)
+  private ItemVat vat;
 
-  @NotNull
-  @Column(nullable = false, name = "total")
+  @NonNull
+  @Column(name = "total", nullable = false)
   private Double total;
+
+  @NonNull
+  @Column(name = "created_on", nullable = false)
+  private LocalDateTime createdOn;
+
+  @NonNull
+  @Column(name = "updated_on", nullable = false)
+  private LocalDateTime updatedOn;
 }

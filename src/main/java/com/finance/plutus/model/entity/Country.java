@@ -1,16 +1,14 @@
 package com.finance.plutus.model.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import java.time.LocalDateTime;
-
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.lang.NonNull;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import java.time.LocalDateTime;
 
 /** Plutus Created by catalin on 7/1/2020 */
 @Getter
@@ -19,17 +17,17 @@ import lombok.Setter;
 @Table(name = "countries")
 public class Country {
 
-  @Id @GeneratedValue private Long id;
+  @Id @NonNull private String code;
 
-  @NotNull
-  @Column(nullable = false, name = "created_on")
+  @NonNull
+  @Column(name = "name", nullable = false)
+  private String name;
+
+  @NonNull
+  @Column(name = "created_on", nullable = false)
   private LocalDateTime createdOn;
 
-  @NotNull
-  @Column(nullable = false, name = "updated_on")
+  @NonNull
+  @Column(name = "updated_on", nullable = false)
   private LocalDateTime updatedOn;
-
-  @NotBlank
-  @Column(nullable = false, name = "name")
-  private String name;
 }

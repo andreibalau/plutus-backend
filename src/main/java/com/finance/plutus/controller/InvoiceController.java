@@ -1,47 +1,29 @@
 package com.finance.plutus.controller;
 
-import static com.finance.plutus.configuration.Api.APPLICATION_VND_PLUTUS_FINANCE_JSON;
-import static org.springframework.http.HttpStatus.CREATED;
-import static org.springframework.http.HttpStatus.NO_CONTENT;
-
-import javax.validation.Valid;
-import java.util.List;
-
-import com.finance.plutus.controller.payload.CreateInvoiceRequest;
-import com.finance.plutus.controller.payload.DownloadInvoiceRequest;
-import com.finance.plutus.controller.payload.DownloadInvoicesRequest;
-import com.finance.plutus.controller.payload.EntityCreatedResponse;
-import com.finance.plutus.controller.payload.FindInvoiceResponse;
-import com.finance.plutus.controller.payload.FindInvoicesResponse;
+import com.finance.plutus.controller.payload.*;
 import com.finance.plutus.model.dto.InvoiceCommand;
 import com.finance.plutus.model.dto.InvoiceDto;
-import com.finance.plutus.model.dto.PreviewInvoiceDto;
-import com.finance.plutus.service.invoice.CreateInvoiceService;
-import com.finance.plutus.service.invoice.DeleteInvoiceService;
-import com.finance.plutus.service.invoice.DownloadInvoiceService;
-import com.finance.plutus.service.invoice.FindInvoiceService;
-import com.finance.plutus.service.invoice.InvoiceCommandInvoker;
+import com.finance.plutus.service.invoice.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
+import java.util.List;
+
+import static com.finance.plutus.configuration.Api.APPLICATION_VND_PLUTUS_FINANCE_JSON;
+import static org.springframework.http.HttpStatus.CREATED;
+import static org.springframework.http.HttpStatus.NO_CONTENT;
 
 /** Plutus Created by catalin on 7/2/2020 */
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/invoices")
-public class InvoicesController {
+public class InvoiceController {
 
   private final DeleteInvoiceService deleteInvoiceService;
   private final FindInvoiceService findInvoiceService;
@@ -54,7 +36,7 @@ public class InvoicesController {
       consumes = APPLICATION_VND_PLUTUS_FINANCE_JSON,
       produces = APPLICATION_VND_PLUTUS_FINANCE_JSON)
   public EntityCreatedResponse create(@Valid @RequestBody CreateInvoiceRequest request) {
-    Long id = createInvoiceService.create(request.getInvoice());
+    String id = createInvoiceService.create(request.getInvoice());
     return new EntityCreatedResponse(id);
   }
 
@@ -72,7 +54,7 @@ public class InvoicesController {
       produces = APPLICATION_VND_PLUTUS_FINANCE_JSON)
   public FindInvoicesResponse findAllByPage(
       @RequestParam Integer page, @RequestParam Integer size) {
-    List<PreviewInvoiceDto> invoices = findInvoiceService.findAllByPage(page, size);
+    List<InvoiceDto> invoices = findInvoiceService.findAllByPage(page, size);
     return new FindInvoicesResponse(invoices, page, findInvoiceService.countAll());
   }
 

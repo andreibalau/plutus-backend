@@ -18,8 +18,8 @@ public class DeletePartnerServiceImpl implements DeletePartnerService {
 
   @Override
   @Transactional
-  public void delete(Long id) {
-    Partner partner = findPartnerService.findById(id);
+  public void delete(String id) {
+    Partner partner = findPartnerService.findEntityById(id);
     partnerRepository.delete(partner);
   }
 }

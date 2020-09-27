@@ -18,8 +18,8 @@ public class DeleteItemServiceImpl implements DeleteItemService {
 
   @Override
   @Transactional
-  public void delete(Long id) {
-    Item item = findItemService.findById(id);
+  public void delete(String id) {
+    Item item = findItemService.findEntityById(id);
     itemRepository.delete(item);
   }
 }

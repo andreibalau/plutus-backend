@@ -1,20 +1,17 @@
 package com.finance.plutus.service.item;
 
-import java.util.List;
-
 import com.finance.plutus.model.dto.ItemDto;
-import com.finance.plutus.model.dto.PreviewItemDto;
 import com.finance.plutus.model.entity.Item;
+
+import java.util.List;
 
 /** Plutus Created by catalin on 7/2/2020 */
 public interface FindItemService {
-  ItemDto findDtoById(Long id);
+  ItemDto findDtoById(String id);
 
-  Item findById(Long id);
+  Item findEntityById(String id);
 
-  List<PreviewItemDto> findAllByPage(int page, int size);
+  List<ItemDto> findAllDtoByPage(int page, int size);
 
-  List<PreviewItemDto> findAll();
-
-  int countAll();
+  long countAll();
 }

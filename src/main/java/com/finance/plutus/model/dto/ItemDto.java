@@ -1,10 +1,11 @@
 package com.finance.plutus.model.dto;
 
-import java.time.LocalDateTime;
-
+import com.finance.plutus.model.entity.Item;
 import com.finance.plutus.model.entity.ItemType;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.time.LocalDateTime;
 
 /** Plutus Created by catalin on 7/2/2020 */
 @Getter
@@ -12,6 +13,7 @@ import lombok.Setter;
 public class ItemDto {
   private Long id;
   private String name;
+  private String description;
   private Double unitPrice;
   private Double vat;
   private Double totalPrice;
@@ -19,4 +21,19 @@ public class ItemDto {
   private String uom;
   private LocalDateTime createdOn;
   private LocalDateTime updatedOn;
+
+  public static ItemDto mapFromEntity(Item item) {
+    ItemDto itemDto = new ItemDto();
+    itemDto.setId(item.getId());
+    itemDto.setCreatedOn(item.getCreatedOn());
+    itemDto.setUpdatedOn(item.getUpdatedOn());
+    itemDto.setType(item.getType());
+    itemDto.setName(item.getName());
+    itemDto.setDescription(item.getDescription());
+    itemDto.setTotalPrice(item.getTotalPrice());
+    itemDto.setUnitPrice(item.getUnitPrice());
+    itemDto.setUom(item.getUom());
+    itemDto.setVat(item.getVat());
+    return itemDto;
+  }
 }

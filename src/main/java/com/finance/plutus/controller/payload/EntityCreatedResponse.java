@@ -9,5 +9,5 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 public class EntityCreatedResponse {
-  private Long id;
+  private String id;
 }

@@ -1,25 +1,14 @@
 package com.finance.plutus.model.entity;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
+import lombok.Getter;
+import lombok.Setter;
+import org.springframework.lang.NonNull;
+
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
-
-import lombok.Getter;
-import lombok.Setter;
 
 /** Plutus Created by catalin on 7/1/2020 */
 @Getter
@@ -28,65 +17,60 @@ import lombok.Setter;
 @Table(name = "invoices")
 public class Invoice {
 
-  @Id @GeneratedValue private Long id;
+  @Id @NonNull private String id;
 
-  @NotNull
-  @Column(nullable = false, name = "created_on")
-  private LocalDateTime createdOn;
-
-  @NotNull
-  @Column(nullable = false, name = "updated_on")
-  private LocalDateTime updatedOn;
-
-  @NotNull
-  @ManyToOne
-  @JoinColumn(nullable = false)
-  private Partner partner;
-
-  @NotBlank
-  @Column(nullable = false, unique = true, name = "serial_name")
+  @NonNull
+  @Column(name = "serial_name", nullable = false, unique = true)
   private String name;
 
-  @NotNull
-  @Column(nullable = false, name = "date")
+  @NonNull
+  @Column(name = "date", nullable = false)
   private LocalDate date;
 
-  @NotNull
-  @Column(nullable = false, name = "due_date")
+  @NonNull
+  @Column(name = "due_date", nullable = false)
   private LocalDate dueDate;
 
-  @NotNull
-  @Column(nullable = false, name = "subtotal")
+  @NonNull
+  @Column(name = "subtotal", nullable = false)
   private Double subtotal;
 
-  @NotNull
-  @Column(nullable = false, name = "taxes")
+  @NonNull
+  @Column(name = "taxes", nullable = false)
   private Double taxes;
 
-  @NotNull
-  @Column(nullable = false, name = "total")
+  @NonNull
+  @Column(name = "total", nullable = false)
   private Double total;
 
-  @NotNull
+  @NonNull
   @Enumerated(EnumType.STRING)
-  @Column(nullable = false, name = "invoice_type")
-  private InvoiceType type;
-
-  @NotNull
-  @Enumerated(EnumType.STRING)
-  @Column(nullable = false, name = "status")
+  @Column(name = "status", nullable = false)
   private InvoiceStatus status = InvoiceStatus.DRAFT;
 
-  @NotNull
+  @NonNull
   @Enumerated(EnumType.STRING)
-  @Column(nullable = false, name = "currency")
+  @Column(name = "currency", nullable = false)
   private Currency currency = Currency.RON;
 
-  @NotNull
+  @NonNull
   @ManyToOne
-  @JoinColumn(nullable = false, name = "serial_id")
+  @JoinColumn(name = "serial_id", nullable = false)
   private Serial serial;
+
+  @NonNull
+  @ManyToOne
+  @JoinColumn(name = "client_id", nullable = false)
+  private Partner client;
 
   @OneToMany(mappedBy = "invoice", cascade = CascadeType.ALL, orphanRemoval = true)
   private Set<InvoiceLine> lines = new HashSet<>();
+
+  @NonNull
+  @Column(name = "created_on", nullable = false)
+  private LocalDateTime createdOn;
+
+  @NonNull
+  @Column(name = "updated_on", nullable = false)
+  private LocalDateTime updatedOn;
 }

@@ -1,22 +1,12 @@
 package com.finance.plutus.model.entity;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import java.time.LocalDateTime;
-
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.lang.NonNull;
+
+import javax.persistence.*;
+import javax.validation.constraints.Email;
+import java.time.LocalDateTime;
 
 /** Plutus Created by catalin on 7/1/2020 */
 @Getter
@@ -25,43 +15,27 @@ import lombok.Setter;
 @Table(name = "users")
 public class User {
 
-  @Id @GeneratedValue private Long id;
-
-  @NotNull
-  @Column(nullable = false, name = "created_on")
-  private LocalDateTime createdOn;
-
-  @NotNull
-  @Column(nullable = false, name = "updated_on")
-  private LocalDateTime updatedOn;
-
-  @NotBlank
-  @Column(nullable = false, name = "password")
-  private String password;
+  @Id @NonNull private String id;
 
   @Email
-  @NotBlank
-  @Column(nullable = false, unique = true, name = "email")
+  @NonNull
+  @Column(name = "email", nullable = false, unique = true)
   private String email;
 
-  @Column(name = "phone")
-  private String phone;
+  @NonNull
+  @Column(name = "password", nullable = false)
+  private String password;
 
-  @NotBlank
-  @Column(nullable = false, name = "first_name")
-  private String firstName;
-
-  @NotBlank
-  @Column(nullable = false, name = "last_name")
-  private String lastName;
-
-  @NotNull
-  @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
-  @JoinColumn(nullable = false, name = "business_id")
-  private Business business;
-
-  @NotNull
+  @NonNull
   @Enumerated(value = EnumType.STRING)
-  @Column(nullable = false, name = "user_role")
+  @Column(name = "user_role", nullable = false)
   private UserRole role = UserRole.USER;
+
+  @NonNull
+  @Column(name = "created_on", nullable = false)
+  private LocalDateTime createdOn;
+
+  @NonNull
+  @Column(name = "updated_on", nullable = false)
+  private LocalDateTime updatedOn;
 }
