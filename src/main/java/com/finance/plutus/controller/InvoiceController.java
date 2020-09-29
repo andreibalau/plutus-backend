@@ -1,23 +1,40 @@
 package com.finance.plutus.controller;
 
-import com.finance.plutus.controller.payload.*;
+import static com.finance.plutus.configuration.Api.APPLICATION_VND_PLUTUS_FINANCE_JSON;
+import static org.springframework.http.HttpStatus.CREATED;
+import static org.springframework.http.HttpStatus.NO_CONTENT;
+
+import javax.validation.Valid;
+import java.util.List;
+
+import com.finance.plutus.controller.payload.CreateInvoiceRequest;
+import com.finance.plutus.controller.payload.DownloadInvoiceRequest;
+import com.finance.plutus.controller.payload.DownloadInvoicesRequest;
+import com.finance.plutus.controller.payload.EntityCreatedResponse;
+import com.finance.plutus.controller.payload.FindInvoiceResponse;
+import com.finance.plutus.controller.payload.FindInvoicesResponse;
 import com.finance.plutus.model.dto.InvoiceCommand;
 import com.finance.plutus.model.dto.InvoiceDto;
-import com.finance.plutus.service.invoice.*;
+import com.finance.plutus.service.invoice.CreateInvoiceService;
+import com.finance.plutus.service.invoice.DeleteInvoiceService;
+import com.finance.plutus.service.invoice.DownloadInvoiceService;
+import com.finance.plutus.service.invoice.FindInvoiceService;
+import com.finance.plutus.service.invoice.InvoiceCommandInvoker;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
-import javax.validation.Valid;
-import java.util.List;
-
-import static com.finance.plutus.configuration.Api.APPLICATION_VND_PLUTUS_FINANCE_JSON;
-import static org.springframework.http.HttpStatus.CREATED;
-import static org.springframework.http.HttpStatus.NO_CONTENT;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
 
 /** Plutus Created by catalin on 7/2/2020 */
 @RestController
@@ -72,17 +89,7 @@ public class InvoiceController {
   public ResponseEntity<Resource> downloadSingle(
       @Valid @RequestBody DownloadInvoiceRequest request) {
     byte[] pdf = downloadInvoiceService.download(request.getInvoiceId());
-    HttpHeaders headers = new HttpHeaders();
-    headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=invoice.pdf");
-    headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
-    headers.add("Pragma", "no-cache");
-    headers.add("Expires", "0");
-    ByteArrayResource resource = new ByteArrayResource(pdf);
-    return ResponseEntity.ok()
-        .headers(headers)
-        .contentLength(pdf.length)
-        .contentType(MediaType.APPLICATION_OCTET_STREAM)
-        .body(resource);
+    return prepareDownloadResponse(pdf, "invoice.pdf");
   }
 
   @PostMapping(
@@ -92,17 +99,7 @@ public class InvoiceController {
   public ResponseEntity<Resource> downloadMultiple(
       @Valid @RequestBody DownloadInvoicesRequest request) {
     byte[] zip = downloadInvoiceService.downloadAll(request.getInvoicesIds());
-    HttpHeaders headers = new HttpHeaders();
-    headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=archive.zip");
-    headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
-    headers.add("Pragma", "no-cache");
-    headers.add("Expires", "0");
-    ByteArrayResource resource = new ByteArrayResource(zip);
-    return ResponseEntity.ok()
-        .headers(headers)
-        .contentLength(zip.length)
-        .contentType(MediaType.APPLICATION_OCTET_STREAM)
-        .body(resource);
+    return prepareDownloadResponse(zip, "archive.zip");
   }
 
   @ResponseStatus(NO_CONTENT)
@@ -112,5 +109,19 @@ public class InvoiceController {
       produces = APPLICATION_VND_PLUTUS_FINANCE_JSON)
   public void delete(@PathVariable String id) {
     deleteInvoiceService.delete(id);
+  }
+
+  private ResponseEntity<Resource> prepareDownloadResponse(byte[] content, String filename) {
+    HttpHeaders headers = new HttpHeaders();
+    headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + filename);
+    headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
+    headers.add("Pragma", "no-cache");
+    headers.add("Expires", "0");
+    ByteArrayResource resource = new ByteArrayResource(content);
+    return ResponseEntity.ok()
+        .headers(headers)
+        .contentLength(content.length)
+        .contentType(MediaType.APPLICATION_OCTET_STREAM)
+        .body(resource);
   }
 }
