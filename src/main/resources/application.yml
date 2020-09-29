@@ -1,5 +1,3 @@
-jwt:
-  secret: v9y$B&E)H@McQfTjWnZr4u7w!z%C*F-JaNdRgUkXp2s5v8y/A?D(G+KbPeShVmYq
 server:
   port: 8888
 logging:
