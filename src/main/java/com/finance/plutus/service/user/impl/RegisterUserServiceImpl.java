@@ -3,8 +3,8 @@ package com.finance.plutus.service.user.impl;
 import com.finance.plutus.model.dto.CreateUserDto;
 import com.finance.plutus.model.entity.User;
 import com.finance.plutus.repository.UserRepository;
-import com.finance.plutus.service.user.UserEmailService;
 import com.finance.plutus.service.user.RegisterUserService;
+import com.finance.plutus.service.user.UserEmailService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
+import java.util.UUID;
 
 /** Plutus Created by Catalin on 7/1/2020 */
 @Service
@@ -32,6 +33,7 @@ public class RegisterUserServiceImpl implements RegisterUserService {
 
   private User createUser(CreateUserDto createUserDto) {
     User user = new User();
+    user.setId(UUID.randomUUID().toString());
     user.setCreatedOn(LocalDateTime.now(ZoneOffset.UTC));
     user.setUpdatedOn(LocalDateTime.now(ZoneOffset.UTC));
     user.setEmail(createUserDto.getEmail());
