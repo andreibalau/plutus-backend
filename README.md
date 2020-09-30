@@ -1,2 +1,3 @@
 # Plutus
-Plutus - Finance Management Application
+
+## Backend Application

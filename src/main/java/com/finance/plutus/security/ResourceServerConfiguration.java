@@ -1,5 +1,8 @@
 package com.finance.plutus.security;
 
+import java.util.Arrays;
+import java.util.Collections;
+
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -10,19 +13,17 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-import java.util.Arrays;
-import java.util.Collections;
-
 /** Plutus Created by Catalin on 9/29/2020 */
 @Configuration
 @EnableResourceServer
 public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter {
 
-  private static final String ROLE_USER = "USER";
+  public static final String RESOURCE_ID = "plutus-resource-api";
+  private static final String ROLE_USER = "ROLE_USER";
 
   @Override
   public void configure(ResourceServerSecurityConfigurer resources) {
-    resources.resourceId("api");
+    resources.resourceId(RESOURCE_ID);
   }
 
   @Override
@@ -39,7 +40,7 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
         .antMatchers("/api/v1/**")
         .hasAnyAuthority(ROLE_USER)
         .anyRequest()
-        .authenticated()
+        .denyAll()
         .and()
         .exceptionHandling()
         .authenticationEntryPoint(new CustomAuthenticationEntryPoint())

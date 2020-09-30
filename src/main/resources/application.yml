@@ -2,7 +2,14 @@ server:
   port: 8888
 logging:
   level:
-    root: INFO
+    root: DEBUG
+security:
+  oauth2:
+    client:
+      clientId: plutus-app
+      clientSecret: secret
+    resource:
+      token-info-uri: http://localhost:8080/oauth/check_token
 spring:
   datasource:
     driver-class-name: org.postgresql.Driver
