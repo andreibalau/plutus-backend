@@ -7,14 +7,15 @@ import com.finance.plutus.model.entity.Partner;
 import com.finance.plutus.repository.PartnerRepository;
 import com.finance.plutus.service.bank.FindBankService;
 import com.finance.plutus.service.country.FindCountryService;
-import com.finance.plutus.service.partner.PartnerEmailService;
 import com.finance.plutus.service.partner.CreatePartnerService;
+import com.finance.plutus.service.partner.PartnerEmailService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
+import java.util.UUID;
 
 /** Plutus Created by catalin on 7/2/2020 */
 @Service
@@ -39,6 +40,7 @@ public class CreatePartnerServiceImpl implements CreatePartnerService {
     Bank bank = findBankService.findEntityById(createPartnerDto.getBankId()).orElse(null);
     Country country = findCountryService.findEntityByCode(createPartnerDto.getCountryCode());
     Partner partner = new Partner();
+    partner.setId(UUID.randomUUID().toString());
     partner.setCreatedOn(LocalDateTime.now(ZoneOffset.UTC));
     partner.setUpdatedOn(LocalDateTime.now(ZoneOffset.UTC));
     partner.setEmail(createPartnerDto.getEmail());

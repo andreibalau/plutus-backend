@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.util.Set;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 /** Plutus Created by catalin on 7/3/2020 */
@@ -45,6 +46,7 @@ public class CreateInvoiceServiceImpl implements CreateInvoiceService {
     Partner partner = findPartnerService.findEntityById(createInvoiceDto.getPartnerId());
     Serial serial = findSerialService.findEntityById(createInvoiceDto.getSerialId());
     Invoice invoice = new Invoice();
+    invoice.setId(UUID.randomUUID().toString());
     invoice.setName("DRAFT");
     invoice.setCreatedOn(LocalDateTime.now(ZoneOffset.UTC));
     invoice.setUpdatedOn(LocalDateTime.now(ZoneOffset.UTC));
