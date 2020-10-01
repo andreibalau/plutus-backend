@@ -8,6 +8,7 @@ import com.finance.plutus.service.user.FindUserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /** Plutus Created by catalin on 7/1/2020 */
@@ -21,8 +22,8 @@ public class UserController {
   @GetMapping(
       consumes = APPLICATION_VND_PLUTUS_FINANCE_JSON,
       produces = APPLICATION_VND_PLUTUS_FINANCE_JSON)
-  public ProfileUserResponse getProfile() {
-    UserDto userDto = findUserService.getProfile();
+  public ProfileUserResponse getProfile(@RequestParam String email) {
+    UserDto userDto = findUserService.findDtoByEmail(email);
     return new ProfileUserResponse(userDto);
   }
 }

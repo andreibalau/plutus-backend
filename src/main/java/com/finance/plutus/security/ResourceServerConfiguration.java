@@ -20,7 +20,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 @EnableResourceServer
 public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter {
 
-  private static final String ROLE_USER = "ROLE_USER";
+  private static final String ROLE_USER = "USER";
 
   @Override
   public void configure(ResourceServerSecurityConfigurer resources) {
@@ -37,7 +37,7 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
         .configurationSource(createConfigurationSource())
         .and()
         .authorizeRequests()
-        .antMatchers("/api/v1/register")
+        .antMatchers("/api/v1/register", "/api/v1/login")
         .permitAll()
         .antMatchers("/api/v1/**")
         .hasAnyAuthority(ROLE_USER)

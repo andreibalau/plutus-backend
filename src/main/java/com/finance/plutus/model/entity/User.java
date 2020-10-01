@@ -1,12 +1,18 @@
 package com.finance.plutus.model.entity;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import java.time.LocalDateTime;
+
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.lang.NonNull;
-
-import javax.persistence.*;
-import javax.validation.constraints.Email;
-import java.time.LocalDateTime;
 
 /** Plutus Created by catalin on 7/1/2020 */
 @Getter
@@ -15,27 +21,23 @@ import java.time.LocalDateTime;
 @Table(name = "users")
 public class User {
 
-  @Id @NonNull private String id;
+  @Id @NotBlank private String id;
 
   @Email
-  @NonNull
+  @NotBlank
   @Column(name = "email", nullable = false, unique = true)
   private String email;
 
-  @NonNull
-  @Column(name = "password", nullable = false)
-  private String password;
-
-  @NonNull
+  @NotNull
   @Enumerated(value = EnumType.STRING)
   @Column(name = "user_role", nullable = false)
   private UserRole role = UserRole.USER;
 
-  @NonNull
+  @NotNull
   @Column(name = "created_on", nullable = false)
   private LocalDateTime createdOn;
 
-  @NonNull
+  @NotNull
   @Column(name = "updated_on", nullable = false)
   private LocalDateTime updatedOn;
 }

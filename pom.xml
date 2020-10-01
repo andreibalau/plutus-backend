@@ -17,12 +17,18 @@
     <properties>
         <java.version>11</java.version>
         <flying-saucer.version>9.1.20</flying-saucer.version>
+        <spring-cloud-openfeign.version>2.2.1.RELEASE</spring-cloud-openfeign.version>
         <swagger-springfox.version>2.9.2</swagger-springfox.version>
         <thymeleaf.version>3.0.11.RELEASE</thymeleaf.version>
         <spring-security-oauth.version>2.1.0.RELEASE</spring-security-oauth.version>
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <scope>runtime</scope>
+        </dependency>
         <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger2</artifactId>
@@ -52,6 +58,11 @@
             <groupId>org.xhtmlrenderer</groupId>
             <artifactId>flying-saucer-pdf</artifactId>
             <version>${flying-saucer.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
+            <version>${spring-cloud-openfeign.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
