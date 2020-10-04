@@ -2,12 +2,13 @@ package com.finance.plutus.model.entity;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.lang.NonNull;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 /** Plutus Created by catalin on 9/7/2020 */
@@ -17,29 +18,29 @@ import java.time.LocalDateTime;
 @Table(name = "serials")
 public class Serial {
 
-  @Id @NonNull private String id;
+  @Id @NotBlank private String id;
 
-  @NonNull
+  @NotBlank
   @Column(name = "name", nullable = false, unique = true)
   private String name;
 
-  @NonNull
+  @NotNull
   @Column(name = "start_number", nullable = false)
   private Integer startNumber;
 
-  @NonNull
+  @NotNull
   @Column(name = "current_number", nullable = false)
   private Integer currentNumber;
 
-  @NonNull
+  @NotNull
   @Column(name = "next_number", nullable = false)
   private Integer nextNumber;
 
-  @NonNull
+  @NotNull
   @Column(name = "created_on", nullable = false)
   private LocalDateTime createdOn;
 
-  @NonNull
+  @NotNull
   @Column(name = "updated_on", nullable = false)
   private LocalDateTime updatedOn;
 }

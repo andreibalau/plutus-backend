@@ -7,8 +7,8 @@ import com.finance.plutus.model.entity.Partner;
 import com.finance.plutus.repository.PartnerRepository;
 import com.finance.plutus.service.bank.FindBankService;
 import com.finance.plutus.service.country.FindCountryService;
-import com.finance.plutus.service.partner.PartnerEmailService;
 import com.finance.plutus.service.partner.FindPartnerService;
+import com.finance.plutus.service.partner.PartnerEmailService;
 import com.finance.plutus.service.partner.UpdatePartnerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -32,7 +32,9 @@ public class UpdatePartnerServiceImpl implements UpdatePartnerService {
   @Transactional
   public void update(String id, UpdatePartnerDto updatePartnerDto) {
     Partner partner = findPartnerService.findEntityById(id);
-    partnerEmailService.checkEmailExistence(updatePartnerDto.getEmail());
+    if (partner.getEmail() != null && !partner.getEmail().equals(updatePartnerDto.getEmail())) {
+      partnerEmailService.checkEmailExistence(updatePartnerDto.getEmail());
+    }
     updatePartner(partner, updatePartnerDto);
     partnerRepository.save(partner);
   }

@@ -2,10 +2,11 @@ package com.finance.plutus.model.entity;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 /** Plutus Created by catalin on 21.09.2019 */
@@ -15,14 +16,14 @@ import java.time.LocalDateTime;
 @Table(name = "invoice_lines")
 public class InvoiceLine {
 
-  @Id @NonNull private String id;
+  @Id @NotBlank private String id;
 
-  @NonNull
+  @NotNull
   @ManyToOne
   @JoinColumn(name = "invoice_id", nullable = false)
   private Invoice invoice;
 
-  @NonNull
+  @NotNull
   @ManyToOne
   @JoinColumn(name = "item_id", nullable = false)
   private Item item;
@@ -31,31 +32,31 @@ public class InvoiceLine {
   @Column(name = "uom")
   private String uom;
 
-  @NonNull
+  @NotNull
   @Column(name = "quantity", nullable = false)
   private Integer quantity;
 
-  @NonNull
+  @NotNull
   @Column(name = "unit_price", nullable = false)
   private Double unitPrice;
 
-  @NonNull
+  @NotNull
   @Column(name = "subtotal", nullable = false)
   private Double subtotal;
 
-  @NonNull
+  @NotNull
   @Column(name = "vat", nullable = false)
   private ItemVat vat;
 
-  @NonNull
+  @NotNull
   @Column(name = "total", nullable = false)
   private Double total;
 
-  @NonNull
+  @NotNull
   @Column(name = "created_on", nullable = false)
   private LocalDateTime createdOn;
 
-  @NonNull
+  @NotNull
   @Column(name = "updated_on", nullable = false)
   private LocalDateTime updatedOn;
 }

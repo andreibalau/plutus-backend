@@ -2,11 +2,12 @@ package com.finance.plutus.model.entity;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 /** Plutus Created by catalin on 7/1/2020 */
@@ -16,9 +17,9 @@ import java.time.LocalDateTime;
 @Table(name = "partners")
 public class Partner {
 
-  @Id @NonNull private String id;
+  @Id @NotBlank private String id;
 
-  @NonNull
+  @NotBlank
   @Column(name = "name", nullable = false)
   private String name;
 
@@ -56,26 +57,26 @@ public class Partner {
   @JoinColumn(name = "bank_id")
   private Bank bank;
 
-  @NonNull
+  @NotNull
   @ManyToOne
   @JoinColumn(name = "country_id", nullable = false)
   private Country country;
 
-  @NonNull
+  @NotNull
   @Enumerated(value = EnumType.STRING)
   @Column(name = "business_type", nullable = false)
   private BusinessType businessType = BusinessType.INDIVIDUAL;
 
-  @NonNull
+  @NotNull
   @Enumerated(value = EnumType.STRING)
   @Column(name = "partner_type", nullable = false)
   private PartnerType type;
 
-  @NonNull
+  @NotNull
   @Column(name = "created_on", nullable = false)
   private LocalDateTime createdOn;
 
-  @NonNull
+  @NotNull
   @Column(name = "updated_on", nullable = false)
   private LocalDateTime updatedOn;
 }

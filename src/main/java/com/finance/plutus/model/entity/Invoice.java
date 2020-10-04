@@ -2,9 +2,10 @@ package com.finance.plutus.model.entity;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.lang.NonNull;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.HashSet;
@@ -17,48 +18,48 @@ import java.util.Set;
 @Table(name = "invoices")
 public class Invoice {
 
-  @Id @NonNull private String id;
+  @Id @NotBlank private String id;
 
-  @NonNull
+  @NotBlank
   @Column(name = "serial_name", nullable = false, unique = true)
   private String name;
 
-  @NonNull
+  @NotNull
   @Column(name = "date", nullable = false)
   private LocalDate date;
 
-  @NonNull
+  @NotNull
   @Column(name = "due_date", nullable = false)
   private LocalDate dueDate;
 
-  @NonNull
+  @NotNull
   @Column(name = "subtotal", nullable = false)
   private Double subtotal;
 
-  @NonNull
+  @NotNull
   @Column(name = "taxes", nullable = false)
   private Double taxes;
 
-  @NonNull
+  @NotNull
   @Column(name = "total", nullable = false)
   private Double total;
 
-  @NonNull
+  @NotNull
   @Enumerated(EnumType.STRING)
   @Column(name = "status", nullable = false)
   private InvoiceStatus status = InvoiceStatus.DRAFT;
 
-  @NonNull
+  @NotNull
   @Enumerated(EnumType.STRING)
   @Column(name = "currency", nullable = false)
   private Currency currency = Currency.RON;
 
-  @NonNull
+  @NotNull
   @ManyToOne
   @JoinColumn(name = "serial_id", nullable = false)
   private Serial serial;
 
-  @NonNull
+  @NotNull
   @ManyToOne
   @JoinColumn(name = "client_id", nullable = false)
   private Partner client;
@@ -66,11 +67,11 @@ public class Invoice {
   @OneToMany(mappedBy = "invoice", cascade = CascadeType.ALL, orphanRemoval = true)
   private Set<InvoiceLine> lines = new HashSet<>();
 
-  @NonNull
+  @NotNull
   @Column(name = "created_on", nullable = false)
   private LocalDateTime createdOn;
 
-  @NonNull
+  @NotNull
   @Column(name = "updated_on", nullable = false)
   private LocalDateTime updatedOn;
 }

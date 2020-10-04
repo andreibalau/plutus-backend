@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+import static com.finance.plutus.configuration.Api.APPLICATION_VND_PLUTUS_FINANCE_JSON;
+
 /** Plutus Created by Catalin on 10/2/2020 */
 @RestController
 @RequiredArgsConstructor
@@ -18,7 +20,9 @@ public class BankController {
 
   private final FindBankService findBankService;
 
-  @GetMapping
+  @GetMapping(
+      consumes = APPLICATION_VND_PLUTUS_FINANCE_JSON,
+      produces = APPLICATION_VND_PLUTUS_FINANCE_JSON)
   public FindBanksResponse findAll() {
     List<BankDto> banks = findBankService.findAllDto();
     return new FindBanksResponse(banks);
