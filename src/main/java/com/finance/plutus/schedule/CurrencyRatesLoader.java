@@ -28,6 +28,8 @@ import java.security.cert.X509Certificate;
 @RequiredArgsConstructor
 public class CurrencyRatesLoader {
 
+  private static final String INITIAL_DELAY_30_MINUTES = "1800000";
+  private static final String FIXED_DELAY_12_HOURS = "43200000";
   private static final String BNR_URL = "https://www.bnr.ro/nbrfxrates.xml";
   private static final String[] BNR_HISTORY_URLS = {
     "https://www.bnr.ro/files/xml/years/nbrfxrates2019.xml",
@@ -46,7 +48,7 @@ public class CurrencyRatesLoader {
   }
 
   @SneakyThrows
-  @Scheduled(fixedDelay = 10000L, initialDelay = 10000L)
+  @Scheduled(fixedDelayString = FIXED_DELAY_12_HOURS, initialDelayString = INITIAL_DELAY_30_MINUTES)
   public void loadFromBNR() {
     RestTemplate restTemplate = createUnSafeTemplate();
     load(restTemplate, BNR_URL);
