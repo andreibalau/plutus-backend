@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
+import java.util.UUID;
 
 /** Plutus Created by catalin on 9/7/2020 */
 @Service
@@ -23,14 +24,14 @@ public class CreateSerialServiceImpl implements CreateSerialService {
 
   @Override
   @Transactional
-  public String create(CreateSerialDto createSerialDto) {
+  public UUID create(CreateSerialDto createSerialDto) {
     boolean exists = findSerialService.existsByName(createSerialDto.getName());
     if (exists) {
       throw new SerialNameAlreadyExistsException();
     }
     Serial serial = createSerial(createSerialDto);
     serialRepository.save(serial);
-    return serial.getId().toString();
+    return serial.getId();
   }
 
   private Serial createSerial(CreateSerialDto createSerialDto) {

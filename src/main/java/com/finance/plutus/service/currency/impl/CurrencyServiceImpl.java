@@ -24,7 +24,7 @@ public class CurrencyServiceImpl implements CurrencyService {
   @Override
   public CurrencyRate findLastRateByDate(LocalDate date, Currency currency) {
     return currencyRateRepository
-        .findByDateLessThanEqualAndCurrency(date, currency)
+        .findTopByDateLessThanEqualAndCurrencyOrderByDateDesc(date, currency)
         .orElseThrow(() -> new EntityNotFoundException("currency rate"));
   }
 

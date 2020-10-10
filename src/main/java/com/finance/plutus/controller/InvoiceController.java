@@ -52,7 +52,8 @@ public class InvoiceController {
       consumes = APPLICATION_VND_PLUTUS_FINANCE_JSON,
       produces = APPLICATION_VND_PLUTUS_FINANCE_JSON)
   public EntityCreatedResponse create(@Valid @RequestBody CreateInvoiceRequest request) {
-    String id = createInvoiceService.create(request.getInvoice());
+    UUID id = createInvoiceService.create(request.getInvoice());
+    invoiceCommandInvoker.invoke(id, InvoiceCommand.ACTIVATE);
     return new EntityCreatedResponse(id);
   }
 

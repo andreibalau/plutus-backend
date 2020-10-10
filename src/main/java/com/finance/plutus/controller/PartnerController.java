@@ -46,7 +46,7 @@ public class PartnerController {
       consumes = APPLICATION_VND_PLUTUS_FINANCE_JSON,
       produces = APPLICATION_VND_PLUTUS_FINANCE_JSON)
   public EntityCreatedResponse create(@Valid @RequestBody CreatePartnerRequest request) {
-    String id = createPartnerService.create(request.getPartner());
+    UUID id = createPartnerService.create(request.getPartner());
     return new EntityCreatedResponse(id);
   }
 

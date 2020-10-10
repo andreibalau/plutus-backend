@@ -12,5 +12,6 @@ import java.util.UUID;
 public interface CurrencyRateRepository extends JpaRepository<CurrencyRate, UUID> {
   Optional<CurrencyRate> findByDateAndCurrency(LocalDate date, Currency currency);
 
-  Optional<CurrencyRate> findByDateLessThanEqualAndCurrency(LocalDate date, Currency currency);
+  Optional<CurrencyRate> findTopByDateLessThanEqualAndCurrencyOrderByDateDesc(
+      LocalDate date, Currency currency);
 }

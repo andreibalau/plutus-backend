@@ -46,7 +46,7 @@ public class ItemController {
       consumes = APPLICATION_VND_PLUTUS_FINANCE_JSON,
       produces = APPLICATION_VND_PLUTUS_FINANCE_JSON)
   public EntityCreatedResponse create(@Valid @RequestBody CreateItemRequest request) {
-    String id = createItemService.create(request.getItem());
+    UUID id = createItemService.create(request.getItem());
     return new EntityCreatedResponse(id);
   }
 

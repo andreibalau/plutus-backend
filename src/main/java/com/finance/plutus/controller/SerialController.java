@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.UUID;
 
 import static com.finance.plutus.configuration.Api.APPLICATION_VND_PLUTUS_FINANCE_JSON;
 import static org.springframework.http.HttpStatus.CREATED;
@@ -34,7 +35,7 @@ public class SerialController {
       consumes = APPLICATION_VND_PLUTUS_FINANCE_JSON,
       produces = APPLICATION_VND_PLUTUS_FINANCE_JSON)
   public EntityCreatedResponse create(@Valid @RequestBody CreateSerialRequest request) {
-    String id = createSerialService.create(request.getSerial());
+    UUID id = createSerialService.create(request.getSerial());
     return new EntityCreatedResponse(id);
   }
 

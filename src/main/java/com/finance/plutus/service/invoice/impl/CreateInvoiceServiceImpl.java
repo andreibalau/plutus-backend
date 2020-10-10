@@ -25,6 +25,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.util.Set;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 /** Plutus Created by catalin on 7/3/2020 */
@@ -41,7 +42,7 @@ public class CreateInvoiceServiceImpl implements CreateInvoiceService {
 
   @Override
   @Transactional
-  public String create(CreateInvoiceDto createInvoiceDto) {
+  public UUID create(CreateInvoiceDto createInvoiceDto) {
     Invoice invoice = createInvoice(createInvoiceDto);
     invoiceRepository.save(invoice);
     Set<InvoiceLine> lines =
@@ -50,7 +51,7 @@ public class CreateInvoiceServiceImpl implements CreateInvoiceService {
             .collect(Collectors.toSet());
     computeLines(lines, invoice);
     invoiceRepository.save(invoice);
-    return invoice.getId().toString();
+    return invoice.getId();
   }
 
   private Invoice createInvoice(CreateInvoiceDto createInvoiceDto) {
@@ -70,7 +71,7 @@ public class CreateInvoiceServiceImpl implements CreateInvoiceService {
     invoice.setClient(partner);
     invoice.setSerial(serial);
     if (createInvoiceDto.getCurrency() == Currency.RON) {
-      invoice.setCurrencyRate(0.00);
+      invoice.setCurrencyRate(1.00);
     } else {
       CurrencyRate currencyRate =
           currencyService.findLastRateByDate(
