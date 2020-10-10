@@ -1,5 +1,6 @@
 package com.finance.plutus.service.bank.impl;
 
+import com.finance.plutus.exception.EntityNotFoundException;
 import com.finance.plutus.model.dto.BankDto;
 import com.finance.plutus.model.entity.Bank;
 import com.finance.plutus.repository.BankRepository;
@@ -8,7 +9,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 /** Plutus Created by Catalin on 9/27/2020 */
@@ -19,13 +19,14 @@ public class FindBankServiceImpl implements FindBankService {
   private final BankRepository bankRepository;
 
   @Override
-  public Optional<BankDto> findDtoById(String id) {
-    return findEntityById(id).map(BankDto::mapFromEntity);
+  public BankDto findDtoById(String id) {
+    Bank bank = findEntityById(id);
+    return BankDto.mapFromEntity(bank);
   }
 
   @Override
-  public Optional<Bank> findEntityById(String id) {
-    return bankRepository.findById(id);
+  public Bank findEntityById(String id) {
+    return bankRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("bank"));
   }
 
   @Override

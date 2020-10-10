@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
+import java.util.Optional;
 
 /** Plutus Created by Catalin on 8/8/2020 */
 @Service
@@ -32,7 +33,9 @@ public class UpdatePartnerServiceImpl implements UpdatePartnerService {
   @Transactional
   public void update(String id, UpdatePartnerDto updatePartnerDto) {
     Partner partner = findPartnerService.findEntityById(id);
-    if (partner.getEmail() != null && !partner.getEmail().equals(updatePartnerDto.getEmail())) {
+    if ((partner.getEmail() == null)
+        || (partner.getEmail() != null
+            && !partner.getEmail().equals(updatePartnerDto.getEmail()))) {
       partnerEmailService.checkEmailExistence(updatePartnerDto.getEmail());
     }
     updatePartner(partner, updatePartnerDto);
@@ -40,7 +43,10 @@ public class UpdatePartnerServiceImpl implements UpdatePartnerService {
   }
 
   private void updatePartner(Partner partner, UpdatePartnerDto updatePartnerDto) {
-    Bank bank = findBankService.findEntityById(updatePartnerDto.getBankId()).orElse(null);
+    Bank bank =
+        Optional.ofNullable(updatePartnerDto.getBankId())
+            .map(findBankService::findEntityById)
+            .orElse(null);
     Country country = findCountryService.findEntityByCode(updatePartnerDto.getCountryCode());
     partner.setCountry(country);
     partner.setBank(bank);

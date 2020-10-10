@@ -24,4 +24,9 @@ public class IncreaseSerialServiceImpl implements IncreaseSerialService {
     serialRepository.save(serial);
     return name;
   }
+
+  @Override
+  public String getDraftName(Serial serial) {
+    return String.format("%s%04d", serial.getName(), serial.getNextNumber());
+  }
 }

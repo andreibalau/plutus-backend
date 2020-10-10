@@ -15,7 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
-import java.util.UUID;
+import java.util.Optional;
 
 /** Plutus Created by catalin on 7/2/2020 */
 @Service
@@ -33,14 +33,16 @@ public class CreatePartnerServiceImpl implements CreatePartnerService {
     partnerEmailService.checkEmailExistence(createPartnerDto.getEmail());
     Partner partner = createPartner(createPartnerDto);
     partnerRepository.save(partner);
-    return partner.getId();
+    return partner.getId().toString();
   }
 
   private Partner createPartner(CreatePartnerDto createPartnerDto) {
-    Bank bank = findBankService.findEntityById(createPartnerDto.getBankId()).orElse(null);
+    Bank bank =
+        Optional.ofNullable(createPartnerDto.getBankId())
+            .map(findBankService::findEntityById)
+            .orElse(null);
     Country country = findCountryService.findEntityByCode(createPartnerDto.getCountryCode());
     Partner partner = new Partner();
-    partner.setId(UUID.randomUUID().toString());
     partner.setCreatedOn(LocalDateTime.now(ZoneOffset.UTC));
     partner.setUpdatedOn(LocalDateTime.now(ZoneOffset.UTC));
     partner.setEmail(createPartnerDto.getEmail());

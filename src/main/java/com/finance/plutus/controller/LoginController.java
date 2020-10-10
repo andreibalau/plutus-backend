@@ -1,9 +1,5 @@
 package com.finance.plutus.controller;
 
-import static com.finance.plutus.configuration.Api.APPLICATION_VND_PLUTUS_FINANCE_JSON;
-
-import javax.validation.Valid;
-
 import com.finance.plutus.controller.payload.LoginRequest;
 import com.finance.plutus.controller.payload.LoginResponse;
 import com.finance.plutus.model.dto.LoggedUserDto;
@@ -13,6 +9,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.validation.Valid;
+
+import static com.finance.plutus.configuration.Api.APPLICATION_VND_PLUTUS_FINANCE_JSON;
 
 /** Plutus Created by catalin.matache on 10/1/2020 */
 @RestController

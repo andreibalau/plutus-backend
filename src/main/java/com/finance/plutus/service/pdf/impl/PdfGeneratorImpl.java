@@ -59,17 +59,17 @@ public class PdfGeneratorImpl implements PdfGenerator {
 
   private byte[] createZip(Map<String, byte[]> pdfMap) throws IOException {
     String extension = ".pdf";
-    ByteArrayOutputStream baos = new ByteArrayOutputStream();
-    ZipOutputStream zos = new ZipOutputStream(baos);
-    for (Map.Entry<String, byte[]> reporte : pdfMap.entrySet()) {
-      ZipEntry entry = new ZipEntry(reporte.getKey() + extension);
-      entry.setSize(reporte.getValue().length);
+    ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+    ZipOutputStream zos = new ZipOutputStream(byteArrayOutputStream);
+    for (Map.Entry<String, byte[]> pdfEntry : pdfMap.entrySet()) {
+      ZipEntry entry = new ZipEntry(pdfEntry.getKey() + extension);
+      entry.setSize(pdfEntry.getValue().length);
       zos.putNextEntry(entry);
-      zos.write(reporte.getValue());
+      zos.write(pdfEntry.getValue());
     }
     zos.closeEntry();
     zos.close();
-    return baos.toByteArray();
+    return byteArrayOutputStream.toByteArray();
   }
 
   private byte[] createPdf(Template template, Params params) throws DocumentException, IOException {

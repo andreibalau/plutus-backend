@@ -1,8 +1,5 @@
 package com.finance.plutus.security;
 
-import java.util.Arrays;
-import java.util.Collections;
-
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
@@ -14,6 +11,9 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Res
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+
+import java.util.Arrays;
+import java.util.Collections;
 
 /** Plutus Created by Catalin on 9/29/2020 */
 @Configuration

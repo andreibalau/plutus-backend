@@ -25,7 +25,7 @@ public class ItemDto {
 
   public static ItemDto mapFromEntity(Item item) {
     ItemDto itemDto = new ItemDto();
-    itemDto.setId(item.getId());
+    itemDto.setId(item.getId().toString());
     itemDto.setCreatedOn(item.getCreatedOn());
     itemDto.setUpdatedOn(item.getUpdatedOn());
     itemDto.setType(item.getType());

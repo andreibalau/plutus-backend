@@ -3,13 +3,24 @@ package com.finance.plutus.model.entity;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 
 /** Plutus Created by catalin on 7/1/2020 */
 @Getter
@@ -18,7 +29,7 @@ import java.util.Set;
 @Table(name = "invoices")
 public class Invoice {
 
-  @Id @NotBlank private String id;
+  @Id @GeneratedValue private UUID id;
 
   @NotBlank
   @Column(name = "serial_name", nullable = false, unique = true)
@@ -53,6 +64,10 @@ public class Invoice {
   @Enumerated(EnumType.STRING)
   @Column(name = "currency", nullable = false)
   private Currency currency = Currency.RON;
+
+  @NotNull
+  @Column(name = "currency_rate", nullable = false)
+  private Double currencyRate;
 
   @NotNull
   @ManyToOne

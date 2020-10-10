@@ -28,9 +28,9 @@ public class DownloadInvoiceServiceImpl implements DownloadInvoiceService {
   }
 
   @Override
-  public byte[] downloadAll(Iterable<String> ids) {
+  public byte[] downloadAll() {
     List<Params> paramsList =
-        findInvoiceService.findAllEntitiesByIds(ids).stream()
+        findInvoiceService.findAllEntities().stream()
             .map(this::prepareInvoiceParams)
             .collect(Collectors.toList());
     return pdfGenerator.generateMultiple(Template.INVOICE, paramsList).orElseThrow();

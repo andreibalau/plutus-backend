@@ -31,8 +31,8 @@ public class FindInvoiceServiceImpl implements FindInvoiceService {
   }
 
   @Override
-  public List<Invoice> findAllEntitiesByIds(Iterable<String> ids) {
-    return invoiceRepository.findAllById(ids);
+  public List<Invoice> findAllEntities() {
+    return invoiceRepository.findAll();
   }
 
   @Override

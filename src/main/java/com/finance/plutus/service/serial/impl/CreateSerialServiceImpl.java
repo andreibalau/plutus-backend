@@ -12,7 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
-import java.util.UUID;
 
 /** Plutus Created by catalin on 9/7/2020 */
 @Service
@@ -31,12 +30,11 @@ public class CreateSerialServiceImpl implements CreateSerialService {
     }
     Serial serial = createSerial(createSerialDto);
     serialRepository.save(serial);
-    return serial.getId();
+    return serial.getId().toString();
   }
 
   private Serial createSerial(CreateSerialDto createSerialDto) {
     Serial serial = new Serial();
-    serial.setId(UUID.randomUUID().toString());
     serial.setCreatedOn(LocalDateTime.now(ZoneOffset.UTC));
     serial.setUpdatedOn(LocalDateTime.now(ZoneOffset.UTC));
     serial.setName(createSerialDto.getName());

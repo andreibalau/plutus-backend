@@ -31,7 +31,7 @@ public class PartnerDto {
 
   public static PartnerDto mapFromEntity(Partner partner) {
     PartnerDto partnerDto = new PartnerDto();
-    partnerDto.setId(partner.getId());
+    partnerDto.setId(partner.getId().toString());
     partnerDto.setCreatedOn(partner.getCreatedOn());
     partnerDto.setUpdatedOn(partner.getUpdatedOn());
     partnerDto.setEmail(partner.getEmail());

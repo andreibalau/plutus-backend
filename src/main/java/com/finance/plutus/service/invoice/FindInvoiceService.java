@@ -11,7 +11,7 @@ public interface FindInvoiceService {
 
   Invoice findEntityById(String id);
 
-  List<Invoice> findAllEntitiesByIds(Iterable<String> ids);
+  List<Invoice> findAllEntities();
 
   List<InvoiceDto> findAllDtoByPage(int page, int size);
 

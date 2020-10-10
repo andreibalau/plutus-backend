@@ -27,7 +27,7 @@ public class InvoiceLineDto {
     InvoiceLineDto invoiceLineDto = new InvoiceLineDto();
     invoiceLineDto.setCreatedOn(invoiceLine.getCreatedOn());
     invoiceLineDto.setUpdatedOn(invoiceLine.getUpdatedOn());
-    invoiceLineDto.setId(invoiceLine.getId());
+    invoiceLineDto.setId(invoiceLine.getId().toString());
     invoiceLineDto.setItem(ItemDto.mapFromEntity(item));
     invoiceLineDto.setUnitPrice(invoiceLine.getUnitPrice());
     invoiceLineDto.setQuantity(invoiceLine.getQuantity());

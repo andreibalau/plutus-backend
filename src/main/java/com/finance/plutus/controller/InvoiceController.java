@@ -1,15 +1,6 @@
 package com.finance.plutus.controller;
 
-import static com.finance.plutus.configuration.Api.APPLICATION_VND_PLUTUS_FINANCE_JSON;
-import static org.springframework.http.HttpStatus.CREATED;
-import static org.springframework.http.HttpStatus.NO_CONTENT;
-
-import javax.validation.Valid;
-import java.util.List;
-
 import com.finance.plutus.controller.payload.CreateInvoiceRequest;
-import com.finance.plutus.controller.payload.DownloadInvoiceRequest;
-import com.finance.plutus.controller.payload.DownloadInvoicesRequest;
 import com.finance.plutus.controller.payload.EntityCreatedResponse;
 import com.finance.plutus.controller.payload.FindInvoiceResponse;
 import com.finance.plutus.controller.payload.FindInvoicesResponse;
@@ -35,6 +26,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.validation.Valid;
+import java.util.List;
+
+import static com.finance.plutus.configuration.Api.APPLICATION_VND_PLUTUS_FINANCE_JSON;
+import static org.springframework.http.HttpStatus.CREATED;
+import static org.springframework.http.HttpStatus.NO_CONTENT;
 
 /** Plutus Created by catalin on 7/2/2020 */
 @RestController
@@ -82,23 +80,21 @@ public class InvoiceController {
     invoiceCommandInvoker.invoke(id, command);
   }
 
-  @PostMapping(
-      value = "/pdf/single",
+  @GetMapping(
+      value = "/pdf/{id}",
       consumes = APPLICATION_VND_PLUTUS_FINANCE_JSON,
       produces = APPLICATION_VND_PLUTUS_FINANCE_JSON)
-  public ResponseEntity<Resource> downloadSingle(
-      @Valid @RequestBody DownloadInvoiceRequest request) {
-    byte[] pdf = downloadInvoiceService.download(request.getInvoiceId());
+  public ResponseEntity<Resource> downloadSingle(@PathVariable String id) {
+    byte[] pdf = downloadInvoiceService.download(id);
     return prepareDownloadResponse(pdf, "invoice.pdf");
   }
 
-  @PostMapping(
-      value = "/pdf/multiple",
+  @GetMapping(
+      value = "/pdf",
       consumes = APPLICATION_VND_PLUTUS_FINANCE_JSON,
       produces = APPLICATION_VND_PLUTUS_FINANCE_JSON)
-  public ResponseEntity<Resource> downloadMultiple(
-      @Valid @RequestBody DownloadInvoicesRequest request) {
-    byte[] zip = downloadInvoiceService.downloadAll(request.getInvoicesIds());
+  public ResponseEntity<Resource> downloadMultiple() {
+    byte[] zip = downloadInvoiceService.downloadAll();
     return prepareDownloadResponse(zip, "archive.zip");
   }
 

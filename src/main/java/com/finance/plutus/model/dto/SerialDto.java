@@ -16,7 +16,7 @@ public class SerialDto {
 
   public static SerialDto fromEntity(Serial serial) {
     SerialDto serialDto = new SerialDto();
-    serialDto.setId(serial.getId());
+    serialDto.setId(serial.getId().toString());
     serialDto.setName(serial.getName());
     serialDto.setCurrentNumber(serial.getCurrentNumber());
     serialDto.setStartNumber(serial.getStartNumber());

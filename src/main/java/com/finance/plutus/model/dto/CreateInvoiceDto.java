@@ -8,6 +8,7 @@ import com.finance.plutus.model.entity.Currency;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.List;
@@ -16,7 +17,9 @@ import java.util.List;
 @Getter
 @Setter
 public class CreateInvoiceDto {
-  @NotNull private String partnerId;
+  @NotBlank private String partnerId;
+  @NotNull private Currency currency;
+  @NotBlank private String serialId;
 
   @NotNull
   @JsonDeserialize(using = LocalDateDeserializer.class)
@@ -28,7 +31,5 @@ public class CreateInvoiceDto {
   @JsonSerialize(using = LocalDateSerializer.class)
   private LocalDate dueDate;
 
-  @NotNull private Currency currency;
-  @NotNull private String serialId;
   private List<CreateInvoiceLineDto> lines;
 }

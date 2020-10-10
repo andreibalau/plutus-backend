@@ -11,7 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
-import java.util.UUID;
 
 /** Plutus Created by catalin on 7/2/2020 */
 @Service
@@ -25,12 +24,11 @@ public class CreateItemServiceImpl implements CreateItemService {
   public String create(CreateItemDto createItemDto) {
     Item item = createItem(createItemDto);
     itemRepository.save(item);
-    return item.getId();
+    return item.getId().toString();
   }
 
   public Item createItem(CreateItemDto createItemDto) {
     Item item = new Item();
-    item.setId(UUID.randomUUID().toString());
     item.setCreatedOn(LocalDateTime.now(ZoneOffset.UTC));
     item.setUpdatedOn(LocalDateTime.now(ZoneOffset.UTC));
     item.setType(createItemDto.getType());

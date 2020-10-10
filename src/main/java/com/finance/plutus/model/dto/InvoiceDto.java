@@ -33,7 +33,7 @@ public class InvoiceDto {
   public static InvoiceDto mapFromEntity(Invoice invoice) {
     Partner partner = invoice.getClient();
     InvoiceDto invoiceDto = new InvoiceDto();
-    invoiceDto.setId(invoice.getId());
+    invoiceDto.setId(invoice.getId().toString());
     invoiceDto.setCreatedOn(invoice.getCreatedOn());
     invoiceDto.setUpdatedOn(invoice.getUpdatedOn());
     invoiceDto.setCurrency(invoice.getCurrency());

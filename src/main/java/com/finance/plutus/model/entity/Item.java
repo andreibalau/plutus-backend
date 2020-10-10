@@ -4,10 +4,17 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.lang.Nullable;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 /** Plutus Created by catalin on 7/1/2020 */
 @Getter
@@ -16,7 +23,7 @@ import java.time.LocalDateTime;
 @Table(name = "items")
 public class Item {
 
-  @Id @NotBlank private String id;
+  @Id @GeneratedValue private UUID id;
 
   @NotBlank
   @Column(name = "name", nullable = false)

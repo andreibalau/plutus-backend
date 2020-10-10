@@ -13,7 +13,7 @@ public class BankDto {
 
   public static BankDto mapFromEntity(Bank bank) {
     BankDto bankDto = new BankDto();
-    bankDto.setId(bank.getId());
+    bankDto.setId(bank.getId().toString());
     bankDto.setName(bank.getName());
     return bankDto;
   }

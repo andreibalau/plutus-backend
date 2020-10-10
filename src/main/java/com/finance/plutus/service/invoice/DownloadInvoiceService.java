@@ -4,5 +4,5 @@ package com.finance.plutus.service.invoice;
 public interface DownloadInvoiceService {
   byte[] download(String id);
 
-  byte[] downloadAll(Iterable<String> ids);
+  byte[] downloadAll();
 }
