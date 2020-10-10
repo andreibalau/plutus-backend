@@ -11,5 +11,5 @@ import java.util.Optional;
 public interface CurrencyRateRepository extends JpaRepository<CurrencyRate, String> {
   Optional<CurrencyRate> findByDateAndCurrency(LocalDate date, Currency currency);
 
-  Optional<CurrencyRate> findByLessThanEqualDateAndCurrency(LocalDate date, Currency currency);
+  Optional<CurrencyRate> findByDateLessThanEqualAndCurrency(LocalDate date, Currency currency);
 }
