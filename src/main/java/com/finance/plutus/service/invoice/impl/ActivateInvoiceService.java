@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
+import java.util.UUID;
 
 /** Plutus Created by catalin on 9/7/2020 */
 @Service
@@ -25,7 +26,7 @@ public class ActivateInvoiceService implements InvoiceExecutableCommand {
 
   @Override
   @Transactional
-  public void execute(String id) {
+  public void execute(UUID id) {
     Invoice invoice = findInvoiceService.findEntityById(id);
     if (invoice.getStatus() != InvoiceStatus.DRAFT) {
       throw new WrongInvoiceStatusException();

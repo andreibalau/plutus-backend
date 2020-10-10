@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
+import java.util.UUID;
 
 /** Plutus Created by Catalin on 8/7/2020 */
 @Service
@@ -23,7 +24,7 @@ public class UpdateItemServiceImpl implements UpdateItemService {
 
   @Override
   @Transactional
-  public void update(String id, UpdateItemDto updateItemDto) {
+  public void update(UUID id, UpdateItemDto updateItemDto) {
     Item item = findItemService.findEntityById(id);
     item.setType(updateItemDto.getType());
     item.setName(updateItemDto.getName());

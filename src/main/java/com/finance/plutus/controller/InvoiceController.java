@@ -29,6 +29,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.UUID;
 
 import static com.finance.plutus.configuration.Api.APPLICATION_VND_PLUTUS_FINANCE_JSON;
 import static org.springframework.http.HttpStatus.CREATED;
@@ -59,7 +60,7 @@ public class InvoiceController {
       value = "/{id}",
       consumes = APPLICATION_VND_PLUTUS_FINANCE_JSON,
       produces = APPLICATION_VND_PLUTUS_FINANCE_JSON)
-  public FindInvoiceResponse findById(@PathVariable String id) {
+  public FindInvoiceResponse findById(@PathVariable UUID id) {
     InvoiceDto invoiceDto = findInvoiceService.findDtoById(id);
     return new FindInvoiceResponse(invoiceDto);
   }
@@ -76,7 +77,7 @@ public class InvoiceController {
       value = "/{id}/command/{command}",
       consumes = APPLICATION_VND_PLUTUS_FINANCE_JSON,
       produces = APPLICATION_VND_PLUTUS_FINANCE_JSON)
-  public void execute(@PathVariable String id, @PathVariable InvoiceCommand command) {
+  public void execute(@PathVariable UUID id, @PathVariable InvoiceCommand command) {
     invoiceCommandInvoker.invoke(id, command);
   }
 
@@ -84,7 +85,7 @@ public class InvoiceController {
       value = "/pdf/{id}",
       consumes = APPLICATION_VND_PLUTUS_FINANCE_JSON,
       produces = APPLICATION_VND_PLUTUS_FINANCE_JSON)
-  public ResponseEntity<Resource> downloadSingle(@PathVariable String id) {
+  public ResponseEntity<Resource> downloadSingle(@PathVariable UUID id) {
     byte[] pdf = downloadInvoiceService.download(id);
     return prepareDownloadResponse(pdf, "invoice.pdf");
   }
@@ -103,7 +104,7 @@ public class InvoiceController {
       value = "/{id}",
       consumes = APPLICATION_VND_PLUTUS_FINANCE_JSON,
       produces = APPLICATION_VND_PLUTUS_FINANCE_JSON)
-  public void delete(@PathVariable String id) {
+  public void delete(@PathVariable UUID id) {
     deleteInvoiceService.delete(id);
   }
 

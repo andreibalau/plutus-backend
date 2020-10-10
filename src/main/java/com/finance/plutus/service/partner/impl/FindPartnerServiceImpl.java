@@ -10,6 +10,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 /** Plutus Created by catalin on 7/2/2020 */
@@ -20,13 +21,13 @@ public class FindPartnerServiceImpl implements FindPartnerService {
   private final PartnerRepository partnerRepository;
 
   @Override
-  public PartnerDto findDtoById(String id) {
+  public PartnerDto findDtoById(UUID id) {
     Partner partner = findEntityById(id);
     return PartnerDto.mapFromEntity(partner);
   }
 
   @Override
-  public Partner findEntityById(String id) {
+  public Partner findEntityById(UUID id) {
     return partnerRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("partner"));
   }
 

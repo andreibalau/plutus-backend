@@ -10,6 +10,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 /** Plutus Created by catalin on 7/3/2020 */
@@ -20,13 +21,13 @@ public class FindInvoiceServiceImpl implements FindInvoiceService {
   private final InvoiceRepository invoiceRepository;
 
   @Override
-  public InvoiceDto findDtoById(String id) {
+  public InvoiceDto findDtoById(UUID id) {
     Invoice invoice = findEntityById(id);
     return InvoiceDto.mapFromEntity(invoice);
   }
 
   @Override
-  public Invoice findEntityById(String id) {
+  public Invoice findEntityById(UUID id) {
     return invoiceRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("invoice"));
   }
 

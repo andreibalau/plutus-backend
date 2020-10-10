@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 /** Plutus Created by catalin on 9/7/2020 */
@@ -24,7 +25,7 @@ public class FindSerialServiceImpl implements FindSerialService {
   }
 
   @Override
-  public Serial findEntityById(String id) {
+  public Serial findEntityById(UUID id) {
     return serialRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("serial"));
   }
 

@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.UUID;
 
 import static com.finance.plutus.configuration.Api.APPLICATION_VND_PLUTUS_FINANCE_JSON;
 import static org.springframework.http.HttpStatus.CREATED;
@@ -53,7 +54,7 @@ public class ItemController {
       value = "/{id}",
       consumes = APPLICATION_VND_PLUTUS_FINANCE_JSON,
       produces = APPLICATION_VND_PLUTUS_FINANCE_JSON)
-  public void update(@PathVariable String id, @Valid @RequestBody UpdateItemRequest request) {
+  public void update(@PathVariable UUID id, @Valid @RequestBody UpdateItemRequest request) {
     updateItemService.update(id, request.getItem());
   }
 
@@ -61,7 +62,7 @@ public class ItemController {
       value = "/{id}",
       consumes = APPLICATION_VND_PLUTUS_FINANCE_JSON,
       produces = APPLICATION_VND_PLUTUS_FINANCE_JSON)
-  public FindItemResponse findById(@PathVariable String id) {
+  public FindItemResponse findById(@PathVariable UUID id) {
     ItemDto itemDto = findItemService.findDtoById(id);
     return new FindItemResponse(itemDto);
   }
@@ -80,7 +81,7 @@ public class ItemController {
       value = "/{id}",
       consumes = APPLICATION_VND_PLUTUS_FINANCE_JSON,
       produces = APPLICATION_VND_PLUTUS_FINANCE_JSON)
-  public void delete(@PathVariable String id) {
+  public void delete(@PathVariable UUID id) {
     deleteItemService.delete(id);
   }
 }

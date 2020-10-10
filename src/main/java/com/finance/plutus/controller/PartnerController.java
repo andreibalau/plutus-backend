@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.UUID;
 
 import static com.finance.plutus.configuration.Api.APPLICATION_VND_PLUTUS_FINANCE_JSON;
 import static org.springframework.http.HttpStatus.CREATED;
@@ -53,7 +54,7 @@ public class PartnerController {
       value = "/{id}",
       consumes = APPLICATION_VND_PLUTUS_FINANCE_JSON,
       produces = APPLICATION_VND_PLUTUS_FINANCE_JSON)
-  public void update(@PathVariable String id, @Valid @RequestBody UpdatePartnerRequest request) {
+  public void update(@PathVariable UUID id, @Valid @RequestBody UpdatePartnerRequest request) {
     updatePartnerService.update(id, request.getPartner());
   }
 
@@ -61,7 +62,7 @@ public class PartnerController {
       value = "/{id}",
       consumes = APPLICATION_VND_PLUTUS_FINANCE_JSON,
       produces = APPLICATION_VND_PLUTUS_FINANCE_JSON)
-  public FindPartnerResponse findById(@PathVariable String id) {
+  public FindPartnerResponse findById(@PathVariable UUID id) {
     PartnerDto partnerDto = findPartnerService.findDtoById(id);
     return new FindPartnerResponse(partnerDto);
   }
@@ -80,7 +81,7 @@ public class PartnerController {
       value = "/{id}",
       consumes = APPLICATION_VND_PLUTUS_FINANCE_JSON,
       produces = APPLICATION_VND_PLUTUS_FINANCE_JSON)
-  public void delete(@PathVariable String id) {
+  public void delete(@PathVariable UUID id) {
     deletePartnerService.delete(id);
   }
 }

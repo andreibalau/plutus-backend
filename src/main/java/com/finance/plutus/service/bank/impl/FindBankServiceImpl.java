@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 /** Plutus Created by Catalin on 9/27/2020 */
@@ -19,13 +20,13 @@ public class FindBankServiceImpl implements FindBankService {
   private final BankRepository bankRepository;
 
   @Override
-  public BankDto findDtoById(String id) {
+  public BankDto findDtoById(UUID id) {
     Bank bank = findEntityById(id);
     return BankDto.mapFromEntity(bank);
   }
 
   @Override
-  public Bank findEntityById(String id) {
+  public Bank findEntityById(UUID id) {
     return bankRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("bank"));
   }
 

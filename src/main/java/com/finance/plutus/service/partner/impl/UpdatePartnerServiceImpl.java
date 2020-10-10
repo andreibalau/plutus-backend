@@ -17,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.util.Optional;
+import java.util.UUID;
 
 /** Plutus Created by Catalin on 8/8/2020 */
 @Service
@@ -31,7 +32,7 @@ public class UpdatePartnerServiceImpl implements UpdatePartnerService {
 
   @Override
   @Transactional
-  public void update(String id, UpdatePartnerDto updatePartnerDto) {
+  public void update(UUID id, UpdatePartnerDto updatePartnerDto) {
     Partner partner = findPartnerService.findEntityById(id);
     if ((partner.getEmail() == null)
         || (partner.getEmail() != null

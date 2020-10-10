@@ -10,6 +10,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 /** Plutus Created by catalin on 7/2/2020 */
@@ -20,13 +21,13 @@ public class FindItemServiceImpl implements FindItemService {
   private final ItemRepository itemRepository;
 
   @Override
-  public ItemDto findDtoById(String id) {
+  public ItemDto findDtoById(UUID id) {
     Item item = findEntityById(id);
     return ItemDto.mapFromEntity(item);
   }
 
   @Override
-  public Item findEntityById(String id) {
+  public Item findEntityById(UUID id) {
     return itemRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("item"));
   }
 

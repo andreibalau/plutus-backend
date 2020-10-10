@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 /** Plutus Created by catalin on 9/7/2020 */
@@ -21,7 +22,7 @@ public class DownloadInvoiceServiceImpl implements DownloadInvoiceService {
   private final FindInvoiceService findInvoiceService;
 
   @Override
-  public byte[] download(String id) {
+  public byte[] download(UUID id) {
     Invoice invoice = findInvoiceService.findEntityById(id);
     Params params = prepareInvoiceParams(invoice);
     return pdfGenerator.generateSingle(Template.INVOICE, params).orElseThrow();

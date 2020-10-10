@@ -8,6 +8,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.UUID;
+
 /** Plutus Created by catalin on 7/2/2020 */
 @Service
 @RequiredArgsConstructor
@@ -18,7 +20,7 @@ public class DeletePartnerServiceImpl implements DeletePartnerService {
 
   @Override
   @Transactional
-  public void delete(String id) {
+  public void delete(UUID id) {
     Partner partner = findPartnerService.findEntityById(id);
     partnerRepository.delete(partner);
   }
