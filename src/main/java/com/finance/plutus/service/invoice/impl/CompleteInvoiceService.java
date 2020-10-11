@@ -26,6 +26,15 @@ public class CompleteInvoiceService implements InvoiceExecutableCommand {
   @Transactional
   public void execute(UUID id) {
     Invoice invoice = findInvoiceService.findEntityById(id);
+    execute(invoice);
+  }
+
+  @Override
+  public void execute(Invoice invoice) {
+    complete(invoice);
+  }
+
+  private void complete(Invoice invoice) {
     if (invoice.getStatus() != InvoiceStatus.ACTIVE) {
       throw new WrongInvoiceStatusException();
     }

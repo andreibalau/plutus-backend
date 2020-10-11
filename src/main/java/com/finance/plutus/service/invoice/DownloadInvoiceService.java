@@ -6,5 +6,5 @@ import java.util.UUID;
 public interface DownloadInvoiceService {
   byte[] download(UUID id);
 
-  byte[] downloadAll();
+  byte[] downloadAll(Iterable<UUID> ids);
 }

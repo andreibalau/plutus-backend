@@ -54,6 +54,7 @@ public class InvoiceController {
   public EntityCreatedResponse create(@Valid @RequestBody CreateInvoiceRequest request) {
     UUID id = createInvoiceService.create(request.getInvoice());
     invoiceCommandInvoker.invoke(id, InvoiceCommand.ACTIVATE);
+    invoiceCommandInvoker.invoke(id, InvoiceCommand.COMPLETE);
     return new EntityCreatedResponse(id);
   }
 
@@ -74,14 +75,6 @@ public class InvoiceController {
     return new FindInvoicesResponse(invoices, page, size, findInvoiceService.countAll());
   }
 
-  @PostMapping(
-      value = "/{id}/command/{command}",
-      consumes = APPLICATION_VND_PLUTUS_FINANCE_JSON,
-      produces = APPLICATION_VND_PLUTUS_FINANCE_JSON)
-  public void execute(@PathVariable UUID id, @PathVariable InvoiceCommand command) {
-    invoiceCommandInvoker.invoke(id, command);
-  }
-
   @GetMapping(
       value = "/pdf/{id}",
       consumes = APPLICATION_VND_PLUTUS_FINANCE_JSON,
@@ -95,8 +88,8 @@ public class InvoiceController {
       value = "/pdf",
       consumes = APPLICATION_VND_PLUTUS_FINANCE_JSON,
       produces = APPLICATION_VND_PLUTUS_FINANCE_JSON)
-  public ResponseEntity<Resource> downloadMultiple() {
-    byte[] zip = downloadInvoiceService.downloadAll();
+  public ResponseEntity<Resource> downloadMultiple(@RequestParam List<UUID> ids) {
+    byte[] zip = downloadInvoiceService.downloadAll(ids);
     return prepareDownloadResponse(zip, "archive.zip");
   }
 

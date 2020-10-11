@@ -28,6 +28,15 @@ public class ActivateInvoiceService implements InvoiceExecutableCommand {
   @Transactional
   public void execute(UUID id) {
     Invoice invoice = findInvoiceService.findEntityById(id);
+    execute(invoice);
+  }
+
+  @Override
+  public void execute(Invoice invoice) {
+    activate(invoice);
+  }
+
+  private void activate(Invoice invoice) {
     if (invoice.getStatus() != InvoiceStatus.DRAFT) {
       throw new WrongInvoiceStatusException();
     }

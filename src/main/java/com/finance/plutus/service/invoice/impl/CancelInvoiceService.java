@@ -26,6 +26,15 @@ public class CancelInvoiceService implements InvoiceExecutableCommand {
   @Transactional
   public void execute(UUID id) {
     Invoice invoice = findInvoiceService.findEntityById(id);
+    execute(invoice);
+  }
+
+  @Override
+  public void execute(Invoice invoice) {
+    cancel(invoice);
+  }
+
+  private void cancel(Invoice invoice) {
     if (invoice.getStatus() != InvoiceStatus.DRAFT) {
       throw new WrongInvoiceStatusException();
     }

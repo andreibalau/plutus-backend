@@ -12,7 +12,7 @@ public interface FindInvoiceService {
 
   Invoice findEntityById(UUID id);
 
-  List<Invoice> findAllEntities();
+  List<Invoice> findAllEntities(Iterable<UUID> ids);
 
   List<InvoiceDto> findAllDtoByPage(int page, int size);
 
