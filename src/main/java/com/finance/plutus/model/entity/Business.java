@@ -57,6 +57,15 @@ public class Business {
   @Column(name = "address", nullable = false)
   private String address;
 
+  @NotBlank
+  @Column(name = "bank_account", nullable = false)
+  private String bankAccount;
+
+  @NotNull
+  @ManyToOne
+  @JoinColumn(name = "bank_id", nullable = false)
+  private Bank bank;
+
   @NotNull
   @ManyToOne
   @JoinColumn(name = "user_id", nullable = false)

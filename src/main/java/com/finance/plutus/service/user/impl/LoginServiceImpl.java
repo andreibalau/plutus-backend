@@ -1,7 +1,6 @@
 package com.finance.plutus.service.user.impl;
 
 import com.finance.plutus.controller.payload.AuthResponse;
-import com.finance.plutus.exception.EntityNotFoundException;
 import com.finance.plutus.exception.PlutusException;
 import com.finance.plutus.model.dto.LoggedUserDto;
 import com.finance.plutus.model.entity.User;
@@ -40,10 +39,7 @@ public class LoginServiceImpl implements LoginService {
 
   @Override
   public LoggedUserDto login(String username, String password) {
-    User user =
-        findUserService
-            .findByEmail(username)
-            .orElseThrow(() -> new EntityNotFoundException("user"));
+    User user = findUserService.findByEmail(username);
     String token = obtainToken(user.getEmail(), password);
     return new LoggedUserDto(user.getEmail(), token);
   }

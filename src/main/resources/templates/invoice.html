@@ -1,9 +1,153 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
 <head>
+    <title>Invoice</title>
 
+    <style>
+
+    body {
+        margin: 0;
+        padding: 0;
+    }
+
+    .invoice-box {
+        max-width: 800px;
+        margin: auto;
+        padding: 30px;
+        border: 1px solid #eee;
+        box-shadow: 0 0 10px rgba(0, 0, 0, .15);
+        font-size: 16px;
+        line-height: 24px;
+        font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
+        color: #555;
+    }
+
+    .invoice-box table {
+        width: 100%;
+        line-height: inherit;
+        text-align: left;
+    }
+
+    .invoice-box table h2,
+    .invoice-box table h4 {
+        margin: 0;
+    }
+
+    .invoice-box table.top {
+        margin-bottom: 20px;
+        color: #333;
+    }
+
+    .invoice-box table td {
+        padding: 5px;
+        vertical-align: top;
+    }
+
+    .invoice-box table.top td img {
+        max-width: 200px;
+        width: 200px;
+    }
+
+    .invoice-box table tr.heading td {
+        background: #eee;
+        border-bottom: 1px solid #ddd;
+        font-weight: bold;
+    }
+
+    .invoice-box table tr.item td {
+        border-top: 1px solid #eee;
+    }
+
+    .invoice-box table tr.divider {
+        height: 20px;
+    }
+
+    .invoice-box table tr.total td:nth-child(3),
+    .invoice-box table tr.total td:nth-child(4) {
+        border-top: 2px solid #eee;
+        font-weight: bold;
+    }
+
+    .invoice-box table td:nth-child(4) {
+        text-align: right;
+    }
+
+    </style>
 </head>
-<body>
 
+<body>
+<div class="invoice-box">
+    <table class="top">
+        <tr>
+            <td>
+                <h2>Factura: <span th:text="${name}"></span></h2><br/>
+                Data emitere: <span th:text="${date}"></span><br/>
+                Data scadenta: <span th:text="${due_date}"></span>
+            </td>
+            <td></td>
+            <td></td>
+            <td>
+                <img src="https://www.sparksuite.com/images/logo.png"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <h4 th:text="${business_name}"></h4>
+                CUI: <span th:text="${vat}"></span><br/>
+                VAT: <span th:text="${vat_in_vies}"></span><br/>
+                Reg. Com: <span th:text="${commercial_registry}"></span><br/>
+                Adresa: <span th:text="${address}"></span><br/>
+                Email: <span th:text="${email}"></span><br/>
+                Telefon: <span th:text="${phone}"></span><br/>
+                Website: <span th:text="${website}"></span>
+                <span th:text="${bank_name}"></span><br/>
+                <span th:text="${bank_account}"></span>
+            </td>
+            <td></td>
+            <td></td>
+            <td>
+                <h4 th:text="${client_name}"></h4>
+                CNP: <span th:text="${client_vat}"></span><br/>
+                CI: <span th:text="${client_commercial_registry}"></span><br/>
+                Adresa: <span th:text="${client_address}"></span><br/>
+                Tara: <span th:text="${client_country}"></span><br/>
+                Email: <span th:text="${client_email}"></span><br/>
+                Telefon: <span th:text="${client_phone}"></span><br/>
+                <span th:text="${client_bank_name}"></span><br/>
+                <span th:text="${client_bank_account}"></span>
+            </td>
+        </tr>
+    </table>
+
+    <table cellpadding="0" cellspacing="0">
+        <tr class="heading">
+            <td>Produs / Serviciu</td>
+            <td>Cantitate</td>
+            <td>Pret</td>
+            <td>Valoare</td>
+        </tr>
+
+        <tr class="item" th:each="line: ${lines}">
+            <td th:text="${line.name}"></td>
+            <td th:text="${line.quantity}"></td>
+            <td th:text="${line.price}"></td>
+            <td th:text="${line.total}"></td>
+        </tr>
+
+        <tr class="divider">
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+
+        <tr class="total">
+            <td></td>
+            <td></td>
+            <td>Total:</td>
+            <td><span th:text="${total}"></span></td>
+        </tr>
+    </table>
+</div>
 </body>
 </html>

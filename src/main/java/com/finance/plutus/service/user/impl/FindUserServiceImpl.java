@@ -1,14 +1,13 @@
 package com.finance.plutus.service.user.impl;
 
 import com.finance.plutus.exception.EntityNotFoundException;
-import com.finance.plutus.model.dto.UserDto;
 import com.finance.plutus.model.entity.User;
 import com.finance.plutus.repository.UserRepository;
 import com.finance.plutus.service.user.FindUserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
+import java.util.UUID;
 
 /** Plutus Created by catalin on 7/1/2020 */
 @Service
@@ -18,14 +17,12 @@ public class FindUserServiceImpl implements FindUserService {
   private final UserRepository userRepository;
 
   @Override
-  public Optional<User> findByEmail(String email) {
-    return userRepository.findByEmail(email);
+  public User findByEmail(String email) {
+    return userRepository.findByEmail(email).orElseThrow(() -> new EntityNotFoundException("user"));
   }
 
   @Override
-  public UserDto findDtoByEmail(String email) {
-    return findByEmail(email)
-        .map(UserDto::mapFromEntity)
-        .orElseThrow(() -> new EntityNotFoundException("user"));
+  public User findById(UUID id) {
+    return userRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("user"));
   }
 }
