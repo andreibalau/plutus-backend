@@ -18,7 +18,7 @@ public class IncreaseSerialServiceImpl implements IncreaseSerialService {
   @Transactional
   public String getNextName(Serial serial) {
     int number = serial.getNextNumber();
-    String name = String.format("%s%04d", serial.getName(), number);
+    String name = String.format("%s%03d", serial.getName(), number);
     serial.setCurrentNumber(number);
     serial.setNextNumber(number + 1);
     serialRepository.save(serial);
@@ -27,6 +27,6 @@ public class IncreaseSerialServiceImpl implements IncreaseSerialService {
 
   @Override
   public String getDraftName(Serial serial) {
-    return String.format("%s%04d", serial.getName(), serial.getNextNumber());
+    return String.format("%s%03d", serial.getName(), serial.getNextNumber());
   }
 }
