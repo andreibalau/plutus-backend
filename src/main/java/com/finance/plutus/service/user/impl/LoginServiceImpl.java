@@ -41,7 +41,7 @@ public class LoginServiceImpl implements LoginService {
   public LoggedUserDto login(String username, String password) {
     User user = findUserService.findByEmail(username);
     String token = obtainToken(user.getEmail(), password);
-    return new LoggedUserDto(user.getEmail(), token);
+    return new LoggedUserDto(user.getId(), user.getEmail(), token);
   }
 
   private String obtainToken(String username, String password) {
