@@ -1,15 +1,12 @@
 package com.finance.plutus.service.pdf.impl;
 
-import com.finance.plutus.model.pdf.Params;
-import com.finance.plutus.model.pdf.Template;
+import com.finance.plutus.model.html.Params;
+import com.finance.plutus.model.html.Template;
 import com.finance.plutus.service.pdf.PdfGenerator;
+import com.finance.plutus.util.HtmlUtils;
 import com.lowagie.text.DocumentException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.thymeleaf.TemplateEngine;
-import org.thymeleaf.context.Context;
-import org.thymeleaf.templatemode.TemplateMode;
-import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
 import org.xhtmlrenderer.pdf.ITextRenderer;
 
 import java.io.ByteArrayOutputStream;
@@ -27,6 +24,7 @@ import java.util.zip.ZipOutputStream;
 public class PdfGeneratorImpl implements PdfGenerator {
 
   @Override
+  @Deprecated
   public Optional<byte[]> generateSingle(Template template, Params params) {
     try {
       byte[] pdfByteArray = createPdf(template, params);
@@ -38,6 +36,7 @@ public class PdfGeneratorImpl implements PdfGenerator {
   }
 
   @Override
+  @Deprecated
   public Optional<byte[]> generateMultiple(Template template, List<Params> paramsList) {
     Map<String, byte[]> pdfMap = new HashMap<>();
     paramsList.forEach(
@@ -73,7 +72,7 @@ public class PdfGeneratorImpl implements PdfGenerator {
   }
 
   private byte[] createPdf(Template template, Params params) throws DocumentException, IOException {
-    String html = parseTemplate(template, params);
+    String html = HtmlUtils.parseTemplate(template, params);
     ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
     ITextRenderer renderer = new ITextRenderer();
     renderer.setDocumentFromString(html);
@@ -82,17 +81,5 @@ public class PdfGeneratorImpl implements PdfGenerator {
     byte[] pdfByteArray = outputStream.toByteArray();
     outputStream.close();
     return pdfByteArray;
-  }
-
-  private String parseTemplate(Template template, Params params) {
-    ClassLoaderTemplateResolver templateResolver = new ClassLoaderTemplateResolver();
-    templateResolver.setPrefix("/templates/");
-    templateResolver.setSuffix(".html");
-    templateResolver.setTemplateMode(TemplateMode.HTML);
-    TemplateEngine templateEngine = new TemplateEngine();
-    templateEngine.setTemplateResolver(templateResolver);
-    Context context = new Context();
-    context.setVariables(params.getMap());
-    return templateEngine.process(template.getName(), context);
   }
 }

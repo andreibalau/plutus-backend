@@ -10,11 +10,15 @@
         padding: 0;
     }
 
+    @page{
+        size: A4 portrait;
+        border: 1px solid #eee;
+    }
+
     .invoice-box {
         max-width: 800px;
         margin: auto;
         padding: 30px;
-        border: 1px solid #eee;
         box-shadow: 0 0 10px rgba(0, 0, 0, .15);
         font-size: 16px;
         line-height: 24px;
@@ -92,6 +96,7 @@
         </tr>
         <tr>
             <td>
+                <h5>Furnizor</h5>
                 <h4 th:text="${business_name}"></h4>
                 CUI: <span th:text="${vat}"></span><br/>
                 VAT: <span th:text="${vat_in_vies}"></span><br/>
@@ -106,6 +111,7 @@
             <td></td>
             <td></td>
             <td>
+                <h5>Client</h5>
                 <h4 th:text="${client_name}"></h4>
                 CNP: <span th:text="${client_vat}"></span><br/>
                 CI: <span th:text="${client_commercial_registry}"></span><br/>
@@ -144,8 +150,8 @@
         <tr class="total">
             <td></td>
             <td></td>
-            <td>Total:</td>
-            <td><span th:text="${total}"></span></td>
+            <td><h4>Total:</h4></td>
+            <td><h4><span th:text="${total}"></span></h4></td>
         </tr>
     </table>
 </div>

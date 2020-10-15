@@ -1,4 +1,4 @@
-package com.finance.plutus.model.pdf;
+package com.finance.plutus.model.html;
 
 import com.finance.plutus.model.entity.Bank;
 import com.finance.plutus.model.entity.Business;

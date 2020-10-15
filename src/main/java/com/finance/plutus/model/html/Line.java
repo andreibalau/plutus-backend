@@ -1,4 +1,4 @@
-package com.finance.plutus.model.pdf;
+package com.finance.plutus.model.html;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

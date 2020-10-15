@@ -1,4 +1,4 @@
-package com.finance.plutus.model.pdf;
+package com.finance.plutus.model.html;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -7,7 +7,8 @@ import lombok.RequiredArgsConstructor;
 @Getter
 @RequiredArgsConstructor
 public enum Template {
+  INVOICE_NEW("invoice_new"),
   INVOICE("invoice");
 
-  private final String name;
+  private final String value;
 }
