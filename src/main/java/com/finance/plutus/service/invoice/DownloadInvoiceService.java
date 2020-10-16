@@ -7,7 +7,11 @@ import java.util.UUID;
 
 /** Plutus Created by catalin on 9/7/2020 */
 public interface DownloadInvoiceService {
-  InvoiceHtmlDto download(UUID id);
+  InvoiceHtmlDto downloadHtml(UUID id);
 
-  List<InvoiceHtmlDto> download(Iterable<UUID> ids);
+  List<InvoiceHtmlDto> downloadHtml(Iterable<UUID> ids);
+
+  byte[] download(UUID id);
+
+  byte[] download(Iterable<UUID> ids);
 }

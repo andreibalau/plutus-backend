@@ -8,9 +8,7 @@ import java.util.Optional;
 
 /** Plutus Created by catalin on 9/7/2020 */
 public interface PdfGenerator {
-  @Deprecated
   Optional<byte[]> generateSingle(Template template, Params params);
 
-  @Deprecated
   Optional<byte[]> generateMultiple(Template template, List<Params> paramsList);
 }

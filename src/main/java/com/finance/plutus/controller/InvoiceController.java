@@ -6,6 +6,11 @@ import com.finance.plutus.model.dto.InvoiceDto;
 import com.finance.plutus.model.dto.InvoiceHtmlDto;
 import com.finance.plutus.service.invoice.*;
 import lombok.RequiredArgsConstructor;
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -60,8 +65,8 @@ public class InvoiceController {
       value = "/html/{id}",
       consumes = APPLICATION_VND_PLUTUS_FINANCE_JSON,
       produces = APPLICATION_VND_PLUTUS_FINANCE_JSON)
-  public DownloadInvoiceResponse download(@PathVariable UUID id) {
-    InvoiceHtmlDto invoice = downloadInvoiceService.download(id);
+  public DownloadInvoiceResponse downloadHtml(@PathVariable UUID id) {
+    InvoiceHtmlDto invoice = downloadInvoiceService.downloadHtml(id);
     return new DownloadInvoiceResponse(invoice);
   }
 
@@ -69,9 +74,27 @@ public class InvoiceController {
       value = "/html",
       consumes = APPLICATION_VND_PLUTUS_FINANCE_JSON,
       produces = APPLICATION_VND_PLUTUS_FINANCE_JSON)
-  public DownloadInvoicesResponse download(@RequestParam List<UUID> ids) {
-    List<InvoiceHtmlDto> invoices = downloadInvoiceService.download(ids);
+  public DownloadInvoicesResponse downloadHtml(@RequestParam List<UUID> ids) {
+    List<InvoiceHtmlDto> invoices = downloadInvoiceService.downloadHtml(ids);
     return new DownloadInvoicesResponse(invoices);
+  }
+
+  @GetMapping(
+          value = "/pdf/{id}",
+          consumes = APPLICATION_VND_PLUTUS_FINANCE_JSON,
+          produces = APPLICATION_VND_PLUTUS_FINANCE_JSON)
+  public ResponseEntity<Resource> downloadPdf(@PathVariable UUID id) {
+    byte[] pdf = downloadInvoiceService.download(id);
+    return prepareDownloadResponse(pdf, "invoice.pdf");
+  }
+
+  @GetMapping(
+          value = "/pdf",
+          consumes = APPLICATION_VND_PLUTUS_FINANCE_JSON,
+          produces = APPLICATION_VND_PLUTUS_FINANCE_JSON)
+  public ResponseEntity<Resource> downloadPdf(@RequestParam List<UUID> ids) {
+    byte[] zip = downloadInvoiceService.download(ids);
+    return prepareDownloadResponse(zip, "archive.zip");
   }
 
   @ResponseStatus(NO_CONTENT)
@@ -81,5 +104,19 @@ public class InvoiceController {
       produces = APPLICATION_VND_PLUTUS_FINANCE_JSON)
   public void delete(@PathVariable UUID id) {
     deleteInvoiceService.delete(id);
+  }
+
+  private ResponseEntity<Resource> prepareDownloadResponse(byte[] content, String filename) {
+    HttpHeaders headers = new HttpHeaders();
+    headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + filename);
+    headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
+    headers.add("Pragma", "no-cache");
+    headers.add("Expires", "0");
+    ByteArrayResource resource = new ByteArrayResource(content);
+    return ResponseEntity.ok()
+            .headers(headers)
+            .contentLength(content.length)
+            .contentType(MediaType.APPLICATION_OCTET_STREAM)
+            .body(resource);
   }
 }

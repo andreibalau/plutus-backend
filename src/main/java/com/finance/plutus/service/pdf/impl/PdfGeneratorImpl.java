@@ -24,7 +24,6 @@ import java.util.zip.ZipOutputStream;
 public class PdfGeneratorImpl implements PdfGenerator {
 
   @Override
-  @Deprecated
   public Optional<byte[]> generateSingle(Template template, Params params) {
     try {
       byte[] pdfByteArray = createPdf(template, params);
@@ -36,7 +35,6 @@ public class PdfGeneratorImpl implements PdfGenerator {
   }
 
   @Override
-  @Deprecated
   public Optional<byte[]> generateMultiple(Template template, List<Params> paramsList) {
     Map<String, byte[]> pdfMap = new HashMap<>();
     paramsList.forEach(

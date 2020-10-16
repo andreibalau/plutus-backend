@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Invoice</title>
+
+    <style>
+
+    body {
+        margin: 0;
+        padding: 0;
+    }
+
+    .invoice-box {
+        max-width: 800px;
+        margin: auto;
+        padding: 32px;
+        border: 1px solid #eee;
+        font-size: 16px;
+        line-height: 24px;
+        font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
+        color: #555;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .invoice-box .top {
+        color: #333;
+    }
+
+    .invoice-box .top,
+    .invoice-box .middle,
+    .invoice-box .bottom {
+        padding-top: 16px;
+        padding-bottom: 16px;
+    }
+
+    .invoice-box .top .info {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    .invoice-box .top .info div:nth-child(2) {
+        text-align: right;
+    }
+
+    .invoice-box .middle .table .header {
+        display: flex;
+        background: #eee;
+        padding: 8px;
+    }
+
+    .invoice-box .middle .table .content .line {
+        display: flex;
+        padding: 8px;
+        border-bottom: 1px solid #eee;
+    }
+
+    .invoice-box .middle .table .header span,
+    .invoice-box .middle .table .content .line span {
+        flex: 1;
+    }
+
+    .invoice-box .middle .table .header span:nth-child(1),
+    .invoice-box .middle .table .content .line span:nth-child(1) {
+        flex: 2;
+    }
+
+
+
+    </style>
+</head>
+<body>
+<div class="invoice-box">
+    <div class="top">
+        <h2>Factura: MC0001</h2>
+        <span th:text="${date}">Data emitere: 20/10/2020</span><br/>
+        <span th:text="${due_date}">Data scadenta: 20/10/2020</span>
+        <div class="info">
+            <div>
+                <h5>Furnizor</h5>
+                <h4 th:text="${business_name}"></h4>
+                CUI: <span th:text="${vat}"></span><br/>
+                VAT: <span th:text="${vat_in_vies}"></span><br/>
+                Reg. Com: <span th:text="${commercial_registry}"></span><br/>
+                Adresa: <span th:text="${address}"></span><br/>
+                Email: <span th:text="${email}"></span><br/>
+                Telefon: <span th:text="${phone}"></span><br/>
+                Website: <span th:text="${website}"></span>
+                <span th:text="${bank_name}"></span><br/>
+                <span th:text="${bank_account}"></span>
+            </div>
+            <div>
+                <h5>Client</h5>
+                <h4 th:text="${client_name}"></h4>
+                CNP: <span th:text="${client_vat}"></span><br/>
+                CI: <span th:text="${client_commercial_registry}"></span><br/>
+                Adresa: <span th:text="${client_address}"></span><br/>
+                Tara: <span th:text="${client_country}"></span><br/>
+                Email: <span th:text="${client_email}"></span><br/>
+                Telefon: <span th:text="${client_phone}"></span><br/>
+                <span th:text="${client_bank_name}"></span><br/>
+                <span th:text="${client_bank_account}"></span>
+            </div>
+        </div>
+    </div>
+    <div class="middle">
+        <div class="table">
+            <div class="header">
+                <span>Produs / Serviciu</span>
+                <span>Cantitate</span>
+                <span>Pret</span>
+                <span>Valoare</span>
+            </div>
+            <div class="content">
+                <div class="line">
+                    <span th:text="${line.name}">Produsul meu</span>
+                    <span th:text="${line.quantity}">10</span>
+                    <span th:text="${line.price}">10 RON</span>
+                    <span th:text="${line.total}">100 RON</span>
+                </div>
+                <div class="line">
+                    <span th:text="${line.name}">Produsul meu</span>
+                    <span th:text="${line.quantity}">10</span>
+                    <span th:text="${line.price}">10 RON</span>
+                    <span th:text="${line.total}">100 RON</span>
+                </div>
+                <div class="line">
+                    <span th:text="${line.name}">Produsul meu</span>
+                    <span th:text="${line.quantity}">10</span>
+                    <span th:text="${line.price}">10 RON</span>
+                    <span th:text="${line.total}">100 RON</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="bottom">
+        <h4>Total: <span th:text="${total}"></span></h4>
+    </div>
+</div>
+</body>
+</html>
