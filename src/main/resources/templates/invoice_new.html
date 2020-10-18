@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8"/>
     <title>Invoice</title>
 
     <style>
@@ -69,6 +69,7 @@
 
 
 
+
     </style>
 </head>
 <body>
@@ -114,23 +115,29 @@
                 <span>Valoare</span>
             </div>
             <div class="content">
-                <div class="line">
+                <div class="line" th:each="line: ${lines}">
                     <span th:text="${line.name}">Produsul meu</span>
                     <span th:text="${line.quantity}">10</span>
                     <span th:text="${line.price}">10 RON</span>
                     <span th:text="${line.total}">100 RON</span>
                 </div>
                 <div class="line">
-                    <span th:text="${line.name}">Produsul meu</span>
-                    <span th:text="${line.quantity}">10</span>
-                    <span th:text="${line.price}">10 RON</span>
-                    <span th:text="${line.total}">100 RON</span>
+                    <span>Produsul meu</span>
+                    <span>10</span>
+                    <span>10 RON</span>
+                    <span>100 RON</span>
                 </div>
                 <div class="line">
-                    <span th:text="${line.name}">Produsul meu</span>
-                    <span th:text="${line.quantity}">10</span>
-                    <span th:text="${line.price}">10 RON</span>
-                    <span th:text="${line.total}">100 RON</span>
+                    <span>Produsul meu</span>
+                    <span>10</span>
+                    <span>10 RON</span>
+                    <span>100 RON</span>
+                </div>
+                <div class="line">
+                    <span>Produsul meu</span>
+                    <span>10</span>
+                    <span>10 RON</span>
+                    <span>100 RON</span>
                 </div>
             </div>
         </div>

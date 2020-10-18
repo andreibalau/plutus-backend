@@ -6,6 +6,8 @@ import org.springframework.lang.Nullable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -57,6 +59,27 @@ public class InvoiceLine {
   @NotNull
   @Column(name = "total", nullable = false)
   private Double total;
+
+  @NotNull
+  @Enumerated(EnumType.STRING)
+  @Column(name = "currency", nullable = false)
+  private Currency currency = Currency.RON;
+
+  @NotNull
+  @Column(name = "currency_rate", nullable = false)
+  private Double currencyRate;
+
+  @NotNull
+  @Column(name = "currency_unit_price", nullable = false)
+  private Double currencyUnitPrice;
+
+  @NotNull
+  @Column(name = "currency_subtotal", nullable = false)
+  private Double currencySubtotal;
+
+  @NotNull
+  @Column(name = "currency_total", nullable = false)
+  private Double currencyTotal;
 
   @NotNull
   @Column(name = "created_on", nullable = false)

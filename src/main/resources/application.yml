@@ -3,31 +3,26 @@ server:
 logging:
   level:
     root: INFO
-security:
-  oauth2:
-    client:
-      client-id: plutus
-      client-secret: plutus-secret
-    resource:
-      token-info-uri: http://localhost:8080/oauth/check_token
-      user-register-uri: http://localhost:8080/oauth/register
-      user-login-uri: http://localhost:8080/oauth/token
+keycloak:
+  admin-client-id: admin-cli
+  admin-client-secret: c207a470-6c05-4f40-bbf7-794e1438e36d
+  client-id: plutus-app
+  client-secret: 65e7c848-368f-4100-9b3e-5df612deefe6
+  register-uri: http://localhost:8080/auth/admin/realms/plutus/users
+  login-uri: http://localhost:8080/auth/realms/plutus/protocol/openid-connect/token
 spring:
   datasource:
-    url: jdbc:h2:mem:testdb
-#  datasource:
-#    driver-class-name: org.postgresql.Driver
-#    url: jdbc:postgresql://ec2-54-217-213-79.eu-west-1.compute.amazonaws.com:5432/d4q1h2qhtuuntc
-#    username: ncmsxreelegfei
-#    password: a9d84e2fd64da059a6335d238dba4241b7f30de0d4bc55de37280cde2025291b
-#  jpa:
-#    database-platform: org.hibernate.dialect.PostgreSQLDialect
-#    generate-ddl: true
-#    hibernate:
-#      ddl-auto: update
-#    properties:
-#      hibernate:
-#        dialect: org.hibernate.dialect.PostgreSQLDialect
-#        jdbc:
-#          lob:
-#            non_contextual_creation: true
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/plutus
+    username: plutus
+    password: pass
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    generate-ddl: true
+    hibernate:
+      ddl-auto: update
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: http://localhost:8080/auth/realms/plutus/protocol/openid-connect/certs

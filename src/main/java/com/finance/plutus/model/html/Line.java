@@ -15,4 +15,6 @@ class Line {
   private Integer quantity;
   private String price;
   private String total;
+  private String currencyRate;
+  private String currencyAmount;
 }

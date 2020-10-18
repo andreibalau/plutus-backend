@@ -1,17 +1,31 @@
 package com.finance.plutus.controller;
 
-import com.finance.plutus.controller.payload.*;
+import com.finance.plutus.controller.payload.CreateInvoiceRequest;
+import com.finance.plutus.controller.payload.EntityCreatedResponse;
+import com.finance.plutus.controller.payload.FindInvoiceResponse;
+import com.finance.plutus.controller.payload.FindInvoicesResponse;
 import com.finance.plutus.model.dto.InvoiceCommand;
 import com.finance.plutus.model.dto.InvoiceDto;
-import com.finance.plutus.model.dto.InvoiceHtmlDto;
-import com.finance.plutus.service.invoice.*;
+import com.finance.plutus.service.invoice.CreateInvoiceService;
+import com.finance.plutus.service.invoice.DeleteInvoiceService;
+import com.finance.plutus.service.invoice.DownloadInvoiceService;
+import com.finance.plutus.service.invoice.FindInvoiceService;
+import com.finance.plutus.service.invoice.InvoiceCommandInvoker;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -62,37 +76,19 @@ public class InvoiceController {
   }
 
   @GetMapping(
-      value = "/html/{id}",
+      value = "/pdf/{id}",
       consumes = APPLICATION_VND_PLUTUS_FINANCE_JSON,
       produces = APPLICATION_VND_PLUTUS_FINANCE_JSON)
-  public DownloadInvoiceResponse downloadHtml(@PathVariable UUID id) {
-    InvoiceHtmlDto invoice = downloadInvoiceService.downloadHtml(id);
-    return new DownloadInvoiceResponse(invoice);
-  }
-
-  @GetMapping(
-      value = "/html",
-      consumes = APPLICATION_VND_PLUTUS_FINANCE_JSON,
-      produces = APPLICATION_VND_PLUTUS_FINANCE_JSON)
-  public DownloadInvoicesResponse downloadHtml(@RequestParam List<UUID> ids) {
-    List<InvoiceHtmlDto> invoices = downloadInvoiceService.downloadHtml(ids);
-    return new DownloadInvoicesResponse(invoices);
-  }
-
-  @GetMapping(
-          value = "/pdf/{id}",
-          consumes = APPLICATION_VND_PLUTUS_FINANCE_JSON,
-          produces = APPLICATION_VND_PLUTUS_FINANCE_JSON)
-  public ResponseEntity<Resource> downloadPdf(@PathVariable UUID id) {
+  public ResponseEntity<Resource> download(@PathVariable UUID id) {
     byte[] pdf = downloadInvoiceService.download(id);
     return prepareDownloadResponse(pdf, "invoice.pdf");
   }
 
   @GetMapping(
-          value = "/pdf",
-          consumes = APPLICATION_VND_PLUTUS_FINANCE_JSON,
-          produces = APPLICATION_VND_PLUTUS_FINANCE_JSON)
-  public ResponseEntity<Resource> downloadPdf(@RequestParam List<UUID> ids) {
+      value = "/pdf",
+      consumes = APPLICATION_VND_PLUTUS_FINANCE_JSON,
+      produces = APPLICATION_VND_PLUTUS_FINANCE_JSON)
+  public ResponseEntity<Resource> download(@RequestParam List<UUID> ids) {
     byte[] zip = downloadInvoiceService.download(ids);
     return prepareDownloadResponse(zip, "archive.zip");
   }
@@ -114,9 +110,9 @@ public class InvoiceController {
     headers.add("Expires", "0");
     ByteArrayResource resource = new ByteArrayResource(content);
     return ResponseEntity.ok()
-            .headers(headers)
-            .contentLength(content.length)
-            .contentType(MediaType.APPLICATION_OCTET_STREAM)
-            .body(resource);
+        .headers(headers)
+        .contentLength(content.length)
+        .contentType(MediaType.APPLICATION_OCTET_STREAM)
+        .body(resource);
   }
 }

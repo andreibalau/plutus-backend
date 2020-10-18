@@ -1,5 +1,6 @@
 package com.finance.plutus.model.dto;
 
+import com.finance.plutus.model.entity.Currency;
 import com.finance.plutus.model.entity.InvoiceLine;
 import com.finance.plutus.model.entity.Item;
 import lombok.Getter;
@@ -21,6 +22,10 @@ public class InvoiceLineDto {
   private Double subtotal;
   private Double vat;
   private Double total;
+  private Currency currency;
+  private Double currencySubtotal;
+  private Double currencyUnitPrice;
+  private Double currencyTotal;
 
   public static InvoiceLineDto mapFromEntity(InvoiceLine invoiceLine) {
     Item item = invoiceLine.getItem();
@@ -35,6 +40,10 @@ public class InvoiceLineDto {
     invoiceLineDto.setVat(invoiceLine.getVat().getAmountPercent());
     invoiceLineDto.setTotal(invoiceLine.getTotal());
     invoiceLineDto.setUom(invoiceLine.getUom());
+    invoiceLineDto.setCurrency(invoiceLine.getCurrency());
+    invoiceLineDto.setCurrencySubtotal(invoiceLine.getCurrencySubtotal());
+    invoiceLineDto.setCurrencyTotal(invoiceLine.getCurrencyTotal());
+    invoiceLineDto.setCurrencyUnitPrice(invoiceLine.getCurrencyUnitPrice());
     return invoiceLineDto;
   }
 }

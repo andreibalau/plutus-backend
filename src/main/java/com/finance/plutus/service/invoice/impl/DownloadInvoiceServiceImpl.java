@@ -1,6 +1,5 @@
 package com.finance.plutus.service.invoice.impl;
 
-import com.finance.plutus.model.dto.InvoiceHtmlDto;
 import com.finance.plutus.model.entity.Business;
 import com.finance.plutus.model.entity.Invoice;
 import com.finance.plutus.model.html.Params;
@@ -9,7 +8,6 @@ import com.finance.plutus.service.invoice.DownloadInvoiceService;
 import com.finance.plutus.service.invoice.FindInvoiceService;
 import com.finance.plutus.service.pdf.PdfGenerator;
 import com.finance.plutus.service.user.FindBusinessService;
-import com.finance.plutus.util.HtmlUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -25,21 +23,6 @@ public class DownloadInvoiceServiceImpl implements DownloadInvoiceService {
   private final FindInvoiceService findInvoiceService;
   private final FindBusinessService findBusinessService;
   private final PdfGenerator pdfGenerator;
-
-  @Override
-  public InvoiceHtmlDto downloadHtml(UUID id) {
-    Business business = findBusinessService.getEntity();
-    Invoice invoice = findInvoiceService.findEntityById(id);
-    return createContent(invoice, business);
-  }
-
-  @Override
-  public List<InvoiceHtmlDto> downloadHtml(Iterable<UUID> ids) {
-    Business business = findBusinessService.getEntity();
-    return findInvoiceService.findAllEntities(ids).stream()
-        .map(invoice -> createContent(invoice, business))
-        .collect(Collectors.toList());
-  }
 
   @Override
   public byte[] download(UUID id) {
@@ -58,10 +41,5 @@ public class DownloadInvoiceServiceImpl implements DownloadInvoiceService {
             .map(invoice -> Params.set(invoice, business))
             .collect(Collectors.toList());
     return pdfGenerator.generateMultiple(Template.INVOICE, paramsList).orElseThrow();
-  }
-
-  private InvoiceHtmlDto createContent(Invoice invoice, Business business) {
-    String html = HtmlUtils.parseTemplate(Template.INVOICE_NEW, Params.set(invoice, business));
-    return new InvoiceHtmlDto(invoice.getName(), html);
   }
 }

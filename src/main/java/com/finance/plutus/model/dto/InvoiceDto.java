@@ -28,6 +28,9 @@ public class InvoiceDto {
   private Double total;
   private InvoiceStatus status;
   private Currency currency;
+  private Double currencySubtotal;
+  private Double currencyTaxes;
+  private Double currencyTotal;
   private List<InvoiceLineDto> lines;
 
   public static InvoiceDto mapFromEntity(Invoice invoice) {
@@ -45,6 +48,9 @@ public class InvoiceDto {
     invoiceDto.setSubtotal(invoice.getSubtotal());
     invoiceDto.setTaxes(invoice.getTaxes());
     invoiceDto.setTotal(invoice.getTotal());
+    invoiceDto.setCurrencySubtotal(invoice.getCurrencySubtotal());
+    invoiceDto.setCurrencyTaxes(invoice.getCurrencyTaxes());
+    invoiceDto.setCurrencyTotal(invoice.getCurrencyTotal());
     invoiceDto.setLines(
         invoice.getLines().stream()
             .map(InvoiceLineDto::mapFromEntity)

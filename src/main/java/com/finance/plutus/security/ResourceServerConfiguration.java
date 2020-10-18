@@ -1,13 +1,13 @@
 package com.finance.plutus.security;
 
+import com.finance.plutus.configuration.KeycloakJwtConverter;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
-import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
-import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -17,15 +17,10 @@ import java.util.Collections;
 
 /** Plutus Created by Catalin on 9/29/2020 */
 @Configuration
-@EnableResourceServer
-public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter {
+@EnableWebSecurity
+public class ResourceServerConfiguration extends WebSecurityConfigurerAdapter {
 
   private static final String ROLE_USER = "USER";
-
-  @Override
-  public void configure(ResourceServerSecurityConfigurer resources) {
-    resources.resourceId(null);
-  }
 
   @Override
   @Order(Ordered.HIGHEST_PRECEDENCE)
@@ -36,6 +31,8 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
         .cors()
         .configurationSource(createConfigurationSource())
         .and()
+        .csrf()
+        .disable()
         .authorizeRequests()
         .antMatchers("/api/v1/register", "/api/v1/login")
         .permitAll()
@@ -46,7 +43,11 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
         .and()
         .exceptionHandling()
         .authenticationEntryPoint(new CustomAuthenticationEntryPoint())
-        .accessDeniedHandler(new CustomAccessDeniedHandler());
+        .accessDeniedHandler(new CustomAccessDeniedHandler())
+        .and()
+        .oauth2ResourceServer()
+        .jwt()
+        .jwtAuthenticationConverter(new KeycloakJwtConverter());
   }
 
   private CorsConfigurationSource createConfigurationSource() {

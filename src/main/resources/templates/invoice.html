@@ -19,7 +19,6 @@
         max-width: 800px;
         margin: auto;
         padding: 30px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, .15);
         font-size: 16px;
         line-height: 24px;
         font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
@@ -62,6 +61,15 @@
         border-top: 1px solid #eee;
     }
 
+    .invoice-box table tr.item td span {
+        color: #999;
+        font-size: 12px;
+    }
+
+    .invoice-box table tr.item td p {
+        margin: 0;
+    }
+
     .invoice-box table tr.divider {
         height: 20px;
     }
@@ -71,11 +79,6 @@
         border-top: 2px solid #eee;
         font-weight: bold;
     }
-
-    .invoice-box table td:nth-child(4) {
-        text-align: right;
-    }
-
     </style>
 </head>
 
@@ -83,19 +86,18 @@
 <div class="invoice-box">
     <table class="top">
         <tr>
-            <td>
+            <td style="width: 40%">
                 <h2>Factura: <span th:text="${name}"></span></h2><br/>
                 Data emitere: <span th:text="${date}"></span><br/>
                 Data scadenta: <span th:text="${due_date}"></span>
             </td>
-            <td></td>
-            <td></td>
-            <td>
+            <td style="width: 30%"></td>
+            <td style="width: 30%">
                 <img src="https://www.sparksuite.com/images/logo.png"/>
             </td>
         </tr>
         <tr>
-            <td>
+            <td style="width: 40%">
                 <h5>Furnizor</h5>
                 <h4 th:text="${business_name}"></h4>
                 CUI: <span th:text="${vat}"></span><br/>
@@ -104,13 +106,12 @@
                 Adresa: <span th:text="${address}"></span><br/>
                 Email: <span th:text="${email}"></span><br/>
                 Telefon: <span th:text="${phone}"></span><br/>
-                Website: <span th:text="${website}"></span>
+                Website: <span th:text="${website}"></span><br/>
                 <span th:text="${bank_name}"></span><br/>
                 <span th:text="${bank_account}"></span>
             </td>
-            <td></td>
-            <td></td>
-            <td>
+            <td style="width: 30%"></td>
+            <td style="width: 30%">
                 <h5>Client</h5>
                 <h4 th:text="${client_name}"></h4>
                 CNP: <span th:text="${client_vat}"></span><br/>
@@ -130,14 +131,20 @@
             <td>Produs / Serviciu</td>
             <td>Cantitate</td>
             <td>Pret</td>
-            <td>Valoare</td>
+            <td style="text-align: right">Valoare</td>
         </tr>
 
         <tr class="item" th:each="line: ${lines}">
-            <td th:text="${line.name}"></td>
+            <td>
+                <p th:text="${line.name}"></p>
+                <div th:if="${has_currency}">
+                    <span th:text="${line.currencyAmount}"></span><span>; </span><span
+                        th:text="${line.currencyRate}"></span>
+                </div>
+            </td>
             <td th:text="${line.quantity}"></td>
             <td th:text="${line.price}"></td>
-            <td th:text="${line.total}"></td>
+            <td style="text-align: right" th:text="${line.total}"></td>
         </tr>
 
         <tr class="divider">
@@ -151,7 +158,7 @@
             <td></td>
             <td></td>
             <td><h4>Total:</h4></td>
-            <td><h4><span th:text="${total}"></span></h4></td>
+            <td style="text-align: right"><h4><span th:text="${total}"></span></h4></td>
         </tr>
     </table>
 </div>

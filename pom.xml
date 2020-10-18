@@ -19,7 +19,7 @@
         <flying-saucer.version>9.1.20</flying-saucer.version>
         <swagger-springfox.version>2.9.2</swagger-springfox.version>
         <thymeleaf.version>3.0.11.RELEASE</thymeleaf.version>
-        <spring-security-oauth.version>2.1.0.RELEASE</spring-security-oauth.version>
+        <spring-security-oauth-resource.version>2.2.6.RELEASE</spring-security-oauth-resource.version>
         <retrofit.version>2.6.2</retrofit.version>
     </properties>
 
@@ -81,9 +81,9 @@
             <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.springframework.security.oauth.boot</groupId>
-            <artifactId>spring-security-oauth2-autoconfigure</artifactId>
-            <version>${spring-security-oauth.version}</version>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-oauth2-resource-server</artifactId>
+            <version>${spring-security-oauth-resource.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>

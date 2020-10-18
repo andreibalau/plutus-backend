@@ -1,8 +1,8 @@
 package com.finance.plutus.security;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.finance.plutus.configuration.Api;
 import com.finance.plutus.controller.payload.ErrorResponse;
-import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.AuthenticationException;

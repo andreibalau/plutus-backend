@@ -68,6 +68,9 @@ public class CreateInvoiceServiceImpl implements CreateInvoiceService {
     invoice.setSubtotal(0D);
     invoice.setTaxes(0D);
     invoice.setTotal(0D);
+    invoice.setCurrencySubtotal(0D);
+    invoice.setCurrencyTaxes(0D);
+    invoice.setCurrencyTotal(0D);
     invoice.setClient(partner);
     invoice.setSerial(serial);
     if (createInvoiceDto.getCurrency() == Currency.RON) {
@@ -93,12 +96,17 @@ public class CreateInvoiceServiceImpl implements CreateInvoiceService {
     invoiceLine.setUpdatedOn(LocalDateTime.now(ZoneOffset.UTC));
     invoiceLine.setInvoice(invoice);
     invoiceLine.setItem(item);
-    invoiceLine.setUnitPrice(unitPrice);
-    invoiceLine.setQuantity(quantity);
-    invoiceLine.setSubtotal(subtotal);
-    invoiceLine.setVat(vat);
-    invoiceLine.setTotal(total);
+    invoiceLine.setCurrency(invoice.getCurrency());
     invoiceLine.setUom(line.getUom());
+    invoiceLine.setVat(vat);
+    invoiceLine.setQuantity(quantity);
+    invoiceLine.setCurrencyRate(invoice.getCurrencyRate());
+    invoiceLine.setUnitPrice(unitPrice * invoice.getCurrencyRate());
+    invoiceLine.setSubtotal(subtotal * invoice.getCurrencyRate());
+    invoiceLine.setTotal(total * invoice.getCurrencyRate());
+    invoiceLine.setCurrencyUnitPrice(unitPrice);
+    invoiceLine.setCurrencySubtotal(subtotal);
+    invoiceLine.setCurrencyTotal(total);
     return invoiceLine;
   }
 
@@ -106,9 +114,15 @@ public class CreateInvoiceServiceImpl implements CreateInvoiceService {
     double subtotal = lines.stream().mapToDouble(InvoiceLine::getSubtotal).sum();
     double total = lines.stream().mapToDouble(InvoiceLine::getTotal).sum();
     double taxes = total - subtotal;
+    double currencySubtotal = lines.stream().mapToDouble(InvoiceLine::getCurrencySubtotal).sum();
+    double currencyTotal = lines.stream().mapToDouble(InvoiceLine::getCurrencyTotal).sum();
+    double currencyTaxes = currencyTotal - currencySubtotal;
     invoice.setSubtotal(subtotal);
     invoice.setTaxes(taxes);
     invoice.setTotal(total);
+    invoice.setCurrencySubtotal(currencySubtotal);
+    invoice.setCurrencyTaxes(currencyTaxes);
+    invoice.setCurrencyTotal(currencyTotal);
     invoice.setLines(lines);
   }
 }

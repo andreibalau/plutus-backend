@@ -3,7 +3,9 @@ package com.finance.plutus.model.html;
 import com.finance.plutus.model.entity.Bank;
 import com.finance.plutus.model.entity.Business;
 import com.finance.plutus.model.entity.Country;
+import com.finance.plutus.model.entity.Currency;
 import com.finance.plutus.model.entity.Invoice;
+import com.finance.plutus.model.entity.InvoiceLine;
 import com.finance.plutus.model.entity.Partner;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -44,6 +46,7 @@ public class Params {
   private String clientBankAccount;
   private List<Line> lines;
   private String total;
+  private boolean hasCurrency;
 
   public String getName() {
     return name;
@@ -75,17 +78,21 @@ public class Params {
         .clientBankName(Optional.ofNullable(client.getBank()).map(Bank::getName).orElse(null))
         .clientBankAccount(client.getBankAccount())
         .total(String.format("%.2f LEI", invoice.getTotal()))
-        .lines(
-            invoice.getLines().stream()
-                .map(
-                    line ->
-                        Line.builder()
-                            .name(line.getItem().getName())
-                            .price(String.format("%.2f", line.getUnitPrice()))
-                            .quantity(line.getQuantity())
-                            .total(String.format("%.2f", line.getTotal()))
-                            .build())
-                .collect(Collectors.toList()))
+        .hasCurrency(invoice.getCurrency() != Currency.RON)
+        .lines(invoice.getLines().stream().map(Params::mapLine).collect(Collectors.toList()))
+        .build();
+  }
+
+  private static Line mapLine(InvoiceLine invoiceLine) {
+    return Line.builder()
+        .name(invoiceLine.getItem().getName())
+        .quantity(invoiceLine.getQuantity())
+        .price(String.format("%.2f", invoiceLine.getUnitPrice()))
+        .total(String.format("%.2f", invoiceLine.getTotal()))
+        .currencyAmount(
+            String.format(
+                "%.2f %s", invoiceLine.getCurrencyTotal(), invoiceLine.getCurrency().name()))
+        .currencyRate(String.format("Curs: %.2f", invoiceLine.getCurrencyRate()))
         .build();
   }
 
@@ -115,6 +122,7 @@ public class Params {
     paramsMap.put("client_bank_account", clientBankAccount);
     paramsMap.put("lines", lines);
     paramsMap.put("total", total);
+    paramsMap.put("has_currency", hasCurrency);
     return paramsMap;
   }
 }

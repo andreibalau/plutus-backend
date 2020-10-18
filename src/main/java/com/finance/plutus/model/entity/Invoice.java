@@ -70,6 +70,18 @@ public class Invoice {
   private Double currencyRate;
 
   @NotNull
+  @Column(name = "currency_subtotal", nullable = false)
+  private Double currencySubtotal;
+
+  @NotNull
+  @Column(name = "currency_taxes", nullable = false)
+  private Double currencyTaxes;
+
+  @NotNull
+  @Column(name = "currency_total", nullable = false)
+  private Double currencyTotal;
+
+  @NotNull
   @ManyToOne
   @JoinColumn(name = "serial_id", nullable = false)
   private Serial serial;
