@@ -34,7 +34,7 @@ public class Partner {
 
   @Email
   @Nullable
-  @Column(name = "email", unique = true)
+  @Column(name = "email")
   private String email;
 
   @Nullable

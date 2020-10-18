@@ -42,6 +42,7 @@ public class PartnerDto {
     partnerDto.setCommercialRegistry(partner.getCommercialRegistry());
     partnerDto.setTermInDays(partner.getTermInDays());
     partnerDto.setBankAccount(partner.getBankAccount());
+    partnerDto.setAddress(partner.getAddress());
     partnerDto.setBank(
         Optional.ofNullable(partner.getBank()).map(BankDto::mapFromEntity).orElse(null));
     partnerDto.setCountry(CountryDto.mapFromEntity(partner.getCountry()));

@@ -27,7 +27,7 @@ public class DataLoader {
   public void load() {
     loadCountries();
     loadBanks();
-    loadSerials();
+//    loadSerials();
   }
 
   private void loadCountries() {

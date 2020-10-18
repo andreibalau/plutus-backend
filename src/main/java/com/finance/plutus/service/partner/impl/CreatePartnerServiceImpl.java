@@ -8,7 +8,6 @@ import com.finance.plutus.repository.PartnerRepository;
 import com.finance.plutus.service.bank.FindBankService;
 import com.finance.plutus.service.country.FindCountryService;
 import com.finance.plutus.service.partner.CreatePartnerService;
-import com.finance.plutus.service.partner.PartnerEmailService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,14 +23,12 @@ import java.util.UUID;
 public class CreatePartnerServiceImpl implements CreatePartnerService {
 
   private final PartnerRepository partnerRepository;
-  private final PartnerEmailService partnerEmailService;
   private final FindCountryService findCountryService;
   private final FindBankService findBankService;
 
   @Override
   @Transactional
   public UUID create(CreatePartnerDto createPartnerDto) {
-    partnerEmailService.checkEmailExistence(createPartnerDto.getEmail());
     Partner partner = createPartner(createPartnerDto);
     partnerRepository.save(partner);
     return partner.getId();
