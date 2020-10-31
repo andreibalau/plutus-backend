@@ -1,7 +1,7 @@
 package com.finance.plutus.old.service.serial.impl;
 
-import com.finance.plutus.old.model.entity.Serial;
-import com.finance.plutus.old.repository.SerialRepository;
+import com.finance.plutus.invoice.model.Serial;
+import com.finance.plutus.invoice.repository.SerialRepository;
 import com.finance.plutus.old.service.serial.IncreaseSerialService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

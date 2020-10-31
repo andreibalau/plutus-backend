@@ -5,9 +5,9 @@ logging:
     root: INFO
 keycloak:
   admin-client-id: admin-cli
-  admin-client-secret: c207a470-6c05-4f40-bbf7-794e1438e36d
+  admin-client-secret: 25296210-7194-4c69-94af-f86407f39f9e
   client-id: plutus-app
-  client-secret: 65e7c848-368f-4100-9b3e-5df612deefe6
+  client-secret: dda159dc-bbc7-46be-be9b-7c694d79cac0
   register-uri: http://localhost:8080/auth/admin/realms/plutus/users
   login-uri: http://localhost:8080/auth/realms/plutus/protocol/openid-connect/token
 spring:

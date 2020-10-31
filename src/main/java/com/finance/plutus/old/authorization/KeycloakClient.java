@@ -4,7 +4,7 @@ import com.finance.plutus.old.authorization.payload.AuthorizationResponse;
 import com.finance.plutus.old.authorization.payload.RegisterRequest;
 import com.finance.plutus.old.authorization.payload.UserCredentials;
 import com.finance.plutus.old.configuration.KeycloakConfiguration;
-import com.finance.plutus.old.exception.PlutusException;
+import com.finance.plutus.app.exception.PlutusException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;

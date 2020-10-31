@@ -1,7 +1,7 @@
 package com.finance.plutus.old.controller.exception;
 
-import com.finance.plutus.old.controller.payload.ErrorResponse;
-import com.finance.plutus.old.exception.PlutusException;
+import com.finance.plutus.app.payload.ErrorResponse;
+import com.finance.plutus.app.exception.PlutusException;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

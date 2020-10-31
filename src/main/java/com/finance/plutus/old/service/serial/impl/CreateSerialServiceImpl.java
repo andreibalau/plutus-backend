@@ -2,8 +2,8 @@ package com.finance.plutus.old.service.serial.impl;
 
 import com.finance.plutus.old.exception.SerialNameAlreadyExistsException;
 import com.finance.plutus.old.model.dto.CreateSerialDto;
-import com.finance.plutus.old.model.entity.Serial;
-import com.finance.plutus.old.repository.SerialRepository;
+import com.finance.plutus.invoice.model.Serial;
+import com.finance.plutus.invoice.repository.SerialRepository;
 import com.finance.plutus.old.service.serial.CreateSerialService;
 import com.finance.plutus.old.service.serial.FindSerialService;
 import lombok.RequiredArgsConstructor;

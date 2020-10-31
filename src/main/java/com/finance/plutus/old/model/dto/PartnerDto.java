@@ -2,9 +2,9 @@ package com.finance.plutus.old.model.dto;
 
 import com.finance.plutus.bank.model.BankDto;
 import com.finance.plutus.country.model.CountryDto;
-import com.finance.plutus.old.model.entity.BusinessType;
-import com.finance.plutus.old.model.entity.Partner;
-import com.finance.plutus.old.model.entity.PartnerType;
+import com.finance.plutus.partner.model.BusinessType;
+import com.finance.plutus.partner.model.Partner;
+import com.finance.plutus.partner.model.PartnerType;
 import lombok.Getter;
 import lombok.Setter;
 

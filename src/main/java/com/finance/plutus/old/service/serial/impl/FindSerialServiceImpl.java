@@ -1,9 +1,9 @@
 package com.finance.plutus.old.service.serial.impl;
 
-import com.finance.plutus.old.exception.EntityNotFoundException;
+import com.finance.plutus.app.exception.EntityNotFoundException;
 import com.finance.plutus.old.model.dto.SerialDto;
-import com.finance.plutus.old.model.entity.Serial;
-import com.finance.plutus.old.repository.SerialRepository;
+import com.finance.plutus.invoice.model.Serial;
+import com.finance.plutus.invoice.repository.SerialRepository;
 import com.finance.plutus.old.service.serial.FindSerialService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

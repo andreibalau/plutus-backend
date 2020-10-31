@@ -1,7 +1,7 @@
 package com.finance.plutus.old.service.invoice.impl;
 
-import com.finance.plutus.old.model.entity.Invoice;
-import com.finance.plutus.old.repository.InvoiceRepository;
+import com.finance.plutus.invoice.model.Invoice;
+import com.finance.plutus.invoice.repository.InvoiceRepository;
 import com.finance.plutus.old.service.invoice.DeleteInvoiceService;
 import com.finance.plutus.old.service.invoice.FindInvoiceService;
 import lombok.RequiredArgsConstructor;

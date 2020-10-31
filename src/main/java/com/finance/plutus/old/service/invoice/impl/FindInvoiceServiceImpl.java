@@ -1,9 +1,9 @@
 package com.finance.plutus.old.service.invoice.impl;
 
-import com.finance.plutus.old.exception.EntityNotFoundException;
+import com.finance.plutus.app.exception.EntityNotFoundException;
 import com.finance.plutus.old.model.dto.InvoiceDto;
-import com.finance.plutus.old.model.entity.Invoice;
-import com.finance.plutus.old.repository.InvoiceRepository;
+import com.finance.plutus.invoice.model.Invoice;
+import com.finance.plutus.invoice.repository.InvoiceRepository;
 import com.finance.plutus.old.service.invoice.FindInvoiceService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;

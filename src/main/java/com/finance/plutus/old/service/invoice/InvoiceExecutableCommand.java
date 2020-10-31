@@ -1,6 +1,6 @@
 package com.finance.plutus.old.service.invoice;
 
-import com.finance.plutus.old.model.entity.Invoice;
+import com.finance.plutus.invoice.model.Invoice;
 
 import java.util.UUID;
 

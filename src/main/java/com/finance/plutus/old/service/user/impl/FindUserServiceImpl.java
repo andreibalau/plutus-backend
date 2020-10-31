@@ -1,6 +1,6 @@
 package com.finance.plutus.old.service.user.impl;
 
-import com.finance.plutus.old.exception.EntityNotFoundException;
+import com.finance.plutus.app.exception.EntityNotFoundException;
 import com.finance.plutus.old.model.entity.User;
 import com.finance.plutus.old.repository.UserRepository;
 import com.finance.plutus.old.service.user.FindUserService;

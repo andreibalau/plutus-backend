@@ -1,7 +1,7 @@
 package com.finance.plutus.old.service.invoice;
 
 import com.finance.plutus.old.model.dto.InvoiceCommand;
-import com.finance.plutus.old.model.entity.Invoice;
+import com.finance.plutus.invoice.model.Invoice;
 import com.finance.plutus.old.service.invoice.impl.ActivateInvoiceService;
 import com.finance.plutus.old.service.invoice.impl.CancelInvoiceService;
 import com.finance.plutus.old.service.invoice.impl.CompleteInvoiceService;

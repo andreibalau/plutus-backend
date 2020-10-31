@@ -1,6 +1,6 @@
 package com.finance.plutus.old.model.dto;
 
-import com.finance.plutus.old.model.entity.Serial;
+import com.finance.plutus.invoice.model.Serial;
 import lombok.Getter;
 import lombok.Setter;
 

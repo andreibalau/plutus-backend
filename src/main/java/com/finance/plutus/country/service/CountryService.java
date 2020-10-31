@@ -7,7 +7,7 @@ import java.util.UUID;
 
 /** Plutus Created by Catalin on 10/31/2020 */
 public interface CountryService {
-  CountryDto findById(UUID id);
+  CountryDto findByCode(String code);
 
   List<CountryDto> findAll();
 }

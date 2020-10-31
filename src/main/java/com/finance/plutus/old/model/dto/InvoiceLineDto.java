@@ -1,8 +1,9 @@
 package com.finance.plutus.old.model.dto;
 
-import com.finance.plutus.old.model.entity.Currency;
-import com.finance.plutus.old.model.entity.InvoiceLine;
-import com.finance.plutus.old.model.entity.Item;
+import com.finance.plutus.currency.model.Currency;
+import com.finance.plutus.invoice.model.InvoiceLine;
+import com.finance.plutus.item.model.Item;
+import com.finance.plutus.item.model.ItemDto;
 import lombok.Getter;
 import lombok.Setter;
 

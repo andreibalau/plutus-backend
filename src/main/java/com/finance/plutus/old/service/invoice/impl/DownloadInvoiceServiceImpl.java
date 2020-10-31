@@ -1,7 +1,7 @@
 package com.finance.plutus.old.service.invoice.impl;
 
 import com.finance.plutus.old.model.entity.Business;
-import com.finance.plutus.old.model.entity.Invoice;
+import com.finance.plutus.invoice.model.Invoice;
 import com.finance.plutus.old.model.html.Params;
 import com.finance.plutus.old.model.html.Template;
 import com.finance.plutus.old.service.invoice.DownloadInvoiceService;
