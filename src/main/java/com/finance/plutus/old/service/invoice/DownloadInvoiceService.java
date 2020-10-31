@@ -1,0 +1,10 @@
+package com.finance.plutus.old.service.invoice;
+
+import java.util.UUID;
+
+/** Plutus Created by catalin on 9/7/2020 */
+public interface DownloadInvoiceService {
+  byte[] download(UUID id);
+
+  byte[] download(Iterable<UUID> ids);
+}

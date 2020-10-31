@@ -1,11 +1,11 @@
 package com.finance.plutus;
 
-import com.finance.plutus.model.entity.Bank;
-import com.finance.plutus.model.entity.Country;
-import com.finance.plutus.model.entity.Serial;
-import com.finance.plutus.repository.BankRepository;
-import com.finance.plutus.repository.CountryRepository;
-import com.finance.plutus.repository.SerialRepository;
+import com.finance.plutus.bank.model.Bank;
+import com.finance.plutus.country.model.Country;
+import com.finance.plutus.old.model.entity.Serial;
+import com.finance.plutus.bank.repository.BankRepository;
+import com.finance.plutus.country.repository.CountryRepository;
+import com.finance.plutus.old.repository.SerialRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
