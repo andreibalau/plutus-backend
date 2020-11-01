@@ -10,6 +10,8 @@ import java.util.UUID;
 public interface TransactionFinder {
   List<Transaction> findAll(PageRequest page);
 
+  List<Transaction> findAllById(Iterable<UUID> ids);
+
   Transaction findById(UUID id);
 
   long count();

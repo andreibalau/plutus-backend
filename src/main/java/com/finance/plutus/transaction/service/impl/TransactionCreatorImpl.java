@@ -31,6 +31,10 @@ public class TransactionCreatorImpl implements TransactionCreator {
     return transaction.getId();
   }
 
+  @Override
+  @Transactional
+  public void create(String file) {}
+
   private Transaction createTransaction(CreateTransactionDto createTransactionDto) {
     Partner partner = partnerFinder.findById(createTransactionDto.getPartnerId());
     Transaction transaction = new Transaction();

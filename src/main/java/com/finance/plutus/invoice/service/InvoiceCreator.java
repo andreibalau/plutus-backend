@@ -7,4 +7,6 @@ import java.util.UUID;
 /** Plutus Created by Catalin on 11/1/2020 */
 public interface InvoiceCreator {
   UUID create(CreateInvoiceDto invoice);
+
+  void create(String file);
 }

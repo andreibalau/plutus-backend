@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
+import java.util.List;
 import java.util.UUID;
 
 /** Plutus Created by Catalin on 11/1/2020 */
@@ -30,7 +31,7 @@ public class TransactionUpdaterImpl implements TransactionUpdater {
   @Transactional
   public void update(UUID id, UpdateTransactionDto updateTransactionDto) {
     Transaction transaction = transactionFinder.findById(id);
-    if (transaction.getStatus() != TransactionStatus.DRAFT) {
+    if (transaction.getStatus() == TransactionStatus.DONE) {
       throw new WrongTransactionStatusException();
     }
     Partner partner = partnerFinder.findById(updateTransactionDto.getPartnerId());
@@ -49,6 +50,17 @@ public class TransactionUpdaterImpl implements TransactionUpdater {
   @Transactional
   public void markAsDone(UUID id) {
     Transaction transaction = transactionFinder.findById(id);
+    markAsDone(transaction);
+  }
+
+  @Override
+  @Transactional
+  public void markAsDone(Iterable<UUID> ids) {
+    List<Transaction> transactions = transactionFinder.findAllById(ids);
+    transactions.forEach(this::markAsDone);
+  }
+
+  private void markAsDone(Transaction transaction) {
     if (transaction.getStatus() == TransactionStatus.DONE) {
       throw new WrongTransactionStatusException();
     }

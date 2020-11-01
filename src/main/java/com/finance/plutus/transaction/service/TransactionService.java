@@ -17,6 +17,10 @@ public interface TransactionService {
 
   void markAsDone(UUID id);
 
+  void markAsDone(Iterable<UUID> ids);
+
+  void importFile(String transactionsFile);
+
   void delete(UUID id);
 
   long count();

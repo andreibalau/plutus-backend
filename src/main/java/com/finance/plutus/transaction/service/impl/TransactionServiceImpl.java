@@ -3,11 +3,7 @@ package com.finance.plutus.transaction.service.impl;
 import com.finance.plutus.transaction.model.CreateTransactionDto;
 import com.finance.plutus.transaction.model.TransactionDto;
 import com.finance.plutus.transaction.model.UpdateTransactionDto;
-import com.finance.plutus.transaction.service.TransactionCleaner;
-import com.finance.plutus.transaction.service.TransactionCreator;
-import com.finance.plutus.transaction.service.TransactionFinder;
-import com.finance.plutus.transaction.service.TransactionService;
-import com.finance.plutus.transaction.service.TransactionUpdater;
+import com.finance.plutus.transaction.service.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -46,6 +42,16 @@ public class TransactionServiceImpl implements TransactionService {
   @Override
   public void markAsDone(UUID id) {
     transactionUpdater.markAsDone(id);
+  }
+
+  @Override
+  public void markAsDone(Iterable<UUID> ids) {
+    transactionUpdater.markAsDone(ids);
+  }
+
+  @Override
+  public void importFile(String transactionsFile) {
+    transactionCreator.create(transactionsFile);
   }
 
   @Override

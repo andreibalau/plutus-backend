@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
+import java.util.List;
 import java.util.UUID;
 
 /** Plutus Created by Catalin on 11/1/2020 */
@@ -31,7 +32,18 @@ public class InvoiceUpdaterImpl implements InvoiceUpdater {
   @Transactional
   public void markAsDone(UUID id) {
     Invoice invoice = invoiceFinder.findById(id);
-    if (invoice.getStatus() != InvoiceStatus.DRAFT) {
+    markAsDone(invoice);
+  }
+
+  @Override
+  @Transactional
+  public void markAsDone(Iterable<UUID> ids) {
+    List<Invoice> invoices = invoiceFinder.findAllById(ids);
+    invoices.forEach(this::markAsDone);
+  }
+
+  private void markAsDone(Invoice invoice) {
+    if (invoice.getStatus() == InvoiceStatus.DONE) {
       throw new WrongInvoiceStatusException();
     }
     invoice.setStatus(InvoiceStatus.DONE);

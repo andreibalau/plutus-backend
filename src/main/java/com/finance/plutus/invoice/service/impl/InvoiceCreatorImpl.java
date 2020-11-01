@@ -3,13 +3,7 @@ package com.finance.plutus.invoice.service.impl;
 import com.finance.plutus.currency.model.Currency;
 import com.finance.plutus.currency.model.CurrencyRate;
 import com.finance.plutus.currency.service.CurrencyRateFinder;
-import com.finance.plutus.invoice.model.CreateInvoiceDto;
-import com.finance.plutus.invoice.model.CreateInvoiceLineDto;
-import com.finance.plutus.invoice.model.Invoice;
-import com.finance.plutus.invoice.model.InvoiceCurrency;
-import com.finance.plutus.invoice.model.InvoiceLine;
-import com.finance.plutus.invoice.model.InvoiceStatus;
-import com.finance.plutus.invoice.model.Serial;
+import com.finance.plutus.invoice.model.*;
 import com.finance.plutus.invoice.repository.InvoiceRepository;
 import com.finance.plutus.invoice.service.InvoiceCreator;
 import com.finance.plutus.invoice.service.SerialFinder;
@@ -54,6 +48,10 @@ public class InvoiceCreatorImpl implements InvoiceCreator {
     invoiceRepository.save(invoice);
     return invoice.getId();
   }
+
+  @Override
+  @Transactional
+  public void create(String file) {}
 
   private Invoice createInvoice(CreateInvoiceDto createInvoiceDto) {
     Partner partner = partnerFinder.findById(createInvoiceDto.getPartnerId());

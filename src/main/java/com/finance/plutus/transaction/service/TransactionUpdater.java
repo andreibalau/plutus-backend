@@ -9,4 +9,5 @@ public interface TransactionUpdater {
   void update(UUID id, UpdateTransactionDto transaction);
 
   void markAsDone(UUID id);
+  void markAsDone(Iterable<UUID> ids);
 }
