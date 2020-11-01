@@ -56,7 +56,7 @@ public class Item {
 
   @NotNull
   @Enumerated(value = EnumType.STRING)
-  @Column(name = "type", nullable = false)
+  @Column(name = "item_type", nullable = false)
   private ItemType type = ItemType.PRODUCT;
 
   @NotNull

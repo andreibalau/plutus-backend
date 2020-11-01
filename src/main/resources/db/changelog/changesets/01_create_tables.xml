@@ -1,0 +1,390 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet id="01_create_users_table" author="Catalin Matache">
+        <createTable tableName="users">
+            <column name="id" type="UUID">
+                <constraints primaryKey="true" primaryKeyName="pk_users"/>
+            </column>
+            <column name="email" type="VARCHAR(100)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="user_role" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_on" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_on" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="02_create_banks_table" author="Catalin Matache">
+        <createTable tableName="banks">
+            <column name="id" type="UUID">
+                <constraints primaryKey="true" primaryKeyName="pk_banks"/>
+            </column>
+            <column name="name" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_on" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_on" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="03_create_countries_table" author="Catalin Matache">
+        <createTable tableName="countries">
+            <column name="code" type="VARCHAR(5)">
+                <constraints primaryKey="true" primaryKeyName="pk_countries"/>
+            </column>
+            <column name="name" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_on" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_on" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="04_create_currency_rates_table" author="Catalin Matache">
+        <createTable tableName="currency_rates">
+            <column name="id" type="UUID">
+                <constraints primaryKey="true" primaryKeyName="pk_currency_rates"/>
+            </column>
+            <column name="rate" type="DOUBLE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="currency" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="date" type="DATE">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="05_create_businesses_table" author="Catalin Matache">
+        <createTable tableName="businesses">
+            <column name="id" type="UUID">
+                <constraints primaryKey="true" primaryKeyName="pk_businesses"/>
+            </column>
+            <column name="name" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="vat" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="vat_in_vies" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="commercial_registry" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="address" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="bank_account" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="email" type="VARCHAR(100)"/>
+            <column name="phone" type="VARCHAR(100)"/>
+            <column name="website" type="VARCHAR(100)"/>
+            <column name="bank_id" type="UUID">
+                <constraints nullable="false"
+                             foreignKeyName="fk_businesses_bank_id"
+                             references="banks(id)"/>
+            </column>
+            <column name="user_id" type="UUID">
+                <constraints nullable="false"
+                             foreignKeyName="fk_businesses_user_id"
+                             references="users(id)"/>
+            </column>
+            <column name="created_on" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_on" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="06_create_items_table" author="Catalin Matache">
+        <createTable tableName="items">
+            <column name="id" type="UUID">
+                <constraints primaryKey="true" primaryKeyName="pk_items"/>
+            </column>
+            <column name="name" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="VARCHAR(255)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="code" type="VARCHAR(50)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="uom" type="VARCHAR(10)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="item_vat" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="item_type" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="unit_price" type="DOUBLE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="total_price" type="DOUBLE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_on" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_on" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="07_create_partners_table" author="Catalin Matache">
+        <createTable tableName="partners">
+            <column name="id" type="UUID">
+                <constraints primaryKey="true" primaryKeyName="pk_partners"/>
+            </column>
+            <column name="name" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="business_type" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="partner_type" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="term_in_days" type="INTEGER"/>
+            <column name="commercial_registry" type="VARCHAR(100)"/>
+            <column name="vat" type="VARCHAR(100)"/>
+            <column name="email" type="VARCHAR(100)"/>
+            <column name="phone" type="VARCHAR(100)"/>
+            <column name="address" type="VARCHAR(100)"/>
+            <column name="bank_account" type="VARCHAR(100)"/>
+            <column name="bank_id" type="UUID">
+                <constraints nullable="true"
+                             foreignKeyName="fk_partners_bank_id"
+                             references="banks(id)"/>
+            </column>
+            <column name="country_id" type="VARCHAR(5)">
+                <constraints nullable="false"
+                             foreignKeyName="fk_partners_country_id"
+                             references="countries(code)"/>
+            </column>
+            <column name="created_on" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_on" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="08_create_serials_table" author="Catalin Matache">
+        <createTable tableName="serials">
+            <column name="id" type="UUID">
+                <constraints primaryKey="true" primaryKeyName="pk_serials"/>
+            </column>
+            <column name="name" type="VARCHAR(100)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="start_number" type="INTEGER">
+                <constraints nullable="false"/>
+            </column>
+            <column name="current_number" type="INTEGER">
+                <constraints nullable="false"/>
+            </column>
+            <column name="next_number" type="INTEGER">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_on" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_on" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="09_create_invoice_currencies_table" author="Catalin Matache">
+        <createTable tableName="invoice_currencies">
+            <column name="id" type="UUID">
+                <constraints primaryKey="true" primaryKeyName="pk_invoice_currencies"/>
+            </column>
+            <column name="value" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="rate" type="DOUBLE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="subtotal" type="DOUBLE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="total" type="DOUBLE">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="10_create_invoices_table" author="Catalin Matache">
+        <createTable tableName="invoices">
+            <column name="id" type="UUID">
+                <constraints primaryKey="true" primaryKeyName="pk_invoices"/>
+            </column>
+            <column name="serial_name" type="VARCHAR(100)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="date" type="DATE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="due_date" type="DATE">
+                <constraints nullable="true"/>
+            </column>
+            <column name="subtotal" type="DOUBLE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="taxes" type="DOUBLE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="total" type="DOUBLE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="status" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="serial_id" type="UUID">
+                <constraints nullable="false"
+                             foreignKeyName="fk_invoices_serial_id"
+                             references="serials(id)"/>
+            </column>
+            <column name="client_id" type="UUID">
+                <constraints nullable="false"
+                             foreignKeyName="fk_invoices_client_id"
+                             references="partners(id)"/>
+            </column>
+            <column name="invoice_currency_id" type="UUID">
+                <constraints nullable="true"
+                             foreignKeyName="fk_invoices_invoice_currency_id"
+                             references="invoice_currencies(id)"/>
+            </column>
+            <column name="created_on" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_on" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="11_create_invoice_lines_table" author="Catalin Matache">
+        <createTable tableName="invoice_lines">
+            <column name="id" type="UUID">
+                <constraints primaryKey="true" primaryKeyName="pk_invoice_lines"/>
+            </column>
+            <column name="details" type="VARCHAR(100)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="uom" type="VARCHAR(100)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="quantity" type="INTEGER">
+                <constraints nullable="false"/>
+            </column>
+            <column name="vat" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="subtotal" type="DOUBLE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="unit_price" type="DOUBLE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="total" type="DOUBLE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="status" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="item_id" type="UUID">
+                <constraints nullable="false"
+                             foreignKeyName="fk_invoice_lines_item_id"
+                             references="items(id)"/>
+            </column>
+            <column name="invoice_id" type="UUID">
+                <constraints nullable="false"
+                             deleteCascade="true"
+                             foreignKeyName="fk_invoice_lines_invoice_id"
+                             references="invoices(id)"/>
+            </column>
+            <column name="invoice_currency_id" type="UUID">
+                <constraints nullable="true"
+                             foreignKeyName="fk_invoice_lines_invoice_currency_id"
+                             references="invoice_currencies(id)"/>
+            </column>
+            <column name="created_on" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_on" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="12_create_transactions_table" author="Catalin Matache">
+        <createTable tableName="transactions">
+            <column name="id" type="UUID">
+                <constraints primaryKey="true" primaryKeyName="pk_transactions"/>
+            </column>
+            <column name="document" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="details" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="date" type="DATE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="value" type="DOUBLE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="transaction_type" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="transaction_method" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="transaction_status" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="partner_id" type="UUID">
+                <constraints nullable="false"
+                             foreignKeyName="fk_transactions_partner_id"
+                             references="partners(id)"/>
+            </column>
+            <column name="created_on" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_on" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>

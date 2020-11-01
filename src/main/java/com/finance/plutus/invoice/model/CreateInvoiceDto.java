@@ -26,7 +26,6 @@ public class CreateInvoiceDto {
   @JsonSerialize(using = LocalDateSerializer.class)
   private LocalDate date;
 
-  @NotNull
   @JsonDeserialize(using = LocalDateDeserializer.class)
   @JsonSerialize(using = LocalDateSerializer.class)
   private LocalDate dueDate;

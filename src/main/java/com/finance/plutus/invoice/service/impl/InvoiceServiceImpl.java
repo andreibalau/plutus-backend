@@ -8,6 +8,7 @@ import com.finance.plutus.invoice.service.InvoiceCreator;
 import com.finance.plutus.invoice.service.InvoiceDownloader;
 import com.finance.plutus.invoice.service.InvoiceFinder;
 import com.finance.plutus.invoice.service.InvoiceService;
+import com.finance.plutus.invoice.service.InvoiceUpdater;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -24,6 +25,7 @@ public class InvoiceServiceImpl implements InvoiceService {
   private final InvoiceCreator invoiceCreator;
   private final InvoiceFinder invoiceFinder;
   private final InvoiceCleaner invoiceCleaner;
+  private final InvoiceUpdater invoiceUpdater;
   private final InvoiceDownloader invoiceDownloader;
 
   @Override
@@ -59,6 +61,11 @@ public class InvoiceServiceImpl implements InvoiceService {
   @Override
   public void delete(UUID id) {
     invoiceCleaner.delete(id);
+  }
+
+  @Override
+  public void markAsDone(UUID id) {
+    invoiceUpdater.markAsDone(id);
   }
 
   @Override

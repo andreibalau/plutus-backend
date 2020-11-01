@@ -1,18 +1,14 @@
 package com.finance.plutus.user.controller;
 
 import com.finance.plutus.user.controller.payload.FindBusinessResponse;
-import com.finance.plutus.user.controller.payload.UpdateBusinessRequest;
 import com.finance.plutus.user.model.BusinessDto;
 import com.finance.plutus.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.validation.Valid;
 import java.util.UUID;
 
 import static com.finance.plutus.app.configuration.Api.APPLICATION_VND_PLUTUS_FINANCE_JSON;
@@ -25,21 +21,12 @@ public class UserController {
 
   private final UserService userService;
 
-  @PutMapping(
-      path = "/{id}/business",
-      consumes = APPLICATION_VND_PLUTUS_FINANCE_JSON,
-      produces = APPLICATION_VND_PLUTUS_FINANCE_JSON)
-  public void updateBusiness(
-      @PathVariable UUID id, @Valid @RequestBody UpdateBusinessRequest request) {
-    userService.updateBusiness(id, request.getBusiness());
-  }
-
   @GetMapping(
       path = "/{id}/business",
       consumes = APPLICATION_VND_PLUTUS_FINANCE_JSON,
       produces = APPLICATION_VND_PLUTUS_FINANCE_JSON)
   public FindBusinessResponse findBusiness(@PathVariable UUID id) {
-    BusinessDto businessDto = userService.getBusiness();
+    BusinessDto businessDto = userService.getBusiness(id);
     return new FindBusinessResponse(businessDto);
   }
 }

@@ -3,14 +3,9 @@ server:
 logging:
   level:
     root: INFO
-keycloak:
-  admin-client-id: admin-cli
-  admin-client-secret: 25296210-7194-4c69-94af-f86407f39f9e
-  client-id: plutus-app
-  client-secret: dda159dc-bbc7-46be-be9b-7c694d79cac0
-  register-uri: http://localhost:8080/auth/admin/realms/plutus/users
-  login-uri: http://localhost:8080/auth/realms/plutus/protocol/openid-connect/token
 spring:
+  liquibase:
+    change-log: classpath:/db/changelog/changelog-master.xml
   datasource:
     driver-class-name: org.postgresql.Driver
     url: jdbc:postgresql://localhost:5432/plutus

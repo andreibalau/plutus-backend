@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet id="01_create_idx_businesses_bank_id" author="Catalin Matache">
+        <createIndex indexName="idx_businesses_bank_id" tableName="businesses">
+            <column name="bank_id"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet id="02_create_idx_businesses_user_id" author="Catalin Matache">
+        <createIndex indexName="idx_businesses_user_id" tableName="businesses">
+            <column name="user_id"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet id="03_create_idx_partners_bank_id" author="Catalin Matache">
+        <createIndex indexName="idx_partners_bank_id" tableName="partners">
+            <column name="bank_id"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet id="04_create_idx_partners_country_id" author="Catalin Matache">
+        <createIndex indexName="idx_partners_country_id" tableName="partners">
+            <column name="country_id"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet id="05_create_idx_invoices_serial_id" author="Catalin Matache">
+        <createIndex indexName="idx_invoices_serial_id" tableName="invoices">
+            <column name="serial_id"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet id="06_create_idx_invoices_client_id" author="Catalin Matache">
+        <createIndex indexName="idx_invoices_client_id" tableName="invoices">
+            <column name="client_id"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet id="07_create_idx_invoices_invoice_currency_id" author="Catalin Matache">
+        <createIndex indexName="idx_invoices_invoice_currency_id" tableName="invoices">
+            <column name="invoice_currency_id"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet id="08_create_idx_invoice_lines_item_id" author="Catalin Matache">
+        <createIndex indexName="idx_invoice_lines_item_id" tableName="invoice_lines">
+            <column name="item_id"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet id="09_create_idx_invoice_lines_invoice_id" author="Catalin Matache">
+        <createIndex indexName="idx_invoice_lines_invoice_id" tableName="invoice_lines">
+            <column name="invoice_id"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet id="10_create_idx_invoice_lines_invoice_currency_id" author="Catalin Matache">
+        <createIndex indexName="idx_invoice_lines_invoice_currency_id" tableName="invoice_lines">
+            <column name="invoice_currency_id"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet id="11_create_idx_transactions_partner_id" author="Catalin Matache">
+        <createIndex indexName="idx_transactions_partner_id" tableName="transactions">
+            <column name="partner_id"/>
+        </createIndex>
+    </changeSet>
+
+</databaseChangeLog>

@@ -20,6 +20,8 @@ public interface InvoiceService {
 
   void delete(UUID id);
 
+  void markAsDone(UUID id);
+
   byte[] download(UUID id);
 
   byte[] download(Iterable<UUID> ids);

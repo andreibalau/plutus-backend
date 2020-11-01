@@ -41,8 +41,8 @@ public class Invoice {
   @Column(name = "date", nullable = false)
   private LocalDate date;
 
-  @NotNull
-  @Column(name = "due_date", nullable = false)
+  @Nullable
+  @Column(name = "due_date")
   private LocalDate dueDate;
 
   @NotNull

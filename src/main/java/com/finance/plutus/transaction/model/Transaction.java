@@ -41,6 +41,10 @@ public class Transaction {
   private String details;
 
   @NotNull
+  @Column(name = "value", nullable = false)
+  private Double value;
+
+  @NotNull
   @ManyToOne
   @JoinColumn(name = "partner_id", nullable = false)
   private Partner partner;
@@ -54,6 +58,11 @@ public class Transaction {
   @Enumerated(EnumType.STRING)
   @Column(name = "transaction_method", nullable = false)
   private TransactionMethod method;
+
+  @NotNull
+  @Enumerated(EnumType.STRING)
+  @Column(name = "transaction_status", nullable = false)
+  private TransactionStatus status;
 
   @NotNull
   @Column(name = "created_on", nullable = false)

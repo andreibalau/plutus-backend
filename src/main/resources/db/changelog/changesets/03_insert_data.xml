@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <property name="now" value="sysdate" dbms="oracle"/>
+    <property name="now" value="now()" dbms="mysql"/>
+    <property name="now" value="now()" dbms="postgresql"/>
+
+    <changeSet id="01_insert_users" author="Catalin Matache">
+        <insert tableName="users">
+            <column name="id" value="04067b90-996e-4615-8c7e-b0c664ce69ac"/>
+            <column name="email" value="icatalin201@gmail.com"/>
+            <column name="user_role" value="USER"/>
+            <column name="created_on" value="${now}"/>
+            <column name="updated_on" value="${now}"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="02_insert_banks" author="Catalin Matache">
+        <insert tableName="banks">
+            <column name="id" value="3cd86ac8-d71f-40cf-bd7b-28f186f6fb28"/>
+            <column name="name" value="Banca Transilvania"/>
+            <column name="created_on" value="${now}"/>
+            <column name="updated_on" value="${now}"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="03_insert_serials" author="Catalin Matache">
+        <insert tableName="serials">
+            <column name="id" value="2e978bc3-115d-4226-90a7-24bd24ef5054"/>
+            <column name="name" value="MC"/>
+            <column name="current_number" value="0"/>
+            <column name="next_number" value="1"/>
+            <column name="start_number" value="1"/>
+            <column name="created_on" value="${now}"/>
+            <column name="updated_on" value="${now}"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="04_insert_countries" author="Catalin Matache">
+        <insert tableName="countries">
+            <column name="code" value="RO"/>
+            <column name="name" value="Romania"/>
+            <column name="created_on" value="${now}"/>
+            <column name="updated_on" value="${now}"/>
+        </insert>
+        <insert tableName="countries">
+            <column name="code" value="IT"/>
+            <column name="name" value="Italia"/>
+            <column name="created_on" value="${now}"/>
+            <column name="updated_on" value="${now}"/>
+        </insert>
+        <insert tableName="countries">
+            <column name="code" value="USA"/>
+            <column name="name" value="Statele Unite ale Americii"/>
+            <column name="created_on" value="${now}"/>
+            <column name="updated_on" value="${now}"/>
+        </insert>
+        <insert tableName="countries">
+            <column name="code" value="SG"/>
+            <column name="name" value="Singapore"/>
+            <column name="created_on" value="${now}"/>
+            <column name="updated_on" value="${now}"/>
+        </insert>
+        <insert tableName="countries">
+            <column name="code" value="DE"/>
+            <column name="name" value="Germania"/>
+            <column name="created_on" value="${now}"/>
+            <column name="updated_on" value="${now}"/>
+        </insert>
+        <insert tableName="countries">
+            <column name="code" value="SW"/>
+            <column name="name" value="Elvetia"/>
+            <column name="created_on" value="${now}"/>
+            <column name="updated_on" value="${now}"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="05_insert_business" author="Catalin Matache">
+        <insert tableName="businesses">
+            <column name="id" value="023eac1c-d6d2-43f6-af54-5e6d3a2447b5"/>
+            <column name="name" value="Matache Catalin Ionut Persoana Fizica Autorizata"/>
+            <column name="vat" value="40698094"/>
+            <column name="vat_in_vies" value="41666635"/>
+            <column name="email" value="icatalin201@gmail.com"/>
+            <column name="phone" value="+40735793346"/>
+            <column name="website" value="https://i-catalin.ro"/>
+            <column name="commercial_registry" value="F29/197/2019"/>
+            <column name="address"
+                    value="strada 1 Mai, numar 28, bloc 28, scara A, etaj 1, apartament 6, Urlati, Prahova"/>
+            <column name="bank_account" value="RO56BTRLRONCRT00B5687502"/>
+            <column name="user_id" value="04067b90-996e-4615-8c7e-b0c664ce69ac"/>
+            <column name="bank_id" value="3cd86ac8-d71f-40cf-bd7b-28f186f6fb28"/>
+            <column name="created_on" value="${now}"/>
+            <column name="updated_on" value="${now}"/>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>

@@ -7,4 +7,6 @@ import java.util.UUID;
 /** Plutus Created by Catalin on 10/31/2020 */
 public interface TransactionUpdater {
   void update(UUID id, UpdateTransactionDto transaction);
+
+  void markAsDone(UUID id);
 }

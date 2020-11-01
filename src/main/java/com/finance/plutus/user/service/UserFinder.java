@@ -11,9 +11,5 @@ public interface UserFinder {
 
   User findById(UUID id);
 
-  Business getBusiness();
-
-  boolean existsByEmail(String email);
-
-  void validateEmailExistence(String email);
+  Business getBusiness(UUID userId);
 }
