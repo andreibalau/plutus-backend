@@ -1,6 +1,6 @@
 package com.finance.plutus.invoice.service;
 
-import com.finance.plutus.old.model.dto.CreateSerialDto;
+import com.finance.plutus.invoice.model.CreateSerialDto;
 
 import java.util.UUID;
 

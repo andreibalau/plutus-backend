@@ -1,6 +1,6 @@
 package com.finance.plutus.partner.service;
 
-import com.finance.plutus.old.model.dto.UpdatePartnerDto;
+import com.finance.plutus.partner.model.UpdatePartnerDto;
 
 import java.util.UUID;
 

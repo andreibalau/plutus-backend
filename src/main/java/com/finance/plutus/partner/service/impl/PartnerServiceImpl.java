@@ -1,8 +1,8 @@
 package com.finance.plutus.partner.service.impl;
 
-import com.finance.plutus.old.model.dto.CreatePartnerDto;
-import com.finance.plutus.old.model.dto.PartnerDto;
-import com.finance.plutus.old.model.dto.UpdatePartnerDto;
+import com.finance.plutus.partner.model.CreatePartnerDto;
+import com.finance.plutus.partner.model.PartnerDto;
+import com.finance.plutus.partner.model.UpdatePartnerDto;
 import com.finance.plutus.partner.model.Partner;
 import com.finance.plutus.partner.service.*;
 import lombok.RequiredArgsConstructor;

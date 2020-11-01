@@ -1,6 +1,6 @@
 package com.finance.plutus.invoice.controller.payload;
 
-import com.finance.plutus.old.model.dto.CreateSerialDto;
+import com.finance.plutus.invoice.model.CreateSerialDto;
 import lombok.Getter;
 import lombok.Setter;
 

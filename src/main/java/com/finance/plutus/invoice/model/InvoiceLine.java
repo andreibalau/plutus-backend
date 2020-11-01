@@ -38,6 +38,10 @@ public class InvoiceLine {
   private Item item;
 
   @Nullable
+  @Column(name = "details")
+  private String details;
+
+  @Nullable
   @Column(name = "uom")
   private String uom;
 

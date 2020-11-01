@@ -1,6 +1,6 @@
 package com.finance.plutus.partner.controller.payload;
 
-import com.finance.plutus.old.model.dto.CreatePartnerDto;
+import com.finance.plutus.partner.model.CreatePartnerDto;
 import lombok.Getter;
 import lombok.Setter;
 

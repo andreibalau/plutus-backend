@@ -1,6 +1,6 @@
 package com.finance.plutus.invoice.controller.payload;
 
-import com.finance.plutus.old.model.dto.InvoiceDto;
+import com.finance.plutus.invoice.model.InvoiceDto;
 import lombok.*;
 
 import java.util.List;

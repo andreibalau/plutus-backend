@@ -1,8 +1,7 @@
 package com.finance.plutus.invoice.service;
 
-import com.finance.plutus.old.model.dto.CreateInvoiceDto;
-import com.finance.plutus.old.model.dto.InvoiceDto;
-import org.springframework.data.domain.PageRequest;
+import com.finance.plutus.invoice.model.CreateInvoiceDto;
+import com.finance.plutus.invoice.model.InvoiceDto;
 
 import java.util.List;
 import java.util.UUID;

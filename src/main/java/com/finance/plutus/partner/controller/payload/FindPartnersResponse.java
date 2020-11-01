@@ -1,6 +1,6 @@
 package com.finance.plutus.partner.controller.payload;
 
-import com.finance.plutus.old.model.dto.PartnerDto;
+import com.finance.plutus.partner.model.PartnerDto;
 import lombok.*;
 
 import java.util.List;

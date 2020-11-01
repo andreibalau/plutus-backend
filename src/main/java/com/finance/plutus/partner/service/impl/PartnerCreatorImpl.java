@@ -4,7 +4,7 @@ import com.finance.plutus.bank.model.Bank;
 import com.finance.plutus.bank.service.BankFinder;
 import com.finance.plutus.country.model.Country;
 import com.finance.plutus.country.service.CountryFinder;
-import com.finance.plutus.old.model.dto.CreatePartnerDto;
+import com.finance.plutus.partner.model.CreatePartnerDto;
 import com.finance.plutus.partner.model.Partner;
 import com.finance.plutus.partner.repository.PartnerRepository;
 import com.finance.plutus.partner.service.PartnerCreator;

@@ -1,7 +1,7 @@
 package com.finance.plutus.partner.controller;
 
 import com.finance.plutus.app.payload.EntityCreatedResponse;
-import com.finance.plutus.old.model.dto.PartnerDto;
+import com.finance.plutus.partner.model.PartnerDto;
 import com.finance.plutus.partner.controller.payload.CreatePartnerRequest;
 import com.finance.plutus.partner.controller.payload.FindPartnersResponse;
 import com.finance.plutus.partner.controller.payload.UpdatePartnerRequest;
@@ -13,7 +13,7 @@ import javax.validation.Valid;
 import java.util.List;
 import java.util.UUID;
 
-import static com.finance.plutus.old.configuration.Api.APPLICATION_VND_PLUTUS_FINANCE_JSON;
+import static com.finance.plutus.app.configuration.Api.APPLICATION_VND_PLUTUS_FINANCE_JSON;
 import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.NO_CONTENT;
 

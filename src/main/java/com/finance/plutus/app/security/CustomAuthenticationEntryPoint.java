@@ -1,7 +1,7 @@
 package com.finance.plutus.app.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.finance.plutus.old.configuration.Api;
+import com.finance.plutus.app.configuration.Api;
 import com.finance.plutus.app.payload.ErrorResponse;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;

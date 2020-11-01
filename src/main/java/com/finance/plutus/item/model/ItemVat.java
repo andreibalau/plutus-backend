@@ -1,6 +1,6 @@
 package com.finance.plutus.item.model;
 
-import com.finance.plutus.old.exception.WrongVatAmountException;
+import com.finance.plutus.item.exception.WrongVatAmountException;
 import lombok.RequiredArgsConstructor;
 
 import java.util.Arrays;

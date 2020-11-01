@@ -1,6 +1,6 @@
 package com.finance.plutus.app.security;
 
-import com.finance.plutus.old.configuration.KeycloakJwtConverter;
+import com.finance.plutus.app.configuration.KeycloakJwtConverter;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;

@@ -12,7 +12,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
-import java.time.LocalDateTime;
 import java.util.UUID;
 
 /** Plutus Created by Catalin on 10/31/2020 */
@@ -26,22 +25,18 @@ public class InvoiceCurrency {
 
   @NotNull
   @Enumerated(EnumType.STRING)
-  @Column(name = "currency", nullable = false)
-  private Currency currency = Currency.USD;
+  @Column(name = "value", nullable = false)
+  private Currency value = Currency.USD;
 
   @NotNull
   @Column(name = "rate", nullable = false)
   private Double rate;
 
   @NotNull
+  @Column(name = "subtotal", nullable = false)
+  private Double subtotal;
+
+  @NotNull
   @Column(name = "total", nullable = false)
   private Double total;
-
-  @NotNull
-  @Column(name = "created_on", nullable = false)
-  private LocalDateTime createdOn;
-
-  @NotNull
-  @Column(name = "updated_on", nullable = false)
-  private LocalDateTime updatedOn;
 }
