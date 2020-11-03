@@ -10,141 +10,273 @@
         margin: 0;
         padding: 0;
     }
-
-    .invoice-box {
-        max-width: 800px;
-        margin: auto;
-        padding: 32px;
-        border: 1px solid #eee;
-        font-size: 16px;
-        line-height: 24px;
-        font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
-        color: #555;
-        display: flex;
-        flex-direction: column;
+    @font-face {
+      font-family: SourceSansPro;
+      src: url(SourceSansPro-Regular.ttf);
     }
 
-    .invoice-box .top {
-        color: #333;
+    .clearfix:after {
+      content: "";
+      display: table;
+      clear: both;
     }
 
-    .invoice-box .top,
-    .invoice-box .middle,
-    .invoice-box .bottom {
-        padding-top: 16px;
-        padding-bottom: 16px;
+    a {
+      color: #0087C3;
+      text-decoration: none;
     }
 
-    .invoice-box .top .info {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
+    body {
+      position: relative;
+      width: 21cm;
+      height: 29.7cm;
+      margin: 0 auto;
+      color: #555555;
+      background: #FFFFFF;
+      font-family: Arial, sans-serif;
+      font-size: 14px;
+      font-family: SourceSansPro;
     }
 
-    .invoice-box .top .info div:nth-child(2) {
-        text-align: right;
+    header {
+      padding: 10px 0;
+      margin-bottom: 20px;
+      border-bottom: 1px solid #AAAAAA;
     }
 
-    .invoice-box .middle .table .header {
-        display: flex;
-        background: #eee;
-        padding: 8px;
+    #logo {
+      float: left;
+      margin-top: 8px;
     }
 
-    .invoice-box .middle .table .content .line {
-        display: flex;
-        padding: 8px;
-        border-bottom: 1px solid #eee;
+    #logo img {
+      height: 70px;
     }
 
-    .invoice-box .middle .table .header span,
-    .invoice-box .middle .table .content .line span {
-        flex: 1;
-    }
-
-    .invoice-box .middle .table .header span:nth-child(1),
-    .invoice-box .middle .table .content .line span:nth-child(1) {
-        flex: 2;
+    #company {
+      float: right;
+      text-align: right;
     }
 
 
+    #details {
+      margin-bottom: 50px;
+    }
 
+    #client {
+      padding-left: 6px;
+      border-left: 6px solid #0087C3;
+      float: left;
+    }
+
+    #client .to {
+      color: #777777;
+    }
+
+    h2.name {
+      font-size: 1.4em;
+      font-weight: normal;
+      margin: 0;
+    }
+
+    #invoice {
+      float: right;
+      text-align: right;
+    }
+
+    #invoice h1 {
+      color: #0087C3;
+      font-size: 2.4em;
+      line-height: 1em;
+      font-weight: normal;
+      margin: 0  0 10px 0;
+    }
+
+    #invoice .date {
+      font-size: 1.1em;
+      color: #777777;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      border-spacing: 0;
+      margin-bottom: 20px;
+    }
+
+    table th,
+    table td {
+      padding: 20px;
+      background: #EEEEEE;
+      text-align: center;
+      border-bottom: 1px solid #FFFFFF;
+    }
+
+    table th {
+      white-space: nowrap;
+      font-weight: normal;
+    }
+
+    table td {
+      text-align: right;
+    }
+
+    table td h3{
+      color: #57B223;
+      font-size: 1.2em;
+      font-weight: normal;
+      margin: 0 0 0.2em 0;
+    }
+
+    table .no {
+      color: #FFFFFF;
+      font-size: 1.6em;
+      background: #57B223;
+    }
+
+    table .desc {
+      text-align: left;
+    }
+
+    table .unit {
+      background: #DDDDDD;
+    }
+
+    table .qty {
+    }
+
+    table .total {
+      background: #57B223;
+      color: #FFFFFF;
+    }
+
+    table td.unit,
+    table td.qty,
+    table td.total {
+      font-size: 1.2em;
+    }
+
+    table tbody tr:last-child td {
+      border: none;
+    }
+
+    table tfoot td {
+      padding: 10px 20px;
+      background: #FFFFFF;
+      border-bottom: none;
+      font-size: 1.2em;
+      white-space: nowrap;
+      border-top: 1px solid #AAAAAA;
+    }
+
+    table tfoot tr:first-child td {
+      border-top: none;
+    }
+
+    table tfoot tr:last-child td {
+      color: #57B223;
+      font-size: 1.4em;
+      border-top: 1px solid #57B223;
+
+    }
+
+    table tfoot tr td:first-child {
+      border: none;
+    }
+
+    footer {
+      color: #777777;
+      width: 100%;
+      height: 30px;
+      position: absolute;
+      bottom: 0;
+      border-top: 1px solid #AAAAAA;
+      padding: 8px 0;
+      text-align: center;
+    }
 
     </style>
 </head>
 <body>
-<div class="invoice-box">
-    <div class="top">
-        <h2>Factura: MC0001</h2>
-        <span th:text="${date}">Data emitere: 20/10/2020</span><br/>
-        <span th:text="${due_date}">Data scadenta: 20/10/2020</span>
-        <div class="info">
-            <div>
-                <h5>Furnizor</h5>
-                <h4 th:text="${business_name}"></h4>
-                CUI: <span th:text="${vat}"></span><br/>
-                VAT: <span th:text="${vat_in_vies}"></span><br/>
-                Reg. Com: <span th:text="${commercial_registry}"></span><br/>
-                Adresa: <span th:text="${address}"></span><br/>
-                Email: <span th:text="${email}"></span><br/>
-                Telefon: <span th:text="${phone}"></span><br/>
-                Website: <span th:text="${website}"></span>
-                <span th:text="${bank_name}"></span><br/>
-                <span th:text="${bank_account}"></span>
+    <header class="clearfix">
+        <div id="logo">
+            <img src="logo.png">
+        </div>
+        <div id="company">
+            <h2 class="name">Company Name</h2>
+            <div>455 Foggy Heights, AZ 85004, US</div>
+            <div>(602) 519-0450</div>
+            <div><a href="mailto:company@example.com">company@example.com</a></div>
+        </div>
+    </header>
+    <main>
+        <div id="details" class="clearfix">
+            <div id="client">
+                <div class="to">Client</div>
+                <h2 class="name">John Doe</h2>
+                <div class="address">796 Silver Harbour, TX 79273, US</div>
+                <div class="email"><a href="mailto:john@example.com">john@example.com</a></div>
             </div>
-            <div>
-                <h5>Client</h5>
-                <h4 th:text="${client_name}"></h4>
-                CNP: <span th:text="${client_vat}"></span><br/>
-                CI: <span th:text="${client_commercial_registry}"></span><br/>
-                Adresa: <span th:text="${client_address}"></span><br/>
-                Tara: <span th:text="${client_country}"></span><br/>
-                Email: <span th:text="${client_email}"></span><br/>
-                Telefon: <span th:text="${client_phone}"></span><br/>
-                <span th:text="${client_bank_name}"></span><br/>
-                <span th:text="${client_bank_account}"></span>
+            <div id="invoice">
+                <h1>Factura MC0001</h1>
+                <div class="date">Data: 01/06/2014</div>
+                <div class="date">Data scadenta: 30/06/2014</div>
             </div>
         </div>
-    </div>
-    <div class="middle">
-        <div class="table">
-            <div class="header">
-                <span>Produs / Serviciu</span>
-                <span>Cantitate</span>
-                <span>Pret</span>
-                <span>Valoare</span>
-            </div>
-            <div class="content">
-                <div class="line" th:each="line: ${lines}">
-                    <span th:text="${line.name}">Produsul meu</span>
-                    <span th:text="${line.quantity}">10</span>
-                    <span th:text="${line.price}">10 RON</span>
-                    <span th:text="${line.total}">100 RON</span>
-                </div>
-                <div class="line">
-                    <span>Produsul meu</span>
-                    <span>10</span>
-                    <span>10 RON</span>
-                    <span>100 RON</span>
-                </div>
-                <div class="line">
-                    <span>Produsul meu</span>
-                    <span>10</span>
-                    <span>10 RON</span>
-                    <span>100 RON</span>
-                </div>
-                <div class="line">
-                    <span>Produsul meu</span>
-                    <span>10</span>
-                    <span>10 RON</span>
-                    <span>100 RON</span>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="bottom">
-        <h4>Total: <span th:text="${total}"></span></h4>
-    </div>
-</div>
+        <table border="0" cellspacing="0" cellpadding="0">
+            <thead>
+            <tr>
+                <th class="no">#</th>
+                <th class="desc">DESCRIERE</th>
+                <th class="unit">PRET UNITAR</th>
+                <th class="qty">CANTITATE</th>
+                <th class="total">TOTAL</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td class="no">01</td>
+                <td class="desc"><h3>Website Design</h3>Creating a recognizable design solution based on the company's existing visual identity</td>
+                <td class="unit">$40.00</td>
+                <td class="qty">30</td>
+                <td class="total">$1,200.00</td>
+            </tr>
+            <tr>
+                <td class="no">02</td>
+                <td class="desc"><h3>Website Development</h3>Developing a Content Management System-based Website</td>
+                <td class="unit">$40.00</td>
+                <td class="qty">80</td>
+                <td class="total">$3,200.00</td>
+            </tr>
+            <tr>
+                <td class="no">03</td>
+                <td class="desc"><h3>Search Engines Optimization</h3>Optimize the site for search engines (SEO)</td>
+                <td class="unit">$40.00</td>
+                <td class="qty">20</td>
+                <td class="total">$800.00</td>
+            </tr>
+            </tbody>
+            <tfoot>
+            <tr>
+                <td colspan="2"></td>
+                <td colspan="2">SUBTOTAL</td>
+                <td>5,200.00 RON</td>
+            </tr>
+            <tr>
+                <td colspan="2"></td>
+                <td colspan="2">TAXE 0%</td>
+                <td>0 RON</td>
+            </tr>
+            <tr>
+                <td colspan="2"></td>
+                <td colspan="2">TOTAL</td>
+                <td>6,500.00 RON</td>
+            </tr>
+            </tfoot>
+        </table>
+    </main>
+    <footer>
+        Factura circula fara semnatura si stampila cf. art.V, alin (2) din Ordonanta nr.17/2015 si art. 319 alin (29) din Legea nr. 227/2015 privind Codul fiscal.
+    </footer>
 </body>
 </html>
