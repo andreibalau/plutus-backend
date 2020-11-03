@@ -16,6 +16,7 @@
 
     <properties>
         <java.version>11</java.version>
+        <jackson-csv.version>2.5.3</jackson-csv.version>
         <flying-saucer.version>9.1.20</flying-saucer.version>
         <swagger-springfox.version>2.9.2</swagger-springfox.version>
         <thymeleaf.version>3.0.11.RELEASE</thymeleaf.version>
@@ -24,6 +25,11 @@
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>com.fasterxml.jackson.dataformat</groupId>
+            <artifactId>jackson-dataformat-csv</artifactId>
+            <version>${jackson-csv.version}</version>
+        </dependency>
         <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger2</artifactId>

@@ -1,5 +1,6 @@
 package com.finance.plutus.transaction.service.impl;
 
+import com.finance.plutus.app.service.CsvReader;
 import com.finance.plutus.partner.model.Partner;
 import com.finance.plutus.partner.service.PartnerFinder;
 import com.finance.plutus.transaction.model.CreateTransactionDto;
@@ -13,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
+import java.util.List;
 import java.util.UUID;
 
 /** Plutus Created by Catalin on 11/1/2020 */
@@ -20,6 +22,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class TransactionCreatorImpl implements TransactionCreator {
 
+  private final CsvReader csvReader;
   private final PartnerFinder partnerFinder;
   private final TransactionRepository transactionRepository;
 
@@ -33,7 +36,11 @@ public class TransactionCreatorImpl implements TransactionCreator {
 
   @Override
   @Transactional
-  public void create(String file) {}
+  public void create(String file) {
+    List<CreateTransactionDto> createTransactionDtoList =
+        csvReader.loadList(CreateTransactionDto.class, file);
+    createTransactionDtoList.forEach(this::create);
+  }
 
   private Transaction createTransaction(CreateTransactionDto createTransactionDto) {
     Partner partner = partnerFinder.findById(createTransactionDto.getPartnerId());

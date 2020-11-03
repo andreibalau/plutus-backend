@@ -28,7 +28,7 @@ public class InvoiceDownloaderImpl implements InvoiceDownloader {
   @Override
   public byte[] download(UUID id) {
     Invoice invoice = invoiceFinder.findById(id);
-    Business business = userFinder.getBusiness(Api.USER_ID);
+    Business business = userFinder.getBusiness(Api.USER_EMAIL);
     return pdfGenerator
         .generateSingle(Template.INVOICE, Params.set(invoice, business))
         .orElseThrow();
@@ -36,7 +36,7 @@ public class InvoiceDownloaderImpl implements InvoiceDownloader {
 
   @Override
   public byte[] download(Iterable<UUID> ids) {
-    Business business = userFinder.getBusiness(Api.USER_ID);
+    Business business = userFinder.getBusiness(Api.USER_EMAIL);
     List<Params> paramsList =
         invoiceFinder.findAllById(ids).stream()
             .map(invoice -> Params.set(invoice, business))

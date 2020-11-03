@@ -11,5 +11,5 @@ public interface UserFinder {
 
   User findById(UUID id);
 
-  Business getBusiness(UUID userId);
+  Business getBusiness(String username);
 }

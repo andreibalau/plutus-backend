@@ -319,9 +319,6 @@
             <column name="total" type="DOUBLE">
                 <constraints nullable="false"/>
             </column>
-            <column name="status" type="VARCHAR(100)">
-                <constraints nullable="false"/>
-            </column>
             <column name="item_id" type="UUID">
                 <constraints nullable="false"
                              foreignKeyName="fk_invoice_lines_item_id"

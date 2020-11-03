@@ -30,9 +30,9 @@ public class UserFinderImpl implements UserFinder {
   }
 
   @Override
-  public Business getBusiness(UUID userId) {
+  public Business getBusiness(String username) {
     return businessRepository
-        .findByUserId(userId)
+        .findByUserEmail(username)
         .orElseThrow(() -> new EntityNotFoundException("business"));
   }
 }

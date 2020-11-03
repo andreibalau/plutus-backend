@@ -1,9 +1,16 @@
 package com.finance.plutus.invoice.service.impl;
 
+import com.finance.plutus.app.service.CsvReader;
 import com.finance.plutus.currency.model.Currency;
 import com.finance.plutus.currency.model.CurrencyRate;
 import com.finance.plutus.currency.service.CurrencyRateFinder;
-import com.finance.plutus.invoice.model.*;
+import com.finance.plutus.invoice.model.CreateInvoiceDto;
+import com.finance.plutus.invoice.model.CreateInvoiceLineDto;
+import com.finance.plutus.invoice.model.Invoice;
+import com.finance.plutus.invoice.model.InvoiceCurrency;
+import com.finance.plutus.invoice.model.InvoiceLine;
+import com.finance.plutus.invoice.model.InvoiceStatus;
+import com.finance.plutus.invoice.model.Serial;
 import com.finance.plutus.invoice.repository.InvoiceRepository;
 import com.finance.plutus.invoice.service.InvoiceCreator;
 import com.finance.plutus.invoice.service.SerialFinder;
@@ -19,6 +26,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
@@ -29,6 +37,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class InvoiceCreatorImpl implements InvoiceCreator {
 
+  private final CsvReader csvReader;
   private final ItemFinder itemFinder;
   private final SerialFinder serialFinder;
   private final PartnerFinder partnerFinder;
@@ -51,7 +60,10 @@ public class InvoiceCreatorImpl implements InvoiceCreator {
 
   @Override
   @Transactional
-  public void create(String file) {}
+  public void create(String file) {
+    List<CreateInvoiceDto> createInvoiceDtoList = csvReader.loadList(CreateInvoiceDto.class, file);
+    createInvoiceDtoList.forEach(this::create);
+  }
 
   private Invoice createInvoice(CreateInvoiceDto createInvoiceDto) {
     Partner partner = partnerFinder.findById(createInvoiceDto.getPartnerId());
@@ -99,17 +111,18 @@ public class InvoiceCreatorImpl implements InvoiceCreator {
     if (invoice.getCurrency() != null) {
       rate = invoice.getCurrency().getRate();
       invoiceCurrency = new InvoiceCurrency();
+      invoiceCurrency.setRate(rate);
       invoiceCurrency.setValue(invoice.getCurrency().getValue());
     }
-    double unitPrice = line.getUnitPrice() / rate;
+    double unitPrice = line.getUnitPrice() * rate;
     double subtotal = unitPrice * quantity;
     double total = vat.getAmount() * subtotal + subtotal;
     invoiceLine.setUnitPrice(unitPrice);
     invoiceLine.setSubtotal(subtotal);
     invoiceLine.setTotal(total);
     if (invoiceCurrency != null) {
-      invoiceCurrency.setSubtotal(subtotal * rate);
-      invoiceCurrency.setTotal(total * rate);
+      invoiceCurrency.setSubtotal(subtotal / rate);
+      invoiceCurrency.setTotal(total / rate);
       invoiceLine.setCurrency(invoiceCurrency);
     }
     return invoiceLine;

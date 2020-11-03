@@ -1,11 +1,10 @@
 package com.finance.plutus.user.service;
 
 import com.finance.plutus.user.model.BusinessDto;
-
-import java.util.UUID;
+import org.springframework.security.oauth2.jwt.Jwt;
 
 /** Plutus Created by Catalin on 11/1/2020 */
 public interface UserService {
 
-  BusinessDto getBusiness(UUID userId);
+  BusinessDto getBusiness(Jwt jwt);
 }
