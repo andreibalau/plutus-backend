@@ -19,10 +19,11 @@ public class CustomAccessDeniedHandler implements AccessDeniedHandler {
   public void handle(
       HttpServletRequest request, HttpServletResponse response, AccessDeniedException e)
       throws IOException, ServletException {
+    e.printStackTrace();
     response
         .getWriter()
         .write(new ObjectMapper().writeValueAsString(new ErrorResponse("Access denied.")));
     response.addHeader(HttpHeaders.CONTENT_TYPE, Api.APPLICATION_VND_PLUTUS_FINANCE_JSON);
-    response.setStatus(HttpStatus.UNAUTHORIZED.value());
+    response.setStatus(HttpStatus.FORBIDDEN.value());
   }
 }

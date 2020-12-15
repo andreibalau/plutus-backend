@@ -7,7 +7,7 @@ import lombok.RequiredArgsConstructor;
 @Getter
 @RequiredArgsConstructor
 public enum Template {
-  INVOICE("invoice");
+  INVOICE("invoice_new");
 
   private final String value;
 }

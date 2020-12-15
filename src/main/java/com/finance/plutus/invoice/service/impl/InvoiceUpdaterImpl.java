@@ -1,6 +1,5 @@
 package com.finance.plutus.invoice.service.impl;
 
-import com.finance.plutus.invoice.exception.WrongInvoiceStatusException;
 import com.finance.plutus.invoice.model.Invoice;
 import com.finance.plutus.invoice.model.InvoiceStatus;
 import com.finance.plutus.invoice.repository.InvoiceRepository;
@@ -43,13 +42,12 @@ public class InvoiceUpdaterImpl implements InvoiceUpdater {
   }
 
   private void markAsDone(Invoice invoice) {
-    if (invoice.getStatus() == InvoiceStatus.DONE) {
-      throw new WrongInvoiceStatusException();
+    if (invoice.getStatus() != InvoiceStatus.DONE) {
+      invoice.setStatus(InvoiceStatus.DONE);
+      invoice.setUpdatedOn(LocalDateTime.now(ZoneOffset.UTC));
+      invoiceRepository.save(invoice);
+      createTransaction(invoice);
     }
-    invoice.setStatus(InvoiceStatus.DONE);
-    invoice.setUpdatedOn(LocalDateTime.now(ZoneOffset.UTC));
-    invoiceRepository.save(invoice);
-    createTransaction(invoice);
   }
 
   private void createTransaction(Invoice invoice) {

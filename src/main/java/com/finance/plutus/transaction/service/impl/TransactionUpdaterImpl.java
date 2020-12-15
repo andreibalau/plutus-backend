@@ -61,11 +61,10 @@ public class TransactionUpdaterImpl implements TransactionUpdater {
   }
 
   private void markAsDone(Transaction transaction) {
-    if (transaction.getStatus() == TransactionStatus.DONE) {
-      throw new WrongTransactionStatusException();
+    if (transaction.getStatus() != TransactionStatus.DONE) {
+      transaction.setUpdatedOn(LocalDateTime.now(ZoneOffset.UTC));
+      transaction.setStatus(TransactionStatus.DONE);
+      transactionRepository.save(transaction);
     }
-    transaction.setUpdatedOn(LocalDateTime.now(ZoneOffset.UTC));
-    transaction.setStatus(TransactionStatus.DONE);
-    transactionRepository.save(transaction);
   }
 }

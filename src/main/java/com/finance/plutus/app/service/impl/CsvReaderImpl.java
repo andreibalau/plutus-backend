@@ -30,6 +30,7 @@ public class CsvReaderImpl implements CsvReader {
   }
 
   private byte[] decodeFile(String file) {
+    file = file.replace("data:application/octet-stream;base64,", "");
     return Base64.getDecoder().decode(file);
   }
 }

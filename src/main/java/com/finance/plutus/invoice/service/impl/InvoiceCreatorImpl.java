@@ -1,6 +1,5 @@
 package com.finance.plutus.invoice.service.impl;
 
-import com.finance.plutus.app.service.CsvReader;
 import com.finance.plutus.currency.model.Currency;
 import com.finance.plutus.currency.model.CurrencyRate;
 import com.finance.plutus.currency.service.CurrencyRateFinder;
@@ -26,7 +25,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
-import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
@@ -37,7 +35,6 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class InvoiceCreatorImpl implements InvoiceCreator {
 
-  private final CsvReader csvReader;
   private final ItemFinder itemFinder;
   private final SerialFinder serialFinder;
   private final PartnerFinder partnerFinder;
@@ -56,13 +53,6 @@ public class InvoiceCreatorImpl implements InvoiceCreator {
     computeLines(lines, invoice);
     invoiceRepository.save(invoice);
     return invoice.getId();
-  }
-
-  @Override
-  @Transactional
-  public void create(String file) {
-    List<CreateInvoiceDto> createInvoiceDtoList = csvReader.loadList(CreateInvoiceDto.class, file);
-    createInvoiceDtoList.forEach(this::create);
   }
 
   private Invoice createInvoice(CreateInvoiceDto createInvoiceDto) {

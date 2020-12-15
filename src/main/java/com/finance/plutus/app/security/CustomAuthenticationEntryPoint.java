@@ -19,6 +19,7 @@ public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint 
   public void commence(
       HttpServletRequest request, HttpServletResponse response, AuthenticationException e)
       throws IOException, ServletException {
+    e.printStackTrace();
     response
         .getWriter()
         .write(new ObjectMapper().writeValueAsString(new ErrorResponse("Authentication failed.")));

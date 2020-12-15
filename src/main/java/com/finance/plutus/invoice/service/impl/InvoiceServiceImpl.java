@@ -3,7 +3,12 @@ package com.finance.plutus.invoice.service.impl;
 import com.finance.plutus.invoice.model.CreateInvoiceDto;
 import com.finance.plutus.invoice.model.Invoice;
 import com.finance.plutus.invoice.model.InvoiceDto;
-import com.finance.plutus.invoice.service.*;
+import com.finance.plutus.invoice.service.InvoiceCleaner;
+import com.finance.plutus.invoice.service.InvoiceCreator;
+import com.finance.plutus.invoice.service.InvoiceDownloader;
+import com.finance.plutus.invoice.service.InvoiceFinder;
+import com.finance.plutus.invoice.service.InvoiceService;
+import com.finance.plutus.invoice.service.InvoiceUpdater;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -46,11 +51,6 @@ public class InvoiceServiceImpl implements InvoiceService {
     return invoiceFinder.findAll(PageRequest.of(page, size)).stream()
         .map(InvoiceDto::mapFromEntity)
         .collect(Collectors.toList());
-  }
-
-  @Override
-  public void importFile(String file) {
-    invoiceCreator.create(file);
   }
 
   @Override

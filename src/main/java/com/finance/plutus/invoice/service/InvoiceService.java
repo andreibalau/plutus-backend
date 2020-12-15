@@ -16,8 +16,6 @@ public interface InvoiceService {
 
   List<InvoiceDto> findAll(int page, int size);
 
-  void importFile(String file);
-
   long count();
 
   void delete(UUID id);

@@ -3,7 +3,6 @@ package com.finance.plutus.invoice.controller;
 import com.finance.plutus.app.payload.EntityCreatedResponse;
 import com.finance.plutus.invoice.controller.payload.CreateInvoiceRequest;
 import com.finance.plutus.invoice.controller.payload.FindInvoicesResponse;
-import com.finance.plutus.invoice.controller.payload.ImportFileRequest;
 import com.finance.plutus.invoice.model.InvoiceDto;
 import com.finance.plutus.invoice.service.InvoiceService;
 import lombok.RequiredArgsConstructor;
@@ -12,7 +11,15 @@ import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -108,15 +115,6 @@ public class InvoiceController {
       produces = APPLICATION_VND_PLUTUS_FINANCE_JSON)
   public void markAsDone(@RequestParam List<UUID> ids) {
     invoiceService.markAsDone(ids);
-  }
-
-  @ResponseStatus(CREATED)
-  @PostMapping(
-      value = "/import",
-      consumes = APPLICATION_VND_PLUTUS_FINANCE_JSON,
-      produces = APPLICATION_VND_PLUTUS_FINANCE_JSON)
-  public void importFile(@Valid @RequestBody ImportFileRequest request) {
-    invoiceService.importFile(request.getInvoicesFile());
   }
 
   private ResponseEntity<Resource> prepareDownloadResponse(byte[] content, String filename) {

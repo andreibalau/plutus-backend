@@ -3,9 +3,14 @@ package com.finance.plutus.transaction.service.impl;
 import com.finance.plutus.transaction.model.CreateTransactionDto;
 import com.finance.plutus.transaction.model.TransactionDto;
 import com.finance.plutus.transaction.model.UpdateTransactionDto;
-import com.finance.plutus.transaction.service.*;
+import com.finance.plutus.transaction.service.TransactionCleaner;
+import com.finance.plutus.transaction.service.TransactionCreator;
+import com.finance.plutus.transaction.service.TransactionFinder;
+import com.finance.plutus.transaction.service.TransactionService;
+import com.finance.plutus.transaction.service.TransactionUpdater;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -29,7 +34,9 @@ public class TransactionServiceImpl implements TransactionService {
 
   @Override
   public List<TransactionDto> findAll(int page, int size) {
-    return transactionFinder.findAll(PageRequest.of(page, size)).stream()
+    return transactionFinder
+        .findAll(PageRequest.of(page, size, Sort.by("date", "document")))
+        .stream()
         .map(TransactionDto::mapFromEntity)
         .collect(Collectors.toList());
   }
