@@ -30,7 +30,7 @@
         <insert tableName="serials">
             <column name="id" value="2e978bc3-115d-4226-90a7-24bd24ef5054"/>
             <column name="name" value="MC"/>
-            <column name="current_number" value="0"/>
+            <column name="current_number" value="1"/>
             <column name="next_number" value="1"/>
             <column name="start_number" value="1"/>
             <column name="created_on" value="${now}"/>

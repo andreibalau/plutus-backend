@@ -1,11 +1,11 @@
 package com.finance.plutus.invoice.service.impl;
 
+import com.finance.plutus.invoice.exception.SerialNameAlreadyExistsException;
 import com.finance.plutus.invoice.model.CreateSerialDto;
 import com.finance.plutus.invoice.model.Serial;
 import com.finance.plutus.invoice.repository.SerialRepository;
 import com.finance.plutus.invoice.service.SerialCreator;
 import com.finance.plutus.invoice.service.SerialFinder;
-import com.finance.plutus.invoice.exception.SerialNameAlreadyExistsException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -40,7 +40,7 @@ public class SerialCreatorImpl implements SerialCreator {
     serial.setUpdatedOn(LocalDateTime.now(ZoneOffset.UTC));
     serial.setName(createSerialDto.getName());
     serial.setStartNumber(createSerialDto.getStartNumber());
-    serial.setCurrentNumber(serial.getStartNumber() - 1);
+    serial.setCurrentNumber(serial.getStartNumber());
     serial.setNextNumber(serial.getCurrentNumber());
     return serial;
   }
