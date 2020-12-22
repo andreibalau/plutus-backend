@@ -4,8 +4,8 @@ import com.finance.plutus.bank.model.Bank;
 import com.finance.plutus.bank.service.BankFinder;
 import com.finance.plutus.country.model.Country;
 import com.finance.plutus.country.service.CountryFinder;
-import com.finance.plutus.partner.model.UpdatePartnerDto;
 import com.finance.plutus.partner.model.Partner;
+import com.finance.plutus.partner.model.UpdatePartnerDto;
 import com.finance.plutus.partner.repository.PartnerRepository;
 import com.finance.plutus.partner.service.PartnerFinder;
 import com.finance.plutus.partner.service.PartnerUpdater;
@@ -13,8 +13,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
-import java.time.ZoneOffset;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -42,7 +40,6 @@ public class PartnerUpdaterImpl implements PartnerUpdater {
     Country country = countryFinder.findByCode(updatePartnerDto.getCountryCode());
     partner.setCountry(country);
     partner.setBank(bank);
-    partner.setUpdatedOn(LocalDateTime.now(ZoneOffset.UTC));
     partner.setEmail(updatePartnerDto.getEmail());
     partner.setPhone(updatePartnerDto.getPhone());
     partner.setType(updatePartnerDto.getType());

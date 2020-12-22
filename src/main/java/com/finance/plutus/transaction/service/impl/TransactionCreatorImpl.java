@@ -5,6 +5,7 @@ import com.finance.plutus.partner.model.Partner;
 import com.finance.plutus.partner.service.PartnerFinder;
 import com.finance.plutus.transaction.model.CreateTransactionDto;
 import com.finance.plutus.transaction.model.Transaction;
+import com.finance.plutus.transaction.model.TransactionCurrency;
 import com.finance.plutus.transaction.model.TransactionStatus;
 import com.finance.plutus.transaction.repository.TransactionRepository;
 import com.finance.plutus.transaction.service.TransactionCreator;
@@ -55,6 +56,15 @@ public class TransactionCreatorImpl implements TransactionCreator {
     transaction.setDetails(createTransactionDto.getDetails());
     transaction.setValue(createTransactionDto.getValue());
     transaction.setPartner(partner);
+    if (createTransactionDto.getCurrency() != null
+        && createTransactionDto.getCurrencyValue() != null) {
+      TransactionCurrency transactionCurrency = new TransactionCurrency();
+      transactionCurrency.setCurrency(createTransactionDto.getCurrency());
+      transactionCurrency.setValue(createTransactionDto.getValue());
+      transactionCurrency.setCreatedOn(LocalDateTime.now(ZoneOffset.UTC));
+      transactionCurrency.setUpdatedOn(LocalDateTime.now(ZoneOffset.UTC));
+      transaction.setTransactionCurrency(transactionCurrency);
+    }
     return transaction;
   }
 }

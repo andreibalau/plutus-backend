@@ -25,6 +25,7 @@ public class CsvReaderImpl implements CsvReader {
       MappingIterator<T> readValues = mapper.readerFor(type).with(bootstrapSchema).readValues(data);
       return readValues.readAll();
     } catch (Exception e) {
+      e.printStackTrace();
       return Collections.emptyList();
     }
   }

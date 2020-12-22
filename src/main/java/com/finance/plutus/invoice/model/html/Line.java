@@ -11,10 +11,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 class Line {
+  private String number;
   private String name;
-  private Integer quantity;
+  private String details;
   private String price;
+  private Integer quantity;
   private String total;
-  private String currencyRate;
-  private String currencyAmount;
 }

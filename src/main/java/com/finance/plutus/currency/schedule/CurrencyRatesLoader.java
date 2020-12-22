@@ -1,7 +1,7 @@
 package com.finance.plutus.currency.schedule;
 
-import com.finance.plutus.currency.service.CurrencyRateCreator;
 import com.finance.plutus.currency.model.xsd.DataSet;
+import com.finance.plutus.currency.service.CurrencyRateCreator;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.log4j.Log4j2;

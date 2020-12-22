@@ -1,7 +1,5 @@
 package com.finance.plutus.partner.model;
 
-import com.finance.plutus.partner.model.BusinessType;
-import com.finance.plutus.partner.model.PartnerType;
 import lombok.Getter;
 import lombok.Setter;
 

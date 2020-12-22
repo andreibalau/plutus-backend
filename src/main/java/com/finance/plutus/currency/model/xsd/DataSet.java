@@ -1,7 +1,7 @@
 package com.finance.plutus.currency.model.xsd;
 
-import com.finance.plutus.currency.model.CurrencyRateDto;
 import com.finance.plutus.currency.model.Currency;
+import com.finance.plutus.currency.model.CurrencyRateDto;
 import lombok.Getter;
 import lombok.Setter;
 

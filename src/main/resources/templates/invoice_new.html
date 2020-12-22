@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8"/>
     <title>Invoice</title>
@@ -21,7 +21,7 @@
       clear: both;
     }
 
-    a {
+    .email {
       color: #0087C3;
       text-decoration: none;
     }
@@ -54,6 +54,7 @@
     #company {
       float: right;
       text-align: right;
+      width: 250px;
     }
 
 
@@ -182,99 +183,96 @@
       border: none;
     }
 
-    footer {
+    .footer {
       color: #777777;
       width: 100%;
       height: 30px;
-      position: absolute;
+      position: running(footer);
       bottom: 0;
       border-top: 1px solid #AAAAAA;
       padding: 8px 0;
       text-align: center;
     }
 
+    @page {
+        @bottom-center { content: element(footer); }
+    }
     </style>
 </head>
 <body>
-    <header class="clearfix">
-        <div id="logo">
+<header class="clearfix">
+    <div id="logo">
 
+    </div>
+    <div id="company">
+        <h2 class="name" th:text="${business_name}"></h2>
+        <div th:text="${business_address}"></div>
+        <div th:text="${business_phone}"></div>
+        <div class="email" th:text="${business_email}"></div>
+        <div th:text="${business_vat}"></div>
+        <div th:text="${business_commercial_registry}"></div>
+        <div th:text="${business_bank}"></div>
+        <div th:text="${business_bank_account}"></div>
+    </div>
+</header>
+<main>
+    <div id="details" class="clearfix">
+        <div id="client">
+            <div class="to">Client</div>
+            <h2 class="name" th:text="${client_name}"></h2>
+            <div class="address" th:text="${client_address}"></div>
+            <div class="email" th:text="${client_email}"></div>
         </div>
-        <div id="company">
-            <h2 class="name">Company Name</h2>
-            <div>455 Foggy Heights, AZ 85004, US</div>
-            <div>(602) 519-0450</div>
-            <div><a href="mailto:company@example.com">company@example.com</a></div>
+        <div id="invoice">
+            <h1 th:text="${invoice_name}"></h1>
+            <div class="date" th:text="${invoice_date}"></div>
+            <div class="date" th:text="${invoice_due_date}"></div>
         </div>
-    </header>
-    <main>
-        <div id="details" class="clearfix">
-            <div id="client">
-                <div class="to">Client</div>
-                <h2 class="name">John Doe</h2>
-                <div class="address">796 Silver Harbour, TX 79273, US</div>
-                <div class="email"><a href="mailto:john@example.com">john@example.com</a></div>
-            </div>
-            <div id="invoice">
-                <h1>Factura MC0001</h1>
-                <div class="date">Data: 01/06/2014</div>
-                <div class="date">Data scadenta: 30/06/2014</div>
-            </div>
-        </div>
-        <table border="0" cellspacing="0" cellpadding="0">
-            <thead>
-            <tr>
-                <th class="no">#</th>
-                <th class="desc">DESCRIERE</th>
-                <th class="unit">PRET UNITAR</th>
-                <th class="qty">CANTITATE</th>
-                <th class="total">TOTAL</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td class="no">01</td>
-                <td class="desc"><h3>Website Design</h3>Creating a recognizable design solution based on the company's existing visual identity</td>
-                <td class="unit">$40.00</td>
-                <td class="qty">30</td>
-                <td class="total">$1,200.00</td>
-            </tr>
-            <tr>
-                <td class="no">02</td>
-                <td class="desc"><h3>Website Development</h3>Developing a Content Management System-based Website</td>
-                <td class="unit">$40.00</td>
-                <td class="qty">80</td>
-                <td class="total">$3,200.00</td>
-            </tr>
-            <tr>
-                <td class="no">03</td>
-                <td class="desc"><h3>Search Engines Optimization</h3>Optimize the site for search engines (SEO)</td>
-                <td class="unit">$40.00</td>
-                <td class="qty">20</td>
-                <td class="total">$800.00</td>
-            </tr>
-            </tbody>
-            <tfoot>
-            <tr>
-                <td colspan="2"></td>
-                <td colspan="2">SUBTOTAL</td>
-                <td>5,200.00 RON</td>
-            </tr>
-            <tr>
-                <td colspan="2"></td>
-                <td colspan="2">TAXE 0%</td>
-                <td>0 RON</td>
-            </tr>
-            <tr>
-                <td colspan="2"></td>
-                <td colspan="2">TOTAL</td>
-                <td>6,500.00 RON</td>
-            </tr>
-            </tfoot>
-        </table>
-    </main>
-    <footer>
-        Factura circula fara semnatura si stampila cf. art.V, alin (2) din Ordonanta nr.17/2015 si art. 319 alin (29) din Legea nr. 227/2015 privind Codul fiscal.
-    </footer>
+    </div>
+    <table border="0" cellspacing="0" cellpadding="0">
+        <thead>
+        <tr>
+            <th class="no">#</th>
+            <th class="desc">DESCRIERE</th>
+            <th class="unit">PRET UNITAR</th>
+            <th class="qty">CANTITATE</th>
+            <th class="total">TOTAL</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="line: ${invoice_lines}">
+            <td class="no" th:text="${line.number}"></td>
+            <td class="desc">
+                <h3 th:text="${line.name}"></h3>
+                <span th:text="${line.details}"></span>
+            </td>
+            <td class="unit" th:text="${line.price}"></td>
+            <td class="qty" th:text="${line.quantity}"></td>
+            <td class="total" th:text="${line.total}"></td>
+        </tr>
+        </tbody>
+        <tfoot>
+        <tr>
+            <td colspan="2"></td>
+            <td colspan="2">SUBTOTAL</td>
+            <td th:text="${invoice_subtotal}"></td>
+        </tr>
+        <tr>
+            <td colspan="2"></td>
+            <td colspan="2">TAXE 0%</td>
+            <td>0 RON</td>
+        </tr>
+        <tr>
+            <td colspan="2"></td>
+            <td colspan="2">TOTAL</td>
+            <td th:text="${invoice_total}"></td>
+        </tr>
+        </tfoot>
+    </table>
+</main>
+<div class="footer">
+Factura circula fara semnatura si stampila cf. art.V, alin (2) din Ordonanta nr.17/2015
+si art. 319 alin (29) <br/> din Legea nr. 227/2015 privind Codul fiscal.
+</div>
 </body>
 </html>

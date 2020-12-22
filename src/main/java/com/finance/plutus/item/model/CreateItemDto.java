@@ -1,6 +1,5 @@
 package com.finance.plutus.item.model;
 
-import com.finance.plutus.item.model.ItemType;
 import lombok.Getter;
 import lombok.Setter;
 

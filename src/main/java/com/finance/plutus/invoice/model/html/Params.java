@@ -1,9 +1,6 @@
 package com.finance.plutus.invoice.model.html;
 
-import com.finance.plutus.bank.model.Bank;
-import com.finance.plutus.country.model.Country;
 import com.finance.plutus.invoice.model.Invoice;
-import com.finance.plutus.invoice.model.InvoiceCurrency;
 import com.finance.plutus.invoice.model.InvoiceLine;
 import com.finance.plutus.partner.model.Partner;
 import com.finance.plutus.user.model.Business;
@@ -11,6 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,31 +20,24 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Params {
+
   private String name;
   private String date;
   private String dueDate;
   private String businessName;
   private String vat;
-  private String vatInVies;
   private String commercialRegistry;
   private String address;
   private String email;
   private String phone;
-  private String website;
   private String bankName;
   private String bankAccount;
   private String clientName;
-  private String clientVat;
-  private String clientCommercialRegistry;
   private String clientAddress;
-  private String clientCountry;
   private String clientEmail;
-  private String clientPhone;
-  private String clientBankName;
-  private String clientBankAccount;
   private List<Line> lines;
   private String total;
-  private boolean hasCurrency;
+  private String subtotal;
 
   public String getName() {
     return name;
@@ -55,81 +46,68 @@ public class Params {
   public static Params set(Invoice invoice, Business business) {
     Partner client = invoice.getClient();
     return Params.builder()
-        .name(invoice.getName())
-        .date(invoice.getDate().toString())
-        .dueDate(invoice.getDueDate().toString())
+        .name(String.format("Factura %s", invoice.getName()))
+        .date(String.format("Data: %s", invoice.getDate().toString()))
+        .dueDate(
+            Optional.ofNullable(invoice.getDueDate())
+                .map(d -> String.format("Data scadenta: %s", d.toString()))
+                .orElse(null))
         .businessName(business.getName())
-        .vat(business.getVat())
-        .vatInVies(business.getVies())
-        .commercialRegistry(business.getCommercialRegistry())
+        .vat(String.format("CUI: %s", business.getVat()))
+        .commercialRegistry(String.format("Reg Com: %s", business.getCommercialRegistry()))
         .address(business.getAddress())
         .email(business.getEmail())
         .phone(business.getPhone())
-        .website(business.getWebsite())
         .bankName(business.getBank().getName())
         .bankAccount(business.getBankAccount())
         .clientName(client.getName())
-        .clientVat(client.getVat())
-        .clientCommercialRegistry(client.getCommercialRegistry())
         .clientAddress(client.getAddress())
-        .clientCountry(Optional.ofNullable(client.getCountry()).map(Country::getName).orElse(null))
         .clientEmail(client.getEmail())
-        .clientPhone(client.getPhone())
-        .clientBankName(Optional.ofNullable(client.getBank()).map(Bank::getName).orElse(null))
-        .clientBankAccount(client.getBankAccount())
-        .total(String.format("%.2f LEI", invoice.getTotal()))
-        .hasCurrency(invoice.getCurrency() != null)
-        .lines(invoice.getLines().stream().map(Params::mapLine).collect(Collectors.toList()))
+        .subtotal(String.format("%.2f RON", invoice.getSubtotal()))
+        .total(String.format("%.2f RON", invoice.getTotal()))
+        .lines(createLines(new ArrayList<>(invoice.getLines())))
         .build();
   }
 
-  private static Line mapLine(InvoiceLine invoiceLine) {
-    InvoiceCurrency invoiceCurrency = invoiceLine.getCurrency();
-    double currencyTotal = 0;
-    double currencyRate = 0;
-    String currencyName = "";
-    if (invoiceCurrency != null) {
-      currencyTotal = invoiceCurrency.getTotal();
-      currencyRate = invoiceCurrency.getRate();
-      currencyName = invoiceCurrency.getValue().name();
-    }
+  private static List<Line> createLines(List<InvoiceLine> lines) {
+    return lines.stream()
+        .map(line -> mapLine(line, lines.indexOf(line) + 1))
+        .collect(Collectors.toList());
+  }
+
+  private static Line mapLine(InvoiceLine invoiceLine, int index) {
     return Line.builder()
+        .number(String.format("0%d", index))
         .name(invoiceLine.getItem().getName())
+        .details(null)
         .quantity(invoiceLine.getQuantity())
-        .price(String.format("%.2f", invoiceLine.getUnitPrice()))
-        .total(String.format("%.2f", invoiceLine.getTotal()))
-        .currencyAmount(String.format("%.2f %s", currencyTotal, currencyName))
-        .currencyRate(String.format("Curs: %.2f", currencyRate))
+        .price(String.format("%.2f RON", invoiceLine.getUnitPrice()))
+        .total(String.format("%.2f RON", invoiceLine.getTotal()))
         .build();
   }
 
   public Map<String, Object> getMap() {
     Map<String, Object> paramsMap = new HashMap<>();
-    paramsMap.put("name", name);
-    paramsMap.put("date", date);
-    paramsMap.put("due_date", dueDate);
+    paramsMap.put("invoice_name", name);
+    paramsMap.put("invoice_date", date);
+    paramsMap.put("invoice_due_date", dueDate);
+    paramsMap.put("invoice_subtotal", subtotal);
+    paramsMap.put("invoice_total", total);
+    paramsMap.put("invoice_lines", lines);
+
     paramsMap.put("business_name", businessName);
-    paramsMap.put("vat", vat);
-    paramsMap.put("vat_in_vies", vatInVies);
-    paramsMap.put("commercial_registry", commercialRegistry);
-    paramsMap.put("address", address);
-    paramsMap.put("email", email);
-    paramsMap.put("phone", phone);
-    paramsMap.put("website", website);
-    paramsMap.put("bank_name", bankName);
-    paramsMap.put("bank_account", bankAccount);
+    paramsMap.put("business_address", address);
+    paramsMap.put("business_phone", phone);
+    paramsMap.put("business_email", email);
+    paramsMap.put("business_vat", vat);
+    paramsMap.put("business_commercial_registry", commercialRegistry);
+    paramsMap.put("business_bank", bankName);
+    paramsMap.put("business_bank_account", bankAccount);
+
     paramsMap.put("client_name", clientName);
-    paramsMap.put("client_vat", clientVat);
-    paramsMap.put("client_commercial_registry", clientCommercialRegistry);
     paramsMap.put("client_address", clientAddress);
-    paramsMap.put("client_country", clientCountry);
     paramsMap.put("client_email", clientEmail);
-    paramsMap.put("client_phone", clientPhone);
-    paramsMap.put("client_bank_name", clientBankName);
-    paramsMap.put("client_bank_account", clientBankAccount);
-    paramsMap.put("lines", lines);
-    paramsMap.put("total", total);
-    paramsMap.put("has_currency", hasCurrency);
+
     return paramsMap;
   }
 }

@@ -97,4 +97,181 @@
         </insert>
     </changeSet>
 
+    <changeSet id="06_insert_clients" author="Catalin Matache">
+        <insert tableName="partners">
+            <column name="id" value="6754d851-dc11-4ad4-8666-7718a2172c25"/>
+            <column name="name" value="Alex T"/>
+            <column name="partner_type" value="CLIENT"/>
+            <column name="business_type" value="INDIVIDUAL"/>
+            <column name="country_id" value="IT"/>
+            <column name="address" value="via Jacopo di Paolo 39 Bologna, 40128, Italy"/>
+            <column name="created_on" value="${now}"/>
+            <column name="updated_on" value="${now}"/>
+        </insert>
+        <insert tableName="partners">
+            <column name="id" value="29ade8a4-71f4-4775-bdf2-8cd247b27e4b"/>
+            <column name="name" value="Alida Corina Iovanut"/>
+            <column name="partner_type" value="CLIENT"/>
+            <column name="business_type" value="INDIVIDUAL"/>
+            <column name="country_id" value="RO"/>
+            <column name="address" value="Bdl Corneliu Coposu, nr. 20, scara A, ap. 9, Timisoara, 300115"/>
+            <column name="created_on" value="${now}"/>
+            <column name="updated_on" value="${now}"/>
+        </insert>
+        <insert tableName="partners">
+            <column name="id" value="ae2a8212-5e8f-48ec-8c6f-fa5574a84951"/>
+            <column name="name" value="BmsWeb Ryan F"/>
+            <column name="partner_type" value="CLIENT"/>
+            <column name="business_type" value="INDIVIDUAL"/>
+            <column name="country_id" value="USA"/>
+            <column name="created_on" value="${now}"/>
+            <column name="updated_on" value="${now}"/>
+        </insert>
+        <insert tableName="partners">
+            <column name="id" value="bb185999-0197-4556-939f-4bd19d51a4d1"/>
+            <column name="name" value="Michal Plocica"/>
+            <column name="partner_type" value="CLIENT"/>
+            <column name="business_type" value="INDIVIDUAL"/>
+            <column name="country_id" value="SW"/>
+            <column name="created_on" value="${now}"/>
+            <column name="updated_on" value="${now}"/>
+        </insert>
+        <insert tableName="partners">
+            <column name="id" value="0e86c2f3-04bc-4cd0-b3a1-bf304459d2a3"/>
+            <column name="name" value="Wassim Hotait"/>
+            <column name="partner_type" value="CLIENT"/>
+            <column name="business_type" value="INDIVIDUAL"/>
+            <column name="country_id" value="DE"/>
+            <column name="address" value="Forckenbeckstrasse 63B, Berlin, 14199"/>
+            <column name="created_on" value="${now}"/>
+            <column name="updated_on" value="${now}"/>
+        </insert>
+        <insert tableName="partners">
+            <column name="id" value="ca14217e-2a2e-4651-8e83-d78cf0c32180"/>
+            <column name="name" value="Zowedo Abhinay Singh"/>
+            <column name="partner_type" value="CLIENT"/>
+            <column name="business_type" value="INDIVIDUAL"/>
+            <column name="country_id" value="SG"/>
+            <column name="created_on" value="${now}"/>
+            <column name="updated_on" value="${now}"/>
+        </insert>
+        <insert tableName="partners">
+            <column name="id" value="d5339f28-539e-4a6a-abd2-16dd20052930"/>
+            <column name="name" value="Upwork"/>
+            <column name="partner_type" value="VENDOR"/>
+            <column name="business_type" value="LEGAL"/>
+            <column name="country_id" value="USA"/>
+            <column name="created_on" value="${now}"/>
+            <column name="updated_on" value="${now}"/>
+        </insert>
+        <insert tableName="partners">
+            <column name="id" value="fc74bf4a-c1e8-4fde-bc6d-e336d5272de7"/>
+            <column name="name" value="BT"/>
+            <column name="partner_type" value="VENDOR"/>
+            <column name="business_type" value="LEGAL"/>
+            <column name="country_id" value="RO"/>
+            <column name="created_on" value="${now}"/>
+            <column name="updated_on" value="${now}"/>
+        </insert>
+        <insert tableName="partners">
+            <column name="id" value="345d9591-d24c-4b75-9b7d-96b742ae9d9d"/>
+            <column name="name" value="Trezoreria Operativa Mizil"/>
+            <column name="partner_type" value="VENDOR"/>
+            <column name="business_type" value="LEGAL"/>
+            <column name="country_id" value="RO"/>
+            <column name="created_on" value="${now}"/>
+            <column name="updated_on" value="${now}"/>
+        </insert>
+        <insert tableName="partners">
+            <column name="id" value="950616b2-d499-465d-92c3-efc2f379ff3d"/>
+            <column name="name" value="S.C. CERTSIGN S.A"/>
+            <column name="partner_type" value="VENDOR"/>
+            <column name="business_type" value="LEGAL"/>
+            <column name="country_id" value="RO"/>
+            <column name="created_on" value="${now}"/>
+            <column name="updated_on" value="${now}"/>
+        </insert>
+        <insert tableName="partners">
+            <column name="id" value="b7a38ee0-ca92-415b-af6d-53b28c44ee7d"/>
+            <column name="name" value="BRONCOM R.B. SRL"/>
+            <column name="partner_type" value="VENDOR"/>
+            <column name="business_type" value="LEGAL"/>
+            <column name="country_id" value="RO"/>
+            <column name="created_on" value="${now}"/>
+            <column name="updated_on" value="${now}"/>
+        </insert>
+        <insert tableName="partners">
+            <column name="id" value="e65da409-ad64-4b23-b90c-cf9d8dfc6793"/>
+            <column name="name" value="eMAG (Dante International S.A.)"/>
+            <column name="partner_type" value="VENDOR"/>
+            <column name="business_type" value="LEGAL"/>
+            <column name="country_id" value="RO"/>
+            <column name="created_on" value="${now}"/>
+            <column name="updated_on" value="${now}"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="07_insert_services" author="Catalin Matache">
+        <insert tableName="items">
+            <column name="id" value="9672d874-f279-445f-99d6-21e2a1546122"/>
+            <column name="name" value="Dezvoltare aplicatie Android"/>
+            <column name="unit_price" value="0"/>
+            <column name="total_price" value="0"/>
+            <column name="item_vat" value="ZERO"/>
+            <column name="item_type" value="SERVICE"/>
+            <column name="created_on" value="${now}"/>
+            <column name="updated_on" value="${now}"/>
+        </insert>
+        <insert tableName="items">
+            <column name="id" value="6836024a-7b0c-4a6c-9354-153f1be28d2f"/>
+            <column name="name" value="Dezvoltare aplicatie completa: Room Service"/>
+            <column name="unit_price" value="0"/>
+            <column name="total_price" value="0"/>
+            <column name="item_vat" value="ZERO"/>
+            <column name="item_type" value="SERVICE"/>
+            <column name="created_on" value="${now}"/>
+            <column name="updated_on" value="${now}"/>
+        </insert>
+        <insert tableName="items">
+            <column name="id" value="7b304a84-b9f8-40a1-b91b-276a6b2d41b7"/>
+            <column name="name" value="Dezvoltare site web"/>
+            <column name="unit_price" value="0"/>
+            <column name="total_price" value="0"/>
+            <column name="item_vat" value="ZERO"/>
+            <column name="item_type" value="SERVICE"/>
+            <column name="created_on" value="${now}"/>
+            <column name="updated_on" value="${now}"/>
+        </insert>
+        <insert tableName="items">
+            <column name="id" value="98078ce8-ac6d-495a-b7c3-58802ec97392"/>
+            <column name="name" value="Implementare feature la cerere"/>
+            <column name="unit_price" value="0"/>
+            <column name="total_price" value="0"/>
+            <column name="item_vat" value="ZERO"/>
+            <column name="item_type" value="SERVICE"/>
+            <column name="created_on" value="${now}"/>
+            <column name="updated_on" value="${now}"/>
+        </insert>
+        <insert tableName="items">
+            <column name="id" value="c0dd25d0-a3ac-4cb8-8b86-90147414500b"/>
+            <column name="name" value="Suport Android Studio"/>
+            <column name="unit_price" value="0"/>
+            <column name="total_price" value="0"/>
+            <column name="item_vat" value="ZERO"/>
+            <column name="item_type" value="SERVICE"/>
+            <column name="created_on" value="${now}"/>
+            <column name="updated_on" value="${now}"/>
+        </insert>
+        <insert tableName="items">
+            <column name="id" value="8ed92ee1-3351-4fe0-98d7-e61e19ff42ea"/>
+            <column name="name" value="Suport implementare"/>
+            <column name="unit_price" value="0"/>
+            <column name="total_price" value="0"/>
+            <column name="item_vat" value="ZERO"/>
+            <column name="item_type" value="SERVICE"/>
+            <column name="created_on" value="${now}"/>
+            <column name="updated_on" value="${now}"/>
+        </insert>
+    </changeSet>
+
 </databaseChangeLog>

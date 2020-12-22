@@ -5,10 +5,20 @@ import com.finance.plutus.transaction.controller.payload.CreateTransactionReques
 import com.finance.plutus.transaction.controller.payload.FindTransactionsResponse;
 import com.finance.plutus.transaction.controller.payload.ImportFileRequest;
 import com.finance.plutus.transaction.controller.payload.UpdateTransactionRequest;
+import com.finance.plutus.transaction.model.FilterTransactionDto;
 import com.finance.plutus.transaction.model.TransactionDto;
 import com.finance.plutus.transaction.service.TransactionService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -50,6 +60,25 @@ public class TransactionController {
   public FindTransactionsResponse findAll(@RequestParam Integer page, @RequestParam Integer size) {
     List<TransactionDto> transactions = transactionService.findAll(page, size);
     long total = transactionService.count();
+    return FindTransactionsResponse.builder()
+        .page(page)
+        .size(size)
+        .total(total)
+        .transactions(transactions)
+        .build();
+  }
+
+  @PostMapping(
+      path = "/filter",
+      consumes = APPLICATION_VND_PLUTUS_FINANCE_JSON,
+      produces = APPLICATION_VND_PLUTUS_FINANCE_JSON,
+      params = {"page", "size"})
+  public FindTransactionsResponse findAllFiltered(
+      @RequestParam Integer page,
+      @RequestParam Integer size,
+      @RequestBody FilterTransactionDto filter) {
+    List<TransactionDto> transactions = transactionService.findAllFiltered(page, size, filter);
+    long total = transactionService.countWithFilter(filter);
     return FindTransactionsResponse.builder()
         .page(page)
         .size(size)

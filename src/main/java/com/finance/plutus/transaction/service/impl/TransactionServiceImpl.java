@@ -1,6 +1,7 @@
 package com.finance.plutus.transaction.service.impl;
 
 import com.finance.plutus.transaction.model.CreateTransactionDto;
+import com.finance.plutus.transaction.model.FilterTransactionDto;
 import com.finance.plutus.transaction.model.TransactionDto;
 import com.finance.plutus.transaction.model.UpdateTransactionDto;
 import com.finance.plutus.transaction.service.TransactionCleaner;
@@ -34,8 +35,15 @@ public class TransactionServiceImpl implements TransactionService {
 
   @Override
   public List<TransactionDto> findAll(int page, int size) {
+    return transactionFinder.findAll(PageRequest.of(page, size, Sort.by("date"))).stream()
+        .map(TransactionDto::mapFromEntity)
+        .collect(Collectors.toList());
+  }
+
+  @Override
+  public List<TransactionDto> findAllFiltered(int page, int size, FilterTransactionDto filter) {
     return transactionFinder
-        .findAll(PageRequest.of(page, size, Sort.by("date", "document")))
+        .findAllFiltered(PageRequest.of(page, size, Sort.by("date")), filter)
         .stream()
         .map(TransactionDto::mapFromEntity)
         .collect(Collectors.toList());
@@ -69,5 +77,10 @@ public class TransactionServiceImpl implements TransactionService {
   @Override
   public long count() {
     return transactionFinder.count();
+  }
+
+  @Override
+  public long countWithFilter(FilterTransactionDto filter) {
+    return transactionFinder.countWithFilter(filter);
   }
 }

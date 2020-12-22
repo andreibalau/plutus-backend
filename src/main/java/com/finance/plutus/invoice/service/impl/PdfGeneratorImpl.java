@@ -1,9 +1,9 @@
 package com.finance.plutus.invoice.service.impl;
 
+import com.finance.plutus.app.util.HtmlUtils;
 import com.finance.plutus.invoice.model.html.Params;
 import com.finance.plutus.invoice.model.html.Template;
 import com.finance.plutus.invoice.service.PdfGenerator;
-import com.finance.plutus.app.util.HtmlUtils;
 import com.lowagie.text.DocumentException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

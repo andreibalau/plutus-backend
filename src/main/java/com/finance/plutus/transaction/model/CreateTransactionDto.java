@@ -1,5 +1,6 @@
 package com.finance.plutus.transaction.model;
 
+import com.finance.plutus.currency.model.Currency;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -19,4 +20,6 @@ public class CreateTransactionDto {
   @NotNull private Double value;
   @NotNull private TransactionType type;
   @NotNull private TransactionMethod method;
+  private Currency currency;
+  private Double currencyValue;
 }

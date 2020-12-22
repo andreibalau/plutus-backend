@@ -1,6 +1,7 @@
 package com.finance.plutus.transaction.service;
 
 import com.finance.plutus.transaction.model.CreateTransactionDto;
+import com.finance.plutus.transaction.model.FilterTransactionDto;
 import com.finance.plutus.transaction.model.TransactionDto;
 import com.finance.plutus.transaction.model.UpdateTransactionDto;
 
@@ -13,6 +14,8 @@ public interface TransactionService {
 
   List<TransactionDto> findAll(int page, int size);
 
+  List<TransactionDto> findAllFiltered(int page, int size, FilterTransactionDto filter);
+
   void update(UUID id, UpdateTransactionDto transaction);
 
   void markAsDone(UUID id);
@@ -24,4 +27,6 @@ public interface TransactionService {
   void delete(UUID id);
 
   long count();
+
+  long countWithFilter(FilterTransactionDto filter);
 }
