@@ -15,6 +15,8 @@ public interface TransactionFinder {
 
   List<Transaction> findAllFiltered(PageRequest page, FilterTransactionDto filter);
 
+  List<Transaction> findAllFiltered(FilterTransactionDto filter);
+
   Transaction findById(UUID id);
 
   long count();

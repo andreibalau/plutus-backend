@@ -39,6 +39,12 @@ public class TransactionFinderImpl implements TransactionFinder {
   }
 
   @Override
+  public List<Transaction> findAllFiltered(FilterTransactionDto filter) {
+    Map<String, Object> params = createFilterParams(filter);
+    return transactionRepository.findAllFiltered(params);
+  }
+
+  @Override
   public Transaction findById(UUID id) {
     return transactionRepository
         .findById(id)
