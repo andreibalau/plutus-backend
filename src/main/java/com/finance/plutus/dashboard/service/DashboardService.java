@@ -14,7 +14,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -58,24 +60,24 @@ public class DashboardService {
             .map(Transaction::getPartner)
             .filter(partner -> partner.getType() == PartnerType.CLIENT)
             .collect(Collectors.toSet());
-    double total = 0;
-    Partner bestPartner = null;
+    Map<Double, Partner> map = new HashMap<>();
     for (Partner client : clients) {
       double clientTotal =
           transactionList.stream()
               .filter(transaction -> transaction.getPartner().equals(client))
               .mapToDouble(Transaction::getValue)
               .sum();
-      if (clientTotal > total) {
-        total = clientTotal;
-        if (total > 0) {
-          bestPartner = client;
-          break;
-        }
+      map.put(clientTotal, client);
+    }
+    double total = 0;
+    for (Map.Entry<Double, Partner> entry : map.entrySet()) {
+      double value = entry.getKey();
+      if (value > total) {
+        total = value;
       }
     }
     return new BestPartnerDto(
-        Optional.ofNullable(bestPartner).map(Partner::getName).orElse(""), total);
+        Optional.ofNullable(map.get(total)).map(Partner::getName).orElse(""), total);
   }
 
   private FilterTransactionDto prepareFilter(TransactionType transactionType) {
