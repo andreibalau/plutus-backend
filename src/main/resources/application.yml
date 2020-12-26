@@ -10,7 +10,7 @@ spring:
     driver-class-name: org.postgresql.Driver
     url: jdbc:postgresql://localhost:5432/plutus
     username: plutus
-    password: pass
+    password: pass123
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     generate-ddl: true
