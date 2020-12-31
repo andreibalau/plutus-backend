@@ -1,10 +1,11 @@
 package com.finance.plutus.transaction.service;
 
 import com.finance.plutus.transaction.model.CreateTransactionDto;
-import com.finance.plutus.transaction.model.FilterTransactionDto;
 import com.finance.plutus.transaction.model.TransactionDto;
+import com.finance.plutus.transaction.model.TransactionType;
 import com.finance.plutus.transaction.model.UpdateTransactionDto;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
@@ -12,9 +13,13 @@ import java.util.UUID;
 public interface TransactionService {
   UUID create(CreateTransactionDto transaction);
 
-  List<TransactionDto> findAll(int page, int size);
-
-  List<TransactionDto> findAllFiltered(int page, int size, FilterTransactionDto filter);
+  List<TransactionDto> findAll(
+      int page,
+      int size,
+      UUID partnerId,
+      TransactionType type,
+      LocalDate startDate,
+      LocalDate endDate);
 
   void update(UUID id, UpdateTransactionDto transaction);
 
@@ -24,9 +29,9 @@ public interface TransactionService {
 
   void importFile(String transactionsFile);
 
+  byte[] exportFile();
+
   void delete(UUID id);
 
-  long count();
-
-  long countWithFilter(FilterTransactionDto filter);
+  long count(UUID partnerId, TransactionType type, LocalDate startDate, LocalDate endDate);
 }

@@ -6,26 +6,16 @@ import com.finance.plutus.invoice.controller.payload.FindInvoicesResponse;
 import com.finance.plutus.invoice.model.InvoiceDto;
 import com.finance.plutus.invoice.service.InvoiceService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
 import java.util.UUID;
 
 import static com.finance.plutus.app.configuration.Api.APPLICATION_VND_PLUTUS_FINANCE_JSON;
+import static com.finance.plutus.app.util.ResponseEntityUtils.prepareDownloadResponse;
 import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.NO_CONTENT;
 
@@ -115,19 +105,5 @@ public class InvoiceController {
       produces = APPLICATION_VND_PLUTUS_FINANCE_JSON)
   public void markAsDone(@RequestParam List<UUID> ids) {
     invoiceService.markAsDone(ids);
-  }
-
-  private ResponseEntity<Resource> prepareDownloadResponse(byte[] content, String filename) {
-    HttpHeaders headers = new HttpHeaders();
-    headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + filename);
-    headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
-    headers.add("Pragma", "no-cache");
-    headers.add("Expires", "0");
-    ByteArrayResource resource = new ByteArrayResource(content);
-    return ResponseEntity.ok()
-        .headers(headers)
-        .contentLength(content.length)
-        .contentType(MediaType.APPLICATION_OCTET_STREAM)
-        .body(resource);
   }
 }
