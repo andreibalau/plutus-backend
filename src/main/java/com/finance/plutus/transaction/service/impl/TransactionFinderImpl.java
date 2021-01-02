@@ -34,6 +34,13 @@ public class TransactionFinderImpl implements TransactionFinder {
   }
 
   @Override
+  public List<Transaction> findAll(
+      UUID partnerId, TransactionType type, LocalDate startDate, LocalDate endDate) {
+    Map<String, Object> params = createFilterParams(partnerId, type, startDate, endDate);
+    return transactionRepository.findAllFiltered(params);
+  }
+
+  @Override
   public List<Transaction> findAllById(Iterable<UUID> ids) {
     return transactionRepository.findAllById(ids);
   }

@@ -48,19 +48,19 @@ public class TransactionUpdaterImpl implements TransactionUpdater {
 
   @Override
   @Transactional
-  public void markAsDone(UUID id) {
+  public void collect(UUID id) {
     Transaction transaction = transactionFinder.findById(id);
-    markAsDone(transaction);
+    collect(transaction);
   }
 
   @Override
   @Transactional
-  public void markAsDone(Iterable<UUID> ids) {
+  public void collect(Iterable<UUID> ids) {
     List<Transaction> transactions = transactionFinder.findAllById(ids);
-    transactions.forEach(this::markAsDone);
+    transactions.forEach(this::collect);
   }
 
-  private void markAsDone(Transaction transaction) {
+  private void collect(Transaction transaction) {
     if (transaction.getStatus() != TransactionStatus.DONE) {
       transaction.setUpdatedOn(LocalDateTime.now(ZoneOffset.UTC));
       transaction.setStatus(TransactionStatus.DONE);

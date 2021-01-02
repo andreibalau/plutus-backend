@@ -6,7 +6,6 @@ import com.finance.plutus.dashboard.model.ExpenseDto;
 import com.finance.plutus.dashboard.model.IncomeDto;
 import com.finance.plutus.partner.model.Partner;
 import com.finance.plutus.partner.model.PartnerType;
-import com.finance.plutus.transaction.model.FilterTransactionDto;
 import com.finance.plutus.transaction.model.Transaction;
 import com.finance.plutus.transaction.model.TransactionType;
 import com.finance.plutus.transaction.service.TransactionFinder;
@@ -37,24 +36,21 @@ public class DashboardService {
   }
 
   private IncomeDto calculateIncomes() {
-    FilterTransactionDto filter = prepareFilter(TransactionType.INCOME);
-    List<Transaction> transactionList = transactionFinder.findAllFiltered(filter);
+    List<Transaction> transactionList = fetchTransactions(TransactionType.INCOME);
     double total = transactionList.stream().mapToDouble(Transaction::getValue).sum();
     long count = transactionList.size();
     return new IncomeDto(total, count);
   }
 
   private ExpenseDto calculateExpenses() {
-    FilterTransactionDto filter = prepareFilter(TransactionType.EXPENSE);
-    List<Transaction> transactionList = transactionFinder.findAllFiltered(filter);
+    List<Transaction> transactionList = fetchTransactions(TransactionType.EXPENSE);
     double total = transactionList.stream().mapToDouble(Transaction::getValue).sum();
     long count = transactionList.size();
     return new ExpenseDto(total, count);
   }
 
   private BestPartnerDto findBestPartner() {
-    FilterTransactionDto filter = prepareFilter(null);
-    List<Transaction> transactionList = transactionFinder.findAllFiltered(filter);
+    List<Transaction> transactionList = fetchTransactions(null);
     Set<Partner> clients =
         transactionList.stream()
             .map(Transaction::getPartner)
@@ -80,12 +76,10 @@ public class DashboardService {
         Optional.ofNullable(map.get(total)).map(Partner::getName).orElse(""), total);
   }
 
-  private FilterTransactionDto prepareFilter(TransactionType transactionType) {
+  private List<Transaction> fetchTransactions(TransactionType transactionType) {
     LocalDate now = LocalDate.now();
-    FilterTransactionDto filter = new FilterTransactionDto();
-    filter.setStartDate(now.withMonth(1).withDayOfMonth(1));
-    filter.setEndDate(now.withMonth(12).withDayOfMonth(31));
-    filter.setType(transactionType);
-    return filter;
+    LocalDate startDate = now.withMonth(1).withDayOfMonth(1);
+    LocalDate endDate = now.withMonth(12).withDayOfMonth(31);
+    return transactionFinder.findAll(null, transactionType, startDate, endDate);
   }
 }

@@ -40,13 +40,6 @@ public class InvoiceServiceImpl implements InvoiceService {
   }
 
   @Override
-  public List<InvoiceDto> findAllById(Iterable<UUID> ids) {
-    return invoiceFinder.findAllById(ids).stream()
-        .map(InvoiceDto::mapFromEntity)
-        .collect(Collectors.toList());
-  }
-
-  @Override
   public List<InvoiceDto> findAll(int page, int size) {
     return invoiceFinder.findAll(PageRequest.of(page, size)).stream()
         .map(InvoiceDto::mapFromEntity)
@@ -64,18 +57,8 @@ public class InvoiceServiceImpl implements InvoiceService {
   }
 
   @Override
-  public void markAsDone(UUID id) {
-    invoiceUpdater.markAsDone(id);
-  }
-
-  @Override
-  public void markAsDone(Iterable<UUID> ids) {
-    invoiceUpdater.markAsDone(ids);
-  }
-
-  @Override
-  public byte[] download(UUID id) {
-    return invoiceDownloader.download(id);
+  public void collect(Iterable<UUID> ids) {
+    invoiceUpdater.collect(ids);
   }
 
   @Override

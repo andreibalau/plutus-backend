@@ -8,7 +8,7 @@ import java.util.UUID;
 public interface TransactionUpdater {
   void update(UUID id, UpdateTransactionDto transaction);
 
-  void markAsDone(UUID id);
+  void collect(UUID id);
 
-  void markAsDone(Iterable<UUID> ids);
+  void collect(Iterable<UUID> ids);
 }

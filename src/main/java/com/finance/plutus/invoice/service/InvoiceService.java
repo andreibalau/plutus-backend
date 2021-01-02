@@ -12,19 +12,13 @@ public interface InvoiceService {
 
   InvoiceDto findById(UUID id);
 
-  List<InvoiceDto> findAllById(Iterable<UUID> ids);
-
   List<InvoiceDto> findAll(int page, int size);
 
   long count();
 
   void delete(UUID id);
 
-  void markAsDone(UUID id);
-
-  void markAsDone(Iterable<UUID> ids);
-
-  byte[] download(UUID id);
+  void collect(Iterable<UUID> ids);
 
   byte[] download(Iterable<UUID> ids);
 }

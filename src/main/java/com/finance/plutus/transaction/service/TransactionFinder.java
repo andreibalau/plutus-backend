@@ -17,6 +17,9 @@ public interface TransactionFinder {
       LocalDate startDate,
       LocalDate endDate);
 
+  List<Transaction> findAll(
+      UUID partnerId, TransactionType type, LocalDate startDate, LocalDate endDate);
+
   List<Transaction> findAllById(Iterable<UUID> ids);
 
   Transaction findById(UUID id);

@@ -23,9 +23,7 @@ public interface TransactionService {
 
   void update(UUID id, UpdateTransactionDto transaction);
 
-  void markAsDone(UUID id);
-
-  void markAsDone(Iterable<UUID> ids);
+  void collect(Iterable<UUID> ids);
 
   void importFile(String transactionsFile);
 

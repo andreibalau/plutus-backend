@@ -29,19 +29,12 @@ public class InvoiceUpdaterImpl implements InvoiceUpdater {
 
   @Override
   @Transactional
-  public void markAsDone(UUID id) {
-    Invoice invoice = invoiceFinder.findById(id);
-    markAsDone(invoice);
-  }
-
-  @Override
-  @Transactional
-  public void markAsDone(Iterable<UUID> ids) {
+  public void collect(Iterable<UUID> ids) {
     List<Invoice> invoices = invoiceFinder.findAllById(ids);
-    invoices.forEach(this::markAsDone);
+    invoices.forEach(this::collectInvoice);
   }
 
-  private void markAsDone(Invoice invoice) {
+  private void collectInvoice(Invoice invoice) {
     if (invoice.getStatus() != InvoiceStatus.DONE) {
       invoice.setStatus(InvoiceStatus.DONE);
       invoice.setUpdatedOn(LocalDateTime.now(ZoneOffset.UTC));

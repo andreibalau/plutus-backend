@@ -8,7 +8,15 @@ import com.finance.plutus.invoice.service.InvoiceService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.Resource;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -64,24 +72,6 @@ public class InvoiceController {
         .build();
   }
 
-  @GetMapping(
-      value = "/pdf/{id}",
-      consumes = APPLICATION_VND_PLUTUS_FINANCE_JSON,
-      produces = APPLICATION_VND_PLUTUS_FINANCE_JSON)
-  public ResponseEntity<Resource> download(@PathVariable UUID id) {
-    byte[] pdf = invoiceService.download(id);
-    return prepareDownloadResponse(pdf, "invoice.pdf");
-  }
-
-  @GetMapping(
-      value = "/pdf",
-      consumes = APPLICATION_VND_PLUTUS_FINANCE_JSON,
-      produces = APPLICATION_VND_PLUTUS_FINANCE_JSON)
-  public ResponseEntity<Resource> download(@RequestParam List<UUID> ids) {
-    byte[] zip = invoiceService.download(ids);
-    return prepareDownloadResponse(zip, "archive.zip");
-  }
-
   @ResponseStatus(NO_CONTENT)
   @DeleteMapping(
       value = "/{id}",
@@ -92,18 +82,19 @@ public class InvoiceController {
   }
 
   @PostMapping(
-      value = "/done/{id}",
+      value = "/cashing",
       consumes = APPLICATION_VND_PLUTUS_FINANCE_JSON,
       produces = APPLICATION_VND_PLUTUS_FINANCE_JSON)
-  public void markAsDone(@PathVariable UUID id) {
-    invoiceService.markAsDone(id);
+  public void collect(@RequestParam List<UUID> ids) {
+    invoiceService.collect(ids);
   }
 
-  @PostMapping(
-      value = "/done",
+  @GetMapping(
+      value = "/pdf",
       consumes = APPLICATION_VND_PLUTUS_FINANCE_JSON,
       produces = APPLICATION_VND_PLUTUS_FINANCE_JSON)
-  public void markAsDone(@RequestParam List<UUID> ids) {
-    invoiceService.markAsDone(ids);
+  public ResponseEntity<Resource> download(@RequestParam List<UUID> ids) {
+    byte[] zip = invoiceService.download(ids);
+    return prepareDownloadResponse(zip, "archive.zip");
   }
 }

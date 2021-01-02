@@ -80,24 +80,16 @@ public class TransactionController {
   }
 
   @PostMapping(
-      value = "/done/{id}",
+      value = "/cashing",
       consumes = APPLICATION_VND_PLUTUS_FINANCE_JSON,
       produces = APPLICATION_VND_PLUTUS_FINANCE_JSON)
-  public void markAsDone(@PathVariable UUID id) {
-    transactionService.markAsDone(id);
-  }
-
-  @PostMapping(
-      value = "/done",
-      consumes = APPLICATION_VND_PLUTUS_FINANCE_JSON,
-      produces = APPLICATION_VND_PLUTUS_FINANCE_JSON)
-  public void markAsDone(@RequestParam List<UUID> ids) {
-    transactionService.markAsDone(ids);
+  public void collect(@RequestParam List<UUID> ids) {
+    transactionService.collect(ids);
   }
 
   @ResponseStatus(CREATED)
   @PostMapping(
-      value = "/import",
+      value = "/file",
       consumes = APPLICATION_VND_PLUTUS_FINANCE_JSON,
       produces = APPLICATION_VND_PLUTUS_FINANCE_JSON)
   public void importFile(@Valid @RequestBody ImportFileRequest request) {
@@ -105,7 +97,7 @@ public class TransactionController {
   }
 
   @GetMapping(
-      value = "/export",
+      value = "/file",
       consumes = APPLICATION_VND_PLUTUS_FINANCE_JSON,
       produces = APPLICATION_VND_PLUTUS_FINANCE_JSON)
   public ResponseEntity<Resource> exportFile() {

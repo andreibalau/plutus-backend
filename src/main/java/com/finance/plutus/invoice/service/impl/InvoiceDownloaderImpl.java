@@ -1,7 +1,6 @@
 package com.finance.plutus.invoice.service.impl;
 
 import com.finance.plutus.app.configuration.Api;
-import com.finance.plutus.invoice.model.Invoice;
 import com.finance.plutus.invoice.model.html.Params;
 import com.finance.plutus.invoice.model.html.Template;
 import com.finance.plutus.invoice.service.InvoiceDownloader;
@@ -24,15 +23,6 @@ public class InvoiceDownloaderImpl implements InvoiceDownloader {
   private final UserFinder userFinder;
   private final PdfGenerator pdfGenerator;
   private final InvoiceFinder invoiceFinder;
-
-  @Override
-  public byte[] download(UUID id) {
-    Invoice invoice = invoiceFinder.findById(id);
-    Business business = userFinder.getBusiness(Api.USER_EMAIL);
-    return pdfGenerator
-        .generateSingle(Template.INVOICE, Params.set(invoice, business))
-        .orElseThrow();
-  }
 
   @Override
   public byte[] download(Iterable<UUID> ids) {

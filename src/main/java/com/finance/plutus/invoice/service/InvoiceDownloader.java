@@ -4,7 +4,5 @@ import java.util.UUID;
 
 /** Plutus Created by Catalin on 11/1/2020 */
 public interface InvoiceDownloader {
-  byte[] download(UUID id);
-
   byte[] download(Iterable<UUID> ids);
 }
