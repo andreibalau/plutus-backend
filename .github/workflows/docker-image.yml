@@ -47,7 +47,7 @@ jobs:
         context: .
         push: true
         file: ./Dockerfile
-        platforms: linux/amd64,linux/arm64,linux/386,linux/arm/v7
+        platforms: linux/arm64
         tags: icatalin201/plutus-backend:v.0.0.1
 #           build-args: |
 #             arg1=value1
