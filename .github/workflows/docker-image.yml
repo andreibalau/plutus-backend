@@ -17,6 +17,21 @@ jobs:
     - name: Check out the repo
       uses: actions/checkout@v2
     
+    - name: Set up JDK
+      uses: actions/setup-java@v1
+      with:
+        java-version: 11
+
+    - name: Cache Maven packages
+      uses: actions/cache@v2
+      with:
+        path: ~/.m2
+        key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+        restore-keys: ${{ runner.os }}-m2
+
+    - name: Create the artefact
+      run: mvn clean install
+    
     - name: Set up QEMU
       uses: docker/setup-qemu-action@v1
     
