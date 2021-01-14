@@ -44,7 +44,6 @@ public class TransactionServiceImpl implements TransactionService {
     return transactionFinder
         .findAll(PageRequest.of(page, size), partnerId, type, startDate, endDate)
         .stream()
-        .sorted((t1, t2) -> t2.getDate().compareTo(t1.getDate()))
         .map(TransactionDto::mapFromEntity)
         .collect(Collectors.toList());
   }

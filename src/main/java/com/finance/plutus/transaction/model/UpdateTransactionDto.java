@@ -1,5 +1,7 @@
 package com.finance.plutus.transaction.model;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.finance.plutus.app.util.DateDeserializer;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,7 +14,10 @@ import java.util.UUID;
 @Getter
 @Setter
 public class UpdateTransactionDto {
-  @NotNull private LocalDate date;
+  @JsonDeserialize(using = DateDeserializer.class)
+  @NotNull
+  private LocalDate date;
+
   @NotBlank private String document;
   @NotBlank private String details;
   @NotNull private UUID partnerId;

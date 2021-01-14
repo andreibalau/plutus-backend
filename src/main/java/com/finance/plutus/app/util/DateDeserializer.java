@@ -12,7 +12,7 @@ import java.time.format.DateTimeFormatter;
 /** Plutus Created by Catalin on 12/22/2020 */
 public class DateDeserializer extends StdDeserializer<LocalDate> {
 
-  private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+  private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
   public DateDeserializer() {
     super(LocalDate.class);

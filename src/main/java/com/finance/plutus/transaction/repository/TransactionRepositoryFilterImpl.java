@@ -49,6 +49,7 @@ class TransactionRepositoryFilterImpl implements TransactionRepositoryFilter {
     StringBuilder queryBuilder = new StringBuilder();
     queryBuilder.append("SELECT t FROM Transaction t");
     prepareAndAppendQuery(params, queryBuilder);
+    queryBuilder.append(" ORDER BY date DESC");
     TypedQuery<Transaction> jpaQuery =
         entityManager.createQuery(queryBuilder.toString(), Transaction.class);
     for (String key : params.keySet()) {
