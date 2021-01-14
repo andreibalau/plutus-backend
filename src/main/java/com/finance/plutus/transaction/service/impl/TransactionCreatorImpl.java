@@ -55,6 +55,7 @@ public class TransactionCreatorImpl implements TransactionCreator {
     transaction.setDocument(createTransactionDto.getDocument());
     transaction.setDetails(createTransactionDto.getDetails());
     transaction.setValue(createTransactionDto.getValue());
+    transaction.setDeductible(createTransactionDto.getDeductible());
     transaction.setPartner(partner);
     if (createTransactionDto.getCurrency() != null
         && createTransactionDto.getCurrencyValue() != null) {

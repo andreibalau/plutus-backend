@@ -19,4 +19,5 @@ public class UpdateTransactionDto {
   @NotNull private Double value;
   @NotNull private TransactionType type;
   @NotNull private TransactionMethod method;
+  @NotNull private Boolean deductible;
 }

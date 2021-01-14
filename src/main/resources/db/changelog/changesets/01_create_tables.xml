@@ -381,6 +381,9 @@
             <column name="value" type="DOUBLE">
                 <constraints nullable="false"/>
             </column>
+            <column name="deductible" type="BOOL">
+                <constraints nullable="false"/>
+            </column>
             <column name="transaction_type" type="VARCHAR(100)">
                 <constraints nullable="false"/>
             </column>

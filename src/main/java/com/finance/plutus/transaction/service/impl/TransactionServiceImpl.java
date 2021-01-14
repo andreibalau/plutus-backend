@@ -11,7 +11,6 @@ import com.finance.plutus.transaction.service.TransactionService;
 import com.finance.plutus.transaction.service.TransactionUpdater;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -43,8 +42,9 @@ public class TransactionServiceImpl implements TransactionService {
       LocalDate startDate,
       LocalDate endDate) {
     return transactionFinder
-        .findAll(PageRequest.of(page, size, Sort.by("date")), partnerId, type, startDate, endDate)
+        .findAll(PageRequest.of(page, size), partnerId, type, startDate, endDate)
         .stream()
+        .sorted((t1, t2) -> t2.getDate().compareTo(t1.getDate()))
         .map(TransactionDto::mapFromEntity)
         .collect(Collectors.toList());
   }

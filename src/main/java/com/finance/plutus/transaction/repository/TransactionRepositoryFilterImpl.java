@@ -36,64 +36,41 @@ class TransactionRepositoryFilterImpl implements TransactionRepositoryFilter {
 
   private TypedQuery<Long> count(Map<String, Object> params) {
     StringBuilder queryBuilder = new StringBuilder();
-    List<String> whereClause = new ArrayList<>();
-
     queryBuilder.append("SELECT COUNT(*) FROM Transaction t");
-
-    if (params.containsKey("partnerId")) {
-      whereClause.add("t.partner.id = :partnerId");
-    }
-
-    if (params.containsKey("type")) {
-      whereClause.add("t.type = :type");
-    }
-
-    if (params.containsKey("startDate")) {
-      whereClause.add("t.date >= :startDate");
-    }
-
-    if (params.containsKey("endDate")) {
-      whereClause.add("t.date <= :endDate");
-    }
-
-    if (whereClause.size() > 0) {
-      queryBuilder.append(SPACE_DELIMITER);
-      queryBuilder.append("WHERE");
-      queryBuilder.append(SPACE_DELIMITER);
-      String delimiter = SPACE_DELIMITER + "AND" + SPACE_DELIMITER;
-      queryBuilder.append(String.join(delimiter, whereClause));
-    }
-
+    prepareAndAppendQuery(params, queryBuilder);
     TypedQuery<Long> jpaQuery = entityManager.createQuery(queryBuilder.toString(), Long.class);
     for (String key : params.keySet()) {
       jpaQuery.setParameter(key, params.get(key));
     }
-
     return jpaQuery;
   }
 
   private TypedQuery<Transaction> find(Map<String, Object> params) {
     StringBuilder queryBuilder = new StringBuilder();
-    List<String> whereClause = new ArrayList<>();
-
     queryBuilder.append("SELECT t FROM Transaction t");
+    prepareAndAppendQuery(params, queryBuilder);
+    TypedQuery<Transaction> jpaQuery =
+        entityManager.createQuery(queryBuilder.toString(), Transaction.class);
+    for (String key : params.keySet()) {
+      jpaQuery.setParameter(key, params.get(key));
+    }
+    return jpaQuery;
+  }
 
+  private void prepareAndAppendQuery(Map<String, Object> params, StringBuilder queryBuilder) {
+    List<String> whereClause = new ArrayList<>();
     if (params.containsKey("partnerId")) {
       whereClause.add("t.partner.id = :partnerId");
     }
-
     if (params.containsKey("type")) {
       whereClause.add("t.type = :type");
     }
-
     if (params.containsKey("startDate")) {
       whereClause.add("t.date >= :startDate");
     }
-
     if (params.containsKey("endDate")) {
       whereClause.add("t.date <= :endDate");
     }
-
     if (whereClause.size() > 0) {
       queryBuilder.append(SPACE_DELIMITER);
       queryBuilder.append("WHERE");
@@ -101,13 +78,5 @@ class TransactionRepositoryFilterImpl implements TransactionRepositoryFilter {
       String delimiter = SPACE_DELIMITER + "AND" + SPACE_DELIMITER;
       queryBuilder.append(String.join(delimiter, whereClause));
     }
-
-    TypedQuery<Transaction> jpaQuery =
-        entityManager.createQuery(queryBuilder.toString(), Transaction.class);
-    for (String key : params.keySet()) {
-      jpaQuery.setParameter(key, params.get(key));
-    }
-
-    return jpaQuery;
   }
 }

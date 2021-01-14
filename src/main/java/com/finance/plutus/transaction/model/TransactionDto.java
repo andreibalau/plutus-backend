@@ -23,6 +23,7 @@ public class TransactionDto {
   private LocalDateTime createdOn;
   private LocalDateTime updatedOn;
   private TransactionStatus status;
+  private Boolean deductible;
 
   public static TransactionDto mapFromEntity(Transaction transaction) {
     TransactionDto transactionDto = new TransactionDto();
@@ -36,6 +37,7 @@ public class TransactionDto {
     transactionDto.setCreatedOn(transaction.getCreatedOn());
     transactionDto.setUpdatedOn(transaction.getUpdatedOn());
     transactionDto.setValue(transaction.getValue());
+    transactionDto.setDeductible(transaction.getDeductible());
     transactionDto.setStatus(transaction.getStatus());
     return transactionDto;
   }

@@ -20,6 +20,7 @@ public class CreateTransactionDto {
   @NotNull private Double value;
   @NotNull private TransactionType type;
   @NotNull private TransactionMethod method;
+  @NotNull private Boolean deductible;
   private Currency currency;
   private Double currencyValue;
 }

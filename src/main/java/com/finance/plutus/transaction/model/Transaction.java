@@ -47,6 +47,10 @@ public class Transaction {
   private Double value;
 
   @NotNull
+  @Column(name = "deductible", nullable = false)
+  private Boolean deductible;
+
+  @NotNull
   @ManyToOne
   @JoinColumn(name = "partner_id", nullable = false)
   private Partner partner;
