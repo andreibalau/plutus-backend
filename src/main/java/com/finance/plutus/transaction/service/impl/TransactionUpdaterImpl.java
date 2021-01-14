@@ -42,6 +42,7 @@ public class TransactionUpdaterImpl implements TransactionUpdater {
     transaction.setDocument(updateTransactionDto.getDocument());
     transaction.setDetails(updateTransactionDto.getDetails());
     transaction.setValue(updateTransactionDto.getValue());
+    transaction.setDeductible(updateTransactionDto.getDeductible());
     transaction.setPartner(partner);
     transactionRepository.save(transaction);
   }
