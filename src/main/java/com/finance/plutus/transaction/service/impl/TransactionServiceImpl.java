@@ -6,6 +6,7 @@ import com.finance.plutus.transaction.model.TransactionType;
 import com.finance.plutus.transaction.model.UpdateTransactionDto;
 import com.finance.plutus.transaction.service.TransactionCleaner;
 import com.finance.plutus.transaction.service.TransactionCreator;
+import com.finance.plutus.transaction.service.TransactionDownloader;
 import com.finance.plutus.transaction.service.TransactionFinder;
 import com.finance.plutus.transaction.service.TransactionService;
 import com.finance.plutus.transaction.service.TransactionUpdater;
@@ -27,6 +28,7 @@ public class TransactionServiceImpl implements TransactionService {
   private final TransactionCleaner transactionCleaner;
   private final TransactionUpdater transactionUpdater;
   private final TransactionCreator transactionCreator;
+  private final TransactionDownloader transactionDownloader;
 
   @Override
   public UUID create(CreateTransactionDto transaction) {
@@ -64,8 +66,8 @@ public class TransactionServiceImpl implements TransactionService {
   }
 
   @Override
-  public byte[] exportFile() {
-    return new byte[0];
+  public byte[] prepareReport() {
+    return transactionDownloader.download();
   }
 
   @Override

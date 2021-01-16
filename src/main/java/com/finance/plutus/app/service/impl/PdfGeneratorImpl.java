@@ -1,9 +1,9 @@
-package com.finance.plutus.invoice.service.impl;
+package com.finance.plutus.app.service.impl;
 
+import com.finance.plutus.app.service.Params;
+import com.finance.plutus.app.service.PdfGenerator;
+import com.finance.plutus.app.service.Template;
 import com.finance.plutus.app.util.HtmlUtils;
-import com.finance.plutus.invoice.model.html.Params;
-import com.finance.plutus.invoice.model.html.Template;
-import com.finance.plutus.invoice.service.PdfGenerator;
 import com.lowagie.text.DocumentException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -24,9 +24,9 @@ import java.util.zip.ZipOutputStream;
 public class PdfGeneratorImpl implements PdfGenerator {
 
   @Override
-  public Optional<byte[]> generateSingle(Template template, Params params) {
+  public Optional<byte[]> generateSingle(Template template, Params<?> params) {
     try {
-      byte[] pdfByteArray = createPdf(template, params);
+      byte[] pdfByteArray = createPdf(template, params.getMap());
       return Optional.of(pdfByteArray);
     } catch (DocumentException | IOException e) {
       e.printStackTrace();
@@ -35,12 +35,12 @@ public class PdfGeneratorImpl implements PdfGenerator {
   }
 
   @Override
-  public Optional<byte[]> generateMultiple(Template template, List<Params> paramsList) {
+  public Optional<byte[]> generateMultiple(Template template, List<Params<?>> paramsList) {
     Map<String, byte[]> pdfMap = new HashMap<>();
     paramsList.forEach(
         params -> {
           try {
-            byte[] pdfByteArray = createPdf(template, params);
+            byte[] pdfByteArray = createPdf(template, params.getMap());
             pdfMap.put(params.getName(), pdfByteArray);
           } catch (DocumentException | IOException e) {
             e.printStackTrace();
@@ -69,7 +69,8 @@ public class PdfGeneratorImpl implements PdfGenerator {
     return byteArrayOutputStream.toByteArray();
   }
 
-  private byte[] createPdf(Template template, Params params) throws DocumentException, IOException {
+  private byte[] createPdf(Template template, Map<String, Object> params)
+      throws DocumentException, IOException {
     String html = HtmlUtils.parseTemplate(template, params);
     ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
     ITextRenderer renderer = new ITextRenderer();

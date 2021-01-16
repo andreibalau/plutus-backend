@@ -46,6 +46,11 @@ public class TransactionFinderImpl implements TransactionFinder {
   }
 
   @Override
+  public List<Transaction> findAll() {
+    return transactionRepository.findAll();
+  }
+
+  @Override
   public Transaction findById(UUID id) {
     return transactionRepository
         .findById(id)

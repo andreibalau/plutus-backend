@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8"/>
+    <title th:text="${name}">Registru incasari si plati</title>
+    <style>
+        div.content {
+            page-break-after: auto;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+<div class="content" th:each="report : ${reports}">
+    <h1 th:text="${report.year}"></h1>
+
+    <table border="1" cellspacing="0" cellpadding="3">
+        <colgroup>
+            <col span="1" style="width: 5%;"/>
+            <col span="1" style="width: 15%;"/>
+            <col span="1" style="width: 20%;"/>
+            <col span="1" style="width: 20%;"/>
+            <col span="1" style="width: 20%;"/>
+            <col span="1" style="width: 10%;"/>
+            <col span="1" style="width: 10%;"/>
+        </colgroup>
+        <thead>
+            <tr>
+                <th>NR.</th>
+                <th>DATA</th>
+                <th>DOCUMENT</th>
+                <th>PARTENER</th>
+                <th>EXPLICATII</th>
+                <th>INCASARE (BANCA)</th>
+                <th>PLATA (BANCA)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="transaction: ${report.transactions}">
+                <td th:text="${transaction.number}"></td>
+                <td th:text="${transaction.date}"></td>
+                <td th:text="${transaction.document}"></td>
+                <td th:text="${transaction.partner}"></td>
+                <td th:text="${transaction.details}"></td>
+                <td th:text="${transaction.income}"></td>
+                <td th:text="${transaction.expense}"></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

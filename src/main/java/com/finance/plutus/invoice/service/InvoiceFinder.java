@@ -14,5 +14,7 @@ public interface InvoiceFinder {
 
   List<Invoice> findAll(PageRequest page);
 
+  List<Invoice> findAll();
+
   long count();
 }

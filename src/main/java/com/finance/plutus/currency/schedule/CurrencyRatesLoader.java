@@ -33,7 +33,8 @@ public class CurrencyRatesLoader {
   private static final String BNR_URL = "https://www.bnr.ro/nbrfxrates.xml";
   private static final String[] BNR_HISTORY_URLS = {
     "https://www.bnr.ro/files/xml/years/nbrfxrates2019.xml",
-    "https://www.bnr.ro/files/xml/years/nbrfxrates2020.xml"
+    "https://www.bnr.ro/files/xml/years/nbrfxrates2020.xml",
+    "https://www.bnr.ro/files/xml/years/nbrfxrates2021.xml"
   };
 
   private final CurrencyRateCreator currencyRateCreator;

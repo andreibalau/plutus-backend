@@ -65,4 +65,9 @@ public class InvoiceServiceImpl implements InvoiceService {
   public byte[] download(Iterable<UUID> ids) {
     return invoiceDownloader.download(ids);
   }
+
+  @Override
+  public byte[] downloadArchive() {
+    return invoiceDownloader.downloadAll();
+  }
 }

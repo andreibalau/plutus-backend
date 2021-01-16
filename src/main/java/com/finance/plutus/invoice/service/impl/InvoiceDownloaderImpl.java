@@ -1,11 +1,13 @@
 package com.finance.plutus.invoice.service.impl;
 
 import com.finance.plutus.app.configuration.Api;
-import com.finance.plutus.invoice.model.html.Params;
-import com.finance.plutus.invoice.model.html.Template;
+import com.finance.plutus.app.service.Params;
+import com.finance.plutus.app.service.PdfGenerator;
+import com.finance.plutus.app.service.Template;
+import com.finance.plutus.invoice.model.Invoice;
+import com.finance.plutus.invoice.model.html.InvoiceParams;
 import com.finance.plutus.invoice.service.InvoiceDownloader;
 import com.finance.plutus.invoice.service.InvoiceFinder;
-import com.finance.plutus.invoice.service.PdfGenerator;
 import com.finance.plutus.user.model.Business;
 import com.finance.plutus.user.service.UserFinder;
 import lombok.RequiredArgsConstructor;
@@ -27,10 +29,27 @@ public class InvoiceDownloaderImpl implements InvoiceDownloader {
   @Override
   public byte[] download(Iterable<UUID> ids) {
     Business business = userFinder.getBusiness(Api.USER_EMAIL);
-    List<Params> paramsList =
+    List<Params<?>> params =
         invoiceFinder.findAllById(ids).stream()
-            .map(invoice -> Params.set(invoice, business))
+            .map(invoice -> prepareParams(invoice, business))
             .collect(Collectors.toList());
-    return pdfGenerator.generateMultiple(Template.INVOICE, paramsList).orElseThrow();
+    return pdfGenerator.generateMultiple(Template.INVOICE, params).orElseThrow();
+  }
+
+  @Override
+  public byte[] downloadAll() {
+    Business business = userFinder.getBusiness(Api.USER_EMAIL);
+    List<Params<?>> params =
+            invoiceFinder.findAll().stream()
+                    .map(invoice -> prepareParams(invoice, business))
+                    .collect(Collectors.toList());
+    return pdfGenerator.generateMultiple(Template.INVOICE, params).orElseThrow();
+  }
+
+  private Params<Invoice> prepareParams(Invoice invoice, Business business) {
+    InvoiceParams params = new InvoiceParams();
+    params.submit(invoice);
+    params.submitBusiness(business);
+    return params;
   }
 }

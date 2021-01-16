@@ -27,7 +27,7 @@ public interface TransactionService {
 
   void importFile(String transactionsFile);
 
-  byte[] exportFile();
+  byte[] prepareReport();
 
   void delete(UUID id);
 

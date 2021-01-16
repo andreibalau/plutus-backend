@@ -22,6 +22,8 @@ public interface TransactionFinder {
 
   List<Transaction> findAllById(Iterable<UUID> ids);
 
+  List<Transaction> findAll();
+
   Transaction findById(UUID id);
 
   long count(UUID partnerId, TransactionType type, LocalDate startDate, LocalDate endDate);

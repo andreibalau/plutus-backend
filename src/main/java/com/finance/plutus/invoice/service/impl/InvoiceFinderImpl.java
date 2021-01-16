@@ -35,6 +35,11 @@ public class InvoiceFinderImpl implements InvoiceFinder {
   }
 
   @Override
+  public List<Invoice> findAll() {
+    return invoiceRepository.findAll();
+  }
+
+  @Override
   public long count() {
     return invoiceRepository.count();
   }

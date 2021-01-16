@@ -21,4 +21,6 @@ public interface InvoiceService {
   void collect(Iterable<UUID> ids);
 
   byte[] download(Iterable<UUID> ids);
+
+  byte[] downloadArchive();
 }

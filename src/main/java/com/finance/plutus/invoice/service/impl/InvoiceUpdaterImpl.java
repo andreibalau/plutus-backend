@@ -52,6 +52,7 @@ public class InvoiceUpdaterImpl implements InvoiceUpdater {
     createTransactionDto.setValue(invoice.getTotal());
     createTransactionDto.setDocument(String.format("Factura %s", invoice.getName()));
     createTransactionDto.setDetails("Incasare client Upwork");
+    createTransactionDto.setDeductible(false);
     transactionCreator.create(createTransactionDto);
   }
 }
