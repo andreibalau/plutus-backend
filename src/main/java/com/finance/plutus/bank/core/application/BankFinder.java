@@ -1,6 +1,6 @@
-package com.finance.plutus.bank.service;
+package com.finance.plutus.bank.core.application;
 
-import com.finance.plutus.bank.model.Bank;
+import com.finance.plutus.bank.infrastructure.adapters.secondary.Bank;
 
 import java.util.List;
 import java.util.UUID;

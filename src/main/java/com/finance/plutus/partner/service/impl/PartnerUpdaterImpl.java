@@ -1,7 +1,7 @@
 package com.finance.plutus.partner.service.impl;
 
-import com.finance.plutus.bank.model.Bank;
-import com.finance.plutus.bank.service.BankFinder;
+import com.finance.plutus.bank.infrastructure.adapters.secondary.Bank;
+import com.finance.plutus.bank.core.application.BankFinder;
 import com.finance.plutus.country.model.Country;
 import com.finance.plutus.country.service.CountryFinder;
 import com.finance.plutus.partner.model.Partner;

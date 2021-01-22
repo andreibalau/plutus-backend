@@ -1,6 +1,6 @@
 package com.finance.plutus.user.model;
 
-import com.finance.plutus.bank.model.BankDto;
+import com.finance.plutus.bank.infrastructure.adapters.primary.BankDto;
 import lombok.Getter;
 import lombok.Setter;
 

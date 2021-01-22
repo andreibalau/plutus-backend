@@ -1,6 +1,5 @@
-package com.finance.plutus.bank.repository;
+package com.finance.plutus.bank.infrastructure.adapters.secondary;
 
-import com.finance.plutus.bank.model.Bank;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.UUID;

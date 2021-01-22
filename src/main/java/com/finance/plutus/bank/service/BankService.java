@@ -1,6 +1,6 @@
 package com.finance.plutus.bank.service;
 
-import com.finance.plutus.bank.model.BankDto;
+import com.finance.plutus.bank.infrastructure.adapters.primary.BankDto;
 
 import java.util.List;
 import java.util.UUID;

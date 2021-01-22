@@ -1,6 +1,6 @@
 package com.finance.plutus.partner.model;
 
-import com.finance.plutus.bank.model.Bank;
+import com.finance.plutus.bank.infrastructure.adapters.secondary.Bank;
 import com.finance.plutus.country.model.Country;
 import lombok.Getter;
 import lombok.Setter;

@@ -1,7 +1,5 @@
-package com.finance.plutus.bank.controller;
+package com.finance.plutus.bank.infrastructure.adapters.primary;
 
-import com.finance.plutus.bank.controller.payload.FindBanksResponse;
-import com.finance.plutus.bank.model.BankDto;
 import com.finance.plutus.bank.service.BankService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,8 +21,7 @@ public class BankController {
   @GetMapping(
       consumes = APPLICATION_VND_PLUTUS_FINANCE_JSON,
       produces = APPLICATION_VND_PLUTUS_FINANCE_JSON)
-  public FindBanksResponse findAll() {
-    List<BankDto> banks = bankService.findAll();
-    return new FindBanksResponse(banks);
+  public List<BankDto> findAll() {
+    return bankService.findAll();
   }
 }

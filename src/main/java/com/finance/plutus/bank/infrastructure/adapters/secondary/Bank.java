@@ -1,4 +1,4 @@
-package com.finance.plutus.bank.model;
+package com.finance.plutus.bank.infrastructure.adapters.secondary;
 
 import lombok.Getter;
 import lombok.Setter;

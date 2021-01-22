@@ -1,8 +1,8 @@
 package com.finance.plutus.bank.service.impl;
 
-import com.finance.plutus.bank.model.Bank;
-import com.finance.plutus.bank.model.BankDto;
-import com.finance.plutus.bank.service.BankFinder;
+import com.finance.plutus.bank.infrastructure.adapters.secondary.Bank;
+import com.finance.plutus.bank.infrastructure.adapters.primary.BankDto;
+import com.finance.plutus.bank.core.application.BankFinder;
 import com.finance.plutus.bank.service.BankService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

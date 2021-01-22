@@ -1,6 +1,6 @@
 package com.finance.plutus.user.model;
 
-import com.finance.plutus.bank.model.Bank;
+import com.finance.plutus.bank.infrastructure.adapters.secondary.Bank;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.lang.Nullable;

@@ -1,9 +1,9 @@
 package com.finance.plutus.bank.service.impl;
 
 import com.finance.plutus.app.exception.EntityNotFoundException;
-import com.finance.plutus.bank.model.Bank;
-import com.finance.plutus.bank.repository.BankRepository;
-import com.finance.plutus.bank.service.BankFinder;
+import com.finance.plutus.bank.infrastructure.adapters.secondary.Bank;
+import com.finance.plutus.bank.infrastructure.adapters.secondary.BankRepository;
+import com.finance.plutus.bank.core.application.BankFinder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
