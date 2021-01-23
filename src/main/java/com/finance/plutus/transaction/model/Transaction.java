@@ -1,6 +1,6 @@
 package com.finance.plutus.transaction.model;
 
-import com.finance.plutus.partner.model.Partner;
+import com.finance.plutus.partner.Partner;
 import lombok.Getter;
 import lombok.Setter;
 
