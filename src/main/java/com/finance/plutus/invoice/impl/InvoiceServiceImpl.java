@@ -22,6 +22,10 @@ import com.finance.plutus.invoice.mapper.InvoiceMapper;
 import com.finance.plutus.item.Item;
 import com.finance.plutus.item.ItemService;
 import com.finance.plutus.item.ItemVat;
+import com.finance.plutus.partner.Partner;
+import com.finance.plutus.partner.PartnerService;
+import com.finance.plutus.serial.Serial;
+import com.finance.plutus.serial.SerialService;
 import com.finance.plutus.transaction.TransactionService;
 import com.finance.plutus.transaction.dto.CreateTransactionDto;
 import com.finance.plutus.transaction.model.TransactionMethod;
@@ -51,6 +55,8 @@ public class InvoiceServiceImpl implements InvoiceService {
   private final CurrencyRateService currencyRateService;
   private final ItemService itemService;
   private final TransactionService transactionService;
+  private final PartnerService partnerService;
+  private final SerialService serialService;
   private final UserService userService;
   private final PdfGenerator pdfGenerator;
 
@@ -68,6 +74,11 @@ public class InvoiceServiceImpl implements InvoiceService {
   @Transactional
   public UUID create(CreateInvoiceDto createInvoiceDto) {
     Invoice invoice = invoiceMapper.mapToEntity(createInvoiceDto);
+    Partner partner = partnerService.findById(createInvoiceDto.getPartnerId());
+    invoice.setCustomer(partner);
+    Serial serial = serialService.findById(createInvoiceDto.getSerialId());
+    invoice.setName(serialService.increment(serial));
+    invoice.setSerial(serial);
     if (createInvoiceDto.getCurrency() != Currency.RON) {
       CurrencyRate currencyRate =
           currencyRateService.findLastByDateAndCurrency(
@@ -209,7 +220,7 @@ public class InvoiceServiceImpl implements InvoiceService {
     createTransactionDto.setDate(invoice.getDate());
     createTransactionDto.setMethod(TransactionMethod.BANK);
     createTransactionDto.setType(TransactionType.INCOME);
-    createTransactionDto.setPartnerId(invoice.getClient().getId());
+    createTransactionDto.setPartnerId(invoice.getCustomer().getId());
     createTransactionDto.setValue(invoice.getTotal());
     createTransactionDto.setDocument(String.format("Factura %s", invoice.getName()));
     createTransactionDto.setDetails("Incasare client Upwork");

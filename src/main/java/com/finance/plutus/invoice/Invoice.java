@@ -71,7 +71,7 @@ public class Invoice {
   @NotNull
   @ManyToOne
   @JoinColumn(name = "client_id", nullable = false)
-  private Partner client;
+  private Partner customer;
 
   @Nullable
   @ManyToOne(cascade = CascadeType.ALL)

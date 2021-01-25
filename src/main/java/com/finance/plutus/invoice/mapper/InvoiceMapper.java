@@ -24,7 +24,7 @@ public class InvoiceMapper {
   private final InvoiceLineMapper invoiceLineMapper;
 
   public InvoiceDto mapToDto(Invoice invoice) {
-    Partner partner = invoice.getClient();
+    Partner partner = invoice.getCustomer();
     InvoiceDto invoiceDto = new InvoiceDto();
     invoiceDto.setId(invoice.getId().toString());
     invoiceDto.setCreatedOn(invoice.getCreatedOn());

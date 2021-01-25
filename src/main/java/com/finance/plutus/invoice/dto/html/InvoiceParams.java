@@ -43,7 +43,7 @@ public class InvoiceParams implements Params<Invoice> {
     params.put("subtotal", String.format("%.2f RON", invoice.getSubtotal()));
     params.put("total", String.format("%.2f RON", invoice.getTotal()));
     params.put("lines", createLines(new ArrayList<>(invoice.getLines())));
-    Partner client = invoice.getClient();
+    Partner client = invoice.getCustomer();
     params.put("client_name", client.getName());
     params.put("client_address", client.getAddress());
     params.put("client_email", client.getEmail());
