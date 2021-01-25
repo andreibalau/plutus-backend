@@ -3,15 +3,10 @@ package com.finance.plutus.transaction;
 import com.finance.plutus.app.payload.EntityCreatedResponse;
 import com.finance.plutus.app.payload.PlutusRequest;
 import com.finance.plutus.app.payload.PlutusResponse;
-import com.finance.plutus.transaction.dto.CreateTransactionDto;
-import com.finance.plutus.transaction.dto.TransactionDto;
-import com.finance.plutus.transaction.dto.UpdateTransactionDto;
-import com.finance.plutus.transaction.dto.UploadFileDto;
-import com.finance.plutus.transaction.model.TransactionType;
+import com.finance.plutus.transaction.dto.*;
 import org.springframework.core.io.Resource;
 import org.springframework.http.ResponseEntity;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
@@ -19,13 +14,9 @@ import java.util.UUID;
 public interface TransactionFacadeService {
   EntityCreatedResponse create(PlutusRequest<CreateTransactionDto> request);
 
-  PlutusResponse<List<TransactionDto>> findAll(
-      int page,
-      int size,
-      UUID partnerId,
-      TransactionType type,
-      LocalDate startDate,
-      LocalDate endDate);
+  PlutusResponse<List<TransactionDto>> findAll(FilterParams filterParams, int page, int size);
+
+  PlutusResponse<TransactionStat> findStat(FilterParams filterParams);
 
   void update(UUID id, PlutusRequest<UpdateTransactionDto> request);
 

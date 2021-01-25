@@ -29,22 +29,6 @@ class TransactionRepositoryFilterImpl implements TransactionRepositoryFilter {
     return find(params).getResultList();
   }
 
-  @Override
-  public long countWithFilter(Map<String, Object> params) {
-    return count(params).getSingleResult();
-  }
-
-  private TypedQuery<Long> count(Map<String, Object> params) {
-    StringBuilder queryBuilder = new StringBuilder();
-    queryBuilder.append("SELECT COUNT(*) FROM Transaction t");
-    prepareAndAppendQuery(params, queryBuilder);
-    TypedQuery<Long> jpaQuery = entityManager.createQuery(queryBuilder.toString(), Long.class);
-    for (String key : params.keySet()) {
-      jpaQuery.setParameter(key, params.get(key));
-    }
-    return jpaQuery;
-  }
-
   private TypedQuery<Transaction> find(Map<String, Object> params) {
     StringBuilder queryBuilder = new StringBuilder();
     queryBuilder.append("SELECT t FROM Transaction t");

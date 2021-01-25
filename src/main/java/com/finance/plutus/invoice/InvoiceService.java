@@ -1,15 +1,16 @@
 package com.finance.plutus.invoice;
 
 import com.finance.plutus.invoice.dto.CreateInvoiceDto;
+import com.finance.plutus.invoice.dto.UpdateInvoiceDto;
 
 import java.util.List;
 import java.util.UUID;
 
 /** Plutus Created by Catalin on 1/23/2021 */
 public interface InvoiceService {
-  void delete(UUID id);
-
   UUID create(CreateInvoiceDto createInvoiceDto);
+
+  void update(UUID id, UpdateInvoiceDto updateInvoiceDto);
 
   void collect(Iterable<UUID> ids);
 
@@ -22,6 +23,8 @@ public interface InvoiceService {
   List<Invoice> findAll(int page, int size);
 
   List<Invoice> findAll();
+
+  void delete(UUID id);
 
   byte[] download(UUID id);
 

@@ -7,6 +7,7 @@ import com.finance.plutus.invoice.InvoiceFacadeService;
 import com.finance.plutus.invoice.InvoiceService;
 import com.finance.plutus.invoice.dto.CreateInvoiceDto;
 import com.finance.plutus.invoice.dto.InvoiceDto;
+import com.finance.plutus.invoice.dto.UpdateInvoiceDto;
 import com.finance.plutus.invoice.mapper.InvoiceMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.Resource;
@@ -31,6 +32,11 @@ public class InvoiceFacadeServiceImpl implements InvoiceFacadeService {
   public EntityCreatedResponse create(PlutusRequest<CreateInvoiceDto> request) {
     UUID id = invoiceService.create(request.getData());
     return new EntityCreatedResponse(id);
+  }
+
+  @Override
+  public void update(UUID id, PlutusRequest<UpdateInvoiceDto> request) {
+    invoiceService.update(id, request.getData());
   }
 
   @Override

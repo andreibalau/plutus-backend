@@ -1,9 +1,12 @@
 package com.finance.plutus.invoice.mapper;
 
+import com.finance.plutus.currency.Currency;
 import com.finance.plutus.invoice.Invoice;
+import com.finance.plutus.invoice.InvoiceCurrency;
 import com.finance.plutus.invoice.InvoiceStatus;
 import com.finance.plutus.invoice.dto.CreateInvoiceDto;
 import com.finance.plutus.invoice.dto.InvoiceDto;
+import com.finance.plutus.invoice.dto.UpdateInvoiceDto;
 import com.finance.plutus.partner.Partner;
 import com.finance.plutus.partner.PartnerMapper;
 import lombok.RequiredArgsConstructor;
@@ -56,6 +59,35 @@ public class InvoiceMapper {
     invoice.setSubtotal(0D);
     invoice.setTaxes(0D);
     invoice.setTotal(0D);
+    if (createInvoiceDto.getCurrency() != Currency.RON) {
+      InvoiceCurrency invoiceCurrency = new InvoiceCurrency();
+      invoiceCurrency.setValue(createInvoiceDto.getCurrency());
+      invoiceCurrency.setRate(1D);
+      invoiceCurrency.setSubtotal(0D);
+      invoiceCurrency.setTotal(0D);
+      invoice.setCurrency(invoiceCurrency);
+    }
+    return invoice;
+  }
+
+  public Invoice mapToEntity(Invoice invoice, UpdateInvoiceDto updateInvoiceDto) {
+    invoice.setUpdatedOn(LocalDateTime.now(ZoneOffset.UTC));
+    invoice.setDate(updateInvoiceDto.getDate());
+    invoice.setDueDate(updateInvoiceDto.getDueDate());
+    invoice.setSubtotal(0D);
+    invoice.setTaxes(0D);
+    invoice.setTotal(0D);
+    if (updateInvoiceDto.getCurrency() != Currency.RON) {
+      InvoiceCurrency invoiceCurrency = invoice.getCurrency();
+      if (invoiceCurrency == null) {
+        invoiceCurrency = new InvoiceCurrency();
+      }
+      invoiceCurrency.setValue(updateInvoiceDto.getCurrency());
+      invoiceCurrency.setRate(1D);
+      invoiceCurrency.setSubtotal(0D);
+      invoiceCurrency.setTotal(0D);
+      invoice.setCurrency(invoiceCurrency);
+    }
     return invoice;
   }
 }

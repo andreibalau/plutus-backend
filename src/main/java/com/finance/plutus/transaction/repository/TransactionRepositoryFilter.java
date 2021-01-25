@@ -11,6 +11,4 @@ public interface TransactionRepositoryFilter {
   List<Transaction> findAllFiltered(Map<String, Object> params, PageRequest page);
 
   List<Transaction> findAllFiltered(Map<String, Object> params);
-
-  long countWithFilter(Map<String, Object> params);
 }

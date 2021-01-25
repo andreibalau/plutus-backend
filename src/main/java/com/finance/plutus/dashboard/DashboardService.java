@@ -1,8 +1,8 @@
 package com.finance.plutus.dashboard;
 
 import com.finance.plutus.app.payload.PlutusResponse;
-import com.finance.plutus.dashboard.Stat;
 import com.finance.plutus.transaction.TransactionService;
+import com.finance.plutus.transaction.dto.FilterParams;
 import com.finance.plutus.transaction.model.Transaction;
 import com.finance.plutus.transaction.model.TransactionType;
 import lombok.RequiredArgsConstructor;
@@ -70,13 +70,27 @@ public class DashboardService {
     LocalDate now = LocalDate.now();
     LocalDate startDate = now.withMonth(1).withDayOfMonth(1);
     LocalDate endDate = now.withMonth(12).withDayOfMonth(31);
-    return transactionService.findAll(null, transactionType, startDate, endDate);
+    FilterParams params =
+        FilterParams.builder()
+            .partnerId(null)
+            .type(transactionType)
+            .startDate(startDate)
+            .endDate(endDate)
+            .build();
+    return transactionService.findAll(params);
   }
 
   private List<Transaction> fetchTransactionsForLastYear(TransactionType transactionType) {
     LocalDate now = LocalDate.now().minusYears(1);
     LocalDate startDate = now.withMonth(1).withDayOfMonth(1);
     LocalDate endDate = now.withMonth(12).withDayOfMonth(31);
-    return transactionService.findAll(null, transactionType, startDate, endDate);
+    FilterParams params =
+        FilterParams.builder()
+            .partnerId(null)
+            .type(transactionType)
+            .startDate(startDate)
+            .endDate(endDate)
+            .build();
+    return transactionService.findAll(params);
   }
 }

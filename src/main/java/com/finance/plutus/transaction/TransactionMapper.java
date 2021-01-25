@@ -1,7 +1,9 @@
 package com.finance.plutus.transaction;
 
+import com.finance.plutus.currency.Currency;
 import com.finance.plutus.partner.PartnerMapper;
 import com.finance.plutus.transaction.dto.CreateTransactionDto;
+import com.finance.plutus.transaction.dto.CreateTransactionFileDto;
 import com.finance.plutus.transaction.dto.TransactionDto;
 import com.finance.plutus.transaction.dto.UpdateTransactionDto;
 import com.finance.plutus.transaction.model.Transaction;
@@ -45,6 +47,17 @@ public class TransactionMapper {
     transaction.setDetails(updateTransactionDto.getDetails());
     transaction.setValue(updateTransactionDto.getValue());
     transaction.setDeductible(updateTransactionDto.getDeductible());
+    if (updateTransactionDto.getCurrency() != Currency.RON) {
+      TransactionCurrency transactionCurrency = transaction.getTransactionCurrency();
+      if (transactionCurrency == null) {
+        transactionCurrency = new TransactionCurrency();
+        transactionCurrency.setCreatedOn(LocalDateTime.now(ZoneOffset.UTC));
+      }
+      transactionCurrency.setCurrency(updateTransactionDto.getCurrency());
+      transactionCurrency.setValue(updateTransactionDto.getValue());
+      transactionCurrency.setUpdatedOn(LocalDateTime.now(ZoneOffset.UTC));
+      transaction.setTransactionCurrency(transactionCurrency);
+    }
     return transaction;
   }
 
@@ -60,11 +73,35 @@ public class TransactionMapper {
     transaction.setDetails(createTransactionDto.getDetails());
     transaction.setValue(createTransactionDto.getValue());
     transaction.setDeductible(createTransactionDto.getDeductible());
-    if (createTransactionDto.getCurrency() != null
-        && createTransactionDto.getCurrencyValue() != null) {
+    if (createTransactionDto.getCurrency() != Currency.RON) {
       TransactionCurrency transactionCurrency = new TransactionCurrency();
       transactionCurrency.setCurrency(createTransactionDto.getCurrency());
       transactionCurrency.setValue(createTransactionDto.getValue());
+      transactionCurrency.setCreatedOn(LocalDateTime.now(ZoneOffset.UTC));
+      transactionCurrency.setUpdatedOn(LocalDateTime.now(ZoneOffset.UTC));
+      transaction.setTransactionCurrency(transactionCurrency);
+    }
+    return transaction;
+  }
+
+  public Transaction mapToEntity(CreateTransactionFileDto createTransactionFileDto) {
+    Transaction transaction = new Transaction();
+    transaction.setCreatedOn(LocalDateTime.now(ZoneOffset.UTC));
+    transaction.setUpdatedOn(LocalDateTime.now(ZoneOffset.UTC));
+    transaction.setMethod(createTransactionFileDto.getMethod());
+    transaction.setType(createTransactionFileDto.getType());
+    transaction.setStatus(TransactionStatus.DRAFT);
+    transaction.setDate(createTransactionFileDto.getDate());
+    transaction.setDocument(createTransactionFileDto.getDocument());
+    transaction.setDetails(createTransactionFileDto.getDetails());
+    transaction.setValue(createTransactionFileDto.getValue());
+    transaction.setDeductible(createTransactionFileDto.getDeductible());
+    if (createTransactionFileDto.getCurrency() != null
+        && createTransactionFileDto.getCurrencyValue() != null
+        && createTransactionFileDto.getCurrency() != Currency.RON) {
+      TransactionCurrency transactionCurrency = new TransactionCurrency();
+      transactionCurrency.setCurrency(createTransactionFileDto.getCurrency());
+      transactionCurrency.setValue(createTransactionFileDto.getValue());
       transactionCurrency.setCreatedOn(LocalDateTime.now(ZoneOffset.UTC));
       transactionCurrency.setUpdatedOn(LocalDateTime.now(ZoneOffset.UTC));
       transaction.setTransactionCurrency(transactionCurrency);

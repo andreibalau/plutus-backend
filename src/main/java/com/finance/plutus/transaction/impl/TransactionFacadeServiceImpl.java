@@ -6,17 +6,12 @@ import com.finance.plutus.app.payload.PlutusResponse;
 import com.finance.plutus.transaction.TransactionFacadeService;
 import com.finance.plutus.transaction.TransactionMapper;
 import com.finance.plutus.transaction.TransactionService;
-import com.finance.plutus.transaction.dto.CreateTransactionDto;
-import com.finance.plutus.transaction.dto.TransactionDto;
-import com.finance.plutus.transaction.dto.UpdateTransactionDto;
-import com.finance.plutus.transaction.dto.UploadFileDto;
-import com.finance.plutus.transaction.model.TransactionType;
+import com.finance.plutus.transaction.dto.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.Resource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -39,17 +34,18 @@ public class TransactionFacadeServiceImpl implements TransactionFacadeService {
 
   @Override
   public PlutusResponse<List<TransactionDto>> findAll(
-      int page,
-      int size,
-      UUID partnerId,
-      TransactionType type,
-      LocalDate startDate,
-      LocalDate endDate) {
+      FilterParams filterParams, int page, int size) {
     List<TransactionDto> transactions =
-        transactionService.findAll(page, size, partnerId, type, startDate, endDate).stream()
+        transactionService.findAll(filterParams, page, size).stream()
             .map(transactionMapper::mapToDto)
             .collect(Collectors.toList());
     return new PlutusResponse<>(transactions);
+  }
+
+  @Override
+  public PlutusResponse<TransactionStat> findStat(FilterParams filterParams) {
+    TransactionStat transactionStat = transactionService.calculateStat(filterParams);
+    return new PlutusResponse<>(transactionStat);
   }
 
   @Override

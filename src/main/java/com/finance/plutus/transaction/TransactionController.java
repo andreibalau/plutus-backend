@@ -3,22 +3,10 @@ package com.finance.plutus.transaction;
 import com.finance.plutus.app.payload.EntityCreatedResponse;
 import com.finance.plutus.app.payload.PlutusRequest;
 import com.finance.plutus.app.payload.PlutusResponse;
-import com.finance.plutus.transaction.dto.CreateTransactionDto;
-import com.finance.plutus.transaction.dto.TransactionDto;
-import com.finance.plutus.transaction.dto.UpdateTransactionDto;
-import com.finance.plutus.transaction.dto.UploadFileDto;
+import com.finance.plutus.transaction.dto.*;
 import com.finance.plutus.transaction.model.TransactionType;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.time.LocalDate;
@@ -57,16 +45,45 @@ public class TransactionController {
 
   @GetMapping(
       consumes = APPLICATION_VND_PLUTUS_FINANCE_JSON,
-      produces = APPLICATION_VND_PLUTUS_FINANCE_JSON,
-      params = {"page", "size"})
+      produces = APPLICATION_VND_PLUTUS_FINANCE_JSON)
   public PlutusResponse<List<TransactionDto>> findAll(
       @RequestParam Integer page,
       @RequestParam Integer size,
       @RequestParam(required = false) UUID partnerId,
       @RequestParam(required = false) TransactionType type,
+      @RequestParam(required = false) Boolean deductible,
       @RequestParam(required = false) LocalDate startDate,
       @RequestParam(required = false) LocalDate endDate) {
-    return transactionFacadeService.findAll(page, size, partnerId, type, startDate, endDate);
+    FilterParams params =
+        FilterParams.builder()
+            .partnerId(partnerId)
+            .type(type)
+            .deductible(deductible)
+            .startDate(startDate)
+            .endDate(endDate)
+            .build();
+    return transactionFacadeService.findAll(params, page, size);
+  }
+
+  @GetMapping(
+      value = "/stats",
+      consumes = APPLICATION_VND_PLUTUS_FINANCE_JSON,
+      produces = APPLICATION_VND_PLUTUS_FINANCE_JSON)
+  public PlutusResponse<TransactionStat> findStats(
+      @RequestParam(required = false) UUID partnerId,
+      @RequestParam(required = false) TransactionType type,
+      @RequestParam(required = false) Boolean deductible,
+      @RequestParam(required = false) LocalDate startDate,
+      @RequestParam(required = false) LocalDate endDate) {
+    FilterParams params =
+        FilterParams.builder()
+            .partnerId(partnerId)
+            .type(type)
+            .deductible(deductible)
+            .startDate(startDate)
+            .endDate(endDate)
+            .build();
+    return transactionFacadeService.findStat(params);
   }
 
   @ResponseStatus(NO_CONTENT)

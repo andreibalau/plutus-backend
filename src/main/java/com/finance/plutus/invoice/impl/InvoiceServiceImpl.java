@@ -5,23 +5,19 @@ import com.finance.plutus.app.exception.EntityNotFoundException;
 import com.finance.plutus.app.service.Params;
 import com.finance.plutus.app.service.PdfGenerator;
 import com.finance.plutus.app.service.Template;
-import com.finance.plutus.currency.Currency;
 import com.finance.plutus.currency.CurrencyRate;
 import com.finance.plutus.currency.CurrencyRateService;
-import com.finance.plutus.invoice.Invoice;
-import com.finance.plutus.invoice.InvoiceCurrency;
-import com.finance.plutus.invoice.InvoiceLine;
-import com.finance.plutus.invoice.InvoiceRepository;
-import com.finance.plutus.invoice.InvoiceService;
-import com.finance.plutus.invoice.InvoiceStatus;
+import com.finance.plutus.invoice.*;
 import com.finance.plutus.invoice.dto.CreateInvoiceDto;
 import com.finance.plutus.invoice.dto.CreateInvoiceLineDto;
+import com.finance.plutus.invoice.dto.UpdateInvoiceDto;
+import com.finance.plutus.invoice.dto.UpdateInvoiceLineDto;
 import com.finance.plutus.invoice.dto.html.InvoiceParams;
 import com.finance.plutus.invoice.exception.WrongInvoiceStatusException;
+import com.finance.plutus.invoice.mapper.InvoiceLineMapper;
 import com.finance.plutus.invoice.mapper.InvoiceMapper;
 import com.finance.plutus.item.Item;
 import com.finance.plutus.item.ItemService;
-import com.finance.plutus.item.ItemVat;
 import com.finance.plutus.partner.Partner;
 import com.finance.plutus.partner.PartnerService;
 import com.finance.plutus.serial.Serial;
@@ -51,6 +47,7 @@ import java.util.stream.Collectors;
 public class InvoiceServiceImpl implements InvoiceService {
 
   private final InvoiceMapper invoiceMapper;
+  private final InvoiceLineMapper invoiceLineMapper;
   private final InvoiceRepository invoiceRepository;
   private final CurrencyRateService currencyRateService;
   private final ItemService itemService;
@@ -62,16 +59,6 @@ public class InvoiceServiceImpl implements InvoiceService {
 
   @Override
   @Transactional
-  public void delete(UUID id) {
-    Invoice invoice = findById(id);
-    if (invoice.getStatus() == InvoiceStatus.DONE) {
-      throw new WrongInvoiceStatusException();
-    }
-    invoiceRepository.delete(invoice);
-  }
-
-  @Override
-  @Transactional
   public UUID create(CreateInvoiceDto createInvoiceDto) {
     Invoice invoice = invoiceMapper.mapToEntity(createInvoiceDto);
     Partner partner = partnerService.findById(createInvoiceDto.getPartnerId());
@@ -79,20 +66,10 @@ public class InvoiceServiceImpl implements InvoiceService {
     Serial serial = serialService.findById(createInvoiceDto.getSerialId());
     invoice.setName(serialService.increment(serial));
     invoice.setSerial(serial);
-    if (createInvoiceDto.getCurrency() != Currency.RON) {
-      CurrencyRate currencyRate =
-          currencyRateService.findLastByDateAndCurrency(
-              createInvoiceDto.getDate(), createInvoiceDto.getCurrency());
-      InvoiceCurrency invoiceCurrency = new InvoiceCurrency();
-      invoiceCurrency.setValue(createInvoiceDto.getCurrency());
-      invoiceCurrency.setRate(currencyRate.getRate());
-      invoiceCurrency.setSubtotal(0D);
-      invoiceCurrency.setTotal(0D);
-      invoice.setCurrency(invoiceCurrency);
-    }
+    updateCurrency(invoice);
     Set<InvoiceLine> invoiceLines =
         createInvoiceDto.getLines().stream()
-            .map(createInvoiceLineDto -> createLine(createInvoiceLineDto, invoice.getCurrency()))
+            .map(createInvoiceLineDto -> createInvoiceLine(invoice, createInvoiceLineDto))
             .collect(Collectors.toSet());
     computeLines(invoiceLines, invoice);
     invoiceRepository.save(invoice);
@@ -100,20 +77,32 @@ public class InvoiceServiceImpl implements InvoiceService {
   }
 
   @Override
+  @Transactional
+  public void update(UUID id, UpdateInvoiceDto updateInvoiceDto) {
+    Invoice invoice = findById(id);
+    Partner partner = partnerService.findById(updateInvoiceDto.getPartnerId());
+    invoice.setCustomer(partner);
+    Invoice updatedInvoice = invoiceMapper.mapToEntity(invoice, updateInvoiceDto);
+    updateCurrency(updatedInvoice);
+    Set<InvoiceLine> invoiceLines =
+        updateInvoiceDto.getLines().stream()
+            .map(updateInvoiceLineDto -> createInvoiceLine(updatedInvoice, updateInvoiceLineDto))
+            .collect(Collectors.toSet());
+    computeLines(invoiceLines, updatedInvoice);
+    invoiceRepository.save(updatedInvoice);
+  }
+
+  @Override
+  @Transactional
   public void collect(Iterable<UUID> ids) {
-    ids.forEach(this::collect);
+    findAllById(ids).forEach(this::collect);
   }
 
   @Override
   @Transactional
   public void collect(UUID id) {
     Invoice invoice = findById(id);
-    if (invoice.getStatus() != InvoiceStatus.DONE) {
-      invoice.setStatus(InvoiceStatus.DONE);
-      invoice.setUpdatedOn(LocalDateTime.now(ZoneOffset.UTC));
-      invoiceRepository.save(invoice);
-      createTransaction(invoice);
-    }
+    collect(invoice);
   }
 
   @Override
@@ -137,6 +126,16 @@ public class InvoiceServiceImpl implements InvoiceService {
   }
 
   @Override
+  @Transactional
+  public void delete(UUID id) {
+    Invoice invoice = findById(id);
+    if (invoice.getStatus() == InvoiceStatus.DONE) {
+      throw new WrongInvoiceStatusException();
+    }
+    invoiceRepository.delete(invoice);
+  }
+
+  @Override
   public byte[] download(UUID id) {
     Business business = userService.getBusiness(Api.USER_EMAIL);
     Invoice invoice = findById(id);
@@ -154,65 +153,13 @@ public class InvoiceServiceImpl implements InvoiceService {
     return pdfGenerator.generateMultiple(Template.INVOICE, params).orElseThrow();
   }
 
-  private InvoiceLine createLine(
-      CreateInvoiceLineDto createInvoiceLineDto, InvoiceCurrency invoiceCurrency) {
-    Item item = itemService.findById(createInvoiceLineDto.getItemId());
-    int quantity = createInvoiceLineDto.getQuantity();
-    ItemVat vat = ItemVat.fromAmount(createInvoiceLineDto.getVat());
-    InvoiceLine invoiceLine = new InvoiceLine();
-    invoiceLine.setCreatedOn(LocalDateTime.now(ZoneOffset.UTC));
-    invoiceLine.setUpdatedOn(LocalDateTime.now(ZoneOffset.UTC));
-    invoiceLine.setUom(createInvoiceLineDto.getUom());
-    invoiceLine.setItem(item);
-    invoiceLine.setVat(vat);
-    invoiceLine.setQuantity(quantity);
-    double rate = 1;
-    InvoiceCurrency invoiceLineCurrency = null;
-    if (invoiceCurrency != null) {
-      rate = invoiceCurrency.getRate();
-      invoiceLineCurrency = new InvoiceCurrency();
-      invoiceLineCurrency.setRate(rate);
-      invoiceLineCurrency.setValue(invoiceCurrency.getValue());
+  private void collect(Invoice invoice) {
+    if (invoice.getStatus() != InvoiceStatus.DONE) {
+      invoice.setStatus(InvoiceStatus.DONE);
+      invoice.setUpdatedOn(LocalDateTime.now(ZoneOffset.UTC));
+      invoiceRepository.save(invoice);
+      createTransaction(invoice);
     }
-    double unitPrice = createInvoiceLineDto.getUnitPrice() * rate;
-    double subtotal = unitPrice * quantity;
-    double total = vat.getAmount() * subtotal + subtotal;
-    invoiceLine.setUnitPrice(unitPrice);
-    invoiceLine.setSubtotal(subtotal);
-    invoiceLine.setTotal(total);
-    if (invoiceLineCurrency != null) {
-      invoiceLineCurrency.setSubtotal(subtotal / rate);
-      invoiceLineCurrency.setTotal(total / rate);
-      invoiceLine.setCurrency(invoiceLineCurrency);
-    }
-    return invoiceLine;
-  }
-
-  private void computeLines(Set<InvoiceLine> lines, Invoice invoice) {
-    double subtotal = lines.stream().mapToDouble(InvoiceLine::getSubtotal).sum();
-    double total = lines.stream().mapToDouble(InvoiceLine::getTotal).sum();
-    double taxes = total - subtotal;
-    invoice.setSubtotal(subtotal);
-    invoice.setTaxes(taxes);
-    invoice.setTotal(total);
-    if (invoice.getCurrency() != null) {
-      double currencySubtotal =
-          lines.stream()
-              .map(InvoiceLine::getCurrency)
-              .filter(Objects::nonNull)
-              .mapToDouble(InvoiceCurrency::getSubtotal)
-              .sum();
-      double currencyTotal =
-          lines.stream()
-              .map(InvoiceLine::getCurrency)
-              .filter(Objects::nonNull)
-              .mapToDouble(InvoiceCurrency::getTotal)
-              .sum();
-      invoice.getCurrency().setSubtotal(currencySubtotal);
-      invoice.getCurrency().setTotal(currencyTotal);
-    }
-    invoice.setLines(lines);
-    lines.forEach(line -> line.setInvoice(invoice));
   }
 
   private void createTransaction(Invoice invoice) {
@@ -233,5 +180,59 @@ public class InvoiceServiceImpl implements InvoiceService {
     params.submit(invoice);
     params.submitBusiness(business);
     return params;
+  }
+
+  private void updateCurrency(Invoice invoice) {
+    if (invoice.getCurrency() != null) {
+      CurrencyRate currencyRate =
+          currencyRateService.findLastByDateAndCurrency(
+              invoice.getDate(), invoice.getCurrency().getValue());
+      invoice.getCurrency().setRate(currencyRate.getRate());
+    }
+  }
+
+  private InvoiceLine createInvoiceLine(
+      Invoice invoice, CreateInvoiceLineDto createInvoiceLineDto) {
+    Item item = itemService.findById(createInvoiceLineDto.getItemId());
+    InvoiceLine invoiceLine =
+        invoiceLineMapper.mapToEntity(createInvoiceLineDto, invoice.getCurrency());
+    invoiceLine.setItem(item);
+    return invoiceLine;
+  }
+
+  private InvoiceLine createInvoiceLine(
+      Invoice invoice, UpdateInvoiceLineDto updateInvoiceLineDto) {
+    Item item = itemService.findById(updateInvoiceLineDto.getItemId());
+    InvoiceLine invoiceLine =
+        invoiceLineMapper.mapToEntity(updateInvoiceLineDto, invoice.getCurrency());
+    invoiceLine.setItem(item);
+    return invoiceLine;
+  }
+
+  private void computeLines(Set<InvoiceLine> invoiceLines, Invoice invoice) {
+    double subtotal = invoiceLines.stream().mapToDouble(InvoiceLine::getSubtotal).sum();
+    double total = invoiceLines.stream().mapToDouble(InvoiceLine::getTotal).sum();
+    double taxes = total - subtotal;
+    invoice.setSubtotal(subtotal);
+    invoice.setTaxes(taxes);
+    invoice.setTotal(total);
+    if (invoice.getCurrency() != null) {
+      double currencySubtotal =
+          invoiceLines.stream()
+              .map(InvoiceLine::getCurrency)
+              .filter(Objects::nonNull)
+              .mapToDouble(InvoiceCurrency::getSubtotal)
+              .sum();
+      double currencyTotal =
+          invoiceLines.stream()
+              .map(InvoiceLine::getCurrency)
+              .filter(Objects::nonNull)
+              .mapToDouble(InvoiceCurrency::getTotal)
+              .sum();
+      invoice.getCurrency().setSubtotal(currencySubtotal);
+      invoice.getCurrency().setTotal(currencyTotal);
+    }
+    invoice.setLines(invoiceLines);
+    invoiceLines.forEach(line -> line.setInvoice(invoice));
   }
 }

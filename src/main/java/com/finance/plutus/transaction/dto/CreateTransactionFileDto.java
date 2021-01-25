@@ -13,10 +13,10 @@ import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.UUID;
 
-/** Plutus Created by Catalin on 10/31/2020 */
+/** Plutus Created by Catalin on 1/25/2021 */
 @Getter
 @Setter
-public class UpdateTransactionDto {
+public class CreateTransactionFileDto {
   @JsonDeserialize(using = DateDeserializer.class)
   @NotNull
   private LocalDate date;
@@ -28,5 +28,6 @@ public class UpdateTransactionDto {
   @NotNull private TransactionType type;
   @NotNull private TransactionMethod method;
   @NotNull private Boolean deductible;
-  @NotNull private Currency currency;
+  private Currency currency;
+  private Double currencyValue;
 }

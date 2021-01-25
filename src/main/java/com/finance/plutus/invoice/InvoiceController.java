@@ -1,22 +1,15 @@
 package com.finance.plutus.invoice;
 
+import com.finance.plutus.app.payload.EntityCreatedResponse;
 import com.finance.plutus.app.payload.PlutusRequest;
 import com.finance.plutus.app.payload.PlutusResponse;
-import com.finance.plutus.app.payload.EntityCreatedResponse;
 import com.finance.plutus.invoice.dto.CreateInvoiceDto;
 import com.finance.plutus.invoice.dto.InvoiceDto;
+import com.finance.plutus.invoice.dto.UpdateInvoiceDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.Resource;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -40,6 +33,15 @@ public class InvoiceController {
       produces = APPLICATION_VND_PLUTUS_FINANCE_JSON)
   public EntityCreatedResponse create(@Valid @RequestBody PlutusRequest<CreateInvoiceDto> request) {
     return invoiceFacadeService.create(request);
+  }
+
+  @PutMapping(
+      value = "/{id}",
+      consumes = APPLICATION_VND_PLUTUS_FINANCE_JSON,
+      produces = APPLICATION_VND_PLUTUS_FINANCE_JSON)
+  public void uodate(
+      @PathVariable UUID id, @Valid @RequestBody PlutusRequest<UpdateInvoiceDto> request) {
+    invoiceFacadeService.update(id, request);
   }
 
   @GetMapping(
