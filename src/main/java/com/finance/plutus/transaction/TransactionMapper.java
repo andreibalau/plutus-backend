@@ -4,6 +4,7 @@ import com.finance.plutus.currency.Currency;
 import com.finance.plutus.partner.PartnerMapper;
 import com.finance.plutus.transaction.dto.CreateTransactionDto;
 import com.finance.plutus.transaction.dto.CreateTransactionFileDto;
+import com.finance.plutus.transaction.dto.TransactionCurrencyDto;
 import com.finance.plutus.transaction.dto.TransactionDto;
 import com.finance.plutus.transaction.dto.UpdateTransactionDto;
 import com.finance.plutus.transaction.model.Transaction;
@@ -34,6 +35,12 @@ public class TransactionMapper {
     transactionDto.setValue(transaction.getValue());
     transactionDto.setDeductible(transaction.getDeductible());
     transactionDto.setStatus(transaction.getStatus());
+    if (transaction.getTransactionCurrency() != null) {
+      TransactionCurrencyDto transactionCurrencyDto = new TransactionCurrencyDto();
+      transactionCurrencyDto.setCurrency(transaction.getTransactionCurrency().getCurrency());
+      transactionCurrencyDto.setValue(transaction.getTransactionCurrency().getValue());
+      transactionDto.setCurrency(transactionCurrencyDto);
+    }
     return transactionDto;
   }
 

@@ -27,4 +27,5 @@ public class TransactionDto {
   private LocalDateTime updatedOn;
   private TransactionStatus status;
   private Boolean deductible;
+  private TransactionCurrencyDto currency;
 }
