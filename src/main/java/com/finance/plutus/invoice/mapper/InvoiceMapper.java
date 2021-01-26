@@ -61,6 +61,8 @@ public class InvoiceMapper {
     invoice.setTotal(0D);
     if (createInvoiceDto.getCurrency() != Currency.RON) {
       InvoiceCurrency invoiceCurrency = new InvoiceCurrency();
+      invoiceCurrency.setCreatedOn(LocalDateTime.now(ZoneOffset.UTC));
+      invoiceCurrency.setUpdatedOn(LocalDateTime.now(ZoneOffset.UTC));
       invoiceCurrency.setValue(createInvoiceDto.getCurrency());
       invoiceCurrency.setRate(1D);
       invoiceCurrency.setSubtotal(0D);
@@ -81,7 +83,9 @@ public class InvoiceMapper {
       InvoiceCurrency invoiceCurrency = invoice.getCurrency();
       if (invoiceCurrency == null) {
         invoiceCurrency = new InvoiceCurrency();
+        invoiceCurrency.setCreatedOn(LocalDateTime.now(ZoneOffset.UTC));
       }
+      invoiceCurrency.setUpdatedOn(LocalDateTime.now(ZoneOffset.UTC));
       invoiceCurrency.setValue(updateInvoiceDto.getCurrency());
       invoiceCurrency.setRate(1D);
       invoiceCurrency.setSubtotal(0D);

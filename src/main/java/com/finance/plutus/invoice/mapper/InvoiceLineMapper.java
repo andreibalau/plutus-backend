@@ -59,6 +59,8 @@ public class InvoiceLineMapper {
       rate = invoiceCurrency.getRate();
       invoiceLineCurrency = new InvoiceCurrency();
       invoiceLineCurrency.setRate(rate);
+      invoiceLineCurrency.setCreatedOn(LocalDateTime.now(ZoneOffset.UTC));
+      invoiceLineCurrency.setUpdatedOn(LocalDateTime.now(ZoneOffset.UTC));
       invoiceLineCurrency.setValue(invoiceCurrency.getValue());
     }
     double unitPrice = createInvoiceLineDto.getUnitPrice() * rate;
@@ -91,6 +93,8 @@ public class InvoiceLineMapper {
       rate = invoiceCurrency.getRate();
       invoiceLineCurrency = new InvoiceCurrency();
       invoiceLineCurrency.setRate(rate);
+      invoiceLineCurrency.setCreatedOn(LocalDateTime.now(ZoneOffset.UTC));
+      invoiceLineCurrency.setUpdatedOn(LocalDateTime.now(ZoneOffset.UTC));
       invoiceLineCurrency.setValue(invoiceCurrency.getValue());
     }
     double unitPrice = updateInvoiceLineDto.getUnitPrice() * rate;

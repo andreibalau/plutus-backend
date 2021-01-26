@@ -1,5 +1,6 @@
 package com.finance.plutus.partner;
 
+import com.finance.plutus.app.BaseModel;
 import com.finance.plutus.bank.Bank;
 import com.finance.plutus.country.Country;
 import lombok.Getter;
@@ -18,7 +19,6 @@ import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.time.LocalDateTime;
 import java.util.UUID;
 
 /** Plutus Created by catalin on 7/1/2020 */
@@ -26,7 +26,7 @@ import java.util.UUID;
 @Setter
 @Entity
 @Table(name = "partners")
-public class Partner {
+public class Partner extends BaseModel {
 
   @Id @GeneratedValue private UUID id;
 
@@ -82,12 +82,4 @@ public class Partner {
   @Enumerated(value = EnumType.STRING)
   @Column(name = "partner_type", nullable = false)
   private PartnerType type;
-
-  @NotNull
-  @Column(name = "created_on", nullable = false)
-  private LocalDateTime createdOn;
-
-  @NotNull
-  @Column(name = "updated_on", nullable = false)
-  private LocalDateTime updatedOn;
 }

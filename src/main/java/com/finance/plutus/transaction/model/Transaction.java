@@ -1,5 +1,6 @@
 package com.finance.plutus.transaction.model;
 
+import com.finance.plutus.app.BaseModel;
 import com.finance.plutus.partner.Partner;
 import lombok.Getter;
 import lombok.Setter;
@@ -18,7 +19,6 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.UUID;
 
 /** Plutus Created by Catalin on 10/31/2020 */
@@ -26,7 +26,7 @@ import java.util.UUID;
 @Setter
 @Entity
 @Table(name = "transactions")
-public class Transaction {
+public class Transaction extends BaseModel {
 
   @Id @GeneratedValue private UUID id;
 
@@ -73,12 +73,4 @@ public class Transaction {
   @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
   @JoinColumn(name = "transaction_currency_id")
   private TransactionCurrency transactionCurrency;
-
-  @NotNull
-  @Column(name = "created_on", nullable = false)
-  private LocalDateTime createdOn;
-
-  @NotNull
-  @Column(name = "updated_on", nullable = false)
-  private LocalDateTime updatedOn;
 }

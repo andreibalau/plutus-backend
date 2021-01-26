@@ -1,5 +1,6 @@
 package com.finance.plutus.currency;
 
+import com.finance.plutus.app.BaseModel;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -19,7 +20,7 @@ import java.util.UUID;
 @Setter
 @Entity
 @Table(name = "currency_rates")
-public class CurrencyRate {
+public class CurrencyRate extends BaseModel {
 
   @Id @GeneratedValue private UUID id;
 

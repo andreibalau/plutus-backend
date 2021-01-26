@@ -1,8 +1,10 @@
 package com.finance.plutus.invoice;
 
+import com.finance.plutus.app.BaseModel;
 import com.finance.plutus.currency.Currency;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.lang.Nullable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -19,7 +21,7 @@ import java.util.UUID;
 @Setter
 @Entity
 @Table(name = "invoice_currencies")
-public class InvoiceCurrency {
+public class InvoiceCurrency extends BaseModel {
 
   @Id @GeneratedValue private UUID id;
 

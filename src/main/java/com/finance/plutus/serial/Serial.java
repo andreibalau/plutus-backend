@@ -1,5 +1,6 @@
 package com.finance.plutus.serial;
 
+import com.finance.plutus.app.BaseModel;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,7 +11,6 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.time.LocalDateTime;
 import java.util.UUID;
 
 /** Plutus Created by catalin on 9/7/2020 */
@@ -18,7 +18,7 @@ import java.util.UUID;
 @Setter
 @Entity
 @Table(name = "serials")
-public class Serial {
+public class Serial extends BaseModel {
 
   @Id @GeneratedValue private UUID id;
 
@@ -37,12 +37,4 @@ public class Serial {
   @NotNull
   @Column(name = "next_number", nullable = false)
   private Integer nextNumber;
-
-  @NotNull
-  @Column(name = "created_on", nullable = false)
-  private LocalDateTime createdOn;
-
-  @NotNull
-  @Column(name = "updated_on", nullable = false)
-  private LocalDateTime updatedOn;
 }

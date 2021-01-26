@@ -108,7 +108,7 @@ public class TransactionMapper {
         && createTransactionFileDto.getCurrency() != Currency.RON) {
       TransactionCurrency transactionCurrency = new TransactionCurrency();
       transactionCurrency.setCurrency(createTransactionFileDto.getCurrency());
-      transactionCurrency.setValue(createTransactionFileDto.getValue());
+      transactionCurrency.setValue(createTransactionFileDto.getCurrencyValue());
       transactionCurrency.setCreatedOn(LocalDateTime.now(ZoneOffset.UTC));
       transactionCurrency.setUpdatedOn(LocalDateTime.now(ZoneOffset.UTC));
       transaction.setTransactionCurrency(transactionCurrency);

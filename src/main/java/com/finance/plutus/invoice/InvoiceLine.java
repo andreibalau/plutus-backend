@@ -1,5 +1,6 @@
 package com.finance.plutus.invoice;
 
+import com.finance.plutus.app.BaseModel;
 import com.finance.plutus.item.Item;
 import com.finance.plutus.item.ItemVat;
 import lombok.Getter;
@@ -17,7 +18,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
-import java.time.LocalDateTime;
 import java.util.UUID;
 
 /** Plutus Created by catalin on 21.09.2019 */
@@ -25,7 +25,7 @@ import java.util.UUID;
 @Setter
 @Entity
 @Table(name = "invoice_lines")
-public class InvoiceLine {
+public class InvoiceLine extends BaseModel {
 
   @Id @GeneratedValue private UUID id;
 
@@ -72,12 +72,4 @@ public class InvoiceLine {
   @ManyToOne(cascade = CascadeType.ALL)
   @JoinColumn(name = "invoice_currency_id")
   private InvoiceCurrency currency;
-
-  @NotNull
-  @Column(name = "created_on", nullable = false)
-  private LocalDateTime createdOn;
-
-  @NotNull
-  @Column(name = "updated_on", nullable = false)
-  private LocalDateTime updatedOn;
 }

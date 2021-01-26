@@ -1,5 +1,6 @@
 package com.finance.plutus.user;
 
+import com.finance.plutus.app.BaseModel;
 import com.finance.plutus.bank.Bank;
 import lombok.Getter;
 import lombok.Setter;
@@ -14,7 +15,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.time.LocalDateTime;
 import java.util.UUID;
 
 /** Plutus Created by catalin on 7/1/2020 */
@@ -22,7 +22,7 @@ import java.util.UUID;
 @Setter
 @Entity
 @Table(name = "businesses")
-public class Business {
+public class Business extends BaseModel {
 
   @Id @GeneratedValue private UUID id;
 
@@ -71,12 +71,4 @@ public class Business {
   @ManyToOne
   @JoinColumn(name = "user_id", nullable = false)
   private User user;
-
-  @NotNull
-  @Column(name = "created_on", nullable = false)
-  private LocalDateTime createdOn;
-
-  @NotNull
-  @Column(name = "updated_on", nullable = false)
-  private LocalDateTime updatedOn;
 }

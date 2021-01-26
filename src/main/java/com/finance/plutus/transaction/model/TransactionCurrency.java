@@ -1,8 +1,10 @@
 package com.finance.plutus.transaction.model;
 
+import com.finance.plutus.app.BaseModel;
 import com.finance.plutus.currency.Currency;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.lang.Nullable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,7 +14,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
-import java.time.LocalDateTime;
 import java.util.UUID;
 
 /** Plutus Created by Catalin on 12/21/2020 */
@@ -20,7 +21,7 @@ import java.util.UUID;
 @Setter
 @Entity
 @Table(name = "transaction_currencies")
-public class TransactionCurrency {
+public class TransactionCurrency extends BaseModel {
 
   @Id @GeneratedValue private UUID id;
 
@@ -33,11 +34,7 @@ public class TransactionCurrency {
   @Column(name = "value", nullable = false)
   private Double value;
 
-  @NotNull
-  @Column(name = "created_on", nullable = false)
-  private LocalDateTime createdOn;
-
-  @NotNull
-  @Column(name = "updated_on", nullable = false)
-  private LocalDateTime updatedOn;
+  @Nullable
+  @Column(name = "rate")
+  private Double rate;
 }

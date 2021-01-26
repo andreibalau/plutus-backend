@@ -1,5 +1,6 @@
 package com.finance.plutus.item;
 
+import com.finance.plutus.app.BaseModel;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.lang.Nullable;
@@ -13,7 +14,6 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.time.LocalDateTime;
 import java.util.UUID;
 
 /** Plutus Created by catalin on 7/1/2020 */
@@ -21,7 +21,7 @@ import java.util.UUID;
 @Setter
 @Entity
 @Table(name = "items")
-public class Item {
+public class Item extends BaseModel {
 
   @Id @GeneratedValue private UUID id;
 
@@ -58,12 +58,4 @@ public class Item {
   @Enumerated(value = EnumType.STRING)
   @Column(name = "item_type", nullable = false)
   private ItemType type = ItemType.PRODUCT;
-
-  @NotNull
-  @Column(name = "created_on", nullable = false)
-  private LocalDateTime createdOn;
-
-  @NotNull
-  @Column(name = "updated_on", nullable = false)
-  private LocalDateTime updatedOn;
 }

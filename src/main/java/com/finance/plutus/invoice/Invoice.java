@@ -1,5 +1,6 @@
 package com.finance.plutus.invoice;
 
+import com.finance.plutus.app.BaseModel;
 import com.finance.plutus.partner.Partner;
 import com.finance.plutus.serial.Serial;
 import lombok.Getter;
@@ -20,7 +21,6 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
@@ -30,7 +30,7 @@ import java.util.UUID;
 @Setter
 @Entity
 @Table(name = "invoices")
-public class Invoice {
+public class Invoice extends BaseModel {
 
   @Id @GeneratedValue private UUID id;
 
@@ -80,12 +80,4 @@ public class Invoice {
 
   @OneToMany(mappedBy = "invoice", cascade = CascadeType.ALL, orphanRemoval = true)
   private Set<InvoiceLine> lines = new HashSet<>();
-
-  @NotNull
-  @Column(name = "created_on", nullable = false)
-  private LocalDateTime createdOn;
-
-  @NotNull
-  @Column(name = "updated_on", nullable = false)
-  private LocalDateTime updatedOn;
 }

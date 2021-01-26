@@ -4,8 +4,9 @@ import com.finance.plutus.app.exception.EntityNotFoundException;
 import com.finance.plutus.currency.Currency;
 import com.finance.plutus.currency.CurrencyRate;
 import com.finance.plutus.currency.CurrencyRateDto;
-import com.finance.plutus.currency.CurrencyRateService;
+import com.finance.plutus.currency.CurrencyRateMapper;
 import com.finance.plutus.currency.CurrencyRateRepository;
+import com.finance.plutus.currency.CurrencyRateService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,6 +19,7 @@ import java.time.LocalDate;
 public class CurrencyRateServiceImpl implements CurrencyRateService {
 
   private final CurrencyRateRepository currencyRateRepository;
+  private final CurrencyRateMapper currencyRateMapper;
 
   @Override
   @Transactional
@@ -25,7 +27,7 @@ public class CurrencyRateServiceImpl implements CurrencyRateService {
     CurrencyRate currencyRate =
         currencyRateRepository
             .findByDateAndCurrency(currencyRateDto.getDate(), currencyRateDto.getCurrency())
-            .orElse(createCurrencyRate(currencyRateDto));
+            .orElse(currencyRateMapper.mapToEntity(currencyRateDto));
     currencyRateRepository.save(currencyRate);
   }
 
@@ -34,13 +36,5 @@ public class CurrencyRateServiceImpl implements CurrencyRateService {
     return currencyRateRepository
         .findTopByDateLessThanEqualAndCurrencyOrderByDateDesc(date, currency)
         .orElseThrow(() -> new EntityNotFoundException("currency rate"));
-  }
-
-  private CurrencyRate createCurrencyRate(CurrencyRateDto currencyRateDto) {
-    CurrencyRate currencyRate = new CurrencyRate();
-    currencyRate.setCurrency(currencyRateDto.getCurrency());
-    currencyRate.setDate(currencyRateDto.getDate());
-    currencyRate.setRate(currencyRateDto.getRate());
-    return currencyRate;
   }
 }

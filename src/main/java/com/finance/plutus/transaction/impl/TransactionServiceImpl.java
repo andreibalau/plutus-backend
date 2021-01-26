@@ -10,7 +10,12 @@ import com.finance.plutus.partner.Partner;
 import com.finance.plutus.partner.PartnerService;
 import com.finance.plutus.transaction.TransactionMapper;
 import com.finance.plutus.transaction.TransactionService;
-import com.finance.plutus.transaction.dto.*;
+import com.finance.plutus.transaction.dto.CreateTransactionDto;
+import com.finance.plutus.transaction.dto.CreateTransactionFileDto;
+import com.finance.plutus.transaction.dto.FilterParams;
+import com.finance.plutus.transaction.dto.TransactionStat;
+import com.finance.plutus.transaction.dto.UpdateTransactionDto;
+import com.finance.plutus.transaction.dto.UploadFileDto;
 import com.finance.plutus.transaction.dto.html.TransactionsParams;
 import com.finance.plutus.transaction.exception.WrongTransactionStatusException;
 import com.finance.plutus.transaction.model.Transaction;
@@ -158,6 +163,8 @@ public class TransactionServiceImpl implements TransactionService {
               transaction.getDate(), transactionCurrency.getCurrency());
       Double value = transaction.getValue();
       transaction.setValue(value * currencyRate.getRate());
+      transactionCurrency.setRate(currencyRate.getRate());
+      transaction.setTransactionCurrency(transactionCurrency);
     }
   }
 
