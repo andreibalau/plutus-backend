@@ -1,8 +1,10 @@
 package com.finance.plutus.transaction;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.finance.plutus.app.payload.EntityCreatedResponse;
 import com.finance.plutus.app.payload.PlutusRequest;
 import com.finance.plutus.app.payload.PlutusResponse;
+import com.finance.plutus.app.util.DateDeserializer;
 import com.finance.plutus.transaction.dto.*;
 import com.finance.plutus.transaction.model.TransactionType;
 import lombok.RequiredArgsConstructor;
@@ -52,8 +54,10 @@ public class TransactionController {
       @RequestParam(required = false) UUID partnerId,
       @RequestParam(required = false) TransactionType type,
       @RequestParam(required = false) Boolean deductible,
-      @RequestParam(required = false) LocalDate startDate,
-      @RequestParam(required = false) LocalDate endDate) {
+      @JsonDeserialize(using = DateDeserializer.class) @RequestParam(required = false)
+          LocalDate startDate,
+      @JsonDeserialize(using = DateDeserializer.class) @RequestParam(required = false)
+          LocalDate endDate) {
     FilterParams params =
         FilterParams.builder()
             .partnerId(partnerId)
@@ -73,8 +77,10 @@ public class TransactionController {
       @RequestParam(required = false) UUID partnerId,
       @RequestParam(required = false) TransactionType type,
       @RequestParam(required = false) Boolean deductible,
-      @RequestParam(required = false) LocalDate startDate,
-      @RequestParam(required = false) LocalDate endDate) {
+      @JsonDeserialize(using = DateDeserializer.class) @RequestParam(required = false)
+          LocalDate startDate,
+      @JsonDeserialize(using = DateDeserializer.class) @RequestParam(required = false)
+          LocalDate endDate) {
     FilterParams params =
         FilterParams.builder()
             .partnerId(partnerId)
