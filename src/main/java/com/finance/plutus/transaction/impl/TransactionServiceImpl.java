@@ -190,6 +190,9 @@ public class TransactionServiceImpl implements TransactionService {
     if (filterParams.getEndDate() != null) {
       params.put("endDate", filterParams.getEndDate());
     }
+    if (filterParams.getDeductible() != null) {
+      params.put("deductible", filterParams.getDeductible());
+    }
     return params;
   }
 }

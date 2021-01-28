@@ -56,6 +56,9 @@ class TransactionRepositoryFilterImpl implements TransactionRepositoryFilter {
     if (params.containsKey("endDate")) {
       whereClause.add("t.date <= :endDate");
     }
+    if (params.containsKey("deductible")) {
+      whereClause.add("t.deductible = :deductible");
+    }
     if (whereClause.size() > 0) {
       queryBuilder.append(SPACE_DELIMITER);
       queryBuilder.append("WHERE");
