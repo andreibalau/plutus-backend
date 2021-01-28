@@ -1,14 +1,26 @@
 package com.finance.plutus.transaction;
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.finance.plutus.app.payload.EntityCreatedResponse;
 import com.finance.plutus.app.payload.PlutusRequest;
 import com.finance.plutus.app.payload.PlutusResponse;
-import com.finance.plutus.app.util.DateDeserializer;
-import com.finance.plutus.transaction.dto.*;
+import com.finance.plutus.transaction.dto.CreateTransactionDto;
+import com.finance.plutus.transaction.dto.FilterParams;
+import com.finance.plutus.transaction.dto.TransactionDto;
+import com.finance.plutus.transaction.dto.TransactionStat;
+import com.finance.plutus.transaction.dto.UpdateTransactionDto;
+import com.finance.plutus.transaction.dto.UploadFileDto;
 import com.finance.plutus.transaction.model.TransactionType;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 import java.time.LocalDate;
@@ -54,10 +66,8 @@ public class TransactionController {
       @RequestParam(required = false) UUID partnerId,
       @RequestParam(required = false) TransactionType type,
       @RequestParam(required = false) Boolean deductible,
-      @JsonDeserialize(using = DateDeserializer.class) @RequestParam(required = false)
-          LocalDate startDate,
-      @JsonDeserialize(using = DateDeserializer.class) @RequestParam(required = false)
-          LocalDate endDate) {
+      @RequestParam(required = false) LocalDate startDate,
+      @RequestParam(required = false) LocalDate endDate) {
     FilterParams params =
         FilterParams.builder()
             .partnerId(partnerId)
@@ -77,10 +87,8 @@ public class TransactionController {
       @RequestParam(required = false) UUID partnerId,
       @RequestParam(required = false) TransactionType type,
       @RequestParam(required = false) Boolean deductible,
-      @JsonDeserialize(using = DateDeserializer.class) @RequestParam(required = false)
-          LocalDate startDate,
-      @JsonDeserialize(using = DateDeserializer.class) @RequestParam(required = false)
-          LocalDate endDate) {
+      @RequestParam(required = false) LocalDate startDate,
+      @RequestParam(required = false) LocalDate endDate) {
     FilterParams params =
         FilterParams.builder()
             .partnerId(partnerId)

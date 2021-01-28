@@ -1,7 +1,5 @@
 package com.finance.plutus.transaction.dto;
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.finance.plutus.app.util.DateDeserializer;
 import com.finance.plutus.currency.Currency;
 import com.finance.plutus.transaction.model.TransactionMethod;
 import com.finance.plutus.transaction.model.TransactionType;
@@ -17,10 +15,7 @@ import java.util.UUID;
 @Getter
 @Setter
 public class CreateTransactionFileDto {
-  @JsonDeserialize(using = DateDeserializer.class)
-  @NotNull
-  private LocalDate date;
-
+  @NotNull private LocalDate date;
   @NotBlank private String document;
   @NotBlank private String details;
   @NotNull private UUID partnerId;

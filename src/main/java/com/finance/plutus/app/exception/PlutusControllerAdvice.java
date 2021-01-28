@@ -9,9 +9,14 @@ import org.springframework.validation.BindException;
 import org.springframework.web.HttpMediaTypeNotSupportedException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import java.beans.PropertyEditorSupport;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -21,6 +26,18 @@ import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
 @Log4j2
 @RestControllerAdvice
 public class PlutusControllerAdvice {
+
+  @InitBinder
+  public void initBinder(WebDataBinder binder) {
+    binder.registerCustomEditor(
+        LocalDate.class,
+        new PropertyEditorSupport() {
+          @Override
+          public void setAsText(String text) throws IllegalArgumentException {
+            LocalDate.parse(text, DateTimeFormatter.ISO_DATE);
+          }
+        });
+  }
 
   @ExceptionHandler(value = PlutusException.class)
   public ResponseEntity<ErrorResponse> handleException(PlutusException exception) {
