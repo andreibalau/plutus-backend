@@ -27,6 +27,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.util.HashMap;
@@ -185,10 +186,10 @@ public class TransactionServiceImpl implements TransactionService {
       params.put("type", filterParams.getType());
     }
     if (filterParams.getStartDate() != null) {
-      params.put("startDate", filterParams.getStartDate());
+      params.put("startDate", LocalDate.parse(filterParams.getStartDate()));
     }
     if (filterParams.getEndDate() != null) {
-      params.put("endDate", filterParams.getEndDate());
+      params.put("endDate", LocalDate.parse(filterParams.getEndDate()));
     }
     if (filterParams.getDeductible() != null) {
       params.put("deductible", filterParams.getDeductible());

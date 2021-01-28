@@ -16,6 +16,6 @@ public class FilterParams {
   private UUID partnerId;
   private TransactionType type;
   private Boolean deductible;
-  private LocalDate startDate;
-  private LocalDate endDate;
+  private String startDate;
+  private String endDate;
 }

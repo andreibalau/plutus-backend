@@ -74,8 +74,8 @@ public class DashboardService {
         FilterParams.builder()
             .partnerId(null)
             .type(transactionType)
-            .startDate(startDate)
-            .endDate(endDate)
+            .startDate(startDate.toString())
+            .endDate(endDate.toString())
             .build();
     return transactionService.findAll(params);
   }
@@ -88,8 +88,8 @@ public class DashboardService {
         FilterParams.builder()
             .partnerId(null)
             .type(transactionType)
-            .startDate(startDate)
-            .endDate(endDate)
+            .startDate(startDate.toString())
+            .endDate(endDate.toString())
             .build();
     return transactionService.findAll(params);
   }

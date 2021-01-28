@@ -66,8 +66,8 @@ public class TransactionController {
       @RequestParam(required = false) UUID partnerId,
       @RequestParam(required = false) TransactionType type,
       @RequestParam(required = false) Boolean deductible,
-      @RequestParam(required = false) LocalDate startDate,
-      @RequestParam(required = false) LocalDate endDate) {
+      @RequestParam(required = false) String startDate,
+      @RequestParam(required = false) String endDate) {
     FilterParams params =
         FilterParams.builder()
             .partnerId(partnerId)
@@ -87,8 +87,8 @@ public class TransactionController {
       @RequestParam(required = false) UUID partnerId,
       @RequestParam(required = false) TransactionType type,
       @RequestParam(required = false) Boolean deductible,
-      @RequestParam(required = false) LocalDate startDate,
-      @RequestParam(required = false) LocalDate endDate) {
+      @RequestParam(required = false) String startDate,
+      @RequestParam(required = false) String endDate) {
     FilterParams params =
         FilterParams.builder()
             .partnerId(partnerId)
