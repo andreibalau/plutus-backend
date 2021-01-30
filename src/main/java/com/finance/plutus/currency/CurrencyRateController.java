@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+import static com.finance.plutus.app.configuration.Api.APPLICATION_VND_PLUTUS_FINANCE_JSON;
+
 /** Plutus Created by Catalin on 1/25/2021 */
 @RestController
 @RequiredArgsConstructor
@@ -16,7 +18,10 @@ public class CurrencyRateController {
 
   private final CurrencyRateFacadeService currencyRateFacadeService;
 
-  @GetMapping("/today")
+  @GetMapping(
+      value = "/today",
+      consumes = APPLICATION_VND_PLUTUS_FINANCE_JSON,
+      produces = APPLICATION_VND_PLUTUS_FINANCE_JSON)
   public PlutusResponse<List<CurrencyRateDto>> fetchTodayRates() {
     return currencyRateFacadeService.fetchTodayRates();
   }
