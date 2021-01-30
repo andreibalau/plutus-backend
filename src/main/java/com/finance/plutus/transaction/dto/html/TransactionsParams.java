@@ -4,17 +4,19 @@ import com.finance.plutus.app.service.Params;
 import com.finance.plutus.app.util.DateFormatter;
 import com.finance.plutus.transaction.model.Transaction;
 import com.finance.plutus.transaction.model.TransactionType;
+import lombok.RequiredArgsConstructor;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
 /** Plutus Created by Catalin on 1/16/2021 */
+@RequiredArgsConstructor
 public class TransactionsParams implements Params<List<Transaction>> {
 
   private final Map<String, Object> params = new HashMap<>();
+  private final String year;
 
   @Override
   public String getName() {
@@ -29,39 +31,16 @@ public class TransactionsParams implements Params<List<Transaction>> {
   @Override
   public void submit(List<Transaction> transactionList) {
     params.put("name", "Registru de incasari si plati");
-    params.put("reports", prepareReports(transactionList));
+    params.put("year", year);
+    params.put("transactions", mapTransactions(transactionList));
   }
 
-  private List<Report> prepareReports(List<Transaction> transactionList) {
-    List<Report> reports = new ArrayList<>();
-    reports.add(
-        Report.builder()
-            .year("Anul 2019")
-            .transactions(getListByYear(2019, transactionList))
-            .build());
-    reports.add(
-        Report.builder()
-            .year("Anul 2020")
-            .transactions(getListByYear(2020, transactionList))
-            .build());
-    reports.add(
-        Report.builder()
-            .year("Anul 2021")
-            .transactions(getListByYear(2021, transactionList))
-            .build());
-    return reports;
-  }
-
-  private List<TransactionLine> getListByYear(int year, List<Transaction> transactions) {
-    List<Transaction> yearTransactionList =
-        transactions.stream()
-            .filter(transaction -> transaction.getDate().getYear() == year)
-            .collect(Collectors.toList());
-    return yearTransactionList.stream()
+  private List<TransactionLine> mapTransactions(List<Transaction> transactions) {
+    return transactions.stream()
         .map(
             transaction ->
                 TransactionLine.builder()
-                    .number(String.valueOf(yearTransactionList.indexOf(transaction) + 1))
+                    .number(String.valueOf(transactions.indexOf(transaction) + 1))
                     .date(DateFormatter.formatDate(transaction.getDate()))
                     .details(transaction.getDetails())
                     .document(transaction.getDocument())

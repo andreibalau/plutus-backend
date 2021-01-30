@@ -3,27 +3,14 @@ package com.finance.plutus.transaction;
 import com.finance.plutus.app.payload.EntityCreatedResponse;
 import com.finance.plutus.app.payload.PlutusRequest;
 import com.finance.plutus.app.payload.PlutusResponse;
-import com.finance.plutus.transaction.dto.CreateTransactionDto;
-import com.finance.plutus.transaction.dto.FilterParams;
-import com.finance.plutus.transaction.dto.TransactionDto;
-import com.finance.plutus.transaction.dto.TransactionStat;
-import com.finance.plutus.transaction.dto.UpdateTransactionDto;
-import com.finance.plutus.transaction.dto.UploadFileDto;
+import com.finance.plutus.transaction.dto.*;
 import com.finance.plutus.transaction.model.TransactionType;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.core.io.Resource;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
@@ -124,5 +111,13 @@ public class TransactionController {
       produces = APPLICATION_VND_PLUTUS_FINANCE_JSON)
   public void importFile(@Valid @RequestBody PlutusRequest<UploadFileDto> request) {
     transactionFacadeService.importFile(request);
+  }
+
+  @GetMapping(
+      value = "/document/{year}",
+      consumes = APPLICATION_VND_PLUTUS_FINANCE_JSON,
+      produces = APPLICATION_VND_PLUTUS_FINANCE_JSON)
+  public ResponseEntity<Resource> downloadDocument(@PathVariable String year) {
+    return transactionFacadeService.downloadDocument(year);
   }
 }

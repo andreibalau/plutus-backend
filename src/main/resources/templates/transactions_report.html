@@ -12,8 +12,8 @@
     </style>
 </head>
 <body>
-<div class="content" th:each="report : ${reports}">
-    <h1 th:text="${report.year}"></h1>
+<div class="content">
+    <h1 th:text="${year}"></h1>
 
     <table border="1" cellspacing="0" cellpadding="3">
         <colgroup>
@@ -37,7 +37,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr th:each="transaction: ${report.transactions}">
+            <tr th:each="transaction: ${transactions}">
                 <td th:text="${transaction.number}"></td>
                 <td th:text="${transaction.date}"></td>
                 <td th:text="${transaction.document}"></td>

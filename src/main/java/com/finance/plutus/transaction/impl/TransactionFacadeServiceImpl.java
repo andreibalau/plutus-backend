@@ -64,9 +64,9 @@ public class TransactionFacadeServiceImpl implements TransactionFacadeService {
   }
 
   @Override
-  public ResponseEntity<Resource> prepareReport() {
-    byte[] data = transactionService.downloadAll();
-    return prepareDownloadResponse(data, "report.pdf");
+  public ResponseEntity<Resource> downloadDocument(String year) {
+    byte[] document = transactionService.downloadDocument(year);
+    return prepareDownloadResponse(document, "report.pdf");
   }
 
   @Override

@@ -24,7 +24,7 @@ public interface TransactionFacadeService {
 
   void importFile(PlutusRequest<UploadFileDto> request);
 
-  ResponseEntity<Resource> prepareReport();
+  ResponseEntity<Resource> downloadDocument(String year);
 
   void delete(UUID id);
 }

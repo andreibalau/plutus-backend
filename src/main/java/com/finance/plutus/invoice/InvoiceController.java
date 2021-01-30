@@ -76,4 +76,12 @@ public class InvoiceController {
   public ResponseEntity<Resource> download(@PathVariable UUID id) {
     return invoiceFacadeService.download(id);
   }
+
+  @GetMapping(
+      value = "/archive",
+      consumes = APPLICATION_VND_PLUTUS_FINANCE_JSON,
+      produces = APPLICATION_VND_PLUTUS_FINANCE_JSON)
+  public ResponseEntity<Resource> downloadArchive() {
+    return invoiceFacadeService.downloadArchive();
+  }
 }

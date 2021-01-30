@@ -28,7 +28,7 @@ public interface TransactionService {
 
   void delete(UUID id);
 
-  byte[] downloadAll();
+  byte[] downloadDocument(String year);
 
   void collect(UUID id);
 

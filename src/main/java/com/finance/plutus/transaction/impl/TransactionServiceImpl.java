@@ -10,12 +10,7 @@ import com.finance.plutus.partner.Partner;
 import com.finance.plutus.partner.PartnerService;
 import com.finance.plutus.transaction.TransactionMapper;
 import com.finance.plutus.transaction.TransactionService;
-import com.finance.plutus.transaction.dto.CreateTransactionDto;
-import com.finance.plutus.transaction.dto.CreateTransactionFileDto;
-import com.finance.plutus.transaction.dto.FilterParams;
-import com.finance.plutus.transaction.dto.TransactionStat;
-import com.finance.plutus.transaction.dto.UpdateTransactionDto;
-import com.finance.plutus.transaction.dto.UploadFileDto;
+import com.finance.plutus.transaction.dto.*;
 import com.finance.plutus.transaction.dto.html.TransactionsParams;
 import com.finance.plutus.transaction.exception.WrongTransactionStatusException;
 import com.finance.plutus.transaction.model.Transaction;
@@ -136,9 +131,14 @@ public class TransactionServiceImpl implements TransactionService {
   }
 
   @Override
-  public byte[] downloadAll() {
-    List<Transaction> transactions = findAll();
-    TransactionsParams params = new TransactionsParams();
+  public byte[] downloadDocument(String year) {
+    FilterParams filterParams =
+        FilterParams.builder()
+            .startDate(String.format("%s-01-01", year))
+            .endDate(String.format("%s-12-31", year))
+            .build();
+    List<Transaction> transactions = findAll(filterParams);
+    TransactionsParams params = new TransactionsParams(year);
     params.submit(transactions);
     return pdfGenerator.generateSingle(Template.TRANSACTIONS, params).orElseThrow();
   }
